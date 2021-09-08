@@ -16,6 +16,18 @@
 //																	
 //																	
 set_time_limit(0);
+//	array(
+//		'сТекущаяОперация'	=> '',
+//		'мЖурнал'		=> 
+//					array(
+//				//	$оОшибка->ф			= FALSE,
+//				//	$оОшибка->сТекущаяОперация	= '',
+//				//	$оОшибка->strError		= '',
+//				//	$оОшибка->strError		= '',
+//				//	$оОшибка->strErrorNo		= 0,
+//				//	$оОшибка->strDate		= '0000-00-00',
+//				),
+//			),
 //require'/home/ЕДРО:ПОЛИМЕР/0.Настройки/1.Define.php';
 //require'/home/EDRO.SetOfTools/2.Ресурсы/1.Functions/01.СколькоВремя.php';
 
@@ -24,9 +36,17 @@ set_time_limit(0);
 
 Read_Sock::VoId();
 
+//	array(
+//		'strAddr'		=> '127.0.0.1',
+//		'intPort'		=> 75,
+//		'intReadBlockSize'	=> 512,
+//		'дТаймаут'		=> -1,
+//		),
+
+
 class Read_Sock
 	{
-	private $E	= array(
+	private $E	= array(  //EVENT
 				'strListenerBlock'	=> '',
 				'strReadedBlock'	=> '',
 				'сСлушатель'		=> '',
@@ -35,31 +55,12 @@ class Read_Sock
 				'strErrorNo'		=> 0,
 				'мЖурнал'		=> array(),
 			);
-	private $D	= array(
+	private $D	= array( //Design - Ready to use
 				'с'			=> '',
 				'м'			=> array(),
 			);
-	private $R	= array(
-				'мСервер'	    	=>
-							array(
-							'strAddr'		=> '127.0.0.1',
-							'intPort'		=> 75,
-							'intReadBlockSize'	=> 512,
-							'дТаймаут'		=> -1,
-							),
-				'мКИМ'			=>
-							array(
-							'сТекущаяОперация'	=> '',
-							'мЖурнал'		=> 
-								array(
-							//	$оОшибка->ф			= FALSE,
-							//	$оОшибка->сТекущаяОперация	= '',
-							//	$оОшибка->strError		= '',
-							//	$оОшибка->strError		= '',
-							//	$оОшибка->strErrorNo		= 0,
-							//	$оОшибка->strDate		= '0000-00-00',
-								),
-							),
+	private $R	= array( //Reality - Flags and 
+
 				'ч1Слушатель'		=> 0,
 				'сДоступ'		=> '/Listener',
 				'рПриёмник'		=> '',
@@ -70,30 +71,34 @@ class Read_Sock
 				'мЗаголовки'		=> array(),
 			);
 	public $O	= array(
+				'оСервер'		=> '',
 				'оЕДРО'			=> array(),
+				'оКИМ'			=>
+
 			);
 
 	public function __construct()
 		{
-		$оСекундомер 				= new Секундомер(__CLASS__, __FUNCTION__);
-		$this->_VoidCopyrights();
-		$this->_СтартЖурнала();
+		//$this->_СтартЖурнала();
 		//$this->_Буфферизация();
-		$this->_memoryPrepare();
-		while($this->ifGgetRead())
+		$this->_VoidAuthorAndSystemName();
+
+		$оСекундомер				= new Секундомер(__CLASS__, __FUNCTION__);
+		$this->O['оСервер']			= new ReadServer1();
+		while($this->R['рПередача']=$this->O['оСервер']->ifGgetRead())
 			{
-			$this->_ЧтениеЗапроса();      //+
-			$this->_ОбработкаЗапроса();   //+
+			$this->_ЧтениеЗапроса();
+			$this->_ОбработкаЗапроса();
 			//$this->_ФормированиеОтвета(); //
 			//print_r($this);
 			//exit;
-			$this->_ЗаписьОтвета();       //
-			$this->_СбросEventЖурнала();  //
+			$this->_ЗаписьОтвета();
+			$this->_СбросEventЖурнала();
 			//exit();
 			}
-		$this->O['мСекундомер'][] 		= $оСекундомер->_Стоп();
+		$this->O['мСекундомер'][]		= $оСекундомер->_Стоп();
 		}
-	private function _VoidCopyrights()
+	private function _VoidAuthorAndSystemName()
 		{
 		echo '-----------------------------------------------------------'."\n";
 		echo '© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru 2021'."\n";
@@ -102,34 +107,18 @@ class Read_Sock
 		echo "\n";
 		echo "\n";
 		}
-	private function _memoryPrepare()
-		{
-		$оСекундомер 				= new Секундомер(__CLASS__, __FUNCTION__);
-		
-		$this->R['рПриёмник']			= stream_socket_server('tcp://'.$this->D['мСервер']['strAddr'].':'.$this->D['мСервер']['intPort'], $this->E['strErrorNo'], $this->E['strError']);
-		
-		$this->O['мСекундомер'][] 		= $оСекундомер->_Стоп();
-		}
-	private function ifGgetRead()
-		{
-		$оСекундомер 				= new Секундомер(__CLASS__, __FUNCTION__);
-		
-		$this->R['рПередача'] 			= stream_socket_accept($this->R['рПриёмник'], $this->D['мСервер']['дТаймаут']);
-		
-		$this->O['мСекундомер'][] 		= $оСекундомер->_Стоп();
-		
-		return $this->R['рПередача'];
-		}
+
+
 	private function _ЧтениеЗапроса()
 		{
 		$оСекундомер 				= new Секундомер(__CLASS__, __FUNCTION__);
 		
-		$strReadedBlock				= fread($this->R['рПередача'], $this->D['мСервер']['intReadBlockSize']);
+		$strReadedBlock				= fread($this->R['рПередача'], $this->E['мСервер']['intReadBlockSize']);
 		if(empty($strReadedBlock))
 			{
 			$this->E['strReadedBlock']		= '';
 			$this->R['bizReadedBlock']		= FALSE;
-			$this->E[]				= array('!'.__CLASS__.'/'.__FUNCTION__ => 'fread($_рПередача'.$this->D['мСервер']['intReadBlockSize'].') empty.');
+			$this->E['мЖурнал'][]			= array('!'.__CLASS__.'/'.__FUNCTION__ => 'fread($_рПередача'.$this->E['мСервер']['intReadBlockSize'].') empty.');
 			}
 		else
 			{
