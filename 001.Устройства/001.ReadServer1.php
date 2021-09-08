@@ -51,7 +51,10 @@ class ReadServer1
 			$this->O['мСекундомер'][] 		= $оСекундомер->_Стоп();
 			}
 		}
-	private function ifGgetRead()
+	private function ifManyReconnects()
+		{
+		}
+	public function ifGgetRead()
 		{
 		$оСекундомер 				= new Секундомер(__CLASS__, __FUNCTION__);
 		if($this->R['рПриёмник'])
@@ -74,8 +77,6 @@ class ReadServer1
 		$this->O['мСекундомер'][] 		= $оСекундомер->_Стоп();
 		return $this->R['рПередача'];
 		}
-	public function ifManyReconnects()
-		{
-		}
+
 	}
 ?>
