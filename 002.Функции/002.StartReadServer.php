@@ -36,7 +36,8 @@ class Read_Sock
 				'мЖурнал'		=> array(),
 			);
 	private $D	= array(
-
+				'с'			=> '',
+				'м'			=> array(),
 			);
 	private $R	= array(
 				'мСервер'	    	=>
