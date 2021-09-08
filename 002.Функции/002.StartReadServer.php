@@ -36,12 +36,16 @@ class Read_Sock
 				'мЖурнал'		=> array(),
 			);
 	private $D	= array(
-				'strAddr'		=> '127.0.0.1',
-				'intPort'		=> 75,
-				'intReadBlockSize'	=> 512,
-				'дТаймаут'		=> -1,
+
 			);
 	private $R	= array(
+				'мСервер'	    	=>
+							array(
+							'strAddr'		=> '127.0.0.1',
+							'intPort'		=> 75,
+							'intReadBlockSize'	=> 512,
+							'дТаймаут'		=> -1,
+							),
 				'мКИМ'			=>
 							array(
 							'сТекущаяОперация'	=> '',
@@ -101,7 +105,7 @@ class Read_Sock
 		{
 		$оСекундомер 				= new Секундомер(__CLASS__, __FUNCTION__);
 		
-		$this->R['рПриёмник']			= stream_socket_server('tcp://'.$this->D['strAddr'].':'.$this->D['intPort'], $this->E['strErrorNo'], $this->E['strError']);
+		$this->R['рПриёмник']			= stream_socket_server('tcp://'.$this->D['мСервер']['strAddr'].':'.$this->D['мСервер']['intPort'], $this->E['strErrorNo'], $this->E['strError']);
 		
 		$this->O['мСекундомер'][] 		= $оСекундомер->_Стоп();
 		}
@@ -109,7 +113,7 @@ class Read_Sock
 		{
 		$оСекундомер 				= new Секундомер(__CLASS__, __FUNCTION__);
 		
-		$this->R['рПередача'] 			= stream_socket_accept($this->R['рПриёмник'], $this->D['дТаймаут']);
+		$this->R['рПередача'] 			= stream_socket_accept($this->R['рПриёмник'], $this->D['мСервер']['дТаймаут']);
 		
 		$this->O['мСекундомер'][] 		= $оСекундомер->_Стоп();
 		
@@ -119,12 +123,12 @@ class Read_Sock
 		{
 		$оСекундомер 				= new Секундомер(__CLASS__, __FUNCTION__);
 		
-		$strReadedBlock				= fread($this->R['рПередача'], $this->D['intReadBlockSize']);
+		$strReadedBlock				= fread($this->R['рПередача'], $this->D['мСервер']['intReadBlockSize']);
 		if(empty($strReadedBlock))
 			{
 			$this->E['strReadedBlock']		= '';
 			$this->R['bizReadedBlock']		= FALSE;
-			$this->E[]				= array('!'.__CLASS__.'/'.__FUNCTION__ => 'fread($_рПередача'.$this->D['intReadBlockSize'].') empty.');
+			$this->E[]				= array('!'.__CLASS__.'/'.__FUNCTION__ => 'fread($_рПередача'.$this->D['мСервер']['intReadBlockSize'].') empty.');
 			}
 		else
 			{
@@ -156,7 +160,7 @@ class Read_Sock
 					}
 				else
 					{
-					$this->E['мЖурнал'][]				= array('!'.__CLASS__.'/'.__FUNCTION__ => 'fread($_рПередача'.$this->D['intReadBlockSize'].') empty.');
+					$this->E['мЖурнал'][]			= array('!'.__CLASS__.'/'.__FUNCTION__ => 'fread($_рПередача'.$this->D['мСервер']['intReadBlockSize'].') empty.');
 					}
 				}
 			}
