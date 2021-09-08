@@ -16,43 +16,21 @@
 //																	
 //																	
 set_time_limit(0);
-//	array(
-//		'сТекущаяОперация'	=> '',
-//		'мЖурнал'		=> 
-//					array(
-//				//	$оОшибка->ф			= FALSE,
-//				//	$оОшибка->сТекущаяОперация	= '',
-//				//	$оОшибка->strError		= '',
-//				//	$оОшибка->strError		= '',
-//				//	$оОшибка->strErrorNo		= 0,
-//				//	$оОшибка->strDate		= '0000-00-00',
-//				),
-//			),
+
 //require'/home/ЕДРО:ПОЛИМЕР/0.Настройки/1.Define.php';
 //require'/home/EDRO.SetOfTools/2.Ресурсы/1.Functions/01.СколькоВремя.php';
 
 //require'/home/EDRO.SetOfTools/2.Ресурсы/1.Functions/02.Секундомер.php';
 //require'/home/EDRO.SetOfTools/2.Ресурсы/1.Functions/10.StringFunctions.php';
 
-Read_Sock::VoId();
+StartReadServer::VoId();
 
-//	array(
-//		'strAddr'		=> '127.0.0.1',
-//		'intPort'		=> 75,
-//		'intReadBlockSize'	=> 512,
-//		'дТаймаут'		=> -1,
-//		),
-
-
-class Read_Sock
+class StartReadServer
 	{
 	private $E	= array(  //EVENT
 				'strListenerBlock'	=> '',
-				'strReadedBlock'	=> '',
+
 				'сСлушатель'		=> '',
-				'мЗаголовки'		=> array(),
-				'strError'		=> '',
-				'strErrorNo'		=> 0,
 				'мЖурнал'		=> array(),
 			);
 	private $D	= array( //Design - Ready to use
@@ -60,14 +38,15 @@ class Read_Sock
 				'м'			=> array(),
 			);
 	private $R	= array( //Reality - Flags and 
-
+				'рПередача'		=> '',
+				'strReadedBlock'	=> '',
 				'ч1Слушатель'		=> 0,
 				'сДоступ'		=> '/Listener',
-				'рПриёмник'		=> '',
-				'рПередача'		=> '',
 				'bIzSocket'		=> FALSE,
 				'intWritedBytes'	=> 0,
 				'bizReadedBlock'	=> FALSE,
+				'strError'		=> '',
+				'strErrorNo'		=> 0,
 				'мЗаголовки'		=> array(),
 			);
 	public $O	= array(
@@ -117,13 +96,13 @@ class Read_Sock
 		$strReadedBlock				= fread($this->R['рПередача'], $this->E['мСервер']['intReadBlockSize']);
 		if(empty($strReadedBlock))
 			{
-			$this->E['strReadedBlock']		= '';
+			$this->R['strReadedBlock']		= '';
 			$this->R['bizReadedBlock']		= FALSE;
 			$this->E['мЖурнал'][]			= array('!'.__CLASS__.'/'.__FUNCTION__ => 'fread($_рПередача'.$this->E['мСервер']['intReadBlockSize'].') empty.');
 			}
 		else
 			{
-			$this->E['strReadedBlock']		= $strReadedBlock;
+			$this->R['strReadedBlock']		= $strReadedBlock;
 			$this->R['bizReadedBlock']		= TRUE;
 			}
 		$this->O['мСекундомер'][] 		= $оСекундомер->_Стоп();
@@ -134,8 +113,8 @@ class Read_Sock
 		
 		if($this->R['bizReadedBlock']===TRUE)
 			{
-			$this->E['мЗаголовки']			= explode("\n", $this->E['strReadedBlock']);
-			foreach($this->E['мЗаголовки'] as $сЗапрос)
+			$мЗаголовки			= explode("\n", $this->R['strReadedBlock']);
+			foreach($мЗаголовки as $сЗапрос)
 				{
 				if(strpos($сЗапрос, ': ')!==FALSE)
 					{
@@ -151,7 +130,8 @@ class Read_Sock
 					}
 				else
 					{
-					$this->E['мЖурнал'][]			= array('!'.__CLASS__.'/'.__FUNCTION__ => 'fread($_рПередача'.$this->D['мСервер']['intReadBlockSize'].') empty.');
+					$this->R['сОшибка']			= 'fread(рПередача empty.';
+					$this->О['мОшибка'][] 			= new ОповещениеОшибка($this);
 					}
 				}
 			}
@@ -166,7 +146,7 @@ class Read_Sock
 		{
 		$оСекундомер 				= new Секундомер(__CLASS__, __FUNCTION__);
 		
-		$this->О['мЗаголовки']			= MyJSON::str($this->R['мЗаголовки']);
+		//$this->О['мЗаголовки']			= MyJSON::str($this->R['мЗаголовки']);
 		
 		$this->O['мСекундомер'][] 		= $оСекундомер->_Стоп();
 		}
@@ -216,7 +196,7 @@ class Read_Sock
 		{
 		while(TRUE)
 			{
-			$оRead = new Read_Sock();
+			$оReadServer = new StartReadServer();
 			}
 			//$оRead = Read::VoId();
 		}
