@@ -65,7 +65,7 @@ class Read_Sock
 				'мЗаголовки'		=> array(),
 			);
 	public $O	= array(
-			
+				'оЕДРО'			=> array(),
 			);
 
 	public function __construct()
