@@ -15,9 +15,12 @@ class ReadServer1
 			'рПриёмник'			=> '',
 			'рПередача'			=> '',
 			'ч0Шаг'				=> 0,
+			'сОшибка'			=> '',
 			);
 	public 	$O	= array(
 			'рПередача'			=> '',
+			'мОповещение'			=> array(
+							);
 			);
 	function _construct()
 		{
@@ -35,7 +38,16 @@ class ReadServer1
 			{
 			$оСекундомер 				= new Секундомер(__CLASS__, __FUNCTION__);
 			$this->R['рПриёмник']			= stream_socket_server('tcp://'.$this->E['strAddr'].':'.$this->E['intPort'], $this->E['strErrorNo'], $this->E['strError']);
-			$this->R['ч0Шаг']++;
+			if($this->R['рПриёмник']===FALSE)
+				{
+				$this->R['сОшибка']			= 'Невозможно запустить передачу рПриёмник';
+				$this->О['мОшибка'][] 			= new ОповещениеОшибка($this);
+				}
+			else
+				{
+				$this->R['сОшибка']			= '';
+				}
+			//$this->R['ч0Шаг']++;
 			$this->O['мСекундомер'][] 		= $оСекундомер->_Стоп();
 			}
 		}
@@ -45,6 +57,15 @@ class ReadServer1
 		if($this->R['рПриёмник'])
 			{
 			$this->R['рПередача'] 			= stream_socket_accept($this->D['рПриёмник'], $this->D['дТаймаут']);
+			if($this->R['рПередача']===FALSE)
+				{
+				$this->R['сОшибка']			= 'Невозможно запустить передачу рПередача';
+				$this->О['мОшибка'][] 			= new ОповещениеОшибка($this);
+				}
+			else
+				{
+				$this->R['сОшибка']			= '';
+				}
 			}
 		else
 			{
