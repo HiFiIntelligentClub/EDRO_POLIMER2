@@ -84,6 +84,7 @@ class Read_Sock
 		$this->_VoidAuthorAndSystemName();
 
 		$оСекундомер				= new Секундомер(__CLASS__, __FUNCTION__);
+
 		$this->O['оСервер']			= new ReadServer1();
 		while($this->R['рПередача']=$this->O['оСервер']->ifGgetRead())
 			{
