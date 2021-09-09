@@ -4,26 +4,29 @@ set_time_limit(0);
 class ReadServer1
 	{
 	private	$E	= array(
-			'мСекундомер'			=> array(),
 			);
 	private	$D	= array(
-			'strAddr'			=> '127.0.0.1',
-			'intPort'			=> 75,
-			'дТаймаут'			=> -1
-			'strErrorNo'			=> ,
-			'strError'			=> '',
+			///'strAddr'			=> '127.0.0.1', //Setup in server start 
+			///'intPort'			=> 75,
+			///'дТаймаут'			=> -1
 			);
 	private $R	= array(
 			'рПриёмник'			=> '',
 			'рПередача'			=> '',
 			'сОшибка'			=> '',
+			'strErrorNo'			=> '',
+			'strError'			=> '',
 			);
 	public 	$O	= array(
 			'оОшибка'			=> ,
+			'oСекундомер'			=> ,
 			);
-	function _construct()
+	function _construct($мНастройки)
 		{
 		$this->О['оОшибка'] 			= new ОповещениеОшибка();
+		$this->О['оСекундомер'] 		= new Секундомер(__CLASS__, __FUNCTION__);
+
+		$this->D				= $мНастройки;
 		$this->_memoryPrepare();
 
 		}
@@ -35,8 +38,8 @@ class ReadServer1
 			}
 		else
 			{
-			$оСекундомер 				= new Секундомер(__CLASS__, __FUNCTION__);
-			$this->R['рПриёмник']			= stream_socket_server('tcp://'.$this->D['strAddr'].':'.$this->D['intPort'], $this->D['strErrorNo'], $this->D['strError']);
+			$this->О['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
+			$this->R['рПриёмник']			= stream_socket_server('tcp://'.$this->D['strAddr'].':'.$this->D['intPort'], $this->R['strErrorNo'], $this->R['strError']);
 			if($this->R['рПриёмник']===FALSE)
 				{
 				$this->R['сОшибка']			= 'Невозможно запустить передачу рПриёмник';
@@ -47,7 +50,7 @@ class ReadServer1
 				{
 				$this->R['сОшибка']			= '';
 				}
-			$this->E['мСекундомер'][] 		= $оСекундомер->_Стоп();
+			$this->О['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
 			}
 		}
 	private function ifManyReconnects()
@@ -55,7 +58,7 @@ class ReadServer1
 		}
 	public function ifGgetRead()
 		{
-		$оСекундомер 				= new Секундомер(__CLASS__, __FUNCTION__);
+		$this->О['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
 		if($this->R['рПриёмник'])
 			{
 			$this->R['рПередача'] 			= stream_socket_accept($this->R['рПриёмник'], $this->D['дТаймаут']);
@@ -76,7 +79,7 @@ class ReadServer1
 								$this->О['оОшибка']->_PushError($this);
 								$this->_memoryPrepare();
 			}
-		$this->E['мСекундомер'][] 		= $оСекундомер->_Стоп();
+		$this->О['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
 		return $this->R['рПередача'];
 		}
 	}
