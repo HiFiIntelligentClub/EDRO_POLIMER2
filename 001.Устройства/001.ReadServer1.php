@@ -37,7 +37,7 @@ class ReadServer1
 		else
 			{
 			$оСекундомер 				= new Секундомер(__CLASS__, __FUNCTION__);
-			$this->R['рПриёмник']			= stream_socket_server('tcp://'.$this->E['strAddr'].':'.$this->E['intPort'], $this->E['strErrorNo'], $this->E['strError']);
+			$this->R['рПриёмник']			= stream_socket_server('tcp://'.$this->D['strAddr'].':'.$this->D['intPort'], $this->D['strErrorNo'], $this->D['strError']);
 			if($this->R['рПриёмник']===FALSE)
 				{
 				$this->R['сОшибка']			= 'Невозможно запустить передачу рПриёмник';
@@ -59,7 +59,7 @@ class ReadServer1
 		$оСекундомер 				= new Секундомер(__CLASS__, __FUNCTION__);
 		if($this->R['рПриёмник'])
 			{
-			$this->R['рПередача'] 			= stream_socket_accept($this->D['рПриёмник'], $this->D['дТаймаут']);
+			$this->R['рПередача'] 			= stream_socket_accept($this->R['рПриёмник'], $this->D['дТаймаут']);
 			if($this->R['рПередача']===FALSE)
 				{
 				$this->R['сОшибка']			= 'Невозможно запустить передачу рПередача';
