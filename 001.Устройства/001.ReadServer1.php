@@ -4,10 +4,13 @@ set_time_limit(0);
 class ReadServer1
 	{
 	private	$E	= array(
-			'strAddr'			=> '127.0.0.1',
-			'intPort'			=> 75,
+			'мСекундомер'			=> array(),
 			);
 	private	$D	= array(
+			'strAddr'			=> '127.0.0.1',
+			'intPort'			=> 75,
+			'strErrorNo'			=> ,
+			'strError'			=> '',
 			'intReadBlockSize'		=> 512,
 			'дТаймаут'			=> -1
 			);
@@ -17,7 +20,7 @@ class ReadServer1
 			'сОшибка'			=> '',
 			);
 	public 	$O	= array(
-			'оОшибка'			=> array();
+			'оОшибка'			=> ,
 			);
 	function _construct()
 		{
@@ -30,7 +33,6 @@ class ReadServer1
 		
 		if($this->R['рПриёмник'])
 			{
-			$this->R['ч0Шаг']			= 0;
 			}
 		else
 			{
@@ -46,7 +48,7 @@ class ReadServer1
 				{
 				$this->R['сОшибка']			= '';
 				}
-			$this->O['мСекундомер'][] 		= $оСекундомер->_Стоп();
+			$this->E['мСекундомер'][] 		= $оСекундомер->_Стоп();
 			}
 		}
 	private function ifManyReconnects()
@@ -73,11 +75,10 @@ class ReadServer1
 			{
 			$this->R['сОшибка']			= 'Невозможно запустить передачу рПриёмник';
 								$this->О['оОшибка']->_PushError($this);
-			$this->_memoryPrepare();
+								$this->_memoryPrepare();
 			}
-		$this->O['мСекундомер'][] 		= $оСекундомер->_Стоп();
+		$this->E['мСекундомер'][] 		= $оСекундомер->_Стоп();
 		return $this->R['рПередача'];
 		}
-
 	}
 ?>
