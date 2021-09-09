@@ -50,6 +50,8 @@ class StartWriteServer
 				'мЗаголовки'		=> array(),
 			);
 	public $O	= array(
+				'oСекундомер'		=> 
+				'оОшибка'		=>,
 				'оСервер'		=>
 							array(
 							'strAddr'		=> '127.0.0.1',
@@ -57,30 +59,21 @@ class StartWriteServer
 							'intReadBlockSize'	=> 512,
 							'дТаймаут'		=> -1,
 							),
-				'oEDRO'			=> array(),
-				'оКИМ'			=>
-							array(
-							'сТекущаяОперация'	=> '',
-							'мЖурнал'		=> 
-								array(
-							//	$оОшибка->ф			= FALSE,
-							//	$оОшибка->сТекущаяОперация	= '',
-							//	$оОшибка->strError		= '',
-							//	$оОшибка->strError		= '',
-							//	$оОшибка->strErrorNo		= 0,
-							//	$оОшибка->strDate		= '0000-00-00',
-								),
-							),
+
+				'oEDRO'			=>,
+				'оКИМ'			=>,
 			);
 
 	public function __construct()
 		{
-		$оСекундомер 				= new Секундомер(__CLASS__, __FUNCTION__);
-		$this->_VoidCopyrights();
-		$this->_СтартЖурнала();
+		$this->О['оСекундомер'] 		= new Секундомер(__CLASS__, __FUNCTION__);
+		$this->О['оОшибка'] 			= new ОповещениеОшибка();
+		$this->O['оСервер']			= new ReadServer1($this->O[key($this->O['оСервер'])]);
+		
+		$this->_VoidAuthorAndSystemName();
+		//$this->_СтартЖурнала();
 		//$this->_Буфферизация();
-		$this->_memoryPrepare();
-		while($this->ifGgetRead())
+		while($this->R['рПередача'] = $this->ifGgetRead())
 			{
 			$this->_ЧтениеЗапроса();      //+
 			$this->_ОбработкаЗапроса();   //+
@@ -93,7 +86,7 @@ class StartWriteServer
 			}
 		$this->O['мСекундомер'][] 		= $оСекундомер->_Стоп();
 		}
-	private function _VoidCopyrights()
+	private function _VoidAuthorAndSystemName();
 		{
 		echo '-----------------------------------------------------------'."\n";
 		echo '© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru 2021'."\n";
@@ -105,8 +98,7 @@ class StartWriteServer
 
 	private function _ЧтениеЗапроса()
 		{
-		$оСекундомер 				= new Секундомер(__CLASS__, __FUNCTION__);
-		
+		$this->О['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
 		$strReadedBlock				= fread($this->R['рПередача'], $this->D['intReadBlockSize']);
 		if(empty($strReadedBlock))
 			{
@@ -123,8 +115,7 @@ class StartWriteServer
 		}
 	private function _ОбработкаЗапроса()
 		{
-		$оСекундомер 				= new Секундомер(__CLASS__, __FUNCTION__);
-		
+		$this->О['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
 		if($this->R['bizReadedBlock']===TRUE)
 			{
 			$this->E['мЗаголовки']			= explode("\n", $this->E['strReadedBlock']);
@@ -152,27 +143,26 @@ class StartWriteServer
 			{
 			$this->R['мЗаголовки']			= array();
 			}
-
-		$this->O['мСекундомер'][] 		= $оСекундомер->_Стоп();
+		$this->О['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
 		}
 	private function _ФормированиеОтвета()
 		{
-		$оСекундомер 				= new Секундомер(__CLASS__, __FUNCTION__);
+		$this->О['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
 		
 		$this->О['oEDRO']			= new EDRO($this);
 		//$this->О['мЗаголовки']			= MyJSON::м($this->R['мЗаголовки']);
 		
-		$this->O['мСекундомер'][] 		= $оСекундомер->_Стоп();
+		$this->О['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
 		}
 	private function _ЗаписьОтвета()
 		{
-		$оСекундомер 				= new Секундомер(__CLASS__, __FUNCTION__);
+		$this->О['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
 		
 							fwrite($this->R['рПередача'], $this->E['strListenerBlock'], strlen($this->E['strListenerBlock']));
 		
 							fclose($this->R['рПередача']);
 		
-		$this->O['мСекундомер'][] 		= $оСекундомер->_Стоп();
+		$this->О['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
 		}
 	private function _СбросEventЖурнала()
 		{
@@ -181,7 +171,7 @@ class StartWriteServer
 		}
 	public function _СтартЖурнала()
 		{
-		$оСекундомер 				= new Секундомер(__CLASS__, __FUNCTION__);
+		$this->О['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
 		
 		//$this->E[]		= array('v'.__CLASS__.'/'.__FUNCTION__ => '');$intStartTime = сВремя();
 		//$this->_КИМ('Start');
@@ -194,17 +184,17 @@ class StartWriteServer
 		//$this->_КИМ('End');
 		//$this->E[]		= array('.'.__CLASS__.'/'.__FUNCTION__ => (сВремя() - $intStartTime));
 
-		$this->O['мСекундомер'][]		= $оСекундомер->_Стоп();
+		$this->О['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
 		}
 	private function _Буфферизация()
 		{
-		$оСекундомер 				= new Секундомер(__CLASS__, __FUNCTION__);
+		$this->О['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
 		
 		$this->O['strFaviconBin']		= file_get_contents('/home/HiFiIntelligentClub.Ru/favicon.png');
 		$this->O['strJPGLogo']			= file_get_contents('/home/HiFiIntelligentClub.Ru/Hfic_Samin.jpg');
 		$this->O['strRobotsTxt']		= file_get_contents('/home/HiFiIntelligentClub.Ru/robots.txt');
 		
-		$this->O['мСекундомер'][] 		= $оСекундомер->_Стоп();
+		$this->О['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
 		}
 	public static function VoId()
 		{
