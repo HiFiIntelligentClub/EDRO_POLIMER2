@@ -9,10 +9,9 @@ class ReadServer1
 	private	$D	= array(
 			'strAddr'			=> '127.0.0.1',
 			'intPort'			=> 75,
+			'дТаймаут'			=> -1
 			'strErrorNo'			=> ,
 			'strError'			=> '',
-			'intReadBlockSize'		=> 512,
-			'дТаймаут'			=> -1
 			);
 	private $R	= array(
 			'рПриёмник'			=> '',
