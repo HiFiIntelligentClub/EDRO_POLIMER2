@@ -66,14 +66,15 @@ class StartWriteServer
 
 	public function __construct()
 		{
+							$this->_VoidAuthorAndSystemName();
 		$this->О['оСекундомер'] 		= new Секундомер(__CLASS__, __FUNCTION__);
 		$this->О['оОшибка'] 			= new ОповещениеОшибка();
 		$this->O['оСервер']			= new ReadServer1($this->O[key($this->O['оСервер'])]);
 		
-		$this->_VoidAuthorAndSystemName();
+		
 		//$this->_СтартЖурнала();
 		//$this->_Буфферизация();
-		while($this->R['рПередача'] = $this->ifGgetRead())
+		while($this->R['рПередача'] = $this->O['оСервер']->ifGgetRead())
 			{
 			$this->_ЧтениеЗапроса();      //+
 			$this->_ОбработкаЗапроса();   //+
@@ -84,7 +85,7 @@ class StartWriteServer
 			$this->_СбросEventЖурнала();  //
 			//exit();
 			}
-		$this->O['мСекундомер'][] 		= $оСекундомер->_Стоп();
+							$this->О['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
 		}
 	private function _VoidAuthorAndSystemName();
 		{
@@ -98,7 +99,7 @@ class StartWriteServer
 
 	private function _ЧтениеЗапроса()
 		{
-		$this->О['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
+							$this->О['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
 		$strReadedBlock				= fread($this->R['рПередача'], $this->D['intReadBlockSize']);
 		if(empty($strReadedBlock))
 			{
@@ -111,11 +112,11 @@ class StartWriteServer
 			$this->E['strReadedBlock']		= $strReadedBlock;
 			$this->R['bizReadedBlock']		= TRUE;
 			}
-		$this->O['мСекундомер'][] 		= $оСекундомер->_Стоп();
+							$this->О['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
 		}
 	private function _ОбработкаЗапроса()
 		{
-		$this->О['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
+							$this->О['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
 		if($this->R['bizReadedBlock']===TRUE)
 			{
 			$this->E['мЗаголовки']			= explode("\n", $this->E['strReadedBlock']);
@@ -143,26 +144,26 @@ class StartWriteServer
 			{
 			$this->R['мЗаголовки']			= array();
 			}
-		$this->О['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
+							$this->О['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
 		}
 	private function _ФормированиеОтвета()
 		{
-		$this->О['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
+							$this->О['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
 		
 		$this->О['oEDRO']			= new EDRO($this);
 		//$this->О['мЗаголовки']			= MyJSON::м($this->R['мЗаголовки']);
 		
-		$this->О['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
+							$this->О['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
 		}
 	private function _ЗаписьОтвета()
 		{
-		$this->О['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
+							$this->О['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
 		
 							fwrite($this->R['рПередача'], $this->E['strListenerBlock'], strlen($this->E['strListenerBlock']));
 		
 							fclose($this->R['рПередача']);
 		
-		$this->О['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
+							$this->О['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
 		}
 	private function _СбросEventЖурнала()
 		{
@@ -171,7 +172,7 @@ class StartWriteServer
 		}
 	public function _СтартЖурнала()
 		{
-		$this->О['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
+							$this->О['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
 		
 		//$this->E[]		= array('v'.__CLASS__.'/'.__FUNCTION__ => '');$intStartTime = сВремя();
 		//$this->_КИМ('Start');
@@ -184,17 +185,17 @@ class StartWriteServer
 		//$this->_КИМ('End');
 		//$this->E[]		= array('.'.__CLASS__.'/'.__FUNCTION__ => (сВремя() - $intStartTime));
 
-		$this->О['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
+							$this->О['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
 		}
 	private function _Буфферизация()
 		{
-		$this->О['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
+							$this->О['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
 		
 		$this->O['strFaviconBin']		= file_get_contents('/home/HiFiIntelligentClub.Ru/favicon.png');
 		$this->O['strJPGLogo']			= file_get_contents('/home/HiFiIntelligentClub.Ru/Hfic_Samin.jpg');
 		$this->O['strRobotsTxt']		= file_get_contents('/home/HiFiIntelligentClub.Ru/robots.txt');
 		
-		$this->О['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
+							$this->О['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
 		}
 	public static function VoId()
 		{
