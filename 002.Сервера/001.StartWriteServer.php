@@ -29,25 +29,25 @@ class StartWriteServer
 	private $E	= array(
 				'strListenerBlock'	=> '',
 				'strReadedBlock'	=> '',
-				'сСлушатель'		=> '',
+				'сДоступ'		=> '/Listener',
 				'мЗаголовки'		=> array(),
-				'strError'		=> '',
-				'strErrorNo'		=> 0,
-				'мЖурнал'		=> array(),
 			);
 	private $D	= array(
-				'с'			=> '',
-				'м'			=> array(),
+				'сДоступ'		=> '/Listener',
+				'сЯзык'			=> 'RU',
+				'intReadBlockSize'	=> 512,
 			);
 	private $R	= array(
 				'ч1Слушатель'		=> 0,
 				'сДоступ'		=> '/Listener',
-				'рПриёмник'		=> '',
+				'сПлатформа'		=> '',
+				
 				'рПередача'		=> '',
 				'bIzSocket'		=> FALSE,
 				'intWritedBytes'	=> 0,
 				'bizReadedBlock'	=> FALSE,
-				'мЗаголовки'		=> array(),
+				'strError'		=> '',
+				'strErrorNo'		=> 0,
 			);
 	public $O	= array(
 				'oСекундомер'		=> 
@@ -62,6 +62,7 @@ class StartWriteServer
 
 				'oEDRO'			=>,
 				'оКИМ'			=>,
+				'оЖурнал'		=>,
 			);
 
 	public function __construct()
@@ -82,7 +83,7 @@ class StartWriteServer
 			//print_r($this);
 			//exit;
 			$this->_ЗаписьОтвета();       //
-			$this->_СбросEventЖурнала();  //
+			//$this->_СбросEventЖурнала();  //
 			//exit();
 			}
 							$this->О['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
@@ -96,7 +97,6 @@ class StartWriteServer
 		echo "\n";
 		echo "\n";
 		}
-
 	private function _ЧтениеЗапроса()
 		{
 							$this->О['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
@@ -105,8 +105,9 @@ class StartWriteServer
 			{
 			$this->E['strReadedBlock']		= '';
 			$this->R['bizReadedBlock']		= FALSE;
-			$this->E[]				= array('!'.__CLASS__.'/'.__FUNCTION__ => 'fread($_рПередача'.$this->D['intReadBlockSize'].') empty.');
-			}
+			$this->R['сОшибка']			= 'fread($_рПередача'.$this->D['intReadBlockSize'].') empty.';
+								$this->О['оОшибка']->_PushError($this);
+		}
 		else
 			{
 			$this->E['strReadedBlock']		= $strReadedBlock;
@@ -136,7 +137,8 @@ class StartWriteServer
 					}
 				else
 					{
-					$this->E['мЖурнал'][]			= array('!'.__CLASS__.'/'.__FUNCTION__ => 'fread($_рПередача'.$this->D['intReadBlockSize'].') empty.');
+					$this->R['сОшибка']			= 'fread($_рПередача'.$this->D['intReadBlockSize'].') empty.';
+										$this->О['оОшибка']->_PushError($this);
 					}
 				}
 			}
@@ -173,7 +175,6 @@ class StartWriteServer
 	public function _СтартЖурнала()
 		{
 							$this->О['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
-		
 		//$this->E[]		= array('v'.__CLASS__.'/'.__FUNCTION__ => '');$intStartTime = сВремя();
 		//$this->_КИМ('Start');
 		//$сРасположениеСчётчикВход	=$this->сЖурналРасположение.'/CountUp/Вход.plmr';
@@ -184,7 +185,6 @@ class StartWriteServer
 		//				 /*DEBUG*/ file_put_contents($сРасположениеСчётчикВходИстор,"\n=====\n".'	Start:		'.date("Y-m-d H:i:s").сТекущееВремяСтемп()."\n", FILE_APPEND);
 		//$this->_КИМ('End');
 		//$this->E[]		= array('.'.__CLASS__.'/'.__FUNCTION__ => (сВремя() - $intStartTime));
-
 							$this->О['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
 		}
 	private function _Буфферизация()
