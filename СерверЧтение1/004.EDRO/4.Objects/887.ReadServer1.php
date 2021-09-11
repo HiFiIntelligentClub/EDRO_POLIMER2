@@ -14,6 +14,7 @@ class ReadServer1
 			'рПриёмник'			=> '',
 			'рПередача'			=> '',
 			'сОшибка'			=> '',
+			'ч0Ошибка'			=> '',
 			);
 	public 	$O	= array(//Использующиеся объекты для работы и их настройки по-умолчанию. ([O]bjects)
 			'оОшибка'			=> '',
@@ -23,11 +24,12 @@ class ReadServer1
 			);
 	function __construct($мНастройки)
 		{
-		$this->О['оОшибка'] 			= new ОповещениеОшибка();
-		$this->О['оСостояние'] 			= new ОповещениеСостояние();
-		$this->О['оСекундомер'] 		= new Секундомер(__CLASS__, __FUNCTION__);
+		$this->E				= $мНастройки;
+		$this->O['оСекундомер'] 		= new Секундомер(__CLASS__, __FUNCTION__);
+		$this->O['оОшибка'] 			= new ОповещениеОшибка();
+		$this->O['оСостояние'] 			= new ОповещениеСостояние();
 
-		$this->D				= $мНастройки;
+
 							$this->_memoryPrepare();
 
 		}
@@ -39,20 +41,24 @@ class ReadServer1
 			}
 		else
 			{
-			$this->О['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
-			$this->R['рПриёмник']			= stream_socket_server('tcp://'.$this->D['strAddr'].':'.$this->D['intPort'], $this->R['strErrorNo'], $this->R['strError']);
+			$this->O['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
+			$this->R['рПриёмник']			= stream_socket_server($this->E['strProto'].'://'.$this->E['strAddr'].':'.$this->E['intPort'], $this->R['ч0Ошибка'], $this->R['сОшибка']);
+			if($this->R['ч0Ошибка'] || $this->R['сОшибка'])
+				{
+				$this->O['оОшибка']->_PushError($this);
+				}
 			if($this->R['рПриёмник']===FALSE)
 				{
 				$this->R['сОшибка']			= 'Невозможно запустить передачу рПриёмник';
-									$this->О['оОшибка']->_PushError($this);
+									$this->O['оОшибка']->_PushError($this);
 									$this->_memoryPrepare();
 				}
 			else
 				{
-									$this->О['оСостояние']->_PushCondition($this);
+									$this->O['оСостояние']->_PushCondition($this);
 				$this->R['сОшибка']			= '';
 				}
-			$this->О['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
+			$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
 			}
 		}
 	private function ifManyReconnects()
@@ -60,29 +66,29 @@ class ReadServer1
 		}
 	public function ifGgetRead()
 		{
-		$this->О['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
+		$this->O['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
 		if($this->R['рПриёмник'])
 			{
 			$this->R['рПередача'] 			= stream_socket_accept($this->R['рПриёмник'], $this->D['дТаймаут']);
 			if($this->R['рПередача']===FALSE)
 				{
 				$this->R['сОшибка']			= 'Невозможно запустить передачу рПередача';
-									$this->О['оОшибка']->_PushError($this);
+									$this->O['оОшибка']->_PushError($this);
 									$this->_memoryPrepare();
 				}
 			else
 				{
-									$this->О['оСостояние']->_PushCondition($this);
+									$this->O['оСостояние']->_PushCondition($this);
 				$this->R['сОшибка']			= '';
 				}
 			}
 		else
 			{
 			$this->R['сОшибка']			= 'Невозможно запустить передачу рПриёмник';
-								$this->О['оОшибка']->_PushError($this);
+								$this->O['оОшибка']->_PushError($this);
 								$this->_memoryPrepare();
 			}
-		$this->О['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
+		$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
 		return $this->R['рПередача'];
 		}
 	}
