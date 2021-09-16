@@ -47,7 +47,7 @@ class ReadServer1
 				{
 				$this->R['сОшибка']			= 'Невозможно запустить передачу рПриёмник';
 									$this->O['оОшибка']->_PushError($this);
-									sleep(111);
+									//sleep(111);
 									$this->_memoryPrepare();
 				}
 			else
