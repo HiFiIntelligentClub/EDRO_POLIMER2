@@ -28,14 +28,10 @@ class ReadServer1
 		$this->O['оСекундомер'] 		= new Секундомер(__CLASS__, __FUNCTION__);
 		$this->O['оОшибка'] 			= new ОповещениеОшибка();
 		$this->O['оСостояние'] 			= new ОповещениеСостояние();
-
-
 							$this->_memoryPrepare();
-
 		}
 	private function _memoryPrepare()
 		{
-		
 		if($this->R['рПриёмник'])
 			{
 			}
@@ -51,6 +47,7 @@ class ReadServer1
 				{
 				$this->R['сОшибка']			= 'Невозможно запустить передачу рПриёмник';
 									$this->O['оОшибка']->_PushError($this);
+									sleep(111);
 									$this->_memoryPrepare();
 				}
 			else
@@ -69,7 +66,7 @@ class ReadServer1
 		$this->O['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
 		if($this->R['рПриёмник'])
 			{
-			$this->R['рПередача'] 			= stream_socket_accept($this->R['рПриёмник'], $this->D['дТаймаут']);
+			$this->R['рПередача'] 			= stream_socket_accept($this->R['рПриёмник'], $this->E['дТаймаут']);
 			if($this->R['рПередача']===FALSE)
 				{
 				$this->R['сОшибка']			= 'Невозможно запустить передачу рПередача';
