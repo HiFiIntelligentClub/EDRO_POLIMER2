@@ -4,9 +4,9 @@ define('сКлючь'								, '4aPrIsAForaPr'						);
 
 define('strProto'							, 'tcp'								);
 
-define('strAddr'							, '192.168.1.198'						);
-//define('strDomain'							, '127.0.0.1'							);
-define('intPort'							, '80'								);
+//define('strAddr'							, '192.168.1.198'						);
+define('strAddr'							, '127.0.0.1'							);
+define('intPort'							, '60'								);
 //define('strPort'							, '8080'							);
 define('intReadBlockSize'						,  512								);
 //vvv Протестировать
