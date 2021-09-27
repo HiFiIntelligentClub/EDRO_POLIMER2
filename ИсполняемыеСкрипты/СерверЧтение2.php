@@ -43,7 +43,8 @@ define('сРасположениеБазовойСистемыСчётчикВх
 
 //БазаДанных/о2о
 
-define('сРасположениеО2о'						, '/home/ЕДРО:ПОЛИМЕР/о2о'					);
+//define('сРасположениеО2о'						, '/home/1.ЕДРО:ПОЛИМЕР2/СерверЧтение2/о2о.БазаДанных'		);
+define('сРасположениеО2оDB'						, '/home/1.ЕДРО:ПОЛИМЕР2/СерверЧтение2/о2о.БазаДанных'		);
 define('cЗаписьО2о'							, '/0.О20'							);
 
 
@@ -1311,7 +1312,7 @@ function мСобратьO2o($_сВход) // Слово
 	return $мСлово;
 	}
 
-//© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru
+
 //http://hifiintelligentclub.com/strArtistName
 //    ?strName			=
 //    &strStyle			=
@@ -1432,23 +1433,62 @@ function arrRestrictAndReportEventsAndParametrs($_arrIncome, $_strReplaceName=''
 	//exit;
 	return $arrResult['arrReality'];
 	}
-function arrRequest2IndexArray($_arrEvent)
+
+//© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com 2021
+function arrEvent2IndexArray($_arrEvent)
 	{
-	$arrEvent['arrListener']['arrRequest']['strEvent']	= '';
-	$arrEvent['arrListener']['arrRequest']['strProto']	= '';
-	$arrEvent['arrListener']['arrRequest']['strEventName']	= '';
-	$arrEvent['arrListener']['arrRequest']['strEvenParams']	= '';
-	$arrEvent['arrListener']['arrRequest']['strEvenExt']	= '';
-	$arrEvent['arrListener']['arrPlatform'] 		= '';
-	$arrEvent['arrListener']['strHost']			= '';
-	$arrEvent['arrListener']['strReferer']			= '';
-	$arrEvent['arrListener']['arrAccept']			= '';
-	$arrEvent['arrListener']['strAcceptLanguage']		= '';
-	$arrEvent['arrListener']['strAcceptEncoding']		= '';
-	$arrEvent['arrListener']['strConnection']		= '';
-	$arrEvent['arrListener']['strPragma']			= '';
-	$arrEvent['arrListener']['strCacheControl']		= '';
-	$arrEvent['arrListener']['strUpgradeInsecureRequests']	= '';
+
+	['strEvent']
+	['strEvenParams']
+	<-
+	$arrEvent['E']['strAction']			= ''; //GET
+	$arrEvent['E']['strName']			= ''; // /
+	$arrEvent['E']['strExt']			= ''; // .cvb
+	$arrEvent['E']['strFrom']			= ''; //['strReferer']			= '';
+	$arrEvent['E']['strTo']				= ''; //Host
+
+	$arrEvent['D']['arrLanguage']
+	$arrEvent['D']['arrContentType']
+    o	$arrEvent['D']['arrEncoding']
+	$arrEvent['D']['arrAllowedAccess']
+	//$arrEvent['E']['arrEnv']['strUpgradeInsecureRequests']	= '';
+	///$arrEvent['E']['arrEnv']['strPragma']		= '';
+	//$arrEvent['E']['arrEnv']['strCacheControl']		= '';
+
+	$arrEvent['R']['strProto']		= ''; //HTTP/x.x
+	//$arrEvent['R']['strEvenParams']		= '';
+	$arrEvent['R']['arrPlatform'] 		= '';
+     <-	$arrEvent['R']['strConnection']		= '';
+	$arrEvent['R']['arrAcceptContent']	= '';
+	$arrEvent['R']['strAcceptLanguage']	= '';
+	$arrEvent['R']['strAcceptEncoding']	= '';
+	    
+     ->	$arrEvent['O']['oEvent']->Content-Type	= 'text/html';
+	$arrEvent['O']['oEvent']->Server-name	= 'EDRO:POLIMER';
+
+
+
+
+	$arrEvent['arrListener']
+
+	$arrDesign['arrListener']
+	$arrDesign['arrListener']
+	$arrDesign['arrListener']
+	$arrDesign['arrListener']
+	$arrDesign['arrListener']
+	$arrDesign['arrListener']
+	$arrDesign['arrListener']
+	
+
+	$arrReality['arrListener']
+	$arrReality['arrListener']
+	$arrReality['arrListener']
+	$arrReality['arrListener']
+	$arrReality['arrListener']
+	$arrReality['arrListener']
+	$arrReality['arrListener']
+
+	$arrObjects['arrListener']
 
 	foreach($_arrEvent as $strListenerReality)
 		{
@@ -1597,14 +1637,9 @@ function strQuery($_strEvent, $_strRequest)
 	return substr($strQurey,1);
 	}
 
-
-
-
-
-
 function strCheckEvent($strEvent)
 	{
-	if(is_file('/home/ЕДРО:ПОЛИМЕР/о2о.БазаДанных/'.strDataBase.'/Events/'.сПреобразовать($strEvent, "вКоманду").'/run.php'))
+	if(is_file(сРасположениеО2оDB.'/'.strDataBase.'/Events/'.сПреобразовать($strEvent, "вКоманду").'/run.php'))
 		{
 		$strEvent		= $strEvent;
 		}
@@ -1615,8 +1650,6 @@ function strCheckEvent($strEvent)
 		}
 	return $strEvent;
 	}
-
-
 
 //$this->ч0ВыполненоЧастей++;
 //$this->_Кон();
@@ -1934,14 +1967,15 @@ class EDRO
 		$this->O['оСостояние'] 			= new ОповещениеСостояние();
 		$this->O['оСекундомер'] 		= new Секундомер(__CLASS__, __FUNCTION__);
 		$this->O['oEvent']			= new Event($strHeaders);
+		$this->O['oDesign']			= new Design($this->O['oEvent']->E);
 		}
 	}
 
                      /*_____
 © Andrey Chekmaryov 2021
-© Andrey Chekmaryov 2021
 Email:    assminog@gmail.com
 Email:    tubmulur@yandex.ru
+Email:    Hfic.Samin@vk.com
 Phone:    +7(911)787-44-57
 Whatsapp: +7(911)787-44-57
 Telegram: https://t.me/HficSamin
@@ -1963,9 +1997,9 @@ Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dpl
 
 class Event
 	{
-	private $E	= array(  //ВходящиеНастройки ([E]vent are starting, then we'w got the setup of the event)
-				'дбг_сВходящиеНастройки' => '',
-				'мВходящиеНастройки'	=> array(),
+	public $E	= array(  //ВходящиеНастройки ([E]vent are starting, then we'w got the setup of the event)
+			//	'дбг_сВходящиеНастройки' => '',
+			//	'мВходящиеНастройки'	=> array(),
 
 			);
 	private $D	= array( //НастройкиЭлементаНадКоторымПроизводитсяРабота([D]esign - the screen in front of listener's eyes)
@@ -1989,9 +2023,9 @@ class Event
 		$this->O['оОшибка'] 			= new ОповещениеОшибка();
 		$this->O['оСостояние'] 			= new ОповещениеСостояние();
 		$this->O['оСекундомер'] 		= new Секундомер(__CLASS__, __FUNCTION__);
-		$this->E['сЗаголовки']			= $this->strSafeUsers($_сЗаголовки);
+		$this->R['сЗаголовки']			= $this->strSafeUsers($_сЗаголовки);
 									unset($_сЗаголовки);
-		$this->E['мВходящиеНастройки']		= arrRequest2IndexArray(explode("\n", $this->E['сЗаголовки']));
+		$this->E				= arrEvent2IndexArray(explode("\n", $this->R['сЗаголовки']));
 		print_r($this);
 		exit;
 
@@ -2506,6 +2540,167 @@ oо2оo;
 		}
 	}
 
+                     /*_____
+© Andrey Chekmaryov 2021
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Email:    Hfic.Samin@vk.com
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//        /\                  // /   
+//      <  **>               /// /  
+ //////   jl                ///// /    
+./././././././*/
+class Design
+	{
+	private $E	= array(  //ВходящиеНастройки ([E]vent are starting, then we'w got the setup of the event)
+				'дбг_сВходящиеНастройки' => '',
+				'мВходящиеНастройки'	=> array(),
+
+			);
+	private $D	= array( //НастройкиЭлементаНадКоторымПроизводитсяРабота([D]esign - the screen in front of listener's eyes)
+				'дбг_сНастройкиЭлемента'=> '',
+				'мНастройкиЭлемента'	=> array(),
+			);
+	private $R	= array( //Состояние операционной среды Реальность ([R]eality)
+				'сЗаголовки'		=> '',
+				'ч1Слушатель'		=> 0,
+				'сДоступ'		=> '/Listener',
+				
+			);
+	public $O	= array( //Использующиеся объекты для работы и их настройки по-умолчанию. ([O]bjects)
+				'оОшибка'		=> '',
+				'оСостояние'		=> '',
+				'оСекундомер'		=> '',
+			);
+	public function __construct()
+		{
+		$this->O['оОшибка'] 			= new ОповещениеОшибка();
+		$this->O['оСостояние'] 			= new ОповещениеСостояние();
+		$this->O['оСекундомер'] 		= new Секундомер(__CLASS__, __FUNCTION__);
+
+		$this->arrDesign['strTemplate']	=strDataBase.'/Events/'.сПреобразовать($this->arrEvent['arrListener']['arrRequest']['strEvent'], "вКоманду").'/run.php';
+		//echo '<pre>';
+		//print_r($this->arrDesign);
+		//echo '</pre>';
+		}
+	public static function strObjectInit()
+		{
+		return Event::strOConstruct('Design');
+		}
+	public static function strObjectDeclare()
+		{
+		$str	=<<<oo2oo
+		<script>
+			console.log('[V]EDRO.Design: Declare');
+			class Design
+				{
+				constructor()
+					{
+					console.log('[Vv]EDRO.Design: Construct');
+					this.objStationsOnPage;
+					//objEvent._CreateParamsArr();
+					//this._UpdateDimensions();
+					//objSearch.onPage		=this.intTotalElements;
+					//objSearch.strEvent		='';
+					//objSearch._CreateUrl();
+					//alert(objSearch.strURL);
+					//objDynaScreen.strURL		=objSearch.strURL;
+					//objEvent.strURL			=objSearch.strURL;
+					//objDynaScreen._Update();
+					console.log('[..]EDRO.Design: Construct');
+					}
+				_UpdateDimensions()
+					{
+					objDynaScreen._GetDimensions();
+					
+					this.objElement		=document.getElementsByTagName('station')[0];
+					if(typeof(this.objElement)=='object')
+						{
+						if(typeof(this.objElement)=='object')
+							{
+							this.intElementHeight	=this.objElement.offsetHeight+10;
+							this.intElementWidth	=this.objElement.offsetWidth+10;
+							}
+						else
+							{
+							this.intElementHeight	=90;
+							this.intElementWidth	=410;
+							}
+						this.intScreenWidth	=objDynaScreen.intWidth;
+						this.intScreenHeight	=(objDynaScreen.intHeight-180);
+						this.intWidthElements	=Math.floor(this.intScreenWidth/this.intElementWidth);
+						if(this.intWidthElements<1)
+							{
+						//	console.log('[Vvv]EDRO.Design: intWidthElements<=1');
+							this.intWidthElements=1;
+						//	console.log('[...]EDRO.Design: intWidthElements<=1');
+							}
+						this.intHeightElements	=Math.floor(this.intScreenHeight/100);
+						if(this.intHeightElements<1)
+							{
+							this.intHeightElements=1;
+							}
+						this.intTotalElements	=this.intWidthElements*this.intHeightElements;
+						if(this.intTotalElements<1)
+							{
+						//	console.log('[Vvv]EDRO.Design: intTotalElements<=1');
+							this.intTotalElements		=1;
+						//	console.log('[...]EDRO.Design: intTotalElements<=1');
+							}
+						//objIndicatorDimensions.objStr.innerHTML	=this.intScreenWidth+'x'+this.intScreenHeight+'<br/>V'+this.intWidthElements+':H'+this.intHeightElements+':T'+this.intTotalElements;
+						if(objEvent.arrReality.int1OnPage!=this.intTotalElements)
+							{
+							//objEvent.arrReality.strName=objPlayer.strStationName; objEvent.arrReality.strStyle=\'\';objEvent.arrReality.intBitrate=\'\';objEvent.arrReality.strCodec=\'\';objEvent._UpdateURLDyn(true);
+							//Event::strOConstruct('Search');
+							objSearch				=new Search();
+							objEvent.arrReality.strName		=objSearch.strValueInputstrName;
+							objEvent.arrReality.strGenre		=objSearch.strValueInputstrGenre;
+							//objEvent.arrReality.intBitrate	=objSearch.strValueInputintBitrate;
+							//objEvent.arrReality.strCodec		=objSearch.strValueInputstrCodec;
+							objEvent.arrReality.int1OnPage		=this.intTotalElements;
+							//console.log(objEvent.arrReality.int1OnPage);
+							objEvent._UpdateURLDyn(false);
+							objIndicatorDimensions.objStr.style.backgroundColor	='red';
+							objIndicatorDimensions.objStr.style.color		='#FFF';
+							}
+						else
+							{
+							objIndicatorDimensions.objStr.style.backgroundColor	='';
+							objIndicatorDimensions.objStr.style.color		='';
+							}
+						}
+					}
+				_CheckElements()
+					{
+					//console.log('[Vvv]EDRO.Design: checkElements');
+					objDesign.objStationsOnPage	=document.getElementsByTagName('station');
+					if(objDesign.objStationsOnPage['length']==0)
+						{
+						}
+					//console.log(objDesign.objStationsOnPage['length']);
+					//console.log('[...]EDRO.Design: checkElements');
+					}
+				}
+			console.log('[.]EDRO.Design: Declare');
+		</script>
+oo2oo;
+		return $str;
+		}
+	}
+
 // © A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru 2021
 set_time_limit(0);
 class ReadServer1
@@ -2639,7 +2834,6 @@ class StartReadServer
 							'intReadBlockSize'	=> intReadBlockSize,
 							'дТаймаут'		=> дТаймаут,
 							),
-
 			);
 	private $D	= array( //НастройкиЭлементаНадКоторымПроизводитсяРабота([D]esign - the screen in front of listener's eyes)
 				'дбг_сНастройкиЭлемента'=> '',
@@ -2661,7 +2855,6 @@ class StartReadServer
 				'оСостояние'		=> '',
 				'оСекундомер'		=> '',
 				'оЖурнал'		=> '',
-
 			);
 	public static function XTerm()
 		{
