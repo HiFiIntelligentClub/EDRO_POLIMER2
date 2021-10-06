@@ -45,6 +45,7 @@ define('сРасположениеБазовойСистемыСчётчикВх
 
 //define('сРасположениеО2о'						, '/home/1.ЕДРО:ПОЛИМЕР2/СерверЧтение2/о2о.БазаДанных'		);
 define('сРасположениеО2оDB'						, '/home/1.ЕДРО:ПОЛИМЕР2/СерверЧтение2/о2о.БазаДанных'		);
+define('сНазваниеО2оDB'							, '/HiFiIntelligentClub'				);
 define('cЗаписьО2о'							, '/0.О20'							);
 
 
@@ -114,6 +115,24 @@ define('cЗаписьО2о'							, '/0.О20'							);
 сРасположение(о2о):Наименование(ШтатнаяЕдиница).Наименование(Язык).Наименование(Страна).ПорядкНомер(РабочаяПапкаСлушателя)->
 сРасположение(о2о):Наименование(ШтатнаяЕдиница).Наименование(Язык).Наименование(Страна).ПорядкНомер(РабочаяПапкаСлушателя)->
 */
+?>//© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com
+<?php
+function э($с)
+	{
+	echo $с;
+	}
+?>//© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com
+<?php
+function эEDRO($_НеизвестТипДанных)
+	{
+	print_r($_НеизвестТипДанных);
+	}
+?>//© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com
+<?php
+function эСкорость($_НеизвестТипДанных)
+	{
+	print_r($_НеизвестТипДанных);
+	}
 
 // © A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru 2021
 class ОповещениеОшибка
@@ -136,8 +155,8 @@ class ОповещениеОшибка
 		}
 	public function _PushError($о)
 		{
-		echo __CLASS__."\n";
-		print_r($о);
+		эОтладки( __CLASS__);
+		эОтладки($о);
 		}
 	}
 function фОшибка($str)
@@ -145,7 +164,7 @@ function фОшибка($str)
 	return FALSE;
 	}
 
-// © A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru 2021
+// © A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com 2021
 class ОповещениеСостояние
 	{
 	private $E	= array(
@@ -162,12 +181,12 @@ class ОповещениеСостояние
 			);
 	private function _VoidAuthorAndSystemName()
 		{
-		system('clear');
-		echo '-------------------------------------------------------------------------------------------------------------------------------------------'."\n";
-		echo '----------=ЕДРО:ПОЛИМЕР II (Только чтение) © A.A.CheckMaRev assminog@gmail.com, tubmulur@yandex.ru, hfic.samin@vk.com 2021=----------------'."\n";
-		echo '-------------------------------------------------------------------------------------------------------------------------------------------'."\n";
-		echo "\n";
-		echo "\n";
+		//system('clear');
+		эEDRO('-------------------------------------------------------------------------------------------------------------------------------------------');
+		эEDRO('----------=ЕДРО:ПОЛИМЕР II (Только чтение) © A.A.CheckMaRev assminog@gmail.com, tubmulur@yandex.ru, hfic.samin@vk.com 2021=----------------');
+		эEDRO('-------------------------------------------------------------------------------------------------------------------------------------------');
+		эEDRO("\n");
+		эEDRO("\n");
 		}
 	public function __construct($о=array())
 		{
@@ -176,62 +195,62 @@ class ОповещениеСостояние
 	public function  _PushCondition($о=array())
 		{
 		$this->_VoidAuthorAndSystemName();
-		echo '-E--------------------------------------------------------------------D--------------------------------------------------------------------'."\n";
-		echo '                                                                     -                                                                     '."\n";
-		echo '                                                                     -                                                                     '."\n";
-		echo '                                                                     -                                                                     '."\n";
-		echo '                                                                     -                                                                     '."\n";
-		echo '                                                                     -                                                                     '."\n";
-		echo '                                                                     -                                                                     '."\n";
-		echo '                                                                     -                                                                     '."\n";
-		echo '                                                                     -                                                                     '."\n";
-		echo '                                                                     -                                                                     '."\n";
-		echo '                                                                     -                                                                     '."\n";
-		echo '                                                                     -                 On aiR Only                                         '."\n";
-		echo '                   Hello                                             -                                                                     '."\n";
-		echo '                                                                     -                                                                     '."\n";
-		echo '                         Ori                                         -                                                                     '."\n";
-		echo '                                                                     -                                                                     '."\n";
-		echo '                                                                     -                                                                     '."\n";
-		echo '                                                                     -                                                                     '."\n";
-		echo '                                                                     -                                                                     '."\n";
-		echo '                                                                     -                                                                     '."\n";
-		echo '                                                                     -                                                                     '."\n";
-		echo '-R--------------------------------------------------------------------O--------------------------------------------------------------------'."\n";
-		echo '                                                                     -                                                                     '."\n";
-		echo '                                                                     -                                                                     '."\n";
-		echo '                                                                     -                                                                     '."\n";
-		echo '                                                                     -                                                                     '."\n";
-		echo '                                                                     -                                                                     '."\n";
-		echo '                                                                     -                                                                     '."\n";
-		echo '                                                                     -                                                                     '."\n";
-		echo '                                                                     -          1Mix.co.uk                                                 '."\n";
-		echo '                                                                     -          https://www.facebook.com/oriuplift                         '."\n";
-		echo '                                                                     -  Near|   https://HiFiIntelligentClub.com/Ori                        '."\n";
-		echo '                                                                     -      |   https://HiFiIntelligentClub.com/OriUplift                  '."\n";
-		echo '                 1Mix.co.uk                                          -  start   https://HiFiIntelligentClub.ru/Ori                         '."\n";
-		echo '                                                                     -      |   https://HiFiIntelligentClub.com/OriUplift                  '."\n";
-		echo '                                                                     -      |   https://Ori.HiFiIntelligentClub.com                        '."\n";
-		echo '                                                                     -      |   https://OriUplift.HiFiIntelligentClub.com                  '."\n";
-		echo '                                                                     -      v   ...HIC.com    after collecting some money                  '."\n";
-		echo '                                                                     -                                                                     '."\n";
-		echo '                                                                     -                                                                     '."\n";
-		echo '                                                                     -                                                                     '."\n";
-		echo '                                                                     -                                                                     '."\n";
-		echo '-------------------------------------------------------------------------------------------------------------------------------------------'."\n";
+		эEDRO('-E--------------------------------------------------------------------D--------------------------------------------------------------------');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                 On aiR Only                                         ');
+		эEDRO('                   Hello                                             -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                         Ori                                         -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('-R--------------------------------------------------------------------O--------------------------------------------------------------------');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -          1Mix.co.uk                                                 ');
+		эEDRO('                                                                     -          https://www.facebook.com/oriuplift                         ');
+		эEDRO('                                                                     -  Near|   https://HiFiIntelligentClub.com/Ori                        ');
+		эEDRO('                                                                     -      |   https://HiFiIntelligentClub.com/OriUplift                  ');
+		эEDRO('                 1Mix.co.uk                                          -  start   https://HiFiIntelligentClub.ru/Ori                         ');
+		эEDRO('                                                                     -      |   https://HiFiIntelligentClub.com/OriUplift                  ');
+		эEDRO('                                                                     -      |   https://Ori.HiFiIntelligentClub.com                        ');
+		эEDRO('                                                                     -      |   https://OriUplift.HiFiIntelligentClub.com                  ');
+		эEDRO('                                                                     -      v   ...HIC.com    after collecting some money                  ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('-------------------------------------------------------------------------------------------------------------------------------------------');
 
-		//echo __CLASS__."\n";
+		//эEDRO __CLASS__);
 		if(isset($о->O))
 			{
 			//print_r($о->O['оСекундомер']);
-			echo 'Текущ: '.$о->O['оСекундомер']->sClass.'/'.$о->O['оСекундомер']->sFuncion.': '.$о->O['оСекундомер']->д4Итого."\n";
+			эСкорость('Текущ: '.$о->O['оСекундомер']->sClass.'/'.$о->O['оСекундомер']->sFuncion.': '.$о->O['оСекундомер']->д4Итого);
 			if(is_array($о->O['оСекундомер']->мОценка))
 				{
 				foreach($о->O['оСекундомер']->мОценка as $ч0 => $м)
 					{
 					if(is_array($м))
 						{
-						echo 'Превыш: '.$м['сМетод'].': '.$м['д4Итого']."\n";
+						эСкорость('Превыш: '.$м['сМетод'].': '.$м['д4Итого']);
 						}
 					
 					}
@@ -577,7 +596,7 @@ function мУрлРазобратьПоток($_сВход) 	//Разобрат�
 	}
 function фCreateListen_lnSock($_сВход)
 	{
-	echo $_сВход."\n";
+	э($_сВход);
 	$ф			= FALSE;
 	$мУрлПоток		= мУрлРазобратьПоток($_сВход);
 	$intUDP			= 1;
@@ -634,11 +653,11 @@ function фCreateListen_lnSock($_сВход)
 	    }
 	if($ф)
 	    {
-	    echo 'Result TRUE'."\n";
+	    э('Result TRUE');
 	    }
 	else
 	    {
-	    echo 'Result FALSE'."\n";
+	    э('Result FALSE');
 	    }
 	return $ф;
 	}
@@ -1435,135 +1454,7 @@ function arrRestrictAndReportEventsAndParametrs($_arrIncome, $_strReplaceName=''
 	}
 
 //© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com 2021
-function arrEvent2IndexArray($_arrEvent)
-	{
 
-	['strEvent']
-	['strEvenParams']
-	<-
-	$arrEvent['E']['strAction']			= ''; //GET
-	$arrEvent['E']['strName']			= ''; // /
-	$arrEvent['E']['strExt']			= ''; // .cvb
-	$arrEvent['E']['strFrom']			= ''; //['strReferer']			= '';
-	$arrEvent['E']['strTo']				= ''; //Host
-
-	$arrEvent['D']['arrLanguage']
-	$arrEvent['D']['arrContentType']
-    o	$arrEvent['D']['arrEncoding']
-	$arrEvent['D']['arrAllowedAccess']
-	//$arrEvent['E']['arrEnv']['strUpgradeInsecureRequests']	= '';
-	///$arrEvent['E']['arrEnv']['strPragma']		= '';
-	//$arrEvent['E']['arrEnv']['strCacheControl']		= '';
-
-	$arrEvent['R']['strProto']		= ''; //HTTP/x.x
-	//$arrEvent['R']['strEvenParams']		= '';
-	$arrEvent['R']['arrPlatform'] 		= '';
-     <-	$arrEvent['R']['strConnection']		= '';
-	$arrEvent['R']['arrAcceptContent']	= '';
-	$arrEvent['R']['strAcceptLanguage']	= '';
-	$arrEvent['R']['strAcceptEncoding']	= '';
-	    
-     ->	$arrEvent['O']['oEvent']->Content-Type	= 'text/html';
-	$arrEvent['O']['oEvent']->Server-name	= 'EDRO:POLIMER';
-
-
-
-
-	$arrEvent['arrListener']
-
-	$arrDesign['arrListener']
-	$arrDesign['arrListener']
-	$arrDesign['arrListener']
-	$arrDesign['arrListener']
-	$arrDesign['arrListener']
-	$arrDesign['arrListener']
-	$arrDesign['arrListener']
-	
-
-	$arrReality['arrListener']
-	$arrReality['arrListener']
-	$arrReality['arrListener']
-	$arrReality['arrListener']
-	$arrReality['arrListener']
-	$arrReality['arrListener']
-	$arrReality['arrListener']
-
-	$arrObjects['arrListener']
-
-	foreach($_arrEvent as $strListenerReality)
-		{
-		if(($strListenerRealityName=сНачДоСимвола($strListenerReality, ' '))!==FALSE)
-			{
-			$strListenerRealityName		= str_replace(':' ,'' ,$strListenerRealityName);
-			if($strListenerRealityName=="GET"||$strListenerRealityName=="POST")//||$strListenerRealityName=="PUT"
-				{
-				$arrEvent['arrListener']['arrRequest']['strProto']		= сНачДоСимвола($strListenerReality, ' ');
-				$arrEvent['arrListener']['arrRequest']['strProtoType']		= сКонцДоСимвола($strListenerReality, ' ');
-				$arrEvent['arrListener']['arrRequest']['strEvent']		= trim(CheckMaSubstr($strListenerReality , strlen($strListenerRealityName),  -strlen($arrEvent['arrListener']['arrRequest']['strProtoType'])));
-				$arrEvent['arrListener']['arrRequest']['strEventName']		= сНачДоСимвола($arrEvent['arrListener']['arrRequest']['strEvent'], "?");
-				$arrEvent['arrListener']['arrRequest']['strEvenParams']		= сНачОтСимвола($arrEvent['arrListener']['arrRequest']['strEvent'], "?", 0, 1);
-				$arrEvent['arrListener']['arrRequest']['arrReality']		= arrEventParams2Array($arrEvent['arrListener']['arrRequest']['strEvenParams']);
-				$arrEvent['arrListener']['arrRequest']['strEvenExt']		= сКонцДоСимвола($arrEvent['arrListener']['arrRequest']['strEventName'], '.');
-				}
-			elseif($strListenerRealityName=='Host')
-				{
-				$arrEvent['arrListener']['strHost'] 		= сНачОтСимвола($strListenerReality, ":", 0, 1);
-				}
-			elseif($strListenerRealityName=='Accept')
-				{
-				$arr=explode(',' ,trim(сНачОтСимвола($strListenerReality, ":", 0, 1)));
-				if(is_array($arr))
-					{
-					}
-				else
-					{
-					$arr	=array();
-					}
-				$arrEvent['arrListener']['arrAccept'] 		= $arr;
-				}
-			elseif($strListenerRealityName=='Connection')
-				{
-				$arrEvent['arrListener']['strConnection'] 			= сНачОтСимвола($strListenerReality, ":", 0, 1);
-				}
-			elseif($strListenerRealityName=='User-Agent')
-				{
-				$arrEvent['arrListener']['strUserAgent'] 			= сНачОтСимвола($strListenerReality, ":", 0, 1);
-				$arrEvent['arrListener']['arrPlatform'] 			= arrUserAgent2Platform($arrEvent['arrListener']['strUserAgent']);
-				}
-			elseif($strListenerRealityName=='Accept-Language')
-				{
-				$arrEvent['arrListener']['strAcceptLanguage'] 			= сНачОтСимвола($strListenerReality, ":", 0, 1);
-				}
-			elseif($strListenerRealityName=='Accept-Encoding')
-				{
-				$arrEvent['arrListener']['strAcceptEncoding'] 			= сНачОтСимвола($strListenerReality, ":", 0, 1);
-				}
-			elseif($strListenerRealityName=='Cache-Control')
-				{
-				$arrEvent['arrListener']['strCacheControl'] 			= сНачОтСимвола($strListenerReality, ":", 0, 1);
-				}
-			elseif($strListenerRealityName=='Pragma')
-				{
-				$arrEvent['arrListener']['strPragma'] 				= сНачОтСимвола($strListenerReality, ":", 0, 1);
-				}
-			elseif($strListenerRealityName=='Referer')
-				{
-				$arrEvent['arrListener']['strReferer'] 				= сНачОтСимвола($strListenerReality, ":", 0, 1);
-				}
-			elseif($strListenerRealityName=='Upgrade-Insecure-Requests')
-				{
-				$arrEvent['arrListener']['strUpgradeInsecureRequests'] 		= сНачОтСимвола($strListenerReality, ":", 0, 1);
-				}
-
-			else
-				{
-				$arrEvent['arrListener'][$strListenerRealityName]		= сНачОтСимвола($strListenerReality, ":", 0, 1);
-				фОтчёт('Unusall position of Event string $arrEvent[arrListener][strEvent]: '.$strListenerRealityName.'/'.сНачОтСимвола($strListenerReality, ":", 0, 1));
-				}
-			}
-		}
-	return $arrEvent;
-	}
 function arrEventLink($_arrReality, $_strGroove, $_strGrooveData='', $_bIzClearName=false, $strPage=0)
 	{
 	$str;
@@ -1933,41 +1824,125 @@ class Секундомер
 			}
 		}
 	}
+?>//© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com
+<?php
+class ЕДРО
+	{
+	public $Е	= FALSE;
+	public $Д	= 'Прочитать';
+	public $Р	= 'json';
+	public $О	= 'php';
+	public function __construct($сД, $сРасположение)
+		{
+		switch($сД)
+			{
+			case'Прочитать':
+				if(isset($сРасположение.'/0.json'))
+					{
+					file_get_contents($сРасположение.'/0.json');
+					}
+				if(isset($сРасположение.'/0.php'))
+					{
+					}
+			break;
+			}
+		}
+	private function сПрочитатьD($сРасположение)
+		{
+		echo $сРасположение;
+		}
+	private function сПрочитатьO($сРасположение)
+		{
+		echo $сРасположение;
+		}
+	}
 
 // © A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru 2021
 class EDRO
 	{
 	private $E	= array(  //ВходящиеНастройки ([E]vent are starting, then we'w got the setup of the event)
-				'дбг_сВходящиеНастройки' => '',
-				'мВходящиеНастройки'	=> array(),
-
+			//	'дбг_сВходящиеНастройки' => '',
+			//	'мВходящиеНастройки'	=> array(),
+			'strName'			=> '', // /
+			'strExt'			=> '', // .cvb
+			'arrEvenParams'			=> array(),
+			'arrAcceptContent'		=> array(),
+			'bIzDynamic'			=> FALSE,
 			);
 	private $D	= array( //НастройкиЭлементаНадКоторымПроизводитсяРабота([D]esign - the screen in front of listener's eyes)
-				'дбг_сНастройкиЭлемента'=> '',
-				'мНастройкиЭлемента'	=> array(),
+			//	'дбг_сНастройкиЭлемента'=> '',
+			//	'мНастройкиЭлемента'	=> array(),
+			'arrHaveLanguage'		=> array(),
+			'arrHaveContentType'		=> array(),
+			'arrHaveEncoding'		=> array(),
+			'arrAllowedAccess'		=> array(),
+			'strAllowedConnection'		=> array(),
+			
 			);
 	private $R	= array( //Состояние операционной среды Реальность ([R]eality)
-				'strReadedBlock'	=> '',
-				'ч1Слушатель'		=> 0,
-				'сДоступ'		=> '/Listener',
-				'bIzSocket'		=> FALSE,
-				'bizReadedBlock'	=> FALSE,
-				'intWritedBytes'	=> 0,
+			'strAction'		=> '', //GET
+			'strProto'		=> '', //HTTP/x.x
+			'strTo'			=> '', //Host
+			'strFrom'		=> '',
+			'strAcceptLanguage'	=> '',
+			'strAcceptEncoding'	=> '',
+			'bIzDynamic'		=> FALSE,
+			'ч1Слушатель'		=> 0,
+			'сДоступ'		=> '/Listener',
+			'arrPlatform' 		=> array(),
 			);
 	public $O	= array( //Использующиеся объекты для работы и их настройки по-умолчанию. ([O]bjects)
-				'оОшибка'		=> '',
-				'оСостояние'		=> '',
-				'оСекундомер'		=> '',
-				'оКИМ'			=> '',
-				'оЖурнал'		=> '',
+			'оОшибка'		=> '',
+			'оСостояние'		=> '',
+			'оСекундомер'		=> '',
+			//	'оКИМ'			=> '',
+			//	'оЖурнал'		=> '',
 			);
 	public function __construct($strHeaders)
 		{
-		$this->O['оОшибка'] 			= new ОповещениеОшибка();
-		$this->O['оСостояние'] 			= new ОповещениеСостояние();
-		$this->O['оСекундомер'] 		= new Секундомер(__CLASS__, __FUNCTION__);
-		$this->O['oEvent']			= new Event($strHeaders);
-		$this->O['oDesign']			= new Design($this->O['oEvent']->E);
+		$this->O['оОшибка'] 		= new ОповещениеОшибка();
+		$this->O['оСостояние'] 		= new ОповещениеСостояние();
+		$this->O['оСекундомер'] 	= new Секундомер(__CLASS__, __FUNCTION__);
+		$oEvent				= new Event($strHeaders);
+		$this->E			= $oEvent->E;
+		$this->R			= $oEvent->R;
+					    unset($oEvent);
+		$oDesign			= new Design($this->E);
+		///print_r($this);
+		//exit;
+		//$arr			= arrEventParams2Array($_сЗаголовки);
+		/*if($this->R['bizReadedBlock']===TRUE)
+			{
+			$мЗаголовки			= explode("\n", $this->R['strReadedBlock']);
+			foreach($мЗаголовки as $сЗапрос)
+				{
+				if(strpos($сЗапрос, ': ')!==FALSE)
+					{
+					$this->R['мЗаголовки'][сНачДоСимвола($сЗапрос, ':')]	= сНачОтСимвола($сЗапрос, ' ');
+					}
+				}
+			if(isset($this->R['мЗаголовки']['ч1Слушатель']))
+				{
+				$this->R['ч1Слушатель']			= $this->R['мЗаголовки']['ч1Слушатель'];
+				if(is_file($this->E['сСлушатель'] 	= сРасположениеО2о.$this->R['сДоступ'].'/'.$this->R['ч1Слушатель'].cЗаписьО2о))
+					{
+					$this->E['strListenerBlock']		= file_get_contents($this->E['сСлушатель']);
+					}
+				else
+					{
+					$this->R['сОшибка']			= 'fread(рПередача empty.';
+										$this->O['оОшибка']->_PushError($this);
+					}
+				}
+			}
+		else
+			{
+			$this->R['мЗаголовки']			= array();
+			}*/
+		//print_r($arr);
+		//$this->O['oEvent']			= new Event($strHeaders);
+		
+		///$this->O['oDesign']			= new Design($this->O['oEvent']->E);
 		}
 	}
 
@@ -2000,22 +1975,39 @@ class Event
 	public $E	= array(  //ВходящиеНастройки ([E]vent are starting, then we'w got the setup of the event)
 			//	'дбг_сВходящиеНастройки' => '',
 			//	'мВходящиеНастройки'	=> array(),
+			'strName'			=> '', // /
+			'strExt'			=> '', // .cvb
+			'bIzDynamic'			=> FALSE,
+			'arrEvenParams'			=> array(),
+			'arrAcceptContent'		=> array(),
 
 			);
-	private $D	= array( //НастройкиЭлементаНадКоторымПроизводитсяРабота([D]esign - the screen in front of listener's eyes)
-				'дбг_сНастройкиЭлемента'=> '',
-				'мНастройкиЭлемента'	=> array(),
+	public $D	= array( //НастройкиЭлементаНадКоторымПроизводитсяРабота([D]esign - the screen in front of listener's eyes)
+			///	'дбг_сНастройкиЭлемента'=> '',
+			//	'мНастройкиЭлемента'	=> array(),
+			'arrHaveLanguage'		=> array(),
+			'arrHaveContentType'		=> array(),
+			'arrHaveEncoding'		=> array(),
+			'arrAllowedAccess'		=> array(),
+			'strAllowedConnection'		=> array(),
+			
 			);
-	private $R	= array( //Состояние операционной среды Реальность ([R]eality)
-				'сЗаголовки'		=> '',
-				'ч1Слушатель'		=> 0,
-				'сДоступ'		=> '/Listener',
-				
+	public $R	= array( //Состояние операционной среды Реальность ([R]eality)
+			'strAction'		=> '', //GET
+			'strProto'		=> '', //HTTP/x.x
+			'strTo'			=> '', //Host
+			'strFrom'		=> '',
+			'strAcceptLanguage'	=> '',
+			'strAcceptEncoding'	=> '',
+			// 'ч1Слушатель'		=> 0,
+			// 'сДоступ'		=> '/Listener',
+			'arrPlatform' 		=> array(),
+			// 'strUserAgent']	=> '',
 			);
 	public $O	= array( //Использующиеся объекты для работы и их настройки по-умолчанию. ([O]bjects)
-				'оОшибка'		=> '',
-				'оСостояние'		=> '',
-				'оСекундомер'		=> '',
+			'оОшибка'		=> '',
+			'оСостояние'		=> '',
+			'оСекундомер'		=> '',
 			);
 	
 	public function __construct($_сЗаголовки)
@@ -2023,69 +2015,105 @@ class Event
 		$this->O['оОшибка'] 			= new ОповещениеОшибка();
 		$this->O['оСостояние'] 			= new ОповещениеСостояние();
 		$this->O['оСекундомер'] 		= new Секундомер(__CLASS__, __FUNCTION__);
-		$this->R['сЗаголовки']			= $this->strSafeUsers($_сЗаголовки);
+		$сЗаголовки				= $this->strSafeUsers($_сЗаголовки);
 									unset($_сЗаголовки);
-		$this->E				= arrEvent2IndexArray(explode("\n", $this->R['сЗаголовки']));
-		print_r($this);
-		exit;
 
+		$мЗаголовки				= explode("\n", $сЗаголовки);
 
+		//$arrEvent['O']['oEDRO'];
+		///$arrEvent['O']['oEDRO']->Content-Type	= 'text/html';
+		///$arrEvent['O']['oEvent']->Server-name	= 'EDRO:POLIMER';
 
-
-
-
-		//$arr			= arrEventParams2Array($_сЗаголовки);
-		/*if($this->R['bizReadedBlock']===TRUE)
+		foreach($мЗаголовки as $strListenerReality)
 			{
-			$мЗаголовки			= explode("\n", $this->R['strReadedBlock']);
-			foreach($мЗаголовки as $сЗапрос)
+			if(($strListenerRealityName=сНачДоСимвола($strListenerReality, ' '))!==FALSE)
 				{
-				if(strpos($сЗапрос, ': ')!==FALSE)
+				$strListenerRealityName		= str_replace(':' ,'' ,$strListenerRealityName);
+				if($strListenerRealityName=="GET"||$strListenerRealityName=="POST")//||$strListenerRealityName=="PUT"
 					{
-					$this->R['мЗаголовки'][сНачДоСимвола($сЗапрос, ':')]	= сНачОтСимвола($сЗапрос, ' ');
+					$this->R['strAction']			= сНачДоСимвола($strListenerReality, ' ');
+					$this->R['strProto']			= сКонцДоСимвола($strListenerReality, ' ');
+					$strEvent				= trim(CheckMaSubstr($strListenerReality , strlen($strListenerRealityName),  -strlen($this->R['strProto'])));
+					$this->E['strName']			= сНачДоСимвола($strEvent, "?");
+					$strEvenParams				= сНачОтСимвола($strEvent, "?", 0, 1);
+					$this->E['arrEvenParams']		= arrEventParams2Array($strEvenParams);
+					$this->E['strExt']			= сКонцДоСимвола($this->E['strName'], '.');
+					$this->E['bIzDynamic']			= $this->bIzDynamic($strEvenParams);
 					}
-				}
-			if(isset($this->R['мЗаголовки']['ч1Слушатель']))
-				{
-				$this->R['ч1Слушатель']			= $this->R['мЗаголовки']['ч1Слушатель'];
-				if(is_file($this->E['сСлушатель'] 	= сРасположениеО2о.$this->R['сДоступ'].'/'.$this->R['ч1Слушатель'].cЗаписьО2о))
+				elseif($strListenerRealityName=='Host')
 					{
-					$this->E['strListenerBlock']		= file_get_contents($this->E['сСлушатель']);
+					$this->R['strTo']			= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					}
+				elseif($strListenerRealityName=='Accept')
+					{
+					$arr=explode(',' ,trim(сНачОтСимвола($strListenerReality, ":", 0, 1)));
+					if(is_array($arr))
+						{
+						}
+					else
+						{
+						$arr	=array();
+						}
+					$this->E['arrAcceptContent']		= $arr;
+					}
+				elseif($strListenerRealityName=='Connection')
+					{
+					//$this->R['strConnection'] 		= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					}
+				elseif($strListenerRealityName=='User-Agent')
+					{
+					$strUserAgent				= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					$this->R['arrPlatform'] 		= arrUserAgent2Platform($strUserAgent);
+					}
+				elseif($strListenerRealityName=='Accept-Language')
+					{
+					$this->R['strAcceptLanguage'] 		= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					}
+				elseif($strListenerRealityName=='Accept-Encoding')
+					{
+					$this->R['strAcceptEncoding']		= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					}
+				elseif($strListenerRealityName=='Referer')
+					{
+					$this->R['strFrom'] 			= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					}
+				elseif($strListenerRealityName=='Cache-Control')
+					{
+					//$this->R['strCacheControl'] 		= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					}
+				elseif($strListenerRealityName=='Pragma')
+					{
+					//$this->R['strPragma'] 		= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					}
+				elseif($strListenerRealityName=='Upgrade-Insecure-Requests')
+					{
+					//$this->R['strUpgradeInsecureRequests']= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					}
+				elseif($strListenerRealityName=='Sec-Fetch-Site')
+					{
+					}
+				elseif($strListenerRealityName=='Sec-Fetch-Mode')
+					{
+					}
+				elseif($strListenerRealityName=='Sec-Fetch-User')
+					{
+					}
+				elseif($strListenerRealityName=='Sec-Fetch-Dest')
+					{
 					}
 				else
 					{
-					$this->R['сОшибка']			= 'fread(рПередача empty.';
-										$this->O['оОшибка']->_PushError($this);
+					$this->R[$strListenerRealityName]	= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					фОтчёт('Unusall position of Event string $arrEvent[arrListener][strEvent]: '.$strListenerRealityName.'/'.сНачОтСимвола($strListenerReality, ":", 0, 1));
 					}
 				}
 			}
-		else
-			{
-			$this->R['мЗаголовки']			= array();
-			}*/
-		//print_r($arr);
+
 		//file_put_contents('/home/1.ЕДРО:ПОЛИМЕР2/журнал.txt', $сЗаголовки."\r\n\r\n", FILE_APPEND);
 		//$сЗаголовки		= $this->strSafeUsers($_сЗаголовки);
 		//$this->arrEvent		= arrRequest2IndexArray(explode("\n", $сЗаголовки));
 		/*
-		$this->arrEvent['arrListener']['arrPlatform']['bIzCheckMaPhone']	= true;
-		$this->arrEvent['arrListener']['arrPlatform']['bIzAndroid']		= true;
-		$this->arrEvent['arrListener']['arrPlatform']['bIzAppleMobile']		= true;
-		$this->arrEvent['arrListener']['arrPlatform']['bIzCheckMaPhone']	= true;
-		$this->arrEvent['arrListener']['arrPlatform']['bIzDesktop']		= true;
-		$this->arrEvent['arrListener']['arrPlatform']['bIzOther']		= true; 
-		$this->arrEvent['arrListener']['arrAccept'][1]				= '';
-		$this->arrEvent['arrListener']['arrAccept'][2]				= '';
-		$this->arrEvent['arrListener']['arrAcceptLanguage']			= '';
-		$this->arrEvent['arrListener']['arrAcceptLanguage']			= '';
-		$this->arrEvent['arrListener']['arrAcceptEncoding']			= '';
-		$this->arrEvent['arrListener']['arrAcceptEncoding']			= '';
-		$this->arrEvent['arrListener']['arrConnection']['strHost']		= 'www.hui.ru';
-		$this->arrEvent['arrListener']['arrConnection']['strType']		= 'close';
-		$this->arrEvent['arrListener']['arrConnection']['strCacheControl']	= 'no';
-		$this->arrEvent['arrListener']['strConnection']['strHost']		= '/hui.ru';
-		$this->arrEvent['arrListener']['strConnection']['strMethod']	= 'POST';
-		$this->arrEvent['arrListener']['strConnection']['strProto']		= 'sFTP/0.9';
+
 		$this->arrEvent['arrListener']['strConnection']['strObject']	= '/';
 		$this->arrEvent['arrListener']['strConnection']['strObjectType']	= 'audio/wav';
 		*/
@@ -2103,14 +2131,7 @@ class Event
 			{
 			$this->arrEvent['strObjectReality']	= 'objEvent.arrReality={'.strArrayRec2JS($this->arrEvent, 'arrReality').'};';
 			}*/
-		//echo '<pre>';
-		//print_r($this->arrEvent);
-		//echo '</pre>';
-		//$мКИМ	= array();
-		
-		///parent::__construct();
-		//фОтчёт()
-		//print_r($this);
+
 		/*$arrAllParams	=
 		array(
 			'strAppTitle'			=>'',
@@ -2139,12 +2160,12 @@ class Event
 		{
 		return str_replace(array('%3C','%3E',"<",">",'о20о','о21о', 'U+02C2', 'U+02C3', 'U+003E', 'U+003C'), "_", $_strRequest);
 		}
-	private function bIzDynamic()
+	private function bIzDynamic($strEvenParams)
 		{
-		$bIzDynamic	=false;
-		if(isset($_REQUEST['d']))
+		$bIzDynamic	= FALSE;
+		if(strpos($strEvenParams, '&d=')!==FALSE)
 			{
-			$bIzDynamic	=true;
+			$bIzDynamic	= TRUE;
 			}
 		return $bIzDynamic;
 		}
@@ -2566,35 +2587,37 @@ Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dpl
 class Design
 	{
 	private $E	= array(  //ВходящиеНастройки ([E]vent are starting, then we'w got the setup of the event)
-				'дбг_сВходящиеНастройки' => '',
-				'мВходящиеНастройки'	=> array(),
-
+			//	'дбг_сВходящиеНастройки' => '',
+			//	'мВходящиеНастройки'	=> array(),
 			);
 	private $D	= array( //НастройкиЭлементаНадКоторымПроизводитсяРабота([D]esign - the screen in front of listener's eyes)
-				'дбг_сНастройкиЭлемента'=> '',
-				'мНастройкиЭлемента'	=> array(),
+			//	'дбг_сНастройкиЭлемента'=> '',
+			//	'мНастройкиЭлемента'	=> array(),
+			'arrHaveLanguage'		=> array(),
+			'arrHaveContentType'		=> array(),
+			'arrHaveEncoding'		=> array(),
+			'arrAllowedAccess'		=> array(),
+			'strAllowedConnection'		=> array(),
 			);
 	private $R	= array( //Состояние операционной среды Реальность ([R]eality)
-				'сЗаголовки'		=> '',
-				'ч1Слушатель'		=> 0,
-				'сДоступ'		=> '/Listener',
+			//	'сЗаголовки'		=> '',
+			//	'ч1Слушатель'		=> 0,
+			//	'сДоступ'		=> '/Listener',
 				
 			);
 	public $O	= array( //Использующиеся объекты для работы и их настройки по-умолчанию. ([O]bjects)
-				'оОшибка'		=> '',
-				'оСостояние'		=> '',
-				'оСекундомер'		=> '',
+			'оОшибка'		=> '',
+			'оСостояние'		=> '',
+			'оСекундомер'		=> '',
 			);
-	public function __construct()
+	public function __construct($arrE)
 		{
 		$this->O['оОшибка'] 			= new ОповещениеОшибка();
 		$this->O['оСостояние'] 			= new ОповещениеСостояние();
 		$this->O['оСекундомер'] 		= new Секундомер(__CLASS__, __FUNCTION__);
-
-		$this->arrDesign['strTemplate']	=strDataBase.'/Events/'.сПреобразовать($this->arrEvent['arrListener']['arrRequest']['strEvent'], "вКоманду").'/run.php';
-		//echo '<pre>';
-		//print_r($this->arrDesign);
-		//echo '</pre>';
+		echo $strTemplate			= сРасположениеО2оDB.сНазваниеО2оDB.'/Events/'.сПреобразовать($arrE['strName'], "вКоманду");
+		//print_r($arrE);
+		exit;
 		}
 	public static function strObjectInit()
 		{
