@@ -1,0 +1,8538 @@
+#!/usr/bin/php
+<?php
+///Сервер сеть
+define('сКлючь'								, '4aPrIsAForaPr'						);
+
+define('strProto'							, 'tcp'								);
+
+//define('strAddr'							, '192.168.1.198'						);
+define('strAddr'							, '127.0.0.1'							);
+define('intPort'							, '60'								);
+//define('strPort'							, '8080'							);
+define('intReadBlockSize'						,  512								);
+//vvv Протестировать
+define('дТаймаут'							, -1								);
+
+//Загрузчик
+
+//define('сРасположениеБазовойСистемыЗагрузчик'				, '/home/EDRO.SetOfTools/1.Система/2.Loader/0.loader.php'	);
+
+///define('сРасположениеБазовойСистемыЗагрузчикEDRO'			, '/home/EDRO.SetOfTools/1.Система/2.Loader/0.loader.php'	);
+
+//define('сРасположениеРесурсы'						, '/home/EDRO.SetOfTools/2.Ресурсы'				);
+
+//КИМ
+
+//define('сРасположениеБазовойСистемыКириллИМефодий'			, '/home/EDRO.SetOfTools/1.Система/1.КиМ/0.КиМ.php'		);
+
+//define('сРасположениеБазовойСистемыОповещенияАдминистратора'		, '/home/EDRO.SetOfTools/1.Система/0.ErrorReporter/0.Report.php');
+
+
+//Журналы
+
+//define('сШагЗаписьВЖурнал'						, '/home/EDRO.SetOfTools/4.Reports/Operations_report.txt'	);
+
+//define('сШагЗаписьВЖурналОшибок'					, '/home/EDRO.SetOfTools/4.Reports/Error_report.txt'		);
+
+
+//Журналы//Счётчики вход
+
+define('сРасположениеБазовойСистемыСчётчикВход'				, '/home/EDRO.SetOfTools/3.Reports/0.CountUp/Вход.plmr'		);
+
+define('сРасположениеБазовойСистемыСчётчикВходИстор'			, '/home/EDRO.SetOfTools/3.Reports/1.CountUpHistory/Вход.plmr'	);
+
+//БазаДанных/о2о
+
+//define('сРасположениеО2о'						, '/home/1.ЕДРО:ПОЛИМЕР2/СерверЧтение2/о2о.БазаДанных'		);
+define('сРасположениеО2оDB'						, '/home/1.ЕДРО:ПОЛИМЕР2/СерверЧтение2/о2о.БазаДанных'		);
+define('сНазваниеО2оDB'							, '/HiFiIntelligentClub'				);
+define('cЗаписьО2о'							, '/0.О20'							);
+
+
+
+//define('сРасположение(о2о):Наименование(ШтатнаяЕдиница).Наименование(Язык).Наименование(Страна).ПорядкНомер(РабочаяПапкаСлушателя)->'	, '/Roles'				);
+
+//define('сРасположение(о2о):Наименование(ШтатнаяЕдиница).Наименование(Язык).Наименование(Страна).ПорядкНомер(РабочаяПапкаСлушателя)'	, '/Listeners'				);
+//define('сРасположение(о2о):Наименование(ШтатнаяЕдиница).Наименование(Язык).Наименование(Страна).ПорядкНомер(РабочаяПапкаСлушателя)'	, '/Listeners'				);
+
+
+
+/*сРасположение(о2о) 	= сРасп();
+Наименование		= сНаимен();
+ШтатнаяЕдиница		= ШтатЕд;
+На Языке		= сНаЯз();
+Число По Порядку	= чПоП();
+строка 
+() на ()		= например:cСтран('Малайзия' на Языке('Русский')) = 'Малайзия';
+
+
+
+
+с(о2о)		   = '/home/ЕДРО:ПОЛИМЕР/о2о';
+
+.---------------------------------------------------------------------------------------------------------------------------------------.
+о2о ->сРасп('/home/о2о', cНаЯз('Русский'))
+    ->cШтатЕд('Слушатель', cНаЯз('Русский'))
+    ->сЯзык('Малазийский', cНаЯз('Русский'))
+    ->сСтрана('Малайзия', cНаЯз('Русский'))
+    ->чПоП(++);
+
+|------------------		:----------------------------.------------------.--------------------.----------------------------------|
+|       :  .                  .                    .                                  |
+|                  		:Наименование('/Слушатель', )  .                  .                    .                                  |
+|                  		:                            .                  .                    .                                  |
+|                  		:                            .                  .                    .                                  |
+|                  		:                            .                  .                    .                                  |
+|                  		:                            .                  .                    .                                  |
+|                  		:                            .                  .                    .                                  |
+|                  		:                            .                  .                    .                                  |
+|                  		:                            .                  .                    .                                  |
+|                  		:                            .                  .                    .                                  |
+|		                :                            .                  .                    .                                  |
+|                  		:                            .                  .                    .                                  |
+|                  		:                            .                  .                    .                                  |
+|                  		:                            .                  .                    .                                  |                  :                            .                  .                    .                                  |
+|                  		:                            .                  .                    .                                  |
+|                  		:                            .                  .                    .                                  |                  :                            .                  .                    .                                  |
+|                  		:                            .                  .                    .                                  |
+|                  		:                            .                  .                    .                                  |
+|                  :                            .                  .                    .                                  |
+|                  :                            .                  .                    .                                  |
+|                  :                            .                  .                    .                                  |
+|                  :                            .                  .                    .                                  |
+|                  :                            .                  .                    .                                  |
+|                  :                            .                  .                    .                                  |
+|                  :                            .                  .                    .                                  |
+|                  :                            .                  .                    .                                  |
+|                  :                            .                  .                    .                                  |
+|                  :                            .                  .                    .                                  |
+|                  :                            .                  .                    .                                  |
+|                  :                            .                  .                    .                                  |
+сРасположение(о2о):Наименование(ШтатнаяЕдиница)
+сРасположение(о2о):Наименование(ШтатнаяЕдиница).Наименование(Язык).Наименование(Страна).ПорядкНомер(РабочаяПапкаСлушателя)->
+сРасположение(о2о):Наименование(ШтатнаяЕдиница).Наименование(Язык).Наименование(Страна).ПорядкНомер(РабочаяПапкаСлушателя)->
+сРасположение(о2о):Наименование(ШтатнаяЕдиница).Наименование(Язык).Наименование(Страна).ПорядкНомер(РабочаяПапкаСлушателя)->
+сРасположение(о2о):Наименование(ШтатнаяЕдиница).Наименование(Язык).Наименование(Страна).ПорядкНомер(РабочаяПапкаСлушателя)->
+сРасположение(о2о):Наименование(ШтатнаяЕдиница).Наименование(Язык).Наименование(Страна).ПорядкНомер(РабочаяПапкаСлушателя)->
+*/
+?>//© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com
+<?php
+function э($с)
+	{
+	echo $с;
+	}
+?>//© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com
+<?php
+function эEDRO($_НеизвестТипДанных)
+	{
+	print_r($_НеизвестТипДанных);
+	}
+?>//© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com
+<?php
+function эСкорость($_НеизвестТипДанных)
+	{
+	print_r($_НеизвестТипДанных);
+	}
+
+// © A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru 2021
+class ОповещениеОшибка
+	{
+	private $E	= array(
+			
+			);
+	private $D	= array(
+			
+			);
+	private $R	= array(
+			
+			);
+	public  $O	= array(
+			
+			);
+	public function __construct($о=array())
+		{
+		///print_r($м);
+		}
+	public function _PushError($о)
+		{
+		эОтладки( __CLASS__);
+		эОтладки($о);
+		}
+	}
+function фОшибка($str)
+	{
+	return FALSE;
+	}
+
+// © A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com 2021
+class ОповещениеСостояние
+	{
+	private $E	= array(
+			
+			);
+	private $D	= array(
+			
+			);
+	private $R	= array(
+			
+			);
+	public  $O	= array(
+			
+			);
+	private function _VoidAuthorAndSystemName()
+		{
+		//system('clear');
+		эEDRO('-------------------------------------------------------------------------------------------------------------------------------------------');
+		эEDRO('----------=ЕДРО:ПОЛИМЕР II (Только чтение) © A.A.CheckMaRev assminog@gmail.com, tubmulur@yandex.ru, hfic.samin@vk.com 2021=----------------');
+		эEDRO('-------------------------------------------------------------------------------------------------------------------------------------------');
+		эEDRO("\n");
+		эEDRO("\n");
+		}
+	public function __construct($о=array())
+		{
+		//print_r($о);
+		}
+	public function  _PushCondition($о=array())
+		{
+		$this->_VoidAuthorAndSystemName();
+		эEDRO('-E--------------------------------------------------------------------D--------------------------------------------------------------------');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                 On aiR Only                                         ');
+		эEDRO('                   Hello                                             -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                         Ori                                         -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('-R--------------------------------------------------------------------O--------------------------------------------------------------------');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -          1Mix.co.uk                                                 ');
+		эEDRO('                                                                     -          https://www.facebook.com/oriuplift                         ');
+		эEDRO('                                                                     -  Near|   https://HiFiIntelligentClub.com/Ori                        ');
+		эEDRO('                                                                     -      |   https://HiFiIntelligentClub.com/OriUplift                  ');
+		эEDRO('                 1Mix.co.uk                                          -  start   https://HiFiIntelligentClub.ru/Ori                         ');
+		эEDRO('                                                                     -      |   https://HiFiIntelligentClub.com/OriUplift                  ');
+		эEDRO('                                                                     -      |   https://Ori.HiFiIntelligentClub.com                        ');
+		эEDRO('                                                                     -      |   https://OriUplift.HiFiIntelligentClub.com                  ');
+		эEDRO('                                                                     -      v   ...HIC.com    after collecting some money                  ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('                                                                     -                                                                     ');
+		эEDRO('-------------------------------------------------------------------------------------------------------------------------------------------');
+
+		//эEDRO __CLASS__);
+		if(isset($о->O))
+			{
+			//print_r($о->O['оСекундомер']);
+			эСкорость('Текущ: '.$о->O['оСекундомер']->sClass.'/'.$о->O['оСекундомер']->sFuncion.': '.$о->O['оСекундомер']->д4Итого);
+			if(is_array($о->O['оСекундомер']->мОценка))
+				{
+				foreach($о->O['оСекундомер']->мОценка as $ч0 => $м)
+					{
+					if(is_array($м))
+						{
+						эСкорость('Превыш: '.$м['сМетод'].': '.$м['д4Итого']);
+						}
+					
+					}
+				}
+			}
+		}
+	}
+function фОтчёт($str)
+	{
+	return TRUE;
+	}
+
+//© A.A.CheckMaRev assminog@gmail.com, tubmulur@yandex.ru, Hfic.Samin@vk.com 2021
+function strParType($_strParName)
+	{
+	$strParName	=$_strParName;
+	       unset($_strParName);
+	$strParType	=substr($strParName,0, 3);
+	switch($strParType)
+	    { //EN
+	    case 'str': //String
+		$strParType='str';
+	    break;
+	    case 'int': //Integer
+		$strParType='int';
+	    break;
+	    case 'flo': //FLoat
+		$strParType='flo';
+	    break;
+	    case 'arr': //Array
+		$strParType='arr';
+	    break;
+	    case 'bIz': //Boolean
+		$strParType='bIz';
+	    break;
+	    case 'obj': //Object
+		$strParType='obj';
+	    break;
+	    case 'tmt': //Type my type
+		$strParType='tmt';
+	    break;
+	    //RU
+	    case 'с': //String
+		$strParType='str';
+	    break;
+	    case 'ч0': //Integer
+		$strParType='int';
+	    break;
+	    case 'ч1': //Integer
+		$strParType='int';
+	    break;
+	    case 'д': //FLoat
+		$strParType='flo';
+	    break;
+	    case 'м': //Array
+		$strParType='arr';
+	    break;
+	    case 'ф': //Boolean
+		$strParType='bIz';
+	    break;
+	    case 'о': //Object
+		$strParType='obj';
+	    break;
+	    case 'тмт': //Type my type
+		$strParType='tmt';
+	    break;
+	    //FR 
+	    //case 'с': //String
+	//	$strParType='str';
+	//    break;
+	//    case 'ч0': //Integer
+	//	$strParType='int';
+	//    break;
+	//    case 'ч1': //Integer
+	//	$strParType='int';
+	//    break;
+	//    case 'д': //FLoat
+	//	$strParType='flo';
+	//    break;
+	//    case 'м': //Array
+	//	$strParType='arr';
+	//    break;
+	//    case 'ф': //Boolean
+	//	$strParType='bIz';
+	//    break;
+	//    case 'о': //Object
+	//	$strParType='obj';
+	//    break;
+	//    case 'тмт': //Type my type
+	//	$strParType='tmt';
+	//    break;
+	    }
+	return $strParType;
+	}
+
+//© A.A.CheckMaRev assminog@gmail.com, tubmulur@yandex.ru, Hfic.Samin@vk.com 2021
+function нольЧИлиС($_сИмя, $_сДанные)
+	{
+	switch(strParType($_сИмя))
+	    {
+	    case 'int':
+		if($_сДанные=='')
+		    {
+		    $сВыход		=0;
+		    }
+		else
+		    {
+		    $сВыход		=$_сДанные;
+		    }
+	    break;
+	    case 'str':
+		if($_сДанные=='')
+		    {
+		    $сВыход		="''";
+		    }
+		else
+		    {
+		    $сВыход		="'".str_replace("'","\'",$_сДанные)."'";
+		    }
+	    break;
+	    }
+	return $сВыход;
+	}
+function intRoundUp($_float)
+	{
+	$float	=$_float;
+	   unset($_float);
+	$intRoundedUp=FALSE;
+	$intDotPos		=strpos($float,'.');
+	if($intDotPos!==FALSE)
+	    {
+	    $float		=substr($float, 0, $intDotPos);
+	    $float++;
+	    $intRoundedUp	=$float;
+	    }
+	else
+	    {
+	    $intRoundedUp	=$float;
+	    //$intPages
+	    }
+	return $intRoundedUp;
+	}
+
+//© A.A.CheckMaRev assminog@gmail.com, tubmulur@yandex.ru, Hfic.Samin@vk.com 2021
+function CheckMaSubstr($_сВход ,$int0Left, $int0Right)   //4 PHP brothers, it's very important to me, to use it with str_replace in common style. Thx. PHP is the best language. CheckMa CPU;
+	{
+	$_сВход		= substr($_сВход, $int0Left, $int0Right);
+	return $_сВход;
+	}
+function rmLb($_str)
+	{
+	return str_replace($_str, array("\r","\n"), '');
+	}
+function фУникальный($мОбработанныеСвойства, $_сТекущееСвойство)
+	{
+	$ф=TRUE;
+	if(empty($мОбработанныеСвойства))
+	    {
+	    return TRUE;
+	    }
+	$сТекущееСвойство	=$_сТекущееСвойство;
+			   unset($_сТекущееСвойство);
+	foreach($мОбработанныеСвойства as $сОбработанноеСвойство)
+	    {
+	    if(mb_strtolower(trim($сОбработанноеСвойство))==mb_strtolower(trim($сТекущееСвойство)))
+		{
+		return FALSE;
+		}
+	    else
+		{
+		$ф=TRUE;
+		}
+	    }
+	return $ф;
+	}
+function сКодировка($с_Вход)
+	{
+	$чВыход		= FALSE;
+	$ч1Длинна	= strlen($с_Вход);
+	$сКодировка	= empty(substr($с_Вход, $ч1Длинна))?'Однобайтная':'Не однобайтная';
+	if($сКодировка=='Не однобайтная')
+	    {//Мы любим счастливых и уставших от прогулок грибников,
+	    ///фОшибка($с_Вход.''.'Не однобайтная');
+	    ///exit;
+	    }
+	return $сКодировка;
+	}
+
+function сНачОтСимвола($_сВход, $_сОт='?', $_nu1BeginOffset=0, $_nu1сОтPlusOffset=1) // Слово  SAME FUNCTIONS 2
+	{
+	if(empty($_сВход)){return FALSE;}
+	$сВход		= substr($_сВход, $_nu1BeginOffset);
+	$сВход		= (string)$сВход;
+	
+	$фСимволНайден	= false;
+	//echo $с_Символ."\n";
+	$ч1Длинна	= strlen($сВход);
+	$ч0Длинна	= ($ч1Длинна-1);
+	$сСлово		= FALSE;
+	for($ч0Шаг=0;$ч0Шаг<=$ч0Длинна;$ч0Шаг++)
+	    {
+	    //echo $сВход[$ч0Шаг]."\n";
+	    if($сВход[$ч0Шаг]==$_сОт)
+		{
+		$фСимволНайден	=true;
+		}
+	    if($фСимволНайден)
+		{
+		$сСлово		.=$сВход[$ч0Шаг];
+		}
+	    }
+	$сСлово	=substr($сСлово, $_nu1сОтPlusOffset);
+	return $сСлово;
+	}
+function сНачДоСимвола($_сВход, $_сДо='?', $_nu1BeginOffset=0, $_nu1сОтPlusOffset=0) // Слово  SAME FUNCTIONS
+	{
+	//if(empty($_сВход)||(strpos($_сВход, $_сДо)===FALSE)){return FALSE;}
+	if(empty($_сВход)){return FALSE;}
+	$сВход		= substr($_сВход, $_nu1сОтPlusOffset);
+	$сВход		= (string)$сВход;
+	$ч1Длинна	= strlen($сВход);
+	$ч0Длинна	= ($ч1Длинна-1);
+	$сСлово		= FALSE;
+	for($ч0Шаг=0;$ч0Шаг<=$ч0Длинна;$ч0Шаг++)
+	    {
+	    $сСлово.=$сВход[$ч0Шаг];
+	    if($ч0Шаг!=0&&($сВход[$ч0Шаг]==$_сДо))
+		{
+		$сСлово		=substr($сСлово,0,-1);
+		return $сСлово;
+		}
+	    else
+		{
+		}
+	    }
+	return $сСлово;
+	}
+
+function сНачОтДоСимвола($_сВход, $_сОт, $_сДо, $_nu1BeginOffset=0, $_nu1сОтPlusOffset=1)
+	{
+	if(empty($_сВход)){return FALSE;}
+	$сВход			= (string)$_сВход;
+	$сОтДо			= FALSE;
+	$сОт			= $_сОт;
+	$сДо			= $_сДо;
+	if($_nu1BeginOffset>0)
+		{
+		$nu1BeginOffset		= $_nu1BeginOffset;
+		$сПослеСмещ		= substr($сВход, $nu1BeginOffset);
+		}
+	else
+		{
+		$сПослеСмещ		= $сВход;
+		}
+	if(strpos($сПослеСмещ, $сДо)===FALSE)
+		{
+		$сОтДо		= FALSE;
+		}
+	else
+		{
+		$сКонецСтр	= сНачОтСимвола($сПослеСмещ, $сОт);
+		$сОтДо		= substr($сОтДо, $_nu1сОтPlusOffset);
+		}
+	return $сОтДо;
+	}
+function сРеверс($_сВход)
+	{
+	if(empty($_сВход)){return '';}
+	$сВход		= (string)$_сВход;
+	$сРеверс	= '';
+	$ч1Длинна	= strlen($сВход);
+	$ч0Длинна	= ($ч1Длинна-1);
+	$ч0Позиция	= $ч0Длинна;
+	for($ч0Шаг=0;$ч0Шаг<=$ч0Длинна;$ч0Шаг++)
+	    {
+	    $сРеверс	.=$сВход[$ч0Позиция];
+	    $ч0Позиция--;
+	    }
+	return $сРеверс;
+	}
+function сКонцДоСимвола($_сВход, $_сДо)
+	{
+	if(strpos($_сВход, $_сДо)===FALSE){return FALSE;}
+	$сВход	= сРеверс($_сВход);
+	$сВход	= сНачДоСимвола($сВход, $_сДо);
+	$сВход	= сРеверс($сВход);
+	return 	$сВход;
+	}
+function сКонцОтДоСимвола($_сВход, $_сОт, $_сДо, $_nu1BeginOffset=1)
+	{
+	$сВход	= сРеверс($_сВход);
+	$сВход	= сНачОтДоСимвола($сВход, $_сОт, $_сДо, $_nu1BeginOffset);
+	$сВход	= сРеверс($сВход);
+	return 	$сВход;
+	}
+function сНомерОбъекта($_сВход)
+	{
+	$сИмяДоТочки    	= сНачДоСимвола($_сВход, '.');
+	$сИмяПослеТочки		= сНачОтСимвола($_сВход, '.');
+	if(strpos($_сВход, ').')===FALSE)
+		{
+		return $сИмяДоТочки.' (0).'.$сИмяПослеТочки;
+		}
+	else
+		{
+		$ч0 = сКонцОтДоСимвола($сИмяДоТочки, '(', ')');
+		if(is_int($ч0))
+			{
+			return str_replace(' ('.$ч0.')', ' ('.$ч0++.')', $сИмяДоТочки).'.'.$сИмяПослеТочки;
+			}
+		else
+			{
+			return $сИмяДоТочки.' (0).'.$сИмяПослеТочки;
+			}
+		}
+	
+	}
+//$this->ч0ВыполненоЧастей++;
+//$this->_Кон();
+
+//© A.A.CheckMaRev assminog@gmail.com, tubmulur@yandex.ru, Hfic.Samin@vk.com 2021
+function мУрлРазобратьПоток($_сВход) 	//Разобрать стрим. Сергею Корякину и его коллеге в Ролексе Вадим Раскумандрину
+	{				//и Люсьене Гусевой из Лапси привет.:)
+			//Алексу Соловьёву тоже привет и всем девчёнкам. Если я ещё раз у вас появлюсь,
+			//скорее всего потому, что решил жениться на одной из вас, а может и на самой великой Люсьене, 
+			//но мне кажется, она уже занята.  :)
+			//Лучшие коляски, прошедшие краштест и дополнительный краштест в СПБ - это Lapsi.ru
+			//Игорю Борисовичу тоже привет. Чекмарёв конкурентам не сдастся. Это все знают.
+			//Согластно философии WhiteHat, если я зашёл на сайт и увидел ошибку, 
+			//обязательно должен написать об этом.
+			//Стараюсь на сайты вобще не ходить, но надо.
+			//Хорошего дня.
+	$м['strLinkAfter2Dot']	= сНачОтСимвола($_сВход, '/', 2);
+	$м['strAddress']	= сНачОтДоСимвола($_сВход, '/', ':', 2);
+	$м['intPort']		= сНачОтДоСимвола($м['strLinkAfter2Dot'], ';', '/', 1);
+	if(strlen($м['intPort'])>6)
+	    {
+	    $м['intPort']	=FALSE;
+	    }
+	
+	$м['strGet']		= сНачОтСимвола($_сВход, '/', 1);
+	return $м;
+	}
+function фCreateListen_lnSock($_сВход)
+	{
+	э($_сВход);
+	$ф			= FALSE;
+	$мУрлПоток		= мУрлРазобратьПоток($_сВход);
+	$intUDP			= 1;
+	$strAddress		=$мУрлПоток['strAddress'];
+	$intPort		=$мУрлПоток['intPort'];
+	$strGet			=$мУрлПоток['strGet'];
+	$intSockListen		= 3;
+	$nu0			= 0;
+    
+	$lnSOCK	=socket_create(AF_INET, SOCK_STREAM, getprotobyname('tcp'));
+	//echo 'http://'.$strAddress.':'.$intPort.'/'.$strGet."\n";
+	if($intPort===FALSE)
+	    {
+	    if(fopen('http://'.$strAddress, "r")===FALSE)
+		{
+		//echo "fopen FALSE"."\n";
+		$ф			= FALSE;
+		//return FALSE;
+		}
+	    else
+		{
+		$ф			= TRUE;
+		//echo "fopen TRUE"."\n";
+		//return TRUE;
+		}
+	    }
+	else
+	    {
+	    $bIzSocket=socket_connect($lnSOCK, $strAddress, $intPort);
+	    if($lnSOCK)
+		{
+		$ф			= TRUE;
+		//echo "fopen TRUE"."\n";
+		//return TRUE;
+		}
+	    else
+		{
+		$ф			= FALSE;
+		//echo "fopen FALSE"."\n";
+		//return FALSE;
+		}
+	    if($bIzSocket)
+		{
+		$ф			= TRUE;
+		//echo "fopen TRUE"."\n";
+		//return TRUE;
+		}
+	    else
+		{
+		$ф			= FALSE;
+		//echo "fopen FALSE"."\n";
+		//return FALSE;
+		}
+	    }
+	if($ф)
+	    {
+	    э('Result TRUE');
+	    }
+	else
+	    {
+	    э('Result FALSE');
+	    }
+	return $ф;
+	}
+
+//© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru
+
+
+function arrAllEventIncomeParametrsFallBack()
+	{
+	$arrO	=  //[arrAction]['arrDesign']['strEvent']
+	array(
+	'arrReality'=>array(
+		'strName'		=>array('int0FallBack'	=>'','int0MaxLength'	=>100,),//
+		'strStyle'		=>array('int0FallBack'	=>'','int0MaxLength'	=>65,),//
+		'strGenre'		=>array('int0FallBack'	=>'','int0MaxLength'	=>65,),//
+		'strHiFiType'		=>array('int0FallBack'	=>'','int0MaxLength'	=>65,),//
+		'intBitrate'		=>array('int0FallBack'	=>'','int0MaxLength'	=>4,),
+		'strCodec'		=>array('int0FallBack'	=>'','int0MaxLength'	=>16,),
+		'int0Page'		=>array('int0FallBack'	=>0, 'int0MaxLength'	=>6,),
+		'int1OnPage'		=>array('int0FallBack'	=>1, 'int0MaxLength'	=>3, 'int0MaxValue'	=>140,),
+		'int1PlayingStationNum'	=>array('int0FallBack'	=>0, 'int0MaxLength'	=>10,),
+		'strPlayingStationStyle'=>array('int0FallBack'	=>'','int0MaxLength'	=>65,),
+		'strPlayingStationId'	=>array('int0FallBack'	=>'','int0MaxLength'	=>150,),
+		'strListenerDate'	=>array('int0FallBack'	=>'','int0MaxLength'	=>150,),),
+        'arrObjects'		=>array(
+		'arrEventData'		=>array('arrEN'		
+					=>array('strAlias'	=>false, 'strTitle'	=>'Title',),
+		'arrRU'			=>array('strAlias'	=>false, 'strTitle'	=>'Заголовок',),),
+		'arrEventTestConditions'=>array('arrEventName'	=>array('int0MaxLength'	=>28,),
+		'arrEventPage'		=>array('strFindTextToMarkExist' 	=>'HIC',),),
+		'arrEventsOnErrors'	=>array('arrEventName'	=>array('strReport'		=>'Event name is too long.',
+									'strPriority'		=>'Urgent',
+									'сУмолч'		=>'/',),
+		'arrEventPage'		=>array('strReport'		=>'Can not open event page: arrEventName',
+									'strPriority'		=>'Urgent',
+									'сУмолч'		=>'/',),),),
+		);
+	return $arrO;
+	}
+
+//$this->ч0ВыполненоЧастей++;
+//$this->_Кон();
+
+//© A.A.CheckMaRev assminog@gmail.com, tubmulur@yandex.ru, Hfic.Samin@vk.com 2021
+function фЖанрОтСлушателя($мВозможныеЖанры, $_сЖанрОтСлушателя)
+	{
+	$ф=TRUE;
+	if(empty($мВозможныеЖанры))
+	    {
+	    return TRUE;
+	    }
+	//print_r($мОбработанныеСвойства);
+	$сЖанрОтСлушателя	=$_сЖанрОтСлушателя;
+		   unset($_сЖанрОтСлушателя);
+	foreach($мВозможныеЖанры as $сВозможныйЖанр)
+	    {
+	    if($сВозможныйЖанр==$сЖанрОтСлушателя)
+		{
+		//echo'$сОбработанноеСвойство:';
+		//echo$сОбработанноеСвойство."\n";
+		//echo'$сТекущееСвойство:';
+		//echo$сТекущееСвойство."\n"."\n";
+		//echo $сОбработанноеСвойство."\n";
+		//echo $сТекущееСвойство."\n"."\n";
+		return FALSE;
+		}
+	    else
+		{
+		$ф=TRUE;
+		}
+	    }
+	return $ф;
+	}
+function мЖанр_мЯзык_мТранскрипция($сВход) //inspired by Ferry Corsten and Armin van Buuren
+	{// Function is in progress. Will be connected to ЕДРО:ПОЛИМЕР, to became complete solution.
+	$сВозврат	=$сВход;
+	$мСтильТрансЯз=
+		array(
+		'trance'=>array('транс', 'екфтсу', 'nhfyc', 'tranc', 'екфтс'),
+		'techno'=>array('техно', 'nt[yj', 'еусртщ', 'tehno', 'еуртщ'),
+		);
+	foreach($мСтильТрансЯз as $сСтиль=>$мТрансЯз)
+		{
+		//$мСтильТрансЯз
+		if(фУникальный($мТрансЯз, $сСтиль)===FALSE)
+			{
+			$сВозврат	=$сСтиль;
+			}
+		}
+	return $сВозврат;
+	}
+function мФразы($_сФраза) // Could be inputed by anyone and after that used in pfrase. Inspired by Armin van Buuren programm, I have heard in record of hour programm on Trance.kG
+	{
+	//
+	//$ч1Длинна	=strlen($_сФраза);
+    
+	///for($ч0Шаг=0;$ч0Шаг<$ч1Длинна;$ч0Шаг++)
+	//    {
+	//    $сСлово		.=$_сВход[$ч0Шаг];
+	//    echo $сСлово;
+	//    }
+	//$arrFreeSearchInputCharExpression=
+	
+	//foreach();
+	//	{
+	//	$str.=preg_replace('/^(Д{1,2})(р{1,2})(а{1,2}|у{1,2})(м{1,2})$/', '$2$3$4','Д');
+	//	$str.=preg_replace('/^(Д{1,2})(р{1,2})(а{1,2}|у{1,2})(м{1,2})$/', '$1$3$4','р');
+	//	$str.=preg_replace('/^(Д{1,2})(р{1,2})(а{1,2}|у{1,2})(м{1,2})$/', '$1$2$4','а');
+	//	$str.=preg_replace('/^(Д{1,2})(р{1,2})(а{1,2}|у{1,2})(м{1,2})$/', '$1$2$3','м');
+	//	}
+	//$м[1]['Drum']['International']['arrPossible']	=array('D','Drum');
+	//$м[1]['Drum']['International']['strMisstake']	=array('D?r?{u|a}?m?');
+	//$м[1]['Drum']['EN']['arrPossible']		=array('D','Drum');
+	//$м[1]['Drum']['EN']['strMisstake']		=array('D?r?{u|a}?m?');
+	//$м[1]['Drum']['RU']['arrPossible']		=array('Д','Драм');
+	//$м[1]['Drum']['RU']['strMisstake']		=array('/^(Д{1,2})(р{1,2})(а{1,2}|у{1,2})(м{1,2})$/','$1');
+    
+	//$м[1]['and']['EN']['arrPossible']		=array('&', "'&'");
+	//$м[1]['and']['EN']['strMisstake']		=
+	//$м[1]['and']['RU']['arrPossible']		=array('&', "'&'");
+	//$м[1]['and']['RU']['strMisstake']		=
+    
+	//$м[1]['Bass']['EN']['strPossible']		=
+	//$м[1]['Bass']['EN']['strMisstake']		=
+	//$м[1]['Bass']['RU']['strPossible']		=
+	//$м[1]['Bass']['RU']['strMisstake']		=
+    
+    
+	//	=>'arrPossible'	=>array('Drum & Bass','D&B'),
+	//		=>'strMisstake'	=>array('Drum & Base')
+	//	);
+	//$м[]=array('Top','100');
+	//return $м;
+	}
+function cФразыЖанр_ИсправитьНаписание($_сВход) //Для предворительной обработки или пользовательского ввода, не для вывода в реальном времени кешированного каталога!
+	{
+	$мИсправить	=
+	//Исправить	Исправлено
+	array(
+	    '&amp;'			=>'&', 
+	    'hip hop'		=>'Hip-Hop', 
+	    'drum and base'		=>'Drum and Bass',
+	    "d'n'b"			=>'Drum and Bass',
+	    "dnb"			=>'Drum and Bass',
+	    "d&b"			=>'Drum and Bass',
+	    'drum and bas'		=>'Drum and Bass',
+	    'r@b'			=>'R&B',
+	    "r'nb"			=>"R'n'B",
+	    '70-80-90'		=>'70x 80x 90x',
+	    '60-70-80-90-20хх'	=>'60x 70x 80x 90x 20хх',
+	    '2000-x'		=>'2000x',
+	    '.'			=>'',
+	    '&#39;'			=>"'",
+	    "90'S"			=>"90's",
+	    "80's-90's-00's"	=>"80's 90's 00's"
+	    );
+	foreach($мИсправить as $сИсправить=>$сИсправлено)
+	    {
+	    if(strpos(mb_strtolower($_сВход), mb_strtolower($сИсправить))!==FALSE)
+		{
+		$_сВход		=str_replace($сИсправить, $сИсправлено, mb_strtolower($_сВход));
+		}
+	    }
+	return $_сВход;
+	}
+function мФразы_ИзвлечьИзвестную($_сВход)
+	{
+	$мФраза['сЧист']	=$_сВход;
+	$мФраза['мФразы']	=array();
+	$мИзвестные	=
+	array(
+	    'Club House',
+	    'Classics 60s',
+	    'Classic Country',
+	    'Classical Guitar',
+	    'Hard Rock Classic',
+	    'Rock Classic',
+	    'Hard Rock',
+	    'Classic Cello',
+	    'Classic Hits',
+	    'Classic Rock',
+	    'Classic Punk',
+	    'Classic Metal',
+	    'Classic Christian',
+	    'Easy Listening',
+	    'Dance classics',
+	    'Rap/Hip Hop',
+	    'Reggae and Dancehall',
+	    'Blues and Rock',
+	    'Talk and Show',
+	    'Trap and House', 
+	    'Classic hits from the 70s',
+	    'Classic Hits',
+	    'Soul and Jazz', 
+	    'Jungle and Bass',
+	    'Rock and Roll' ,
+	    'Rhythm and Blues', 
+	    'Worship and Praise' ,
+	    'Enlightement and truth', 
+	    'B and R', 
+	    'Drum & Bass',
+	    'Drum And Bass', 
+	    'Top 10', 
+	    'Top 40', 
+	    'Top 100', 
+	    'O S T', 
+	    'Progressive trance', 
+	    'Progressive house',
+	    'Музыка для души',
+	    'Все и не только о чтении',
+	    'Лучшая музыка и всех направлений'
+	    );
+	foreach($мИзвестные as $сИзвестная)
+	    {
+	    if(strpos(mb_strtolower($_сВход), mb_strtolower($сИзвестная))!==FALSE)
+		{
+		$_сВход			=str_replace($сИзвестная, '', $_сВход);
+		$мФраза['сЧист']	=$_сВход;
+		$мФраза['мФразы'][]	=$сИзвестная;
+		}
+	    }
+	if(strpos(mb_strtolower($мФраза['сЧист']), 'and')!==FALSE)
+	    {
+	    фОшибка('And^ '.$мФраза['сЧист']);
+	    //$мФраза['сЧист']	=str_replace(array('and','And','AND'), '', $мФраза['сЧист']);
+	    }
+	return $мФраза;
+	}
+
+//© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru
+
+function bIzCheckMaPhone($_strHTTP_USER_AGENT)
+	{
+	$bIz=false;
+	$strUserAgent=strtolower($_strHTTP_USER_AGENT);
+	if(strpos($strUserAgent, 'edro:polimer')!==false)
+		{
+		$bIz=true;
+		}
+	return $bIz;
+	//return true;
+	}
+function bIzAndroid($_strHTTP_USER_AGENT)
+	{
+	$bIz=false;
+	$strUserAgent=strtolower($_strHTTP_USER_AGENT);
+	if(strpos($strUserAgent, 'android')!==false)
+		{
+		$bIz=true;
+		}
+	return $bIz;
+	//return true;
+	}
+function bIzApple($_strHTTP_USER_AGENT)
+	{
+	$bIz=false;
+	$strUserAgent=strtolower($_strHTTP_USER_AGENT);
+	if((strpos($strUserAgent, 'ipad')!==false)||(strpos($strUserAgent, 'iphone')!==false)||(strpos($strUserAgent, 'ipod')!==false))
+		{
+		$bIz=true;
+		}
+	return $bIz;
+	//return true;
+	}
+function bIzDesktop($мPlatform)
+	{
+	$bIz	=false;
+	if(	!$мPlatform['bIzCheckMaPhone']&&
+		!$мPlatform['bIzAndroid']&&
+		!$мPlatform['bIzAppleMobile']&&
+		!$мPlatform['bIzDesktop']&&
+		!$мPlatform['bIzOther']
+			)
+		{
+		$bIz	= true;
+		}
+	return $bIz;
+	}
+function arrUserAgent2Platform($_strHTTP_USER_AGENT)
+	{
+	$мPlatform	=
+		array(
+		'bIzCheckMaPhone'	=> FALSE,
+		'bIzAndroid'		=> FALSE,
+		'bIzAppleMobile'	=> FALSE,
+		'bIzDesktop'		=> FALSE,
+		'bIzOther'		=> FALSE,
+		);
+	if(bIzCheckMaPhone($_strHTTP_USER_AGENT))
+		{
+		$мPlatform['bIzCheckMaPhone']	= true;
+		}
+	elseif(bIzAndroid($_strHTTP_USER_AGENT))
+		{
+		$мPlatform['bIzAndroid']	= true;
+		}
+	elseif(bIzApple($_strHTTP_USER_AGENT))
+		{
+		$мPlatform['bIzAppleMobile']	= true;
+		}
+	elseif(bIzDesktop($мPlatform))
+		{
+		$мPlatform['bIzDesktop']	= true;
+		}
+	else
+		{
+		фОшибка('Unknown platform: '.$_strHTTP_USER_AGENT);
+		$мPlatform['bIzOther']		= true;
+		}
+	return $мPlatform;
+	}
+
+//© A.A.CheckMaRev assminog@gmail.com, tubmulur@yandex.ru, Hfic.Samin@vk.com 2021
+function сПреобразовать($_сСтрока, $_сНаправление="вСтроку") //:вСтроку/вКоманду
+	{
+	$сСтрока		=$_сСтрока;
+    
+	if($_сНаправление=='вСтроку'||$_сНаправление=='вКоманду')
+	    {
+	    $сНаправление	=$_сНаправление;
+		   unset($_сНаправление);
+	    }
+	$мПравилаПреобразования	=
+		array(
+		    "о18о"=> "http://",
+		    "о19о"=> "https://",
+		    "о20о"=> "<" ,
+		    "о21о"=> ">" ,
+		    "о60о"=> "«",
+		    "о61о"=> "»", 
+		    "о22о"=> "\"",
+		    "о28о"=> "/" ,
+		    "о29о"=> "\\",
+		    "о24о"=> "?" ,
+		    "о25о"=> "&" ,
+		    "о26о"=> "=" ,
+		    "о27о"=> " " ,
+		    "о23о"=> "'" ,
+		    "о40о"=> ",",  //
+		    "о42о"=> "-",  //
+		    "о43о"=> ".",  //
+		    "о44о"=> "`",  //
+		    "о55о"=> "´",
+		    "о56о"=> "-",
+		    "о57о"=> "~",
+		    "о58о"=> ".",
+		    "о59о"=> "’",
+		    "о30о"=> ";",
+		    "о32о"=> ":",
+		    "о31о"=> "%",
+		    "о33о"=> "[",  //To integrate
+		    "о34о"=> "]",  //
+		    "о35о"=> "(",  //To integrate
+		    "о36о"=> ")",  //
+		    "о62о"=> "{", 
+		    "о63о"=> "}", 
+		    "о37о"=> "?",  //To integrate
+		    "о38о"=> "!",  //
+		    "о39о"=> "*",  //
+		    "о41о"=> "|",  //
+		    "о45о"=> "~",  //
+		    "о46о"=> "$",  //
+		    "о47о"=> "#",  //
+		    "о48о"=> "@",  //
+		    "о49о"=> "+",  //
+		    "о51о"=> "^",  //
+		    "о52о"=> "%",  //
+		    "о53о"=> "%",  //
+		    "о54о"=> "№",  //63
+		);
+	foreach($мПравилаПреобразования as $сПреобразованноВКоманду=>$сПодлежитПреобразованиюВКоманду)
+	    {
+	    switch($сНаправление)
+		{
+		case 'вСтроку':
+		    $сСтрока	=str_replace($сПреобразованноВКоманду, $сПодлежитПреобразованиюВКоманду, $сСтрока);
+		break;
+		case 'вКоманду':
+		    $сСтрока	=str_replace($сПодлежитПреобразованиюВКоманду, $сПреобразованноВКоманду, $сСтрока);
+		break;
+		}
+	    }
+	return $сСтрока;
+	}
+
+//© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru
+function strArrayRec2JS($_arrReality, $_strLayerName='', $bIzFormat=false, $strFormatLR='')
+	{
+	$bIzFormat	=bIzFormat();
+	$strFormatLR	='<br/>';
+	$strLayerName	=$_strLayerName;
+	       unset($_strLayerName);
+	$arrReality	=$_arrReality;
+	       unset($_arrReality);
+	$strType	='str';
+	$strArray	='';
+	if(!empty($strLayerName))
+	    {
+	    $arrReality	=$arrReality[$strLayerName];
+	    }
+	else
+	    {
+	    //$arrReality	=$arrReality;
+	    }
+	foreach($arrReality as $strName=>$tmtData)
+	    {
+	    $tmtData	=нольЧИлиС($strName, $tmtData);
+	    $strType	=strParType($strName);
+	    if($strType=='arr')
+		{
+		//print_r($arrReality);
+		$strArray	.=$strName.'=';
+		$strArray	.='{';
+		$strArray	.=$bIzFormat?$strFormatLR:'';
+		$strArray	.=strArrayRec2JS($arrReality, $strName, $bIzFormat, $strFormatLR);
+		$strArray	.='}';
+		$strArray	.=$bIzFormat?$strFormatLR:'';
+		}
+	    else
+		{
+		if($tmtData==='')
+		    {
+		    $tmtData="''";
+		    }
+		$strArray	.="'".$strName."'".':'.$tmtData.',';
+		$strArray	.=$bIzFormat?$strFormatLR:'';
+		}
+	    }
+	$strArray	=substr($strArray, 0, -1);
+	return $strArray;
+	}
+function strArray2JS($_arrReality, $_strArrName='')
+	{
+	//$bIzFormat	=false;
+	$bIzFormat	=true;
+	$strFormatLR	="\n".'<br/>';
+	$strArrName	=$_strArrName;
+	       unset($_strArrName);
+    
+	$str	.=$bIzFormat?$strFormatLR:'';
+	$str	.=strArrayRec2JS($_arrReality, '', $bIzFormat, $strFormatLR);
+	$str	.=$bIzFormat?$strFormatLR:'';
+    
+	$str	=str_replace(','.$strFormatLR.'}', $strFormatLR.'}', $str);
+	return $str;
+	}
+
+//$this->ч0ВыполненоЧастей++;
+//$this->_Кон();
+
+//© A.A.CheckMaRev assminog@gmail.com, tubmulur@yandex.ru, Hfic.Samin@vk.com 2021
+function сКодировать($_сСтрокаДляКодирования, $_сДействие='к', $_сКлючь="HiFiIntelligentClub") //E or  /d
+	{
+	unset($_сКлючь); //Depricated 28.august.2020 Hfic.Samin
+	$сДляКодирования	=(string)$_сСтрокаДляКодирования;
+	               unset($_сСтрокаДляКодирования);
+	$сКлючь			=сКлючь();
+	$сДействие		=$_сДействие;
+		   unset($_сДействие);
+    
+	$сПослеКодирования	='';
+    
+	switch($сДействие)
+	    {
+	    case 'к':
+	    break;
+	    case 'д':
+		$сДляКодирования=base64_decode(сПреобразовать($сДляКодирования,'вСтроку'));
+	    break;
+	    }
+	$чДлинаКлюча		=strlen($сКлючь);
+	    
+	$чДлинаСтрокиДляКодирования	=strlen($сДляКодирования);
+	$чТекущаяПозицияКлюча		=0;
+	for($чШаг=0;$чШаг<$чДлинаСтрокиДляКодирования;$чШаг++)
+	    {
+	    //echo '$сДляКодирования[$чШаг]^$сКлючь[$чТекущаяПозицияКлюча]'.$сДляКодирования[$чШаг].'-'.$сКлючь[$чТекущаяПозицияКлюча]."\n";
+	    $сПослеКодирования.=$сДляКодирования[$чШаг]^$сКлючь[$чТекущаяПозицияКлюча];
+	    if($чТекущаяПозицияКлюча==$чДлинаКлюча-1)
+		{
+		$чТекущаяПозицияКлюча=0;
+		}
+	    else
+		{
+		$чТекущаяПозицияКлюча++;
+		}
+	    }
+	switch($сДействие)
+	    {
+	    case 'к':
+		$сПослеКодирования=сПреобразовать(base64_encode($сПослеКодирования), 'вКоманду');
+	    break;
+	    case 'д':
+	    break;
+	    }
+	return $сПослеКодирования;
+	}
+function сЕХЕ($_сСтрокаДляКодирования)
+	{
+	$сДляКодирования		=(string)$_сСтрокаДляКодирования;
+	$сКлючь				=(string)сКлючь();
+	$ч1ДлинаКлюча			=strlen($сКлючь);
+	$ч1ДлинаСтрокиДляКодирования	=strlen($сДляКодирования);
+	$ч0ТекущаяПозицияКлюча		=0;
+	for($ч0Шаг=0;$ч0Шаг<$ч1ДлинаСтрокиДляКодирования;$ч0Шаг++)
+	    {
+	    //$сКод	.=($сДляКодирования[$ч0Шаг]^$сКлючь[$ч0ТекущаяПозицияКлюча]).$сКлючь[$ч0ТекущаяПозицияКлюча];
+	    $сКод	.=$сДляКодирования[$ч0Шаг].$сКлючь[$ч0ТекущаяПозицияКлюча];
+	    if($ч0ТекущаяПозицияКлюча==($ч1ДлинаСтрокиДляКодирования-1))
+		{
+		$ч0ТекущаяПозицияКлюча	=0;
+		}
+	    else
+		{
+		
+		$ч0ТекущаяПозицияКлюча++;
+		}
+	    }
+	return	base64_encode($сКод);
+	}
+function сЕХЕ2($_сСтрокаДляКодирования)
+	{
+	$сДляКодирования		=(string)base64_decode($_сСтрокаДляКодирования);
+	//$сКлючь				=(string)сКлючь();
+	$сДействие			=$_сДействие;
+	$ч1ДлинаСтрокиДляКодирования	=strlen($сДляКодирования);
+	$сКод				='';
+	$odd				=0;
+	for($ч0Шаг=0;$ч0Шаг<$ч1ДлинаСтрокиДляКодирования;$ч0Шаг++)
+	    {
+	    if($odd==0)
+		{
+		//$сКод	.=$сДляКодирования[$ч0Шаг]^$сДляКодирования[($ч0Шаг+1)];
+		$сКод	.=$сДляКодирования[$ч0Шаг];
+		$odd++;
+		}
+	    else
+		{
+		$odd=0;
+		}
+	    }
+	return	$сКод;
+	}
+function strEncode2($_str)
+	{//Testing with JSON with pleasure. Is not used often, but I using it sometimes,
+	//instead of Ruslan Mihailovich Pegov (strLength/3, 3 bytes, [UTF-16?]) rule.
+	$str=base64_encode($_str);
+	$str=str_replace('=','ravno_', $str);
+	return $str;
+	}
+function strEncode($_strString, $_strKey, $_strAct='e') //E or  /d
+	{ //Depricated 28.august 2020 Hfic Samin
+    
+	$strString	=(string)$_strString;
+	               unset($_strString);
+	$strKey		=(string)$_strKey;
+	                   unset($_strKey);
+	$strAct		=$_strAct;
+	       unset($_strAct);
+	
+	switch($strAct)
+	    {
+	    case 'e':
+	    break;
+	    case 'd':
+		$strString=base64_decode(urldecode($strString));
+	    break;
+	    }
+    
+	$intKeyLength		=strlen($strKey);
+	
+	$intSourceStringLength	=strlen($strString);
+	$strStringEncoded	='';
+	$intKeyStep		=0;
+	for($intI=0;$intI<$intSourceStringLength;$intI++)
+	    {
+	    $strStringEncoded.=$strString[$intI]^$strKey[$intKeyStep];
+	    if($intKeyStep==$intKeyLength-1)
+		{
+		$intKeyStep=0;
+		}
+	    else
+		{
+		$intKeyStep++;
+		}
+	    }
+	switch($strAct)
+	    {
+	    case 'e':
+		$strStringEncoded=urlencode(base64_encode($strStringEncoded));
+	    break;
+	    case 'd':
+	    break;
+	    }
+	return $strStringEncoded;
+	}
+    //
+    //	Js Formatter
+    //
+?>
+<?php
+//© A.A.CheckMaRev assminog@gmail.com, tubmulur@yandex.ru, Hfic.Samin@vk.com 2021
+function чРосХэш($_сВход) // 
+	{
+	$мСлово		=array();
+	$сСлово		='';
+	if($_сВход==='')
+	    {
+	    return 0;
+	    }
+    
+	$ч1Длинна	=strlen($_сВход);
+	$ч0Длинна	=($ч1Длинна-1);
+	$чСумма		=0;
+	
+	for($ч0Шаг=0;$ч0Шаг<$ч1Длинна;$ч0Шаг++)
+	    {
+	    $чСумма		=($чСумма+ord($_сВход[$ч0Шаг]));
+	
+	    if(($ч0Шаг!=0&&$_сВход[$ч0Шаг]==" ")||($ч0Шаг==$ч0Длинна))
+		{
+		$чХэш		.=$чСумма.'Ф';
+		$чСумма		=0;
+		}
+	    }
+	return $чХэш;
+	}
+
+//© A.A.CheckMaRev assminog@gmail.com, tubmulur@yandex.ru, Hfic.Samin@vk.com 2021
+function мСобратьO2o($_сВход) // Слово
+	{
+	$мСлово		=array();
+	$сСлово		='';
+	if(empty($_сВход))
+	    {
+	    $мСлово[]='';
+	    return $мСлово;
+	    }
+	
+	$ч1Длинна	=strlen($_сВход);
+	$ч0Длинна	=($ч1Длинна-1);
+	
+	for($ч0Шаг=0;$ч0Шаг<$ч1Длинна;$ч0Шаг++)
+	    {
+	    $сСлово.=$_сВход[$ч0Шаг];
+	    //echo $ч0Шаг;
+	    //echo '<br>';
+	    if(
+	    $ч0Шаг!=0&&
+		(
+		$_сВход[$ч0Шаг]=="_"||
+		$_сВход[$ч0Шаг]=="."
+		)
+	    )
+		{
+		$сСлово		=substr($сСлово,0,-1);
+		$мСлово[]	=$сСлово;
+		$сСлово		='';
+		//echo $ч0Шаг;
+		//echo '<br>';
+		}
+	    if($ч0Шаг==$ч0Длинна)
+		{
+		$мСлово[]	=$сСлово;
+		}
+	    }
+	if(!isset($мСлово[1]))
+	    {
+	    фОшибка($_сВход.'не даёт второго значения О2О');
+	    }
+	return $мСлово;
+	}
+
+
+//http://hifiintelligentclub.com/strArtistName
+//    ?strName			=
+//    &strStyle			=
+//    &strGenre			=trance
+//    &strHiFiType		=/HiFi%20beginner
+//    &intBitrate		=0
+//    &strCodec			=
+//    &int0Page			=38
+//    &int1OnPage		=1
+//    &int0PlayingStationNum	=
+//    &strPlayingStationStyle	=
+//    &strPlayingStationId	=XBUkAnNcbn9eXFBiQxpQY0RnQnh3VUpRYkQbDTkELAо26оо26о
+//    &strStationId		=XBUkAnNcbn9eXFBiQxpQY0RnQnh3VUpRYkQbDTkELAо26оо26о
+
+//$arrr = arrRestrictAndReportActionAndParametrs($_arrIncome=array());
+//print_r($arrr);
+function arrEventParams2Array($_strQuery)
+	{
+	$arrResult	=array();
+	$strQuery	=$_strQuery;
+		   unset($_strQuery);
+
+	$arrQuery=arrPrepare($strQuery);
+	               unset($strQuery);
+
+	foreach($arrQuery as $strQuery)
+		{
+		$arrBeforeValidate		= arrPrepare2($strQuery);
+		$strParamName			= $arrBeforeValidate[0];
+		$strParamValue			= $arrBeforeValidate[1];
+		$arrResult[$strParamName]	= urldecode(urldecode(сПреобразовать($strParamValue, "вСтроку")));
+		}
+	$arrResult	= arrRestrictAndReportEventsAndParametrs($arrResult);
+	return $arrResult;
+	}
+function arrPrepare($_strQuery, $_arrDataTypes=array())
+	{
+	$arrQuery	= array();
+	$strQuery	= $_strQuery;
+	    unset($_strQuery);
+	
+	if(strpos($strQuery, '&'))
+		{
+		$arrQuery	= explode('&', $strQuery);
+		}
+	elseif(strpos($strQuery, '='))
+		{
+		$arrQuery[0]	= $strQuery;
+		//$arrQuery=explode('=', $strQuery);
+		}
+	else
+		{
+		}
+	return $arrQuery;
+	}
+function arrPrepare2($_strQuery, $_arrDataTypes=array())
+	{
+	$arrQuery	= array();
+	$strQuery	= $_strQuery;
+	    unset($_strQuery);
+	if(strpos($strQuery, '='))
+		{
+		$arrQuery	= explode('=', $strQuery);
+		}
+	else
+		{
+		}
+	return $arrQuery;
+	}
+function arrRestrictAndReportEventsAndParametrs($_arrIncome, $_strReplaceName='', $_strReplaceValue='')
+	{
+	$arrResult['strEvent']		= '';
+	$arrResult['arrReality']	= array();
+	$arrFallBack			= arrAllEventIncomeParametrsFallBack();
+	//$arrFallBack['arrFallBack']
+
+	if(is_array($_arrIncome))
+		{
+		$arrIncome['arrReality']	= $_arrIncome;
+				   unset($_arrIncome);
+		}
+	else
+		{
+		$arrIncome		= array();
+		}
+	$strReplaceName			= $_strReplaceName;
+				    unset($_strReplaceName);
+	$strReplaceValue		= $_strReplaceValue;
+				    unset($_strReplaceValue);
+	foreach($arrFallBack['arrReality'] as $strFallBackName=>$arrFallBackParams)
+		{
+		$arrResult['arrReality'][$strFallBackName]	=$arrFallBackParams['int0FallBack']; //attach strFaallBack(defaults)
+
+		foreach($arrIncome['arrReality'] as $strIncomeName=>$strIncomeValue)
+			{
+			if($strFallBackName==$strIncomeName)
+				{
+				if(isset($arrFallBackParams['int0MaxValue'])&&($strIncomeValue>$arrFallBackParams['int0MaxValue']))
+					{
+												фОшибка($strIncomeName.'>'.$arrFallBackParams['int0MaxValue'].': '.$strIncomeValue);
+					$strIncomeValue						= $arrFallBackParams['int0MaxValue'];
+					$arrResult['arrReality'][$strIncomeName]		= $strIncomeValue;
+	    				}
+				if(isset($arrFallBackParams['int0MaxLength'])&&(strlen($strIncomeValue)>$arrFallBackParams['int0MaxLength']))
+					{
+												фОшибка($arrIncome['arrReality'][$strIncomeName].'length>'.$arrFallBackParams['int0MaxLength']);
+					$strIncomeValue						= substr($arrIncome['arrReality'][$strIncomeName],0, $arrFallBackParams['int0MaxLength']);
+					$arrResult['arrReality'][$strIncomeName]		= $strIncomeValue;
+					}
+				else
+					{
+					$arrResult['arrReality'][$strIncomeName]		= $strIncomeValue;
+					}
+				}
+			}
+		}
+	//print_r($arrResult);
+	//exit;
+	return $arrResult['arrReality'];
+	}
+
+//© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com 2021
+
+function arrEventLink($_arrReality, $_strGroove, $_strGrooveData='', $_bIzClearName=false, $strPage=0)
+	{
+	$str;
+	
+	if(is_array($_arrReality))
+	    {
+	    $arrLinks	=$_arrReality;
+		   unset($_arrReality);
+	    }
+	else
+	    {
+	    $arrLinks	=array();
+	    }
+	$strGrooveData		=$_strGrooveData;
+	$strGrooveDataCmd	=сПреобразовать($_strGrooveData, "вКоманду");
+			  unset($_strGrooveData);
+	$strEventLink		='';
+	$strEventParams		='objEvent.arrReality={';
+	$strSearchParams	='';
+    
+	foreach($arrLinks as $strName=>$strData)
+	    {
+	    $strDataCmd	=сПреобразовать($strData, "вКоманду");
+	    
+	    if($strName==$_strGroove)
+		{
+		$strEventLink	.='&'.$strName.'='.$strGrooveDataCmd;
+		$strEventParams	.=$strName.':'.нольЧИлиС($strName, $strGrooveData).',';
+		}
+	    else
+		{
+		if($strName=='int0Page')
+		    {
+		    $strData=0;
+		    }
+		$strEventLink	.='&'.$strName.'='.$strDataCmd;
+		$strEventParams	.=$strName.':'.нольЧИлиС($strName, $strData).',';
+		}
+	    }
+	    $strEventParams	=substr($strEventParams, 0, -1);
+	    $strEventParams	.='};';
+	    //$strEventParams	.='this.className	+=" loading"';
+	    $strEventParams	.='objEvent._ActualizeSearch();';
+	    $strEventParams	.='objEvent._UpdateURLDyn(true, this);';
+	    
+	    $strEventParams	.='return false;';
+	    $arr['strHref']		=' href="/search?'.substr($strEventLink, 1).'" ';
+	    $arr['strOnClick']	=' onClick="'.$strEventParams.'" ';
+    
+	    //$arr['strHref']
+	    //$arr['strOnClick']
+	    // 'onClick="'.$strEventParams.'";';
+	    //echo $arr['onClick'];
+	return $arr;
+	}
+function strEventLink($arr)
+	{
+	return ' '.$arr['strHref'].' '.$arr['strOnClick'].' ';
+	}
+    //
+    //	Управляющий сигнал
+    //
+function strQuery($_strEvent, $_strRequest)
+	{
+	$strEvent=$_strEvent;
+	    unset($_strEvent);
+	//$strEvent=substr($_strEvent,1);
+	
+	$intEventLen=strlen($strEvent);
+	$strQurey=substr($_strRequest,$intEventLen);
+	return substr($strQurey,1);
+	}
+
+function strCheckEvent($strEvent)
+	{
+	if(is_file(сРасположениеО2оDB.'/'.strDataBase.'/Events/'.сПреобразовать($strEvent, "вКоманду").'/run.php'))
+		{
+		$strEvent		= $strEvent;
+		}
+	else
+		{
+		фОшибка('Событие не сществует в реальности!: '.$strEvent);
+		$strEvent		= '/';
+		}
+	return $strEvent;
+	}
+
+//$this->ч0ВыполненоЧастей++;
+//$this->_Кон();
+
+//© A.A.CheckMaRev assminog@gmail.com, tubmulur@yandex.ru, Hfic.Samin@vk.com 2021
+function фДубль($_м_мСтанция, $_мСтанция, $_strGenre) // ifDoubles - will compare all genres of station and station name. 
+	{//If equal - will be listed as different bitrate of the parent station. FallBack is higher bitrate.
+	// Если название и жанры у станций одинаковы, значит станции одинаковы и будут отображаться, 
+	//как разные битрейты станции с таким-же названием.
+	$ф=FALSE;
+	foreach($_м_мСтанция as $мСтанция)
+	    {
+	    if( 
+		($мСтанция['id']	==	$_мСтанция['id'])	&&
+		($мСтанция['genre']	==	$_strGenre)		&&
+		($мСтанция['name']	==	$_мСтанция['server_name'])
+	    )
+		{
+		$ф=TRUE;
+		фОшибка("Найден дубль: ".$_мСтанция['id'].":/".$мСтанция['server_name'].'/'.$_strGenre);
+		break;
+		}
+	    else
+		{
+		//$ф=FALSE;
+		}
+	    }
+	return $ф;
+	}
+function сДляСравнения($сВход)
+	{
+	//радостно слушающих музыку, по всему миру.
+		//Что бы не случилось. Хорошая Музыка выручит душу из любых передряг, 
+		//может даже вернёт в этот мир......
+		//Mr Hfic Samin after "Groove Jet" trip:
+		//Jog dial was funny. Small Krz* LCD display was very, very big!!!
+		//	noughty blue, right behinde my face, and the JOG DIAL itself, imagination 
+		//	flash..where some where in my hand........ooogh! ..... but......
+		//	all music were so silly cool, that i was laoghting all day long. Like!:))
+		//	Where were no silences or pauses. Every touch works perfect.
+		//	Only positive memories. Good emotions for me and my friends.
+	
+		//Mr Hfic Samin after "No f*cking developers maked their job right, b*t!" 
+		//trip:
+		//	Music stops. I can't start it again. Than, can't stop.....
+		//	Carpets were like in the stomach of a monster......
+		//	Bad day! Bad emotions! But.... Carpets and mobile is in a trashcan....
+		//	Negative balance.
+		//My figure prefere the first one.  Hfic.Samin. 2020
+	$сВход	=str_replace($сВход, array( '.', ';', '@', ' '), '');
+	return strtolower($сВход);
+	}
+
+//© A.A.CheckMaRev assminog@gmail.com, tubmulur@yandex.ru, Hfic.Samin@vk.com 2021
+
+function мСобратьФразы($_сВход, $_сБолМал='НеТрог') //'Бол'/'Мал'/'НеТрог'/'МалДиректор'
+	{
+	//echo $_сВход;
+	//exit;
+	$мСлово		=array();
+	$мФраза		=array();
+	$сСлово		='';
+	if(empty($_сВход))
+	    {
+	    return $мФраза;
+	    }
+	$//_сВход		=cФразыСтиль_ИсправитьНаписание($_сВход);
+	$_сВход		=cФразыЖанр_ИсправитьНаписание($_сВход);
+	$мВход		=мФразы_ИзвлечьИзвестную($_сВход);
+		    	   unset($_сВход);
+	$сВход		=$мВход['сЧист'];
+	
+	//$сВход		=$сВход.' ';
+	$мФраза		=$мВход['мФразы'];
+		   unset($мВход);
+	$ч1Длинна	=strlen($сВход);
+	$ч0Длинна	=($ч1Длинна-1);
+	
+	for($ч0Шаг=0;$ч0Шаг<$ч1Длинна;$ч0Шаг++)
+	    {
+	    $сСлово		.=$сВход[$ч0Шаг];
+	    if(
+	    ($ч0Шаг!=0)&&
+		(	
+		($сВход[$ч0Шаг]==" ")||
+		($сВход[$ч0Шаг]==".")||
+		($ч0Шаг==$ч0Длинна)
+		)
+		    )
+		{
+		$сСлово		=substr($сСлово,0,-1);
+		if(фУникальный($мСлово, $сСлово)!==TRUE)
+		    {
+		    фОшибка('Дубль: '.$сВход.' -> '.$сСлово);
+		    }
+		else
+		    {
+		    switch($_сБолМал)
+			{
+			case 'Бол':
+			    $мСлово[]	=mb_strtoupper($сСлово);
+			break;
+			case 'Мал':
+			    $мСлово[]	=mb_strtolower($сСлово);
+			break;
+			case 'НеТрог':
+			    $мСлово[]	=$сСлово;
+			break;
+			case 'МалДиректор':
+			    $мСлово[]	=сПреобразовать(mb_strtolower($сСлово), "вКоманду");
+			break;
+			}
+		    }
+		    $сСлово		='';
+		}
+	    }
+	    /*echo'<pre>';
+	    print_r($мСлово);
+	    echo'</pre>';*/
+	$мФраза		=$мСлово;
+	    //28 august 2020 Hfic Samin simplified solution. Will be beter next time. 
+	    //I doo my fast, as fast as possible. Extra fast. Extra thrust. 
+	    //Trust no one. Dj will save my soul today for vacancies. I hope it will....  :) 
+	    //Today is the last day. So it will not end without update packege. 
+	    //Make it good. We too.
+	return $мФраза;
+	}
+//$this->ч0ВыполненоЧастей++;
+//$this->_Кон();
+
+//© A.A.CheckMaRev assminog@gmail.com, tubmulur@yandex.ru, Hfic.Samin@vk.com 2021
+function strGetDomainZone()
+	{
+	$strLang		=strGetDomainLang();
+	if($strLang=='RU')
+	    {
+	    $strDomain='ru';
+	    }
+	elseif($strLang=='EN')
+	    {
+	    $strDomain='com';
+	    }
+	else
+	    {
+	    $strDomain='com';
+	    }
+	return $strDomain;
+	}
+function strGetDomainLang()
+	{
+	if(strpos(strtolower($_SERVER['SERVER_NAME']), 'hifiintelligentclub.ru')!==FALSE)
+	    {
+	    $strLang='RU';
+	    }
+	elseif(strpos(strtolower($_SERVER['SERVER_NAME']), 'hifiintelligentclub.com')!==FALSE)
+	    {
+	    $strLang='EN';
+	    }
+	elseif(strpos(strtolower($_SERVER['SERVER_NAME']), '192.168.1.198')!==FALSE)
+	    {
+	    $strLang='EN';
+	    }
+	elseif(strpos(strtolower($_SERVER['SERVER_NAME']), 'ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion')!==FALSE)
+	    {
+	    $strLang='EN';
+	    }
+	else	
+	    {
+	    $strLang='EN';
+	    фОшибка('strGetDomainName():'.$_SERVER['SERVER_NAME'].$strLang.' do not have RU or COM suffix and dont 192.168.1.198 or onion');
+	    }
+	return $strLang;
+	}
+function strGetFallBackLanguage()
+	{
+	$strZone	=strGetDomainLang();
+	if($strZone=='ru')
+	    {
+	    $strFallBackLang='RU';
+	    }
+	elseif($strZone=='onion')
+	    {
+	    $strFallBackLang='EN';
+	    }
+	elseif($strZone=='com')
+	    {
+	    $strFallBackLang='EN';
+	    }
+	else
+	    {
+	    $strFallBackLang='EN';
+	    }
+	return $strFallBackLang;
+	}
+
+//© A.A.CheckMaRev assminog@gmail.com, tubmulur@yandex.ru, Hfic.Samin@vk.com 2021
+		          /*© A.A.CheckMaRev assminog@gmail.com*/
+		    ////// 				//
+		   //   /\ RCe			/////////
+		      //  <  **> 				//
+		     //     Jl   				//
+		    //////				/////////
+		    //$_arrData=array('strDir'=>'dir', 'strFile'=>'file');
+//function сПреобразовать($_str)
+//	{
+//	str_replace('"','',$_str);
+//	return $str;
+//	}
+//echo  $strJSON	=MyJSON::str(array(
+//			'arrJSON'=>
+//			array(
+//				'a'=>'asdasd', 
+//				'asd'=>
+//				array(
+//					'a'=>
+//					array(
+//					'a'=>'aaa'
+//					)
+//				)
+//			)
+//		));
+
+class MyJSON
+	{
+	public $str	='';
+	public $arr	=array();
+	public function __construct(
+		$_arrData=
+		array(
+			'arrJSON'=>array(),
+			'strJSON'=>''
+			)
+		)
+		{
+		
+		if(!empty($_arrData['arrJSON'])&&is_array($_arrData['arrJSON']))
+			{
+			$this->str	=$this->strMyJSONRec(($_arrData['arrJSON']));
+			}
+		}
+	private function strMyJSONRec($_arrJSON)
+		{
+		if(is_array($_arrJSON))
+			{
+			$str	='{';
+			foreach($_arrJSON as $srtName=>$_Value)
+				{
+				if(!is_int($srtName))
+					{
+					$str	.='"'.сПреобразовать($srtName, "вКоманду").'":';
+					}
+				if(is_array($_Value))
+					{
+					$str	.=$this->strMyJSONRec($_arrJSON[$srtName]);
+					}
+				else
+    					{
+					$str	.='"'.сПреобразовать($_Value, "вКоманду").'", ';
+					}
+				}
+			$str	=substr($str,0,-2);
+			$str	.='}, ';
+			}
+		return $str;
+		}
+	public static function str($_arrJSON)
+		{
+		$objMyJSON	=new MyJSON($_arrJSON);
+		return substr($objMyJSON->str,0,-2);
+		}
+	public static function arr()
+		{
+		}
+	}
+function strMyJsonRec($_arrJson)
+	{
+	if(is_array($_arrJson))
+	    {
+	    $str	='{';
+	    foreach($_arrJson as $srtName=>$_Value)
+		{
+		if(!is_int($srtName))
+		    {
+		    $str	.='"'.сПреобразовать($srtName, "вКоманду").'":';
+		    }
+		if(is_array($_Value))
+		    {
+		    $str	.=strMyJsonRec($_arrJson[$srtName]);
+		    }
+		else
+		    {
+		    $str	.='"'.сПреобразовать($_Value, "вКоманду").'", ';
+		    }
+		}
+	    $str	=substr($str,0,-2);
+	    $str	.='}, ';
+	    }
+	return $str;
+	}
+function strMyJson($_arrJson)
+	{
+	return substr(strMyJsonRec($_arrJson),0,-2);
+	}
+ 
+//© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com
+function д4Время()
+	{
+	return round(microtime(true), 4);
+	}
+
+//© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com 2021
+//$this->O['оСекундомер'] 		= new Секундомер(__CLASS__, __FUNCTION__);
+//					$this->O['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
+//					$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
+class Секундомер
+	{
+	private  $м		= array();
+	private  $д4Старт	= 0.00;
+	private  $д4Стоп	= 0.00;
+	public   $д4Итого 	= 0.00;
+	public  $sClass		= '';
+	public  $sFuncion	= '';
+	public   $мОценка	= array();											// o20
+	public function __construct($sClass, $sFuncion)                                            		//	><	//  .  .      //////// /
+		{       
+		$this->sClass	= $sClass;                                                      		//	Роскосмос . >< .
+		$this->sFuncion = $sFuncion;
+		//switch($сЕсли, $сОценкаДля= ОблакоРегРу480рВМес)                                          /////   ......    //     ////
+		//	{                                                              		 //////////    / .      .  /         /
+			                                                               		////////....../ .        . /////   / 
+		$this->м[$sClass]['д4Вкл']	= д4Время();                                        //                       .      .
+			        					//	              //           ....
+		}											/////////
+	public function _Старт($sClass, $sFuncion)							//
+		{											// new Скорость
+		$this->м[$sClass][$sFuncion]['д4Старт']	= д4Время();
+		$д4Старт				= $this->м[$sClass]['д4Вкл'];
+		$д4Стоп					= $this->м[$sClass][$sFuncion]['д4Старт'];
+		$this->д4Итого				= round($д4Стоп	 - $д4Старт, 4);
+							$this->_Оценка();
+		}
+	public function _Стоп($sClass, $sFuncion)
+		{
+		$this->м[$sClass][$sFuncion]['д4Стоп']	= д4Время();
+		$д4Старт				= $this->м[$sClass][$sFuncion]['д4Старт'];
+		$д4Стоп					= $this->м[$sClass][$sFuncion]['д4Стоп'];
+		$this->д4Итого				= round($д4Стоп - $д4Старт, 4);
+							$this->_Оценка();
+		///print_r($this);
+		}
+	private function _Оценка()
+		{
+		if($this->д4Итого>0.01)
+			{
+			$this->мОценка[]		= array(
+							'сМетод'	=> $this->sClass.'/'.$this->sFuncion,
+							'д4Итого'	=> $this->д4Итого
+							);
+			}
+		}
+	}
+?>//© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com
+<?php
+class ЕДРО
+	{
+	public $Е	= FALSE;
+	public $Д	= 'Прочитать';
+	public $Р	= 'json';
+	public $О	= 'php';
+	public function __construct($сД, $сРасположение)
+		{
+		switch($сД)
+			{
+			case'Прочитать':
+				$this->_ПрочитатьD($сРасположение);
+
+			break;
+			}
+		}
+	private function _ПрочитатьD($сРасположение)
+		{
+		$this->Р	= FileRead::objJSON($сРасположение.'.EDRO');
+		}
+	private function сПрочитатьO($сРасположение)
+		{
+		//if(is_file($сРасположение.'/0.php'))
+		//	{
+		//	}
+		//echo $сРасположение;
+		}
+	}
+
+// © A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru 2021
+class EDRO
+	{
+	private $E	= array(  //ВходящиеНастройки ([E]vent are starting, then we'w got the setup of the event)
+			//	'дбг_сВходящиеНастройки' => '',
+			//	'мВходящиеНастройки'	=> array(),
+			'strName'			=> '', // /
+			'strExt'			=> '', // .cvb
+			'arrEvenParams'			=> array(),
+			'arrAcceptContent'		=> array(),
+			'bIzDynamic'			=> FALSE,
+			);
+	private $D	= array( //НастройкиЭлементаНадКоторымПроизводитсяРабота([D]esign - the screen in front of listener's eyes)
+			//	'дбг_сНастройкиЭлемента'=> '',
+			//	'мНастройкиЭлемента'	=> array(),
+			'arrHaveLanguage'		=> array(),
+			'arrHaveContentType'		=> array(),
+			'arrHaveEncoding'		=> array(),
+			'arrAllowedAccess'		=> array(),
+			'strAllowedConnection'		=> array(),
+			
+			);
+	private $R	= array( //Состояние операционной среды Реальность ([R]eality)
+			'strAction'		=> '', //GET
+			'strProto'		=> '', //HTTP/x.x
+			'strTo'			=> '', //Host
+			'strFrom'		=> '',
+			'strAcceptLanguage'	=> '',
+			'strAcceptEncoding'	=> '',
+			'bIzDynamic'		=> FALSE,
+			'ч1Слушатель'		=> 0,
+			'сДоступ'		=> '/Listener',
+			'arrPlatform' 		=> array(),
+			);
+	public $O	= array( //Использующиеся объекты для работы и их настройки по-умолчанию. ([O]bjects)
+			'оОшибка'		=> '',
+			'оСостояние'		=> '',
+			'оСекундомер'		=> '',
+			//	'оКИМ'			=> '',
+			//	'оЖурнал'		=> '',
+			);
+	public function __construct($strHeaders)
+		{
+		$this->O['оОшибка'] 		= new ОповещениеОшибка();
+		$this->O['оСостояние'] 		= new ОповещениеСостояние();
+		$this->O['оСекундомер'] 	= new Секундомер(__CLASS__, __FUNCTION__);
+		$oEvent				= new Event($strHeaders);
+		$this->E			= $oEvent->E;
+		$this->R			= $oEvent->R;
+					    unset($oEvent);
+		$oDesign			= new Design($this->E);
+		///print_r($this);
+		//exit;
+		//$arr			= arrEventParams2Array($_сЗаголовки);
+		/*if($this->R['bizReadedBlock']===TRUE)
+			{
+			$мЗаголовки			= explode("\n", $this->R['strReadedBlock']);
+			foreach($мЗаголовки as $сЗапрос)
+				{
+				if(strpos($сЗапрос, ': ')!==FALSE)
+					{
+					$this->R['мЗаголовки'][сНачДоСимвола($сЗапрос, ':')]	= сНачОтСимвола($сЗапрос, ' ');
+					}
+				}
+			if(isset($this->R['мЗаголовки']['ч1Слушатель']))
+				{
+				$this->R['ч1Слушатель']			= $this->R['мЗаголовки']['ч1Слушатель'];
+				if(is_file($this->E['сСлушатель'] 	= сРасположениеО2о.$this->R['сДоступ'].'/'.$this->R['ч1Слушатель'].cЗаписьО2о))
+					{
+					$this->E['strListenerBlock']		= file_get_contents($this->E['сСлушатель']);
+					}
+				else
+					{
+					$this->R['сОшибка']			= 'fread(рПередача empty.';
+										$this->O['оОшибка']->_PushError($this);
+					}
+				}
+			}
+		else
+			{
+			$this->R['мЗаголовки']			= array();
+			}*/
+		//print_r($arr);
+		//$this->O['oEvent']			= new Event($strHeaders);
+		
+		///$this->O['oDesign']			= new Design($this->O['oEvent']->E);
+		}
+	}
+
+                     /*_____
+© Andrey Chekmaryov 2021
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Email:    Hfic.Samin@vk.com
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|         ЕДРО:ПОЛИМЕР
+ ////// 2021                   /////  /  
+//        /\                  // /      
+//      <  **>               /// /     
+ //////   jl                ///// /   
+./././././././*/
+//
+
+class Event
+	{
+	public $E	= array(  //ВходящиеНастройки ([E]vent are starting, then we'w got the setup of the event)
+			//	'дбг_сВходящиеНастройки' => '',
+			//	'мВходящиеНастройки'	=> array(),
+			'strName'			=> '', // /
+			'strExt'			=> '', // .cvb
+			'bIzDynamic'			=> FALSE,
+			'arrEvenParams'			=> array(),
+			'arrAcceptContent'		=> array(),
+
+			);
+	public $D	= array( //НастройкиЭлементаНадКоторымПроизводитсяРабота([D]esign - the screen in front of listener's eyes)
+			///	'дбг_сНастройкиЭлемента'=> '',
+			//	'мНастройкиЭлемента'	=> array(),
+			'arrHaveLanguage'		=> array(),
+			'arrHaveContentType'		=> array(),
+			'arrHaveEncoding'		=> array(),
+			'arrAllowedAccess'		=> array(),
+			'strAllowedConnection'		=> array(),
+			
+			);
+	public $R	= array( //Состояние операционной среды Реальность ([R]eality)
+			'strAction'		=> '', //GET
+			'strProto'		=> '', //HTTP/x.x
+			'strTo'			=> '', //Host
+			'strFrom'		=> '',
+			'strAcceptLanguage'	=> '',
+			'strAcceptEncoding'	=> '',
+			// 'ч1Слушатель'		=> 0,
+			// 'сДоступ'		=> '/Listener',
+			'arrPlatform' 		=> array(),
+			// 'strUserAgent']	=> '',
+			);
+	public $O	= array( //Использующиеся объекты для работы и их настройки по-умолчанию. ([O]bjects)
+			'оОшибка'		=> '',
+			'оСостояние'		=> '',
+			'оСекундомер'		=> '',
+			);
+	
+	public function __construct($_сЗаголовки)
+		{
+		$this->O['оОшибка'] 			= new ОповещениеОшибка();
+		$this->O['оСостояние'] 			= new ОповещениеСостояние();
+		$this->O['оСекундомер'] 		= new Секундомер(__CLASS__, __FUNCTION__);
+		$сЗаголовки				= $this->strSafeUsers($_сЗаголовки);
+									unset($_сЗаголовки);
+
+		$мЗаголовки				= explode("\n", $сЗаголовки);
+
+		//$arrEvent['O']['oEDRO'];
+		///$arrEvent['O']['oEDRO']->Content-Type	= 'text/html';
+		///$arrEvent['O']['oEvent']->Server-name	= 'EDRO:POLIMER';
+
+		foreach($мЗаголовки as $strListenerReality)
+			{
+			if(($strListenerRealityName=сНачДоСимвола($strListenerReality, ' '))!==FALSE)
+				{
+				$strListenerRealityName		= str_replace(':' ,'' ,$strListenerRealityName);
+				if($strListenerRealityName=="GET"||$strListenerRealityName=="POST")//||$strListenerRealityName=="PUT"
+					{
+					$this->R['strAction']			= сНачДоСимвола($strListenerReality, ' ');
+					$this->R['strProto']			= сКонцДоСимвола($strListenerReality, ' ');
+					$strEvent				= trim(CheckMaSubstr($strListenerReality , strlen($strListenerRealityName),  -strlen($this->R['strProto'])));
+					$this->E['strName']			= сНачДоСимвола($strEvent, "?");
+					$strEvenParams				= сНачОтСимвола($strEvent, "?", 0, 1);
+					$this->E['arrEvenParams']		= arrEventParams2Array($strEvenParams);
+					$this->E['strExt']			= сКонцДоСимвола($this->E['strName'], '.');
+					$this->E['bIzDynamic']			= $this->bIzDynamic($strEvenParams);
+					}
+				elseif($strListenerRealityName=='Host')
+					{
+					$this->R['strTo']			= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					}
+				elseif($strListenerRealityName=='Accept')
+					{
+					$arr=explode(',' ,trim(сНачОтСимвола($strListenerReality, ":", 0, 1)));
+					if(is_array($arr))
+						{
+						}
+					else
+						{
+						$arr	=array();
+						}
+					$this->E['arrAcceptContent']		= $arr;
+					}
+				elseif($strListenerRealityName=='Connection')
+					{
+					//$this->R['strConnection'] 		= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					}
+				elseif($strListenerRealityName=='User-Agent')
+					{
+					$strUserAgent				= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					$this->R['arrPlatform'] 		= arrUserAgent2Platform($strUserAgent);
+					}
+				elseif($strListenerRealityName=='Accept-Language')
+					{
+					$this->R['strAcceptLanguage'] 		= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					}
+				elseif($strListenerRealityName=='Accept-Encoding')
+					{
+					$this->R['strAcceptEncoding']		= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					}
+				elseif($strListenerRealityName=='Referer')
+					{
+					$this->R['strFrom'] 			= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					}
+				elseif($strListenerRealityName=='Cache-Control')
+					{
+					//$this->R['strCacheControl'] 		= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					}
+				elseif($strListenerRealityName=='Pragma')
+					{
+					//$this->R['strPragma'] 		= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					}
+				elseif($strListenerRealityName=='Upgrade-Insecure-Requests')
+					{
+					//$this->R['strUpgradeInsecureRequests']= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					}
+				elseif($strListenerRealityName=='Sec-Fetch-Site')
+					{
+					}
+				elseif($strListenerRealityName=='Sec-Fetch-Mode')
+					{
+					}
+				elseif($strListenerRealityName=='Sec-Fetch-User')
+					{
+					}
+				elseif($strListenerRealityName=='Sec-Fetch-Dest')
+					{
+					}
+				else
+					{
+					$this->R[$strListenerRealityName]	= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					фОтчёт('Unusall position of Event string $arrEvent[arrListener][strEvent]: '.$strListenerRealityName.'/'.сНачОтСимвола($strListenerReality, ":", 0, 1));
+					}
+				}
+			}
+
+		//file_put_contents('/home/1.ЕДРО:ПОЛИМЕР2/журнал.txt', $сЗаголовки."\r\n\r\n", FILE_APPEND);
+		//$сЗаголовки		= $this->strSafeUsers($_сЗаголовки);
+		//$this->arrEvent		= arrRequest2IndexArray(explode("\n", $сЗаголовки));
+		/*
+
+		$this->arrEvent['arrListener']['strConnection']['strObject']	= '/';
+		$this->arrEvent['arrListener']['strConnection']['strObjectType']	= 'audio/wav';
+		*/
+
+		/*$this->arrEvent				= arrGetEventSetter($мЗаголовки);
+							print_r($this->arrEvent);
+		$this->arrEvent['bIzDynamic']		= $this->bIzDynamic();
+		$this->arrEvent['strArrReality']	= '';
+		
+		if($this->arrEvent['bIzDynamic'])
+			{
+			
+			}
+		else
+			{
+			$this->arrEvent['strObjectReality']	= 'objEvent.arrReality={'.strArrayRec2JS($this->arrEvent, 'arrReality').'};';
+			}*/
+
+		/*$arrAllParams	=
+		array(
+			'strAppTitle'			=>'',
+			'strAppMembrane'		=>'',
+			'strAppCRCS'			=>'',
+			'intAppETime'			=>0,
+
+			'strPageTitle'			=>'',
+			'strPageMembrane'		=>'',
+			'strPageCRCS'			=>'',
+			'intPageOTime'			=>0,
+
+			'strListenerPlayingStaionId'	=>'',
+			'strListenerSearchStaionName'	=>'',
+			'strListenerStyle'		=>'',
+			'intListenerBitrate'		=>0,
+			'intListenerPage'		=>0,
+			'intListenerOnPage'		=>0,
+
+			'strEventURL'			=>'',
+			'strEventURLD'			=>'',
+			'strEventEDRO_URL'		=>'',
+			);*/
+		}
+	private function strSafeUsers($_strRequest)
+		{
+		return str_replace(array('%3C','%3E',"<",">",'о20о','о21о', 'U+02C2', 'U+02C3', 'U+003E', 'U+003C'), "_", $_strRequest);
+		}
+	private function bIzDynamic($strEvenParams)
+		{
+		$bIzDynamic	= FALSE;
+		if(strpos($strEvenParams, '&d=')!==FALSE)
+			{
+			$bIzDynamic	= TRUE;
+			}
+		return $bIzDynamic;
+		}
+	public function strRealityInit()
+		{
+		$str='<script>';
+			//$str.='alert(\'x\');';
+			$str.='console.log(\'[V]EDRO.Event: strParamsInit()\');';
+			$str.=rmlb($this->arrEvent['strObjectReality']);
+			$str.='objEvent._Search();';
+			$str.='console.log(\'[.]EDRO.Event: strParamsInit()\');';
+		$str.='</script>';
+		return $str;
+		}
+	public static function strOConstruct($_strClassName)
+		{
+		$strClassName	=$_strClassName;
+			   unset($_strClassName);
+		$strObjName	='obj'.$strClassName;
+		$str="
+		<script>
+			console.log('[V]EDRO.Objects.".$strObjName.": Init ".$strClassName."');
+
+			var ".$strObjName."=new ".$strClassName."();
+			console.log('[.]EDRO.Objects.".$strObjName.": Init ".$strClassName."');
+		</script>
+		<script>
+			if(typeof(".$strObjName.")!='object')
+				{
+				objKIIM.parentNode.classList.remove('hidden');
+				objKIIM.innerHTML+='".$strObjName.".construct() error.<br/>';
+				}
+		</script>";
+		return $str;
+		}
+	public static function strObjectDeclare()
+		{
+		$str	=<<<oо2оo
+		<script>
+			console.log('[V]EDRO.Event: Declare');
+			var bizHiFiNavigationInputSelect	=false;
+			class Event
+				{
+				constructor()
+					{
+					console.log('[Vv]EDRO.Event: Constructor');
+					//this.strURL		='';
+					this.strEvent 		='';
+					this.objXHR		=new XMLHttpRequest();
+					this.strURL		='';
+					this.strURLDyn		='';
+					this.arrReality		=[];
+					this.arrRealityPair	=[];
+					this.arrRealityTemp	=[];
+					/*this.arrReality={
+						'strPlayingStationId'	:'',
+						'strName'		:'',
+						'strStyle'		:'',
+						'intBitrate'		:'',
+						'strCodec'		:'',
+						'int0Page'		:0,
+						'int1OnPage'		:3,
+						'int0PlayingStationNum'	:0,
+						};*/
+					this.strParams		='';
+					//console.log(this.arrReality);
+					this.objNav		={'HFIC':'ICQR'};
+					this._SetLanguageMood();
+					this._SetRoleSignal();
+					document.onkeydown=function(e)
+						{
+						console.log(e.keyCode);
+						switch(e.keyCode)
+							{
+							case 9: //TAB
+
+							break;
+							case 32: //SpaceBar space fun :)
+
+							break;
+							case 27: //ESC
+								    
+							break;
+							case 37: //<-
+								objHiFiNavigation	=new HiFiNavigation();
+								if(objHiFiNavigation.objLeft.href)  //f&objHiFiNavigation.objRight.int0Page<=objHiFiNavigation.objRight.href.int0PageMaximum
+									{
+									var arrReality		=objHiFiNavigation.objLeft.href.split('?');
+									objEvent._GoToUrl(arrReality[1]);
+									}
+							break;
+							case 39: //->
+								objHiFiNavigation	=new HiFiNavigation();
+								if(objHiFiNavigation.objRight.href)//&&objHiFiNavigation.objRight.int0Page<=objHiFiNavigation.objRight.href.int0PageMaximu
+									{
+									var arrReality		=objHiFiNavigation.objRight.href.split('?');
+									objEvent._GoToUrl(arrReality[1]);
+									}
+							break;
+							}
+						}
+					window.onpopstate=function(event)
+						{
+						console.log('[Vvv]EDRO.Event: onpopstate');
+						objEvent._GoBack(event.target.location);
+						console.log('[...]EDRO.Event: onpopstate');
+						}
+					this.objXHR.onload	=function()
+						{
+						console.log('[Vvv]EDRO.Objects: objXHR.onload');
+						if(objEvent.objXHR.status==200)
+							{	
+							if(objReality.bIzPlayer)
+								{
+								//console.log(objObjects.objXHR.response);
+								var strAudio 		= objEvent.objXHR.response;
+								//strAudio
+								objPlayer.objAudio.src		=strAudio;
+								objPlayer.objAudio.volume	=1;
+								objPlayer.objAudio.play();
+								//objPlayer.objAudio.load();
+								objPlayer.objVisibleControlsStopped.setAttribute('playerId', strAudio);
+								objReality.bIzPlayer		=false;
+								objReality.bIzLoading		=false;
+								//alert('ok');
+								}
+							/*if(objReality.bIzDynaScreen)
+								{
+								objDynaScreen.objHTML.innerHTML	=objEvent.objXHR.response;
+								objReality.bIzHistory		=false;
+								objReality.bIzDynaScreen	=false;
+								objReality.bIzLoading		=false;
+								}*/
+							if(objReality.bIzCheckMaNet)
+								{
+								objReality.bIzCheckMaNet	=false;
+								}
+							objReality.bIzPlayer		=false;
+							//objReality.bIzLoading		=false;
+							objReality.bIzHistory		=false;
+							//objReality.bIzDynaScreen	=false;
+							objReality.bIzCheckMaNet	=false;
+							objPlayer.updateOnReload();
+							objDynaScreenEventIndicator.objHTML.style.display="none";
+							}
+						else
+							{
+							objReality.bIzPlayer		=false;
+							//objReality.bIzLoading		=false;
+							objReality.bIzHistory		=false;
+							objReality.bIzCheckMaNet	=false;
+							objDynaScreenEventIndicator.objHTML.style.display="none";
+							}
+						console.log('[...]EDRO.Objects: objXHR.onload');
+						}
+					this.objXHR.onProgress		=function(event)
+						{
+						console.log('[Vvv]EDRO.Objects: objXHR.onProgress');
+						if(event.lengthComputable)
+							{
+							//console.log('Получено'+event.loaded+'байт из'+event.total+'байт.');
+							}
+	    					else
+							{
+							//console.log('Получено'+event.loaded+'байт');
+								}
+						console.log('[...]EDRO.Objects: objXHR.onProgress');
+						}
+					this.objXHR.onError=function()
+						{
+						console.log('[Vvv]EDRO.Objects: objXHR.onError');
+						objReality.bIzLoading		=false;
+						objReality.bIzPlayer		=false;
+						objReality.bIzDynaScreen	=false;
+						objReality.bIzCheckMaNet	=false;
+						objReality.bIzError		=true;
+						
+						objDynaScreenEventIndicator.objHTML.style.display="none";
+						console.log('[...]EDRO.Objects: objXHR.onError');
+						}
+						console.log('[..]EDRO.Event: Constructor');
+					}
+				_PlayStation(strPlayerId)
+					{
+					console.log('[Vv]EDRO.Objects: _PlayStation(strPlayerId)');
+					objReality.bIzPlayer			=true;
+					objEvent.arrReality.strListenerDate	=new Date();
+					objEvent.strEvent			='/getStation';
+					objEvent.arrReality.strStationId		=strPlayerId;
+					objEvent._RequestURLDyn();
+					console.log('[..]EDRO.Objects: _PlayStation(strPlayerId)');
+					}
+				_Search()
+					{
+    					console.log('[Vv]EDRO.Objects: _Search()');
+					objReality.bIzDynaScreen		=true;
+					objEvent.strEvent			='/Search';
+					objEvent.arrReality.page			=0;
+					if(objDynaScreenEventIndicator.objHTML!=null)
+						{
+						objDynaScreenEventIndicator.objHTML.style.display="block";
+						}
+					//objEvent.PushEvent; ////// ++
+					this._RequestURLDyn() //objObjects->objEvent
+					console.log('[..]EDRO.Objects: _Search()');
+					}
+				_CheckMaNet()
+					{
+					console.log('[Vv]EDRO.Objects: _CheckMaNet()');
+					objReality.bIzHistory			=false; //objObjects->objReality
+					objEvent.strEvent			='/checkMaNet';
+					objEvent._CreateURL();			//objObjects->objEvent
+					objEvent._Request();			//objObjects->objEvent
+					console.log('[..]EDRO.Objects: _CheckMaNet()');
+					}
+				_GoBack(obj)
+					{
+					console.log('[Vv]EDRO.Objects: _CreateParamsArr(obj)');
+					objReality.bIzHistory		=false;
+					objReality.bIzLoading		=true;
+					objReality.bIzDynaScreen	=true;
+					objReality.intLoadingTime	=0;
+					objEvent.strParams		=obj.search.substr(1);
+					//console.log(objEvent.strParams);
+					objEvent.arrRealityPair		=objEvent.strParams.split("&");
+					
+					//console.log(objEvent.arrRealityPair);
+					Object.keys(objEvent.arrRealityPair).forEach(function(strKey)
+						{
+						objEvent.arrRealityTemp	=objEvent.arrRealityPair[strKey].split('=');
+						objEvent.arrReality[objEvent.arrRealityTemp[0]]	=decodeURIComponent(objEvent.arrRealityTemp[1]);
+						});
+
+					objSearch.objValueInputstrName.value		=objEvent.arrReality.strName;
+					objSearch.objValueInputstrGenre.value		=objEvent.arrReality.strGenre;
+					//objSearch.objValueInputintBitrate.value		=objEvent.arrReality.intBitrate;
+					//objSearch.objValueInputstrCodec.value		=objEvent.arrReality.strCodec;
+
+					console.log(objSearch.objValueInputstrName.value);
+					objEvent.strURL			=obj.pathname+'?'+objEvent.strParams;
+					objEvent.strURLDyn		=objEvent.strURL+'&d=1';//objObjects->objEvent
+					objDynaScreenEventIndicator.objHTML.style.display	="block"; 
+					objDynaScreen.objXHR.open('POST', objEvent.strURLDyn);
+					objDynaScreen.objXHR.send();
+					console.log('[..]EDRO.Objects: _CreateParamsArr(obj)');
+					}
+				_GoToUrl(strParams)
+					{
+					console.log('[Vv]EDRO.Objects: _GoToUrl(strParams)');
+					objReality.bIzHistory		=false;
+					objReality.bIzLoading		=true;
+					objReality.bIzDynaScreen	=true;
+					objReality.intLoadingTime	=0;
+					objEvent.strParams		=strParams;
+					console.log(objEvent.strParams);
+					objEvent.arrRealityPair		=objEvent.strParams.split("&");
+					
+					//console.log(objEvent.arrRealityPair);
+					Object.keys(objEvent.arrRealityPair).forEach(function(strKey)
+						{
+						objEvent.arrRealityTemp	=objEvent.arrRealityPair[strKey].split('=');
+						objEvent.arrReality[objEvent.arrRealityTemp[0]]	=decodeURIComponent(objEvent.arrRealityTemp[1]);
+						});
+
+					objSearch.objValueInputstrName.value		=objEvent.arrReality.strName;
+					objSearch.objValueInputstrGenre.value		=objEvent.arrReality.strGenre;
+
+
+					//console.log(objSearch.objValueInputstrName.value);
+					objEvent.strURL			='/?'+objEvent.strParams;
+					objEvent.strURLDyn		=objEvent.strURL+'&d=1';//objObjects->objEvent
+					objDynaScreenEventIndicator.objHTML.style.display	="block"; 
+					objDynaScreen.objXHR.open('POST', objEvent.strURLDyn);
+					objDynaScreen.objXHR.send();
+					console.log('[..]EDRO.Objects: _GoToUrl(strParams)');
+					}
+				_CreateParamsStr()
+					{
+					console.log('[Vv]EDRO.Reality: _CreateParamsStr()');
+					//console.log(this.arrParam);
+					objEvent.strParams		='';
+					Object.keys(objEvent.arrReality).forEach(function(strKey)
+						{
+						objEvent.arrReality[strKey]	=objEvent.arrReality[strKey];
+						//alert(objEvent.arrReality[strKey]);
+						objEvent.strParams	+='&'+strKey+'='+objEvent.arrReality[strKey];
+						});
+					objEvent.strParams		=objEvent.strParams.substr(1);
+					//alert(objEvent.strParams);
+					console.log('[..]EDRO.Reality: _CreateParamsStr()');
+					}
+				_CreateURLDyn()
+					{
+					console.log('[Vv]EDRO.Objects: _CreateUrl()');
+					objEvent._CreateParamsStr();
+					objEvent.strURL			=objEvent.strEvent+'?'+objEvent.strParams; //objReality->objObjects
+					objEvent.strURLDyn		=objEvent.strURL+'&d=1';//objObjects->objEvent
+					console.log('[..]EDRO.Objects: _CreateURL()');
+					}
+				_RequestURLDyn() //objObjects->objEvent
+					{
+					console.log('[Vv]EDRO.Objects: _Request()');//objObjects->objEvent
+					objReality.bIzHistory					=true;
+					objReality.bIzLoading					=true;
+					objReality.intLoadingTime				=0;
+					objDynaScreenEventIndicator.objHTML.style.display	="block"; 
+					objEvent._CreateURLDyn();
+					objEvent.objXHR.open('POST', objEvent.strURLDyn);
+					objEvent.objXHR.send();
+					if(objReality.bIzHistory)
+						{
+						objEvent.strEvent	='/';
+						objEvent._CreateURLDyn();
+						history.pushState(objEvent.objNav, objEvent.strEvent, objEvent.strURL);
+						}
+					console.log('[..]EDRO.Objects: _Request()');//objObjects->objEvent
+					}
+				_UpdateURLDyn(bIzHistory=true, objProcessing='') //objObjects->objEvent 
+					{//(CAUTION!!!:Inside of updating object must be information of EDRO DESIGN MATRIX position!!)
+					//    //  ///  Don't create functions with declareddestination of the request!! 06.08.2020 ChekMaNet
+					console.log('[Vv]EDRO.Objects: objDynaScreen objXHR.send()'+objEvent.strURL);//objObjects->objEvent
+					
+					objReality.bIzHistory					=bIzHistory;
+					objReality.bIzLoading					=true;
+					objReality.bIzDynaScreen				=true;
+					objReality.intLoadingTime				=0;
+					objDynaScreenEventIndicator.objHTML.style.display	="block"; 
+					objEvent._CreateURLDyn();
+					if(objReality.bIzHistory)
+						{
+						history.pushState(objEvent.objNav, objEvent.strEvent, objEvent.strURL);
+						}
+					objDynaScreen.objXHR.open('POST', objEvent.strURLDyn);
+					objDynaScreen.objXHR.send();
+					if(objProcessing)
+						{
+						objProcessing.classList.remove('loading');
+						}
+					console.log('[..]EDRO.Objects: objDynaScreen objXHR.send()'+objEvent.strURL);//objObjects->objEvent4
+					}
+				_ActualizeSearch()
+					{
+					objSearch.objValueInputstrName.value	=decodeURIComponent(this.arrReality['strName']);
+					objSearch.objValueInputstrGenre.value	=decodeURIComponent(this.arrReality['strGenre']);
+					//objSearch.objValueInputintBitrate.value	=this.arrReality['intBitrate'];
+					//objSearch.objValueInputstrCodec.value	=this.arrReality['strCodec'];
+					}
+				_SetLanguageMood() //objEDRO->strReality['strLangSignal'];
+					{
+					/*console.log('[Vv]EDRO.Reality: Master Mood SET  _SetLanguageMood');
+					document.body.className		+=' '+strSignalLang;
+					console.log('[..]EDRO.Reality: Master Mood SET  _SetLanguageMood');*/
+					}
+				_SetRoleSignal()//Visual placement of the role fact in objEDRO->strReality['strRoleSignal'];
+					{
+					console.log('[Vv]EDRO.Reality: Master Mood SET  _SetRoleSignal()');
+					//this.objRoleSignal		=document.getElementById('SignalRole');		//temp
+					//this.objRoleSignal.innerHTML	=strSignalRole;					//temp
+					console.log('[..]EDRO.Reality: Master Mood SET  _SetRoleSignal()');
+					}
+
+				/*_Send()
+					{
+					console.log('[Vv]EDRO.Event: _Send.');
+					if(objReality.bIzHistory)
+						{
+						console.log('[Vv]EDRO.Event: Push history'+this.strURL);
+						//this.objNav.strSearchName		=objSearch.strValueInputName;
+						//this.objNav.strSearchStyle		=objSearch.strValueInputStyle;
+						//this.objNav.strSearchBitrate		=objSearch.strValueInputBitrate;
+						//this.objNav.strSearchCodec		=objSearch.strValueInputCodec;
+						history.pushState(this.objNav, 'Search', this.strURL);
+						console.log('[..]EDRO.Event: Push history');
+						}
+					}
+				_CheckNetwork()
+					{
+					
+					}*/
+				}
+			console.log('[.]EDRO.Event: Declare');
+		</script>
+oо2оo;
+		return $str;
+		}
+	public static function _V($rRadio)
+		{
+		return new Event($rRadio);
+		}
+	public static function strObjectInit()
+		{
+		return Event::strOConstruct('Event');
+		}
+	}
+
+                     /*_____
+© Andrey Chekmaryov 2021
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Email:    Hfic.Samin@vk.com
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//        /\                  // /   
+//      <  **>               /// /  
+ //////   jl                ///// /    
+./././././././*/
+class Design
+	{
+	private $E	= array(  //ВходящиеНастройки ([E]vent are starting, then we'w got the setup of the event)
+			//	'дбг_сВходящиеНастройки' => '',
+			//	'мВходящиеНастройки'	=> array(),
+			);
+	private $D	= array( //НастройкиЭлементаНадКоторымПроизводитсяРабота([D]esign - the screen in front of listener's eyes)
+			//	'дбг_сНастройкиЭлемента'=> '',
+			//	'мНастройкиЭлемента'	=> array(),
+			'arrHaveLanguage'		=> array(),
+			'arrHaveContentType'		=> array(),
+			'arrHaveEncoding'		=> array(),
+			'arrAllowedAccess'		=> array(),
+			'strAllowedConnection'		=> array(),
+			);
+	private $R	= array( //Состояние операционной среды Реальность ([R]eality)
+			//	'сЗаголовки'		=> '',
+			//	'ч1Слушатель'		=> 0,
+			//	'сДоступ'		=> '/Listener',
+				
+			);
+	public $O	= array( //Использующиеся объекты для работы и их настройки по-умолчанию. ([O]bjects)
+			'оОшибка'		=> '',
+			'оСостояние'		=> '',
+			'оСекундомер'		=> '',
+			);
+	public function __construct($arrE)
+		{
+		$this->O['оОшибка'] 			= new ОповещениеОшибка();
+		$this->O['оСостояние'] 			= new ОповещениеСостояние();
+		$this->O['оСекундомер'] 		= new Секундомер(__CLASS__, __FUNCTION__);
+		$strTemplate				= сРасположениеО2оDB.сНазваниеО2оDB.'/Events/'.сПреобразовать($arrE['strName'], "вКоманду");
+		$this->O['оЕДРО'] 			= new ЕДРО('Прочитать', $strTemplate);
+		print_r($this);
+		exit;
+		}
+	public static function strObjectInit()
+		{
+		return Event::strOConstruct('Design');
+		}
+	public static function strObjectDeclare()
+		{
+		$str	=<<<oo2oo
+		<script>
+			console.log('[V]EDRO.Design: Declare');
+			class Design
+				{
+				constructor()
+					{
+					console.log('[Vv]EDRO.Design: Construct');
+					this.objStationsOnPage;
+					//objEvent._CreateParamsArr();
+					//this._UpdateDimensions();
+					//objSearch.onPage		=this.intTotalElements;
+					//objSearch.strEvent		='';
+					//objSearch._CreateUrl();
+					//alert(objSearch.strURL);
+					//objDynaScreen.strURL		=objSearch.strURL;
+					//objEvent.strURL			=objSearch.strURL;
+					//objDynaScreen._Update();
+					console.log('[..]EDRO.Design: Construct');
+					}
+				_UpdateDimensions()
+					{
+					objDynaScreen._GetDimensions();
+					
+					this.objElement		=document.getElementsByTagName('station')[0];
+					if(typeof(this.objElement)=='object')
+						{
+						if(typeof(this.objElement)=='object')
+							{
+							this.intElementHeight	=this.objElement.offsetHeight+10;
+							this.intElementWidth	=this.objElement.offsetWidth+10;
+							}
+						else
+							{
+							this.intElementHeight	=90;
+							this.intElementWidth	=410;
+							}
+						this.intScreenWidth	=objDynaScreen.intWidth;
+						this.intScreenHeight	=(objDynaScreen.intHeight-180);
+						this.intWidthElements	=Math.floor(this.intScreenWidth/this.intElementWidth);
+						if(this.intWidthElements<1)
+							{
+						//	console.log('[Vvv]EDRO.Design: intWidthElements<=1');
+							this.intWidthElements=1;
+						//	console.log('[...]EDRO.Design: intWidthElements<=1');
+							}
+						this.intHeightElements	=Math.floor(this.intScreenHeight/100);
+						if(this.intHeightElements<1)
+							{
+							this.intHeightElements=1;
+							}
+						this.intTotalElements	=this.intWidthElements*this.intHeightElements;
+						if(this.intTotalElements<1)
+							{
+						//	console.log('[Vvv]EDRO.Design: intTotalElements<=1');
+							this.intTotalElements		=1;
+						//	console.log('[...]EDRO.Design: intTotalElements<=1');
+							}
+						//objIndicatorDimensions.objStr.innerHTML	=this.intScreenWidth+'x'+this.intScreenHeight+'<br/>V'+this.intWidthElements+':H'+this.intHeightElements+':T'+this.intTotalElements;
+						if(objEvent.arrReality.int1OnPage!=this.intTotalElements)
+							{
+							//objEvent.arrReality.strName=objPlayer.strStationName; objEvent.arrReality.strStyle=\'\';objEvent.arrReality.intBitrate=\'\';objEvent.arrReality.strCodec=\'\';objEvent._UpdateURLDyn(true);
+							//Event::strOConstruct('Search');
+							objSearch				=new Search();
+							objEvent.arrReality.strName		=objSearch.strValueInputstrName;
+							objEvent.arrReality.strGenre		=objSearch.strValueInputstrGenre;
+							//objEvent.arrReality.intBitrate	=objSearch.strValueInputintBitrate;
+							//objEvent.arrReality.strCodec		=objSearch.strValueInputstrCodec;
+							objEvent.arrReality.int1OnPage		=this.intTotalElements;
+							//console.log(objEvent.arrReality.int1OnPage);
+							objEvent._UpdateURLDyn(false);
+							objIndicatorDimensions.objStr.style.backgroundColor	='red';
+							objIndicatorDimensions.objStr.style.color		='#FFF';
+							}
+						else
+							{
+							objIndicatorDimensions.objStr.style.backgroundColor	='';
+							objIndicatorDimensions.objStr.style.color		='';
+							}
+						}
+					}
+				_CheckElements()
+					{
+					//console.log('[Vvv]EDRO.Design: checkElements');
+					objDesign.objStationsOnPage	=document.getElementsByTagName('station');
+					if(objDesign.objStationsOnPage['length']==0)
+						{
+						}
+					//console.log(objDesign.objStationsOnPage['length']);
+					//console.log('[...]EDRO.Design: checkElements');
+					}
+				}
+			console.log('[.]EDRO.Design: Declare');
+		</script>
+oo2oo;
+		return $str;
+		}
+	}
+
+
+
+
+
+		          /*© A.A.CheckMaRev assminog@gmail.com*/
+		    ////// 				//
+		   //   /\ RCe			/////////
+		      //  <  **> 				//
+		     //     Jl   				//
+		    //////				/////////
+		    //$_arrData=array('strDir'=>'dir', 'strFile'=>'file');
+
+
+
+
+
+
+
+
+class FileRead
+	{
+	public $str;
+	public function __construct($_strSetupFile)
+		{
+		$strSetupFile=$_strSetupFile;
+		        unset($_strSetupFile);
+		if(is_file($strSetupFile))
+			{
+			}
+		else
+			{
+			фОшибка($strSetupFile.' is not a file, or no permissions.');
+			}
+
+		$intSetupFileSize=filesize($strSetupFile);
+
+		if($intSetupFileSize===FALSE)
+			{
+			фОшибка($strSetupFile.' can not read file size.');
+			}
+
+		$linkFile	=fopen($strSetupFile, 'r');
+
+		if($linkFile===FALSE)
+			{
+			фОшибка($strSetupFile.' can not open.');
+			}
+
+		$this->str	=fread($linkFile, $intSetupFileSize);
+
+		if($this->str===FALSE)
+			{
+			фОшибка($strSetupFile.' can not read.');
+			}
+
+		$bIsClosed	=fclose($linkFile);
+		
+		if($bIsClosed===FALSE)
+			{
+			фОшибка($strSetupFile.' can not close.');
+			}
+		}
+	public static function arrJSON($_strDataFile)
+		{
+		$objRead=new FileRead($_strDataFile);
+		$arr =json_decode($objRead->str, true);
+		unset($objRead);
+		if($arr===NULL)
+			{
+			фОшибка($_strDataFile.' is not a JSON.');
+			}
+		return $arr;
+		}
+	public static function objJSON($_strDataFile)
+		{
+		$objRead=new FileRead($_strDataFile);
+		$obj =json_decode($objRead->str, false);
+		unset($objRead);
+		if($obj===NULL)
+			{
+			фОшибка($_strDataFile.' is not a JSON.');
+			}
+		return $obj;
+		}
+	public static function objО2О($_strDataFile)
+		{
+		$objRead	=new FileRead($_strDataFile);
+		$obj 		=json_decode($objRead->str, false);
+		unset($objRead);
+		if($obj===NULL)
+			{
+			фОшибка($_strDataFile.' is not a JSON.');
+			}
+		return $obj;
+		}
+	public static function objJSON_l($_strDataFile)
+		{
+		фОшибка('File::Read()::objJSON _l '.$_strDataFile);
+		$objRead=new FileRead($_strDataFile);
+		$obj =json_decode($objRead->str, false);
+		unset($objRead);
+		if($obj===NULL)
+			{
+			фОшибка($_strDataFile.' is not a JSON.');
+			}
+		return $obj;
+		}
+	public static function objXML($_strDataFile)
+		{
+		$obj=simplexml_load_file($_strDataFile);
+
+		if($obj===FALSE)
+			{
+			фОшибка('load_simple_xml_load is not an XML or file_access_error .');
+			}
+		return $obj;
+		}
+	public static function str($_strDataFile)
+		{
+		$objRead	=new FileRead($_strDataFile);
+		$str		=$objRead->str;
+		unset($objRead);
+
+		$objDesignPosition_centerList='';
+
+		if(empty($str))
+			{
+			фОшибка($_strDataFile.' is empty.');
+			}
+		return $str;
+		}
+	public static function strGetDesignHTML($_strDataFile, $objEDRO) //_GetDesignHtml
+		{
+		$str		='';
+		$strDataFile	=$_strDataFile;
+			   unset($_strDataFile);
+		if(is_file($strDataFile))
+			{
+			require$strDataFile;
+			return $str;
+			}
+		else
+			{
+			фОшибка($strDataFile.' Нет файла.');
+			return '';
+			}
+		
+		return $str;
+		}
+	}
+
+      /*© A.A.CheckMaRev assminog@gmail.com*/
+////// 				//
+   //   /\ RCe			/////////
+  //  <  **> 				//
+ //     Jl   				//
+//////				/////////
+//$_arrData=array('strDir'=>'dir', 'strFile'=>'file');
+
+class ПрочитатьСлушателей
+	{
+	public	$м020;
+	public function __construct($_сРасполож)
+		{
+
+		$сРасполож	=$_сРасполож;
+			   unset($_сРасполож);
+
+		//$this->м020;
+		//$м020['сСтиль']	=
+		$чНомерокВремя		='';
+		$чНомерокНомер		='';
+
+		$чТекущВремяСекунд	=floor(microtime(true));
+
+		$мВсеСлушатели		=scandir($сРасполож);
+		
+		
+		$чДеньСекунд		=(60*60*24);
+
+		$мСлушателиЗаПятьМинут	=array();
+		$чСлушателиЗаПятьМинут	=0;
+
+		$чСлушателиЗа24Часа	=0;
+
+		$чСлушателиВсегоЗаписей =0;
+
+		foreach($мВсеСлушатели as $сСлушательФайл)
+			{
+			if($сСлушательФайл!='..'&&$сСлушательФайл!='.'&&is_file($сСлушательФайл))
+				{
+				$мНомерок		=мСобратьO2o($сСлушательФайл);
+				$чНомерокНомер		=$мНомерок[0];
+				$чНомерокВремя		=$мНомерок[1];
+				if(($чТекущВремяСекунд-$чДеньСекунд)<$чНомерокВремя)
+					{
+					$чСлушателиЗа24Часа++;
+					}
+				if(($чТекущВремяСекунд-300)<$чНомерокВремя)
+					{
+					$мСлушатель 			=FileRead::arrJSON($сРасполож.'/'.$сСлушательФайл);
+					if($мСлушатель['сЖанр']!='')
+						{
+						$мСлушателиЗаПятьМинут[]	=$мСлушатель;
+						}
+					$чСлушателиЗаПятьМинут++;
+					}
+				$чСлушателиВсегоЗаписей++;
+				}
+			}
+		$this->м020['мСлушателиЗаПятьМинут']	=$мСлушателиЗаПятьМинут; //{strStyle=>'Style'}
+		$this->м020['чСлушателиЗаПятьМинут']	=$чСлушателиЗаПятьМинут;
+		$this->м020['чСлушателиВсегоЗаписей']	=$чСлушателиВсегоЗаписей;
+		$this->м020['чСлушателиЗа24Часа']	=$чСлушателиЗа24Часа;
+		}
+	public static function м($_сРасполож)
+		{
+		//echo $_сРасполож;
+		//exit(0);
+		$оПрочитатьСлушателей	=new ПрочитатьСлушателей($_сРасполож);
+		return $оПрочитатьСлушателей->м020;
+		}
+	}
+
+/*© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru*/
+//////
+   //   /\ RCe
+  //  <  **> 
+ //     Jl
+//////
+class DynaScreen
+	{
+	public $strHTML;
+	public function __construct($_arrData)
+		{
+		}
+	public static function strStart($objEDRO, $strSearchForm)
+		{
+		if($objEDRO->arrEvent['bIzDynamic'])
+			{
+			$intHeight	=122;
+			if($objEDRO->arrReality['bIzApple'])
+				{
+				$intHeight	=102;
+				}
+			$str		=$objEDRO->strRealityInit();
+			$str		.='
+				<brickTop 
+					class="block" 
+					style="width:100%;height:'.$intHeight.'px;margin:0;padding:0;"
+					>
+				</brickTop>';
+
+			}
+		else
+			{
+			$str		=FileRead::strGetDesignHTML('/home/EDRO.SetOfTools/System/6.HTML_Interfaces/0.HTML_HeadInterface.php', $objEDRO);
+			$str		.=$strSearchForm;
+			$str		.=Listeners::strHTML($objEDRO->arrReality['arrCurrentListeners'], $objEDRO->arrEvent['arrReality']);
+			//$str		.=FileRead::strGetDesignHTML(array(), '/home/EDRO/4.Objects/Read/Cloud/Disk/Pages/_UpdateMessage.php', $objEDRO);
+			$str		.='
+			<dynaScreen
+				id	="DynaScreen"
+				class	="fixed block layer_1"
+				style	="
+					top			:0;
+					left			:0;
+					width			:100%;
+					height			:100%;
+					display			:block;
+					"
+				>
+				<brickTop 
+					class="block" 
+					style="width:100%;height:82px;margin:0;padding:0;"
+					>
+				</brickTop>
+				';
+			}
+		
+		//$str.='<marginTop class="block" style="width:100%;height:2%"></marginTop>';
+		//$str.='<pageDate id="pageDateTimeServer" style="display:none">'.сКодировать(date('Y-m-d H:i:s').$_SESSION['strListener'], 'вКоманду').'</pageDate>';
+		//file_put_contents('/home/HiFiIntelligentClub.Ru/tmp/symbols.txt', сКодировать(date('Y-m-d H:i:s').$_SESSION['strListener'], 'вКоманду'));
+
+		return $str;
+		}
+	public static function strEnd($objEDRO, $bIzDynamic)
+		{
+		$str='';
+		if($bIzDynamic)
+			{
+			//$str.='<brickBottom class="block" style="width:100%;height:200px"></brickBottom>';
+			}
+		else
+			{
+			//$str='<brickBottom class="block" style="width:100%;height:100px"></brickBottom>';
+			$str.='</dynaScreen>';
+			$str.=DynaScreen::strObjectInit();
+			$str.=Design::strObjectInit();
+			$str.=Objects::strObjectInit();
+			}
+		return $str;
+		}
+	public static function strObjectInit()
+		{
+		return Event::strOConstruct('DynaScreen');
+		}
+	public static function strObjectDeclare()
+		{
+		$str	= <<<oo2oo
+		<script>
+		console.log('[V]EDRO.Objects: DynaScreen');
+		class DynaScreen
+			{
+			constructor()
+				{
+				console.log('[Vv]EDRO.Objects.DynaScreen: construct()');
+				this.objXHR		=new XMLHttpRequest();
+				this.objHTML		=document.getElementById('DynaScreen');
+				this.intHeight		=0;
+				this.intWidth		=0;
+				this._GetDimensions();
+				this.objXHR.onload	=function()
+					{
+					console.log('[Vvv]EDRO.Objects: DynaScreen.objXHR.onload');
+					if(objDynaScreen.objXHR.status==200)
+						{	
+						if(objReality.bIzDynaScreen)
+							{
+							objDynaScreen.objHTML.innerHTML	=objDynaScreen.objXHR.response;
+							objReality.bIzHistory		=false;
+							objReality.bIzDynaScreen	=false;
+							objReality.bIzLoading		=false;
+							}
+						objReality.bIzLoading		=false;
+						objReality.bIzHistory		=false;
+						objReality.bIzDynaScreen	=false;
+						objPlayer.updateOnReload();
+						objDynaScreenEventIndicator.objHTML.style.display="none";
+						}
+					else
+						{
+						objReality.bIzLoading		=false;
+						objReality.bIzHistory		=false;
+						objReality.bIzDynaScreen	=false;
+						objDynaScreenEventIndicator.objHTML.style.display="none";
+						}
+					console.log('[...]EDRO.Objects: DynaScreen.objXHR.onload');
+					}
+				this.objXHR.onProgress		=function(event)
+					{
+					console.log('[Vvv]EDRO.Objects: DynaScreen.objXHR.onProgress');
+					if(event.lengthComputable)
+						{
+						//console.log('Получено'+event.loaded+'байт из'+event.total+'байт.');
+						}
+					else
+						{
+						//console.log('Получено'+event.loaded+'байт');
+						}
+					console.log('[...]EDRO.Objects: DynaScreen.objXHR.onProgress');
+					}
+				this.objXHR.onError=function()
+					{
+					console.log('[Vvv]EDRO.Objects: DynaScreen.objXHR.onError');
+					objReality.bIzLoading		=false;
+					objReality.bIzDynaScreen	=false;
+					objReality.bIzError		=true;
+					
+					objDynaScreenEventIndicator.objHTML.style.display="none";
+					console.log('[...]EDRO.Objects: DynaScreen.objXHR.onError');
+					}
+				//this.strEvent		='/search';
+				//this.strParametrs	='';
+				//this.strDynaUpdate	='';
+				//this.strUrl		='';
+				//this.bIzHistory		=true;
+				console.log('[..]EDRO.Objects: DynaScreen.construct()');
+				}
+			_GetDimensions()
+				{
+				//console.log('[Vv]EDRO.Objects.DynaScreen:  _GetDimensions()');
+				this.intHeight		=this.objHTML.offsetHeight;
+				this.intWidth		=this.objHTML.offsetWidth;
+				//console.log('[..]EDRO.Objects.DynaScreen:  _GetDimensions()');
+				}
+			}
+		console.log('[.]EDRO.Design: DynaScreen');
+		</script>
+oo2oo;
+		return $str;
+		}
+	public static function strHTML($_objData)
+		{
+		$objDynaScreen=new DynaScreen($_objData);
+		return $objDynaScreen->strHTML;
+		}
+	}
+
+                     /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//        /\                  // /   
+//      <  **>               /// /  
+ //////   jl                ///// /    
+./././././././*/
+class HiFiNavigation
+	{
+	public $strHTML;
+	public function __construct($_arrPagination, $arrReality, $objEDRO)
+		{
+
+		$intPage		=$_arrPagination['int0Page'];
+		$intStart		=$_arrPagination['int0Start'];
+		$intEnd			=$_arrPagination['int0Untill'];
+		$intPageParamName	='int0Page';
+		$intPages		=$_arrPagination['int0Pages'];
+		$intTotal		=$_arrPagination['int0Total'];
+		$intNextPage		=($intPage+1);
+		$intPrevPage		=($intPage-1);
+		if($objEDRO->arrReality['strLangSignal']=='RU')
+			{
+			$arrO['Forward']	='Нажмите, чтобы перейти на следующую страницу.';
+			$arrO['Backward']	='Нажмите, чтобы перейти на предидущую страницу.';
+			$arrO['Counters']	='[Отображены станции от-до][Не отображено станций до конца списка][Всего станций]';
+			$arrO['Selector']	='Введите номер страницы на которую вы хотите перепрыгнуть.';
+			}
+		else
+			{
+			$arrO['Forward']	='Press this button, to go to the next page.';
+			$arrO['Backward']	='Press this button, to go to the previous page.';
+			$arrO['Counters']	='[Showing stations from-to][Stations remain][Total stations]';
+			$arrO['Selector']	='Enter the page number to jump to.';
+			}
+		//echo $intPageParamName;
+		//echo $intNextPage;
+		//	$arrEventLink=arrEventLink($arrReality, $intPageParamName, $intNextPage, true);
+		//	echo $arrEventLink['strHref'];
+		
+		$str='
+		<pageNavShader
+			class="
+				fixed V1 block layer_4 BC1 TC1 BBV Lx2
+				"
+			style="
+				left		:0;
+				width		:100%;
+				"
+			>
+		</pageNavShader>
+		<pageNav
+			class="
+				fixed V1 block layer_5 BC1 TC1 BBV Lx2
+				"
+			style="
+				left		:15%;
+				width		:70%;
+				text-align	:center;
+				margin		:auto;
+				"
+			>';
+
+			if($intPage<$intPages)
+				{
+				$arrEventLink=arrEventLink($arrReality, $intPageParamName, $intNextPage, true);
+				$str.=
+				'<a
+				id	="objPageForward"'
+				.$arrEventLink['strHref'].' '
+				.$arrEventLink['strOnClick'].
+				'class="block right BBV BTA BC2 TC2 cursor no-select Lx2t2"
+					style="
+						font-size	:large;
+						width		:34%;
+						text-align	:center;
+						text-decoration	:none;
+						"
+					title="'.$arrO['Forward'].'"
+					>
+					>>
+				</a>';
+				}
+			else
+				{
+				$str.=
+				'<abuf
+					id	="objPageForward"
+					href	="#"
+					onclick	=""
+					class	="block right BBV BTA BC1 TC1 cursor no-select Lx2t2"
+					style	="
+						width		:34%;
+						text-align	:center;
+						text-decoration	:none;
+						"
+					>
+				</abuf>';
+				}
+			$str.=
+			'<pagerNum
+				class="fix V1 block tcenter BC1 TC1 BLL BRJ BBV BTA no-select Lx2"
+				style="
+					left		:36%;
+					width		:28%;
+					"
+				title="'.$arrO['Counters'].'"
+				>
+
+
+				<strPage
+					class="brick tcenter"
+					>
+					<input 
+						id	="objPageNumberSelect"
+						class	=""
+						style	="
+							width:40%;
+							"
+						onChange="
+							//bizHiFiNavigationInputSelect	=false; //Need to send result
+							objEvent.arrReality.'.$intPageParamName.'=this.value;
+							objEvent._UpdateURLDyn();
+							return false;
+							"
+						onFocusin="
+							//objHiFiNavigation.bizPageSelectFoucus=true;
+							bizHiFiNavigationInputSelect	=true;
+							"
+						onfocusout="
+							//objHiFiNavigation.bizPageSelectFoucus=false;
+							bizHiFiNavigationInputSelect	=false;
+							"
+						type	="number" 
+						value	="'.$intPage.'"
+						step	="1" 
+						min	="0" 
+						max	="'.$intPages.'"
+						title	="'.$arrO['Selector'].'"
+					/>
+					<strPages
+						id	="objPageMaximum"
+						class	="L1"
+						style="
+							width:60%;
+							"
+						>
+						<ifRU>из </ifRU>
+						<ifEN>of </ifEN>
+						<int0Max
+							id	="objPageMaximum"
+							>
+							'.$intPages.'
+						</int0Max>
+					</strPages>
+				</strPage>
+			</pagerNum>';
+			if($intPage<1)
+				{
+				$str.='
+				<abuf
+					id	="objPageBackward"
+					onclick	=""
+					class	="block left BBV BTA BC1 TC1 cursor no-select Lx2"
+					style	="
+						text-align	:center;
+						text-decoration	:none;
+						"
+					>
+				</abuf>';
+				}
+			else
+				{
+				$arrEventLink=arrEventLink($arrReality, $intPageParamName, $intPrevPage, true);
+				$str.=
+				'<a
+					id	="objPageBackward"'.
+					$arrEventLink['strHref'].' '.
+					$arrEventLink['strOnClick'].'
+					class="block left BBV BTA BC2 TC2 cursor no-select Lx2t2"
+					style="
+						font-size	:large;
+						width		:34%;
+						text-align	:center;
+						text-decoration	:none;
+						"
+					title="'.$arrO['Backward'].'"
+					>
+					<<
+				</a>';
+				}
+		$str.=
+		'</pageNav>';
+		$str.=HiFiNavigation::strObjectInit();
+		$this->strHTML	=$str;
+		}
+	public static function strObjectDeclare()
+		{
+		$str	=<<<oo2oo
+		<script>
+			console.log('[Vv]HiFiNavigation declare.');
+			class HiFiNavigation
+				{
+				objRight		='';
+				objLeft			='';
+				//bizPageSelectFoucus	=true;
+				int0Page		=0;
+				int0PageMaximum		=0;
+				constructor()
+					{
+					this.objXHR		=new XMLHttpRequest();
+					this.objRight		=document.getElementById("objPageForward");
+					this.objLeft		=document.getElementById("objPageBackward");
+					this.int0Page		=document.getElementById("objPageNumberSelect").value;
+					this.int0PageMaximum	=document.getElementById("objPageMaximum").innerHTML;
+					this.objXHR.onload	=function()
+						{
+						console.log('[Vvv]EDRO.Objects: objXHR.onload');
+						if(objHiFiNavigation.objXHR.status==200)
+							{	
+							if(objReality.bIzPlayer)
+								{
+								}
+							if(objReality.bIzDynaScreen)
+								{
+								}
+							if(objReality.bIzCheckMaNet)
+								{
+								}
+							}
+						else
+							{
+							}
+						console.log('[...]EDRO.Objects: objXHR.onload');
+						}
+					this.objXHR.onProgress		=function(event)
+						{
+						console.log('[Vvv]EDRO.Objects: objXHR.onProgress');
+						if(event.lengthComputable)
+							{
+							//console.log('Получено'+event.loaded+'байт из'+event.total+'байт.');
+							}
+						else
+							{
+							//console.log('Получено'+event.loaded+'байт');
+							}
+						console.log('[...]EDRO.Objects: objXHR.onProgress');
+						}
+					this.objXHR.onError=function()
+						{
+						console.log('[Vvv]EDRO.Objects: objXHR.onError');
+						console.log('[...]EDRO.Objects: objXHR.onError');
+						}
+					console.log('[..]EDRO.Event: Constructor');
+					}
+				}
+			console.log('[..]HiFiNavigation declare.');
+		</script>
+oo2oo;
+		return $str;
+		}
+	public static function strObjectInit()
+		{
+		return Event::strOConstruct('HiFiNavigation');
+		}
+	public static function strHTML($_arrPagination, $_arrReality, $objEDRO=array())
+		{
+		$objHiFiNavigation=new HiFiNavigation($_arrPagination, $_arrReality, $objEDRO);
+		return $objHiFiNavigation->strHTML;
+		}
+	}
+
+/*© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru*/
+////// 
+   //   /\ RCe
+  //  <  **> 
+ //     Jl   
+//////
+class Listeners
+	{
+	public $strHTML;
+	public function __construct($_objKIIM, $_мСлушатели, $_мПоиск)
+		{
+		$objKIIM=$_objKIIM;
+		   unset($_objKIIM);
+	
+		$objKIIM=KIIM::objStart($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
+
+		$мСлушатели	=$_мСлушатели;
+		$мСлушатели5Мин	=$_мСлушатели['мСлушателиЗаПятьМинут'];
+		           unset($_мСлушатели);
+		$this->strHTML='
+			<activeListeners 
+				class="fixed V3 block BTA layer_5 BC1 TC1" 
+				style="
+					left		:0px;
+					Width		:100%;
+					height		:20px;
+					font-size	:small;
+					"
+				>
+				<listenersAmount
+					class	="block left"
+					style	="font-size:xx-small;width:50px;line-height:10px;"
+					>
+					<listeners5mins 
+						class	="TC3 BC3 block left"
+						style	="width:100%;;text-align:left;"
+						title	="Listeners in past 5 minutes."
+						>5m:'.
+						$мСлушатели['чСлушателиЗаПятьМинут'].
+					'<listeners5mins>'.
+					'<listeners24hours 
+						class	="TC3 BC3 block left"
+						style	="width:100%;text-align:right;"
+						title	="Listeners in past 24 hours."
+						>24h:'.
+						$мСлушатели['чСлушателиЗа24Часа'].
+					'</listeners24hours>'.
+					'<listenersSome 
+						class	="TC3 BC3 block left"
+						title	="Listeners from the last o2o clearing."
+						>/T:'.
+						$мСлушатели['чСлушателиВсегоЗаписей'].
+					'</listenersSome>'.
+					':
+				</listenersAmount>
+				';
+		$ч0СлушателиНаЭкране=0;
+		foreach($мСлушатели5Мин as $чСлушательИД=>$мСлушательПараметры)
+			{
+			if(!empty($мСлушательПараметры['strStyle']))
+				{
+				$this->strHTML.='
+					<activeListener 
+						class="block left scrollerY scrollerGlide BRJ BC1 TC1" 
+						style="
+							height:20px;
+							"
+						>
+						';
+						$this->strHTML	.=Tag::strHTML($objKIIM, $мСлушательПараметры['strStyle'], $_мПоиск, 'strStyle');
+				$this->strHTML.='
+					</activeListener>
+					';
+				if($ч0СлушателиНаЭкране>10)
+					{
+					break;
+					}
+				$ч0СлушателиНаЭкране++;
+				}
+			}
+		$this->strHTML.='
+			</activeListeners>
+			';
+		$this->strHTML;
+		KIIM::objFinish($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
+		}
+	public static function strHTML($_objKIIM, $_мСлушатели, $_мПоиск)
+		{
+		$о	=new Listeners($_objKIIM, $_мСлушатели, $_мПоиск);
+		return $о->strHTML;
+		}
+	}
+
+                     /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//        /\                  // /   
+//      <  **>               /// /  
+ //////   jl                ///// /    
+./././././././*/
+class LogIn
+	{
+	public $strHTML		='';
+	public function __construct()
+		{
+		$this->strHTML='
+			<buttonLogin
+				id	="objLoginButton"
+				class	="brick left BLL BLR sensorButton"
+				style	="
+					text-align	:center;
+					padding		:0 5px 0 5px;
+					"
+				>
+				<ifEN style="width:100%;">LogIn</ifEN>
+				<ifRU style="width:100%;">Вход</ifRU>
+			</buttonLogin>
+			';
+
+		$this->strHTML.='
+			<HiFiLoginForm
+				id	="objLoginForm"
+				class	="fix block layer_6  HL0 V99 TC1 BC1 BBV"
+				onclick	="
+					//this.parentNode.classList.remove(\'CutDown\');
+					//this.parentNode.className+=\' Expanded\';
+					"
+				style	="
+					width		:100vw;
+					height		:100vh;
+					"
+				>
+				<menu
+					class	="block"
+					style	="
+						width		:100%;
+						height		:40px;
+						padding		:0;
+						margin		:0;
+						"
+					>
+					<topTouchBuffer
+						class	="block TC2 BC2"
+						style	="
+							height	:10px;
+							width	:100%;
+							font-size	:x-small;
+							"
+						>
+					</topTouchBuffer>
+					<ifRU>Вход</ifRU>
+					<ifEN>LogIn</ifEN>
+					<closeButton
+						class	="sensor block right TC3 BC3"
+						style	="
+							height		:20px;
+							width		:60px;
+							text-align	:center;
+							line-height	:18px;
+								"
+						onclick	="
+							this.parentNode.parentNode.parentNode.classList.remove(\'Expanded\');
+							this.parentNode.parentNode.parentNode.className+=\' CutDown\';
+							"
+						>
+						<ifRU>
+							x
+						</ifRU>
+						<ifEN>
+							x
+						</ifEN>
+					</closeButton>
+					<bottomTouchBuffer
+						class	="block TC2 BC2"
+						style	="
+							height		:10px;
+							width		:100%;
+							font-size	:x-small;
+							"
+						>
+					</bottomTouchBuffer>
+				</menu>
+				<data
+					class	="block scrollerY TC1 BC1"
+					style	="
+						width	:100%;
+						height	:152px;
+						"
+					>
+					<form 
+						id		="objFormLogin"
+						class		="block TC1 BC1"
+						action		="/search"
+						onsubmit	="return false;"
+						style		="
+								width		:100%;
+								height		:152px;
+								"
+						>
+					</form>
+				</data>
+			</HiFiLoginForm>';
+		$this->strHTML.=$this->strObjectDeclare();
+		$this->strHTML.=$this->strObjectInit();
+		}
+	private function strObjectDeclare()
+		{
+		$str	=<<<oo2oo
+		<script>
+			console.log('[V]EDRO LogIn: Declare.');
+			class Login // Init after signal panel//
+				{
+				constructor()
+					{
+					console.log('[Vv]EDRO Login: construct.');
+					
+				
+					this.objButton			=document.getElementById('objLoginButton');
+					this.objFormBrick		=document.getElementById('objLoginForm');
+					this.objForm			=document.getElementById('objFormLogin');
+
+					console.log('[..]EDRO Login: construct.');
+					}
+				}
+			console.log('[.]EDRO LogIn: Declare.');
+		</script>
+oo2oo;
+		return $str;
+		}
+	private function strObjectInit()
+		{
+		return Event::strOConstruct('LogIn');
+		}
+	public static function strButton()
+		{
+		}
+	public static function strHTML()
+		{
+		//$obj		=new LogIn();
+		//return $obj->strHTML;
+		}
+	}
+
+                     /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//        /\                  // /   
+//      <  **>               /// /  
+ //////   jl                ///// /    
+./././././././*/
+class Overlay
+	{
+	public 	$strHTML;
+	private $arrEvent	=
+		array(
+		'close'=>
+			array(
+			'strLink'		=>'',
+			'strOnClick'		=>'this.parentNode.className +=\' hidden\';',
+			)
+		);
+	private $arrDesign	=
+		array(
+		'close'=>
+			array(
+			'strClass'		=>'',
+			'strStyle'		=>'',
+			'intLayer'		=>'',
+			),
+		'informationWindow'=>
+			array(
+			'strClass'		=>'',
+			'strStyle'		=>'',
+			'strLayer'		=>'layer_6',
+			),
+		'scrollerPart '=>
+			array(
+			'strClass'		=>'',
+			'strStyle'		=>'',
+			'intLayer'		=>1,
+			),
+		);
+	private $objReality	=
+		array(
+		'close'=>
+			array(
+			'arrRole'=>
+			array(
+				'Listener', 'Operator'
+				),
+			'arrLang'=>
+			array(
+				'ifEN'	=>'',
+				'ifRU'	=>'',
+				),
+			),
+		'informationWindow'=>
+			array(
+			'arrRole'=>
+			array(
+				'Listener', 'Operator'
+				),
+			'arrLang'=>
+			array(
+				'ifEN'	=>'',
+				'ifRU'	=>'',
+				),
+			),
+		'scrollerPart'=>
+			array(
+			'arrRole'=>
+			array(
+				'Listener', 'Operator'
+				),
+			'arrLang'=>
+			array(
+				'ifEN'	=>'',
+				'ifRU'	=>'',
+				),
+			),
+		);
+	private $arrObjects	=
+		array(
+		'title'=>array(
+			'EN'=>'Close this window',
+			'RU'=>'Закрыть это окошко',
+			),
+		);
+	public function __construct($objEDRO=array())
+		{
+		$this->strHTML='
+		<informationWindow
+			id	="objInformationOverlay"
+			class	="fixed V94 block window '.$this->arrDesign['informationWindow']['strLayer'].' TC3 BC3 BBV BTA"
+			style	="
+				width		:100vw;
+				height		:300px;
+				max-height	:50vh;
+				"
+			>
+			<close
+				class		="block TC1 BC2 sensor"
+				onClick		="'.$this->arrEvent['close']['strOnClick'].'"
+				>
+				<close
+					class	="block right"
+					style	="
+						width		: 40px;
+						color		: #fff;
+						background-color: #000;
+						text-align	: center;
+						"
+					title	="'.$this->arrObjects['title'][$objEDRO->arrReality['strLangSignal']].'"
+						>
+						X
+	    				</close>
+				HiFiIntelligentClub
+			</close>
+			<scrollerPart 
+				class	="block scrollerY"
+				style	="
+					width		:100vw;
+					height		:240px;
+					max-height	:40vh;
+					"
+				>
+				<ifEN>HiFi Intelligent Club - is the friend for the real people who are exist right here and now. Only for today.</ifEN>
+				<ifRU>HiFi Intelligent Club - для людей, существующих сдесь и сейчас. Только сегодня.</ifRU>
+				<ifRU>
+					<p>
+						<a name="УвеличитьЭкран"><h2>Слишком мелко?</h2></a>
+						<p>
+							<color style="font-size:x-large;color:green">Зажмите клавишу ctrl(Контрл) 
+							и крутите колесо мышки. Станет крупнее/мельче.</color><br/>
+							Приложение само подстроится под ваши настройки, удалив с экрана выступающие за край элементы.<br/>
+							CTRL+Колесо мыши: Выведите на экран станцию такого размера, как вам удобно смотреть!
+						</p>
+						<p>
+							Искренне ваш Hfic.Samin Президент HiFiIntelligentClub.
+						</p>
+					</p>
+				</ifRU>
+				<ifEN>
+					<p>
+						<a name="Enlarge_ctrlmouseWheel"><h2>"Too small text?"</h2></a>
+						<p>
+							<color style="font-size:x-large;color:green">Hold down the ctrl key and turn the 
+							mouse wheel</color><br/>
+							The application will adjust itself to your vision, Displaying a station of the 
+							size that is convenient for you to look at!
+						</p>
+						<p>
+							Sincerely yours Hfic. Samin President of HiFiIntelligentClub.
+						</p>
+					</p>
+				</ifEN>
+			</scrollerPart>
+
+		</informationWindow>';
+
+
+
+
+/*-[.]*/	}
+
+/*-[E]*/private function strEvent()
+		{
+		//$strD='class="'.$this->arrDesign['strClass'].'" ';
+		//$strD.='style="'.$this->arrDesign['strStyle'].'" ';
+		return $strD;
+/*-[.]*/	}
+/*-[D]*/private function strDesign()
+		{
+		//$strD='class="'.$this->arrDesign['strClass'].'" ';
+		//$strD.='style="'.$this->arrDesign['strStyle'].'" ';
+		return $strD;
+/*-[.]*/	}
+/*-[R]*/private function strReality()
+		{
+		//print_r($_SESSION);
+		//$this->objReality['arrRole'];
+		//$this->objReality['arrLang'];
+		//$strR='<ifRU>'.$this->objReality['arrLang']['ifRU'].'</ifRU>';
+		//$strR.='<ifEN>'.$this->objReality['arrLang']['ifEN'].'</ifEN>';
+		return $strR;
+		}
+/*-[O]*/private function strObject()
+		{
+		return $strO;
+/*-[.]*/	}
+	public static function strHTML($objEDRO=array())
+		{
+		$objOverlay=new Overlay($objEDRO);
+		return $objOverlay->strHTML;
+		}
+	}
+
+                     /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//        /\                  // /   
+//      <  **>               /// /  
+ //////   jl                ///// /    
+./././././././*/
+class Pagination
+	{
+	public $arr	=array();
+	public function __construct($objEDRO)
+		{
+		/*echo '<pre>';
+		print_r($objEDRO->arrEvent);
+		echo '</pre>';*/
+		//exit;
+		//$objEDRO->arrEvent['arrReality']['int0PlayingStationNum'];
+		//$objKIIM=$_objKIIM;
+		   //unset($_objKIIM);
+			//print_r($objEDRO);
+			//exit;
+		/*echo*/$int1PlayingStationNum		=$objEDRO->arrEvent['arrReality']['int1PlayingStationNum'];
+		/*echo*/$int0Page			=($objEDRO->arrEvent['arrReality']['int0Page']); //0,1,xxx
+		/*echo*/$int1OnPage			=$objEDRO->arrEvent['arrReality']['int1OnPage']; //1-> 8 = 8
+		/*echo*/$int0Start			=0+($int0Page*$int1OnPage);//From 0 to 7 intStart=8 ->15 intStart=16;
+		/*echo*/$int1Untill			=($int0Start+$int1OnPage);//From 0 to 7 including 7 = 8
+		/*echo*/$int0Untill			=($int1Untill-1);
+			if($objEDRO->arrObjects['ч0РасположениеTotal'])
+				{
+		/*echo*/	if($objEDRO->arrObjects['ч0РасположениеTotal']===0)
+					{
+					$int1Total	=1; //Channge in par
+					$int0Total	=0;
+					}
+				else
+					{
+					$int1Total	=($objEDRO->arrObjects['ч0РасположениеTotal']+1); //Channge in par
+					$int0Total	=($int1Total-1);
+					}
+				}
+			else
+				{
+				$objTotal	=FileRead::objJSON($objEDRO->arrObjects['сРасположениеTotal']); //0-lastone
+				if($objTotal===0)
+					{
+					$int1Total	=1; //Channge in par
+					$int0Total	=0;
+					}
+				else
+					{
+		/*echo*/		$int1Total	=($objTotal->total+1); //Channge in par
+					$int0Total	=($int1Total-1);
+					}    
+				}
+
+		unset($objTotal);
+		if($int1OnPage==0)
+			{
+			
+			$int1Pages		=intRoundUp(($int1Total)/1);
+			}
+		else
+			{
+			/*echo*/$int1Pages	=intRoundUp(($int1Total)/$int1OnPage);//totall is not from 0, to find we need to convert ;
+			}
+		$int0Pages		=($int1Pages-1);
+		if($int0Page>$int0Pages)
+			{
+			$objEDRO->arrEvent['arrReality']['int0Page']	=$int0Pages;
+			$int0Page					=$int0Pages;
+			/*echo*/ $int0Start	=0+($int0Pages*$int1OnPage);//From 0 to 7 intStart=8 ->15 intStart=16;
+			/*echo*/ $int1Untill	=($int0Start+$int1OnPage);//From 0 to 7 including 7 = 8
+			}
+		else
+			{
+			//$int0Page					=($int1Page-1);
+			}
+		if($int0Total<$int0Untill)
+			{
+			$int0Untill=$int0Total;
+			}
+		else
+			{
+			//$int0Untill=($int1Untill-1);
+			}
+		if($int0Total<$int0Start)
+			{
+			$int0Start	=($int1OnPage*$int0Page);
+			}
+		/*if($int0PlayingStationNum>=0)
+			{
+			$int0Page	=round(($int1PlayingStationNum/$int1OnPage), 0);
+			}
+		else
+			{
+			$int0Page	=round((($int0Start+1)/$int1OnPage), 0);
+			}*/
+		$arrReturn['int0Start']		=$int0Start;
+		$arrReturn['int0Page']		=$int0Page;
+		$arrReturn['int0Pages']		=$int0Pages;
+		$arrReturn['int1OnPage']	=$int1OnPage;
+		$arrReturn['int0Untill']	=$int0Untill;
+		$arrReturn['int0Total']		=($int1Total-1);
+
+		$this->arr			=$arrReturn;
+		}
+
+	public static function arr($objEDRO)
+		{
+		$objPagination		=new Pagination($objEDRO);
+		return $objPagination->arr;
+		}
+	}
+
+                     /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//        /\                  // /   
+//      <  **>               /// /  
+ //////   jl                ///// /    
+./././././././*/
+class Registration
+	{
+	public $strHTML		='';
+	public function __construct()
+		{
+		$this->strHTML='
+			<buttonRegister
+				id	="objRegisterButton"
+				class	="brick left BLL BLR sensorButton"
+				style	="
+					text-align	:center;
+					padding		:0 5px 0 5px;
+					"
+				>
+				<ifEN style="width:100%;">Register</ifEN>
+				<ifRU style="width:100%;">Регистрация</ifRU>
+			</buttonRegister>
+			';
+
+		$this->strHTML.='
+			<HiFiRegistrationForm
+				id	="objRegisterForm"
+				class	="fix block layer_6  HL0 V99 TC1 BC1 BBV"
+				onclick	="
+					//this.parentNode.classList.remove(\'CutDown\');
+					//this.parentNode.className+=\' Expanded\';
+					"
+				style	="
+					height		:150px;
+					width		:100vw;
+					"
+				>
+				<menu
+					class	="block"
+					style	="
+						width		:100%;
+						height		:40px;
+						padding		:0;
+						margin		:0;
+						"
+					>
+					<topTouchBuffer
+						class	="block TC2 BC2"
+						style	="
+							height	:10px;
+							width	:100%;
+							font-size	:x-small;
+							"
+						>
+					</topTouchBuffer>
+					<ifRU>Регистрация</ifRU>
+					<ifEN>REgistration</ifEN>
+					<closeButton
+						class	="sensor block right TC3 BC3"
+						style	="
+							height		:20px;
+							width		:60px;
+							text-align	:center;
+							line-height	:18px;
+								"
+						onclick	="
+							this.parentNode.parentNode.parentNode.classList.remove(\'Expanded\');
+							this.parentNode.parentNode.parentNode.className+=\' CutDown\';
+							"
+						>
+						<ifRU>
+							x
+						</ifRU>
+						<ifEN>
+							x
+						</ifEN>
+					</closeButton>
+					<bottomTouchBuffer
+						class	="block TC2 BC2"
+						style	="
+							height		:10px;
+							width		:100%;
+							font-size	:x-small;
+							"
+						>
+					</bottomTouchBuffer>
+				</menu>
+				<data
+					class	="block scrollerY TC1 BC1"
+					style	="
+						width	:100%;
+						height	:152px;
+						"
+					>
+					<form 
+						id		="objFormRegistration"
+						class		="block TC1 BC1"
+						action		="/search"
+						onsubmit	="return false;"
+						style		="
+								width		:100%;
+								height		:152px;
+								"
+						>
+					</form>
+				</data>
+			</HiFiRegistrationForm>';
+		$this->strHTML.=$this->strObjectDeclare();
+		$this->strHTML.=$this->strObjectInit();
+		}
+	private function strObjectDeclare()
+		{
+		$str	=<<<oo2oo
+		<script>
+			console.log('[V]EDRO Register: Declare.');
+			class Registration // Init after signal panel//
+				{
+				constructor()
+					{
+					console.log('[Vv]EDRO Register: construct.');
+					
+				
+					this.objButton			=document.getElementById('objRegisterButton');
+					this.objFormBrick		=document.getElementById('objRegisterForm');
+					this.objForm			=document.getElementById('objFormRegistration');
+
+					console.log('[..]EDRO Register: construct.');
+					}
+				}
+			console.log('[.]EDRO Register: Declare.');
+		</script>
+oo2oo;
+		return $str;
+		}
+	private function strObjectInit()
+		{
+		return Event::strOConstruct('Registration');
+		}
+	public function strHTML()
+		{
+		$obj		=new Registration();
+		return $obj->strHTML;
+		}
+	}
+
+                     /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//        /\                  // /   
+//      <  **>               /// /  
+ //////   jl                ///// /    
+./././././././*/
+class StationSearchBlock  // feat Мира Стрельцова. 07.08.2020 Шеорше ля фам, господа конкуренты. Hfic.Samin -> PreReleased at 21-21-2021
+	{
+	private $arr;
+	public $strHTML;
+	private $strLogo;
+	private $strName;
+	private $strFile;
+	private $strType;
+	private $strAudio;
+	public function __construct($_arrValues=array(), $_arrReality) //$_arrValues 'name' 'style' 'bitrate' 'codec'
+		{
+		$strSearchName		=$_arrValues['strName'];
+		//if($_arrValues['strGenre']!==''&&isset($_arrValues['strStyle'])&&$strStyle!=''&&$strStyle!='undefined')
+		//	{
+		//	$strSearchGenre		=$_arrValues['strStyle'];
+		//	}
+		//else
+		//	{
+			$strSearchGenre		=$_arrValues['strGenre'];
+		//	}
+		
+				   unset($_arrValues);
+		$strLang		=$_arrReality['strLangSignal'];
+				   unset($_arrReality);
+		$arrInputName 		=
+			array(
+			'strLang'	=> $strLang,
+			'arrName'	=>
+				array(
+				'RU'=>'Название',
+				'EN'=>'Name'
+				), 
+			'arrSetup'	=>
+				array(
+
+				'strInputValue'		=>  $strSearchName,
+				'strInputType'		=>  'text',
+				'strInputName'		=>  'strName',
+				'intInputSize'		=>  25,
+				'intInputMaxLength'	=>  250,
+				'intInputWidth'		=>  50,
+				)
+			);
+		$arrInputGenre 		=
+			array(
+			'strLang'	=>$strLang,
+			'arrName'	=>
+				array(
+				'RU'=>'Жанр',
+				'EN'=>'Genre'
+				), 
+			'arrSetup'	=>
+				array(
+
+				'strInputValue'		=> $strSearchGenre,
+				'strInputType'		=> 'text',
+				'strInputName'		=> 'strGenre',
+				'intInputSize'		=>  15,
+				'intInputMaxLength'	=>  20,
+				'intInputWidth'		=>  40,
+				)
+			);
+
+		$this->strHTML	='
+			<hficSearch
+				class="fix HR0 V99 layer_5 default"
+				>
+				<ifCutDown
+					class	="block right sensor TC1 BC1 no-select"
+					onclick	="
+						this.parentNode.classList.remove(\'CutDown\');
+						this.parentNode.className+=\' Expanded\';
+						objSearch.objValueInputstrGenre.focus();
+						"
+					style	="
+						text-align	:center;
+						line-height	:36px;
+						height		:40px;
+						width		:80px;
+						"
+					>
+					<ifRU>
+						ПОИСК
+					</ifRU>
+					<ifEN>
+						SEARCH
+					</ifEN>
+				</ifCutDown>
+				<ifExpanded
+					class	="fix brick HL0 HV99 TC1 BC0 BBV L2" 
+
+					style	="
+						width		:100vw;
+						min-width	:320px;
+						"
+					>
+					<form 
+						id		="formStationSearch"
+						class		="brick TC1 BC0"
+						action		="/search"
+						onsubmit	="return false;"
+						style		="
+								width	:100%;
+								"
+						>
+						<searchByGenre
+						class	="fix brick left L0 V99 no-select layer_2_2"
+						style	="
+							color	:#4c4c4c;
+							left	:0px;
+							"
+							>
+							<ifEN>[=]Search by genre</ifEN>
+							<ifRU>[=]Поиск по жанру:</ifRU>
+						</searchByGenre>
+						<searchStationName
+						class	="fix brick left L0 V99 no-select layer_2_2"
+						style	="
+							color	:#4c4c4c;
+							left	:40%;
+							"
+							>
+							<ifEN>[+]Search by name:</ifEN>
+							<ifRU>[+]Поиск по имени:</ifRU>
+						</searchStationName>
+						<searchInputs
+							class	="brick left"
+							style	="
+								width		:100%;
+								margin-top	:5px;
+								"
+							>
+							'.
+							FormInput::strHtml($arrInputGenre).
+							FormInput::strHtml($arrInputName).
+							'<closeButton
+								class="fix sensor block TC2 BC2 Lx2 V99 HR0 layer_2_3"
+								style="
+									width		:10%;
+									text-align	:center;
+									"
+	    							onclick="
+									this.parentNode.parentNode.parentNode.parentNode.classList.remove(\'Expanded\');
+									this.parentNode.parentNode.parentNode.parentNode.parentNode.className+=\' CutDown\';
+									"
+								>
+								<ifRU
+									class="brick"
+									style="width:100%;height:100%;"
+									title="Закрыть форму и отобразить результаты поиска. Результаты поиска можно вывсти и не закрывая форму, просто нажав на клавишу enter, на клавиатуре по окончанию ввода."
+									>x
+								</ifRU>
+								<ifEN
+									class="brick"
+									style="width:100%;height:100%;"
+									title="Close search form and display search results. You can display search results without closing this search form, by clicking enter button on your keyboard."
+									>x
+								</ifEN>
+							</closeButton>
+						</searchInputs>
+						<!--bottomTouchBuffer
+							class	="fix block TC2 BC2 V97 L0"
+							style	="
+								width		:100%;
+								"
+							>
+							<ifEN>Your IP:</ifEN><ifRU>Ваш IP:</ifRU>
+							'.$_SERVER['REMOTE_ADDR'].'
+						</bottomTouchBuffer-->
+					</form>';
+				//<data
+				//	class="block scrollerY TC1 BC1"
+				///	style="
+				//		width	:100%;
+				//		height	:152px;
+				//		"
+					//	>
+					//		//FormInput::strHtml($objKIIM, array('RU'=>'РФИд','EN'=>'RFId'), $strSearchId).
+					//		$this->strHTML	.=FileRead::str($objKIIM,'/home/EDRO/4.Objects/Read/Cloud/Disk/Pages/SearchBlock.php');
+					//		$this->strHTML	.='<hr/>';
+					//		foreach($_SERVER as $strName => $strValue)
+					//			{
+					//			$this->strHTML	.='<srv class="block">'.$strName.' - '.$strValue.'</srv>';
+					///			}
+					//		$this->strHTML	.='<hr/>';
+					//	$this->strHTML	.='
+					//	</questions>';
+
+					$this->strHTML	.='
+				</ifExpanded>
+				'.
+				$this->strObjectInit();
+				$this->strHTML	.=
+			'</hficSearch>
+			';
+		}
+	private function strObjectInit()
+		{
+		return Event::strOConstruct('Search');
+		}
+	public static function strObjectDeclare()
+		{
+		$str	=<<<oo2oo
+		<script>
+		console.log('[V]EDRO.Object.SearchForm: Declare');
+		class Search //Init in  StationSearchBlock.php
+			{
+			constructor()
+				{
+				console.log('[Vv]EDRO.Object.SearchForm: Construct');
+				this.objStationSearch		=document.getElementById('formStationSearch');
+				this.objValueInputstrName	=document.getElementById('SearchBystrName');
+				this.strValueInputstrName	=this.objValueInputstrName.value;
+				this.objValueInputstrGenre	=document.getElementById('SearchBystrGenre');
+				this.strValueInputstrGenre	=this.objValueInputstrGenre.value;
+				//this.objValueInputintBitrate	=document.getElementById('SearchByintBitrate');
+				//this.strValueInputintBitrate	=this.objValueInputintBitrate.value;
+				//this.objValueInputstrCodec	=document.getElementById('SearchBystrCodec');
+				//this.strValueInputstrCodec	=this.objValueInputstrCodec.value;
+				this.bIzHistory			=true;
+				console.log('[..]EDRO.Object.SearchForm: Construct');
+				}
+			}
+		console.log('[.]EDRO.Object.SearchForm: Declare');
+		</script>
+oo2oo;
+		return $str;
+		}
+	public static function strHTML($_arrValues=array(), $_arrReality)
+		{
+		//$arrData['_strName']=$_objData->strName;
+		$obj=new StationSearchBlock($_arrValues, $_arrReality);
+		return $obj->strHTML;
+		}
+	}
+
+/*
+<!---
+© A.A.CheckMaRev assminog@gmail.com
+-->
+*/
+class AudioType
+	{
+	public $strHTML;
+	public function __construct($_strData, $_arrSearch='')
+		{
+
+		$strAudioCodec		=str_replace(array("/", " ", "audio", "application", "ogg:codecs="), '', $_strData);
+													   unset($_strData);
+		$arrSearch		=$_arrSearch;
+				   unset($_arrSearch);
+		if($arrSearch['strCodec']==$strAudioCodec)
+			{
+			$arrEventLink=arrEventLink($arrSearch, 'strCodec', '', 		 false, 0);
+			$this->strHTML='
+			<a
+				'.
+				$arrEventLink['strHref'].
+				$arrEventLink['strOnClick'].
+				'
+				class="rel block left sensor BLL BRJ TC1 BC1"
+				style="
+					text-align	:center;
+					text-decoration	:none;
+					"
+				>'.
+				$strAudioCodec.
+			'</a>';
+			}
+		else
+			{
+			$arrEventLink=arrEventLink($arrSearch, 'strCodec', $strAudioCodec, false, 0);
+			$this->strHTML='
+			<a
+				'.
+				$arrEventLink['strHref'].
+				$arrEventLink['strOnClick'].
+				'
+				class="sensor block left BLL2 BRJ TC2 BC2"
+				style="
+					text-align	:center;
+					text-decoration	:none;
+					"
+				>'.
+				$strAudioCodec.
+			'</a>';
+			}
+		}
+	public static function strHTML($_strData, $_arrSearch='')
+		{
+		$obj=new AudioType($_strData, $_arrSearch);
+		return $obj->strHTML;
+		}
+	}
+
+/*
+<!---
+© A.A.CheckMaRev assminog@gmail.com
+-->
+*/
+class ICQRType
+	{
+	public $strHTML;
+	public function __construct($_strData, $_arrSearch='', $objEDRO)
+		{
+		$arrHiFi[сПреобразовать('Low quality', 'вКоманду')]		='No HiFi!';
+		$arrHiFi[сПреобразовать('HiFi beginner', 'вКоманду')]		='HiFi_[L]';
+		$arrHiFi[сПреобразовать('HiFi casual', 'вКоманду')]		='HiFi_[N]';
+		$arrHiFi[сПреобразовать('HiFi often', 'вКоманду')]		='HiFi_[T]';
+		$arrHiFi[сПреобразовать('HiFi mustbe', 'вКоманду')]		='HiFi_[2.1]';
+		$arrHiFi[сПреобразовать('HiFi canBe', 'вКоманду')]		='HiFi_[5.1]';
+		/*$arrHiFi[сПреобразовать('HiFi couldBe', 'вКоманду')]		='HiFi_[7.1]';*/
+		if($objEDRO->arrReality['strLangSignal']=='RU')
+			{
+			$arrO['strTitle']['Enabled']='Нажмите на этот индикатор чтобы выбрать станции вещающие в формате доступном вашему оборудованию.';
+			$arrO['strTitle']['Active']='Ваш текущий активный селектор качества, подходящий для вашего оборудования.';
+			$arrO['strTitle']['Disabled']='Высококачественные каналы, для HiFi аппаратуры высшего класса. Мы в процессе поиска станций для этой категории. В настоящее время раздел отключен, тк тестирование каналов ICQR продолжается. Это высокоточная и продолжительная работа. Спасибо за ваше ожидание. Hfic.Samin федеративный канцлер HiFiIntelligentCLub.';
+			}
+		else
+			{
+			$arrO['strTitle']['Enabled']='Press this indicator to select quality format that are more situable for your equipement.';
+			$arrO['strTitle']['Active']='Your current active selector of quality that could be supported by your equipement.';
+			$arrO['strTitle']['Disabled']='High quality HiFi selector, for higher cost equipement. Searching stations for this category is in progress. Currently disabled, because of the ICQR testing procedure are continue. This is a high precision and hard work. Thank you for your waiting. Hfic.Samin the federal kanzler of HiFiIntelligentClub.';
+			}
+
+		$strHiFiType			=сПреобразовать($_strData, 'вСтроку');
+					   unset($_strData);
+		$arrSearch		=$_arrSearch;
+				   unset($_arrSearch);
+		$intX=0;
+		foreach($arrHiFi as $strCmd=>$strName)
+			{
+			if(strpos($arrSearch['strHiFiType'], '/'.сПреобразовать($strCmd, 'вСтроку'))!==FALSE)
+				{
+				$arrEventLink=arrEventLink($arrSearch, 'strHiFiType', '', 		 false, 0);
+				if($intX>1)
+					{
+					$this->strHTML.='
+					<aaa
+					class="brick left sensor BRJ TC3 BC3 L1"
+					style="
+						padding		:0 5px 0 5px;
+						margin-right	:5px;
+						text-align	:center;
+						text-decoration	:none;
+						"
+						>'.$strName.
+					'</aaa>';
+					}
+				else
+					{
+					$this->strHTML.='
+					<a
+					'.
+					$arrEventLink['strHref'].
+					$arrEventLink['strOnClick'].
+					'
+					class="block left sensor BRJ TC3 BC3 L2"
+					style="
+						padding		:0 5px 0 5px;
+						margin-right	:5px;
+						text-align	:center;
+						text-decoration	:none;
+						"
+					title="'.$arrO['strTitle']['Active'].'"
+						>'.$strName.
+					'</a>';
+					}
+				}
+			else
+				{
+				$arrEventLink=arrEventLink($arrSearch, 'strHiFiType', $strCmd, false, 0);
+				if($intX>1)
+					{
+					$this->strHTML.='
+					<aaa
+					class="block left sensor BRJ  BC1 L1"
+					style="
+						color		:#AAA;
+						margin-right	:5px;
+						text-align	:center;
+						text-decoration	:none;
+						"
+					title="'.$arrO['strTitle']['Disabled'].'"
+						>'.
+						$strName.
+					'</aaa>';	
+					}
+				else
+					{
+					$this->strHTML.='
+					<a
+					'.
+					$arrEventLink['strHref'].
+					$arrEventLink['strOnClick'].
+					'
+					class="block left sensor BRJ  BC1"
+					style="
+						color		:#000;
+						margin-right	:5px;
+						text-align	:center;
+						text-decoration	:none;
+						"
+					title="'.$arrO['strTitle']['Enabled'].'"
+					>'.
+						$strName.
+					'</a>';
+					}
+				}
+			$intX++;
+			}
+		}
+	public static function strHTML($_strData, $_arrSearch='', $objEDRO=array())
+		{
+		$obj=new ICQRType($_strData, $_arrSearch, $objEDRO);
+		return $obj->strHTML;
+		}
+	}
+
+/*© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru*/
+////// 
+   //   /\ RCe
+  //  <  **> 
+ //     Jl   
+//////
+class Header
+	{
+	public $strHTML;
+	public function __construct($_str, $_arrSearch, $_arrICQR, $_strICQR_Q, $objEDRO)
+		{
+		$str		=сПреобразовать($_str, 'вСтроку');// Header text
+			   unset($_str);
+		$intStrLen	=mb_strlen($str);
+		$intStrLenPx	=$intStrLen*12;
+		$arrSearch	=$_arrSearch;
+			   unset($_arrSearch);
+		/*$strBitrate	=$_strBitrate;
+			   unset($_strBitrate);*/
+		/*$strCodec	=$_strCodec;
+			   unset($_strCodec);*/
+		$arrICQR	=$_arrICQR;
+			   unset($_arrICQR);
+		//$strStationLink=strLinkGroove($arrSearch, 'name', $str);
+		$this->strHTML='
+			<header
+				class="rel block TC1 BC1"
+				title="'.$str.'"
+				style="
+					width			:100%;
+					height			:100%;
+					"
+				>
+				<whiteBlockPad
+					class="abs block left BC3 layer_1_2"
+					style="
+						top		:0;
+						left		:0;
+						width		:1px;
+						height		:100%;
+						"
+					>
+				</whiteBlockPad>
+				<whiteBlock
+					class="rel block left layer_1_3"
+					style="
+						width		:1px;
+						height		:100%;
+						background-color:#FFF;
+						"
+					>
+				</whiteBlock>
+				<blockTitle
+					class="block left TC1 BC1 BBV PlayHighLightTop"
+					style="
+						font-size	:x-small;
+						width		:99%;
+						height		:9px;
+						line-height	:9px;
+						"
+					>
+					<ICQRType
+						style="
+							width:80%;
+							"
+						class="block left"
+						>
+						<ICQR
+							class="block left"
+							style="padding: 0 5px 0 5px;"
+							>
+							ICQR:
+						</ICQR>
+						<ICQR
+							class="block left"
+							style="margin-left:5px;"
+							>
+							
+							'.ICQRType::strHTML($_strICQR_Q, $arrSearch, $objEDRO).
+							'
+						</ICQR>
+						<rightBufferBlock 
+							class="block left TC2 BC2"
+							style="width:76px;height:100%"
+							>
+						</rightBufferBlock>
+
+					</ICQRType>
+
+				</blockTitle>
+				<h2
+					class="abs left block scrollerX layer_1_1"
+					style="
+						top		:10px;
+						width		:99.5%;
+						height		:40px;
+						padding		:0;
+						margin		:0;
+						font-size	:large;
+						font-weight	:unset;
+						"
+					>
+					<strScrolling 
+						class="block TC1 BC1 L2"
+						style="
+							width		:'.$intStrLenPx.'px;
+							min-width	:100%;
+							font-size	:large;
+							line-height	:20px;
+							"
+						>'.
+						$str.
+					'</strScrolling>
+				</h2>'.
+				'
+				<nextBlockTitle
+					class="abs block left TC1 BC1 layer_1_2 BTA PlayHighLightBottom"
+					style="
+						bottom		:0px;
+						font-size	:x-small;
+						width		:99%;
+						height		:29px;
+						line-height	:9px;
+						"
+					>
+					<icqr
+						class="block left TC1 BC1"
+						style="width	:88%"
+						>
+						<ifRU class="block left">
+							'.$arrICQR['RU'].'
+						</ifRU>
+						<ifEN class="block left">
+							'.$arrICQR['EN'].'
+						</ifEN>
+					</icqr>
+					<stationLink
+						class="block right sensor no-select TC1 line"
+						style="
+							width		:10%
+							right		:0;
+							color		:#FFF;
+						
+						"
+						>'
+						.StationQualityUPLink::strHTML($str, $arrSearch, $objEDRO).
+					'</stationLink>
+				</nextBlockTitle>
+			</header>
+			';
+		}
+	public static function strHTML($_str, $_arrSearch,$_arrICQR, $_strICQR_Q, $objEDRO=array())
+		{
+		$objHeader=new Header($_str, $_arrSearch, $_arrICQR, $_strICQR_Q, $objEDRO);
+		return $objHeader->strHTML;
+		}
+	}
+
+
+/*© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru*/
+//////
+   //   /\ RCe
+  //  <  **> 
+ //     Jl
+//////
+class Player
+	{
+	private $arr;
+	private $strHTML;
+	private $strAudio;
+	public function __construct($_strAudio, $_strAudioType)
+		{
+		//$objKIIM=KIIM::objStart($_objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
+		//unset($_objKIIM);
+		//exit;
+		//$this->strAudio		=strEncode($_strAudio, 'HiFiIntelligentClub', 'e');
+		$this->strAudio			=$_strAudio;
+					   unset($_strAudio);
+		$strAudioType			='audio/'.$_strAudioType;
+		//$this->arr=$_arrData;
+		if(!empty($this->strAudio))
+			{ //
+			$this->strHTML=
+			'<ifReady
+				class	="block cursor no-select TC1 BC1"
+				onclick	="objPlayer.play(this,\''.$this->strAudio.'\', \''.$strAudioType.'\' );"
+				style	="
+					text-align	:center;
+					"
+				>
+				<ifOverload
+					style	="
+						display:none;
+						"
+					>
+					<ifEN>
+						<marquee style="width:44px;">Station overloaded. Please try another or less bitrate Kbps, this stations
+						  sounds with less quality but  this is situable for slower internet.</marquee>
+					</ifEN>
+					<ifRU>
+						<marquee>Станция  перегружена. Попробуйте другую или вырырайте станцию с меньшим качеством КБит/сек, 
+						но годной для более медленного интернета.</marquee>
+					</ifRU>
+				</ifOverload>
+				<recordLabelAudioMeta
+					class="block no-select doubleLine"
+					style="
+						text-align	:center;
+						width		:40px;
+						"
+					>
+					<recordLabel
+						class="block border TC3 BC3"
+						style="
+							margin-top	: 9px;
+							height		: 20px;
+							width		: 40px;
+							line-height	: 19px;
+							padding		: 0;
+							font-size	: initial;
+							"
+						>
+						<ifEN
+							title="Play station"
+							>Play
+						</ifEN>
+						<ifRU
+							style	="font-size	:small;"
+							title	="Нажмите чтобы начать слушать радио."
+							>Воспр.
+						</ifRU>
+					</recordLabel>
+				</recordLabelAudioMeta>
+			</ifReady>
+			<ifPlaying
+				class="block cursor TC1 no-select"
+				onclick="objPlayer.stop();"
+				style="
+					display		:none;
+					width		:100%;
+					height		:100%;
+					text-align	:center;
+					"
+				>
+				<recordAudioData
+					class="block no-select"
+					style="
+						width		:34px;
+						height		:22px;
+						text-align	:center;
+						margin-top	:9px;
+						margin-left	:3px;
+						"
+					>
+					<recordLabel
+						class="block L1 border-right"
+						style="
+							color			: #2b70b6; /*Sven color*/
+							background-color	: white;
+							border-top		: 1px solid #2b70b6;
+							border-bottom		: 1px solid #2b70b6;
+							width			: 32px;
+							text-align		: center;
+							margin			: 0;
+							padding			: 0;
+							"
+						>
+						<ifEN
+							title="Press to stop playing."
+							>
+							Stp
+						</ifEN>
+						<ifRU
+							title="Нажмите чтобы остановить воспроизведение."
+							>
+							Стп
+						</ifRU>
+					</recordLabel>
+				</recordAudioData>
+			</ifPlaying>
+			<ifLoadingAudio
+				class="block cursor no-select"
+				onclick="objPlayer.stop();"
+				style="
+					display		:none;
+					width		:100%;
+					height		:100%;
+					text-align	:center;
+					color		:#000;
+					/*background-color:yellow;*/
+					"
+				>
+				<recordAudioData
+					class="block no-select"
+					style="
+						width		:34px;
+						height		:22px;
+						text-align	:center;
+						margin-top	:8px;
+						margin-left	:3px;
+						"
+					>
+					<recordLabel
+						class="block TC3"
+						style="
+							width		: 32px;
+							height		: 22px;
+							text-align	: center;
+							line-height	: 19px;
+							margin		: 0;
+							padding		: 0;
+							"
+						>
+					</recordLabel>
+				</recordAudioData>
+			</ifLoadingAudio>
+			<ifNoConnection
+				class="block cursor TC2 BC1 no-select"
+				onclick="objPlayer.play(this,\''.$this->strAudio.'\', \''.$strAudioType.'\' );"
+				style="
+					display		:none;
+					width		:100%;
+					height		:100%;
+					text-align	:center;
+					background-color:rgba(255,255,255,0.82);
+					"
+				>
+				<ifEN>
+					<marquee style="width:36px;">This  station is currently offline. Please try another one.</marquee>
+				</ifEN>
+				<ifRU>
+					<marquee style="width:36px;">"Эта радиостанция сейчас недоступна. Возможно она очень далеко, перегружена или отдыхает. 
+					Пока станция недоступна, попробуйте послушать другую.</marquee>
+				</ifRU>
+			</ifNoConnection>';
+			}
+		//KIIM::objFinish($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
+		}
+	public static function strHTML($_strAudio, $_strAudioType)
+		{
+		$objShader=new Player($_strAudio, $_strAudioType);
+		return $objShader->strHTML;
+		}
+	public static function strObjectInit()
+		{
+		return Event::strOConstruct('Player');
+		}
+	public static function strObjectDeclare()
+		{
+		$str	=<<<oo2oo
+		<script>
+		console.log('[V]EDRO.Objects.Player: Declare Player');
+		class Player
+			{
+			constructor()
+				{
+				console.log('[Vv]EDRO.Objects.Player: Player.constructor()');
+
+				//this.objAudio			=document.getElementById("objHiFiIntelligentClubAudio");
+				this.objAudio			=document.createElement('audio');
+				this.intPlayerLoadingAnim	=0;
+				this.strPlayerLoadingAnim	=0;
+				this.objStation			='';
+				this.strCurrentID		='';
+				this.strPlayingID		='';
+				this.strStationName		='';
+				this.objAudio.crossorigin	="use-credentials";
+				this.objVisibleControls		=document.getElementById('playerControlAlwaysVisible');
+				this.objVisibleControlsStat	=document.getElementById('playerControlAlwaysVisibleLoadingStat');
+				this.objVisibleControlsText	=document.getElementById('playerControlAlwaysVisibleLoadingText');
+
+				this.bIzLoading					=false;
+				this.intLoadingDuration				=0;
+				this.objVisibleControlsLoading			=document.getElementById('playerControlAlwaysVisibleLoading');
+				this.objVisibleControlsLoadingStationName	=document.getElementById('playerControlAlwaysVisibleLoadingStationName');
+				this.objVisibleControlsLoadingDuration		=document.getElementById('playerControlAlwaysVisibleLoadingDuration');
+				this.objVisibleControlsLoadingErrors		=document.getElementById('playerControlAlwaysVisibleLoadingErrors');
+				
+
+				this.bIzPlaying					=false;
+				this.intPlayingDuration				=0;
+				this.objVisibleControlsPlaying			=document.getElementById('playerControlAlwaysVisiblePlaying');
+				this.objVisibleControlsPlayingDuration		=document.getElementById('playerControlAlwaysVisiblePlayingDuration');
+
+				this.objVisibleControlsNoConnectionStationName	=document.getElementById('playerControlAlwaysVisibleNoConnectionStationName');
+				this.objVisibleControlsOverloadStationName	=document.getElementById('playerControlAlwaysVisibleOverloadStationName');
+				this.objVisibleControlsPlayingErrors		=document.getElementById('playerControlAlwaysVisiblePlayingErrors');
+				this.objVisibleControlsPlayingErrorDuration	=document.getElementById('playerControlAlwaysVisibleStoppedErrorsDuration');
+
+				this.objVisibleControlsStopped	=document.getElementById('playerControlAlwaysVisibleStopped');
+				//this.objDebugString		=document.getElementById('strPlayerPlayEventsDebugString');
+				this.objCurrentBlock;
+				this.objPlayingBlock;
+				this.bIzWhileHumanEvent		=false;
+				this.bIzPlayedOnceEvent		=false;
+				this.bIzNeedToBeStoppedEvent	=false;
+				this.bIzWeThinkPlayerIsPlaying	=false;
+				//this.objDebugString.innerHTML	='objPlayer.objAudio.construct<br/>';
+				this.objAudio.onloadstart	=function()
+					{
+					//alert('.onloadstart');
+					//objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onloadstart<br/>';
+					console.log('[Vvv]EDRO.Objects.Player: onLoadStart');
+					objReality.arrPlayer.bIzLoading	=true;
+					objReality.arrPlayer.bIzPlaying	=false;
+					//console.log(objPlayer.objAudio.readyState);
+					//console.log(objPlayer.objStation);
+					
+					//objKIIM_StatisticalMembrane._incTime();
+					objPlayer.objVisibleControls.classList.remove('stopped');
+					objPlayer.objVisibleControls.classList.remove('loadingAudio');
+					objPlayer.objVisibleControls.classList.remove('playing');
+					objPlayer.objVisibleControls.classList.remove('errorAudio');
+					objPlayer.objVisibleControls.classList.remove('overload');
+					objPlayer.objVisibleControls.className	+=' loadingAudio';
+					if(objPlayer.objCurrentBlock)
+						{
+						objPlayer.objCurrentBlock.classList.remove('loadingAudio');
+						objPlayer.objCurrentBlock.classList.remove('playing');
+						objPlayer.objCurrentBlock.classList.remove('errorAudio');
+						objPlayer.objCurrentBlock.classList.remove('overload');
+						objPlayer.objCurrentBlock.className	+=' loadingAudio';
+						}
+
+					console.log('[Vvv]EDRO.Objects.Player: bIzWhileHumanEvent=false');
+					//objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onloadstart .bIzWhileHumanEvent=false;<br/>';
+					objPlayer.bIzWhileHumanEvent=false;
+					
+					console.log('[...]EDRO.Objects.Player: onLoadStart');
+					}
+				this.objAudio.onwaiting		=function()
+					{
+					//alert('.onwaiting');
+					//objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onWaiting<br/>';
+					console.log('[Vvv]EDRO.Objects.Player: onWaiting()');
+					//console.log('[Vvv]EDRO.Objects.Player: objAudio.Load()');
+					//objReality.arrPlayer.bIzLoading=true;
+					//objPlayer.objAudio.load();//--
+					objReality.arrPlayer.bIzLoading	=false;
+					objReality.arrPlayer.bIzPlaying	=false;
+					objReality.arrPlayer.bIzWaiting	=true;
+
+					objPlayer.objVisibleControls.classList.remove('WaitingAudio');
+					objPlayer.objVisibleControls.classList.remove('stopped');
+					//objPlayer.objVisibleControls.classList.remove('loadingAudio');
+					//objPlayer.objVisibleControls.classList.remove('playing');
+					objPlayer.objVisibleControls.classList.remove('errorAudio');
+					objPlayer.objVisibleControls.classList.remove('overload');
+					objPlayer.objVisibleControls.className	+=' WaitingAudio';
+					if(typeof(objPlayer.objCurrentBlock)=='object')
+						{
+						objPlayer.objCurrentBlock.classList.remove('WaitingAudio');
+						//objPlayer.objCurrentBlock.classList.remove('loadingAudio');
+						//objPlayer.objCurrentBlock.classList.remove('playing');
+						objPlayer.objCurrentBlock.classList.remove('errorAudio');
+						objPlayer.objCurrentBlock.classList.remove('overload');
+						objPlayer.objCurrentBlock.className	+=' WaitingAudio'
+						}
+					objPlayer.objAudio.play(); //++n
+					//console.log('[Vvv]EDRO.Objects.Player: AFTER:objAudio.Load()');
+					//objPlayer.bIzWhileHumanEvent=false;
+					//objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onWaiting .bIzWhileHumanEvent=false;<br/>';
+					//console.log('[Vvv]EDRO.Objects.Player: bIzWhileHumanEvent=false');
+					console.log('[...]EDRO.Objects.Player: onWaiting()');
+					}
+				this.objAudio.oncanplay		=function()
+					{
+					//alert('.oncanplay');
+					//objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.oncanplay<br/>';
+					console.log('[Vvv]EDRO.Objects.Player: onCanPlay()');
+
+					console.log('[Vvv]EDRO.Objects.Player: objAudio.play()');
+					objPlayer.objAudio.play();
+					//objPlayer.objAudio.play();
+					console.log('[Vvv]EDRO.Objects.Player: AFTER:objAudio.play()');
+					//objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.oncanplay<br/>';
+					//this.bIzWeThinkPlayerIsPlaying	=true;
+					//objPlayer.bIzWhileHumanEvent	=false;
+					console.log('[...]EDRO.Objects.Player: objAudio.play()');
+					}
+				this.objAudio.oncanplaythrough	=function()
+					{
+					//alert('.oncanplaythrough');
+					console.log('[Vvv]EDRO.Objects.Player: onCanPlayThrough()');
+					objReality.arrPlayer.bIzLoading	=false;
+					objReality.arrPlayer.bIzPlaying	=true;
+					objReality.arrPlayer.bIzWaiting	=false;
+					objPlayer.bIzWhileHumanEvent	=false;
+					//objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.oncanplaythrough<br/>';
+					objPlayer.objAudio.play();
+					//this.play();
+					//this.bIzWeThinkPlayerIsPlaying	=true;
+					//objPlayer.bIzWhileHumanEvent	=false;
+					console.log('[...]EDRO.Objects.Player: onCanPlayThrough()');
+					}
+				this.objAudio.onplaying		=function()
+					{
+					//alert('.onplaying');
+					//objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onPlaying<br/>';
+					console.log('[Vvv]EDRO.Objects.Player: onPlaying()');
+					objReality.arrPlayer.bIzLoading	=false;
+					objReality.arrPlayer.bIzPlaying	=true;
+					objReality.arrPlayer.bIzWaiting	=false;
+					objPlayer.bIzWhileHumanEvent	=false;
+					//this.bIzWeThinkPlayerIsPlaying		=true;
+					console.log('[Vvv]EDRO.Objects.Player: bIzWeThinkPlayerIsPlaying=true');
+					//objPlayer.bIzPlayedOnceEvent		=true; //New - 30.08.2020
+					objPlayer.objVisibleControls.classList.remove('stopped');
+					objPlayer.objVisibleControls.classList.remove('loadingAudio');
+					objPlayer.objVisibleControls.classList.remove('WaitingAudio');
+					objPlayer.objVisibleControls.className	+=' playing';
+
+					objPlayer.objCurrentBlock	=document.getElementById(objPlayer.strCurrentID);
+					if(objPlayer.objCurrentBlock)
+						{
+						console.log('[Vvvv]EDRO.Objects.Player: objCurrentBlock+Playing');
+						objPlayer.objCurrentBlock.classList.remove('loadingAudio');
+						objPlayer.objCurrentBlock.classList.remove('WaitingAudio');
+						objPlayer.objCurrentBlock.className	+=' playing';
+						console.log('[....]EDRO.Objects.Player: objCurrentBlock+Playing');
+						}
+					console.log('[...]EDRO.Objects.Player: onPlaying()');
+					//objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onPlaying bIzWhileHumanEvent=false<br/>';
+					//objPlayer.bIzWhileHumanEvent=false;
+					console.log('[Vvv]EDRO.Objects.Player: bIzWhileHumanEvent=false');
+					console.log('[...]EDRO.Objects.Player: onPlaying()');
+					}
+				this.objAudio.onended		=function()
+					{
+					//alert('onended');
+					console.log('[Vvv]EDRO.Objects.Player: onEnded()');
+					//objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onEnded bIzWhileHumanEvent=false<br/>';
+					console.log('[Vvv]EDRO.Objects.Player: objAudio.load()');
+					objPlayer.objAudio.load(); //++ New - 30.08.2020 //--
+					console.log('[Vvv]EDRO.Objects.Player: AFTER:objAudio.load()');
+					//console.log('[...]EDRO.Objects.Player: onEnded()');
+					}
+				this.objAudio.onpause		=function()
+					{
+					//alert('onpause');
+					//objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onPause start-><br/>';
+					console.log('[Vvv]EDRO.Objects.Player: onPause()');
+					objReality.arrPlayer.bIzWaiting	=false;
+					//console.log(objPlayer.objAudio);
+					objPlayer.objVisibleControls.classList.remove('loadingAudio');
+					objPlayer.objVisibleControls.classList.remove('WaitingAudio');
+					objPlayer.objVisibleControls.classList.remove('playing');
+					objPlayer.objVisibleControls.classList.remove('errorAudio');
+
+					objPlayer.objCurrentBlock	=document.getElementById(objPlayer.strCurrentID);
+					if(objPlayer.objCurrentBlock)
+						{
+						console.log('[Vvvv]EDRO.Objects.Player: objCurrentBlock');
+						//objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onPause currentBlock-><br/>';
+						objPlayer.objCurrentBlock.classList.remove('loadingAudio');
+						objPlayer.objCurrentBlock.classList.remove('playing');
+						objPlayer.objCurrentBlock.classList.remove('WaitingAudio');
+						objPlayer.objCurrentBlock.classList.remove('errorAudio');
+						if(objPlayer.bIzWhileHumanEvent==false)
+							{
+							console.log('[Vvvvv]EDRO.Objects.Player: objCurrentBlock');
+							//objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onPause currentBlock->bIzWhileHumanEvent==false<br/>';
+					
+							objPlayer.objVisibleControls.className	+=' overload';
+							objPlayer.objCurrentBlock.className	+=' overload';
+							//objPlayer.objAudio.load();
+							
+							console.log('[Vvvvv]EDRO.Objects.Player: load()');
+							//objPlayer.objAudio.load();//--
+							//this.bIzLoading=true;
+							console.log('[Vvvvv]EDRO.Objects.Player: AFTER:load()');
+							//objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onPause-><br/>';
+							//objPlayer.objDebugString.innerHTML+='objPlayer.bIzWhileHumanEvent->objPlayer.objAudio.load();<br/>';
+							//objPlayer.objAudio.play();
+							//objPlayer.play();
+							console.log('[.....]EDRO.Objects.Player: objCurrentBlock');
+							}
+						else //isHumanEvent
+							{
+							//objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onPause->objPlayer.!bIzWhileHumanEvent->objPlayer.src drop;<br/>';
+							console.log('[Vvvvv]EDRO.Objects.Player: !objCurrentBlock(Stop)');
+							this.bIzWeThinkPlayerIsPlaying		=false;
+							console.log('[Vvvvv]EDRO.Objects.Player: bIzWeThinkPlayerIsPlaying=false');
+							objPlayer.bIzNeedToBeStoppedEvent	=true;
+							console.log('[Vvvvv]EDRO.Objects.Player: .bIzNeedToBeStoppedEvent=true');
+							objPlayer.objAudio.src			='';
+							console.log('[Vvvvv]EDRO.Objects.Player: ZzzuzzZ real stop patch 2009, progressed by assminog to total stop event 2020.');
+							objPlayer.objVisibleControls.className	+=' stopped';
+							console.log('[.....]EDRO.Objects.Player: !objCurrentBlock(Stop)');
+							}
+						console.log('[....]EDRO.Objects.Player: objCurrentBlock');
+						}
+					
+					//objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onPause end start->objPlayer.bIzWhileOnHumanEvent=false<br/>';
+					objPlayer.bIzWhileOnHumanEvent=false;
+					console.log('[Vvv]EDRO.Objects.Player: bIzWhileOnHumanEvent=false');
+					console.log('[...]EDRO.Objects.Player: onPause()');
+					}
+				this.objAudio.onerror		=function()
+					{
+					//alert('onerror');
+					console.log('[Vvv]EDRO.Objects.Player: onError');
+					objReality.arrPlayer.bIzWaiting	=false;
+					//objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onError start-><br/>';
+					
+					////objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onError objKIIM_StatisticalMembrane._stop()-><br/>';
+
+					
+
+					objPlayer.objPlayingBlock		=document.getElementById(objPlayer.strPlayingID);
+					if(objPlayer.bIzWhileHumanEvent)
+						{
+						objPlayer.objVisibleControls.classList.remove('errorAudio');
+						objPlayer.objVisibleControls.classList.remove('WaitingAudio');
+						objPlayer.objVisibleControls.classList.remove('stopped');
+						objPlayer.objVisibleControls.classList.remove('loadingAudio');
+						objPlayer.objVisibleControls.classList.remove('playing');
+						objPlayer.objVisibleControls.classList.remove('overload');
+						objPlayer.objVisibleControls.className	+=' errorAudio';
+	    					if(objPlayer.objPlayingBlock)
+							{
+							objPlayer.objPlayingBlock.classList.remove('overload');
+							objPlayer.objPlayingBlock.classList.remove('playing');
+							objPlayer.objPlayingBlock.classList.remove('stopped');
+							objPlayer.objPlayingBlock.classList.remove('loadingAudio');
+							objPlayer.objPlayingBlock.classList.remove('errorAudio');
+							objPlayer.objPlayingBlock.classList.remove('WaitingAudio');
+							objPlayer.objPlayingBlock.className	+=' errorAudio';
+							}
+						console.log('[....]EDRO.Objects.Player: objPlayingBlock');
+						return true;
+						}
+					else
+						{
+						if(objPlayer.bIzNeedToBeStoppedEvent)
+							{
+							//objPlayer.objDebugString.innerHTML+='objPlayer.bIzNeedToBeStoppedEvent=true<br/>';
+							console.log('[Vvvv]EDRO.Objects.Player: bIzNeedToBeStoppedEvent==TRUE');
+							
+							objPlayer.bIzNeedToBeStoppedEvent	=false;
+							//console.log('[Vvvv]EDRO.Objects.Player: bIzNeedToBeStoppedEvent=false');
+							this.bIzWeThinkPlayerIsPlaying		=false;
+							//console.log('[Vvvv]EDRO.Objects.Player: bIzWeThinkPlayerIsPlaying=false');
+							//jPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onError<br/>';
+
+							objPlayer.objVisibleControls.classList.remove('errorAudio');
+							objPlayer.objVisibleControls.classList.remove('stopped');
+							objPlayer.objVisibleControls.classList.remove('loadingAudio');
+							objPlayer.objVisibleControls.classList.remove('WaitingAudio');
+							objPlayer.objVisibleControls.classList.remove('playing');
+							objPlayer.objVisibleControls.classList.remove('overload');
+							objPlayer.objVisibleControls.className	+=' stopped';
+		    					if(objPlayer.objPlayingBlock)
+								{
+								objPlayer.objPlayingBlock.classList.remove('overload');
+								objPlayer.objPlayingBlock.classList.remove('playing');
+								objPlayer.objPlayingBlock.classList.remove('loadingAudio');
+								objPlayer.objPlayingBlock.classList.remove('WaitingAudio');
+								objPlayer.objPlayingBlock.classList.remove('errorAudio');
+								objPlayer.objPlayingBlock.className	+=' stopped';
+								}
+							//objPlayer.stop();
+							console.log('[====]EDRO.Objects.Player: bIzNeedToBeStoppedEvent?');
+							return true;
+							}
+						else
+							{
+							objPlayer.objAudio.load();//++
+							}
+						}
+					/*
+					if(objPlayer.objPlayingBlock)
+						{
+						//objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onError objPlayer.objPlayingBlock<br/>';
+						console.log('[Vvvv]EDRO.Objects.Player: objPlayingBlock');
+						if(objPlayer.bIzNeedToBeStoppedEvent)
+							{
+							
+							//objPlayer.objDebugString.innerHTML+='objPlayer.bIzNeedToBeStoppedEvent=true-><br/>';
+							console.log('[Vvvvv]EDRO.Objects.Player: bIzNeedToBeStoppedEvent?');
+							objPlayer.objVisibleControls.classList.remove('stopped');
+							objPlayer.objVisibleControls.classList.remove('loadingAudio');
+							objPlayer.objVisibleControls.classList.remove('playing');
+							objPlayer.objVisibleControls.classList.remove('overload');
+							objPlayer.objVisibleControls.className	+=' stopped';
+
+							objPlayer.objPlayingBlock.classList.remove('overload');
+							objPlayer.objPlayingBlock.classList.remove('playing');
+							objPlayer.objPlayingBlock.classList.remove('loadingAudio');
+							objPlayer.objPlayingBlock.classList.remove('errorAudio');
+							objPlayer.objPlayingBlock.className	+=' stopped';
+							//objPlayer.stop();
+							objKIIM_StatisticalMembrane._stop();
+							objPlayer.bIzNeedToBeStoppedEvent	=false;
+							console.log('[Vvvvv]EDRO.Objects.Player: bIzNeedToBeStoppedEvent=false');
+							this.bIzWeThinkPlayerIsPlaying		=false;
+							console.log('[Vvvvv]EDRO.Objects.Player: bIzWeThinkPlayerIsPlaying=false');
+							console.log('[=====]EDRO.Objects.Player: bIzNeedToBeStoppedEvent?');
+							return true;
+							}
+						else
+							{
+							//objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onError objPlayer.objPlayingBlock<br/>';
+							//objPlayer.objDebugString.innerHTML+='objPlayer.bIzNeedToBeStoppedEvent=false-><br/>';
+							console.log('[Vvvvv]EDRO.Objects.Player: !bIzNeedToBeStoppedEvent?');
+							//if(objReality.arrPlayer.bIzPlaying==false)
+							//	{
+							//	objPlayer.objPlayingBlock.className	+=' errorAudio';
+							//	}
+							//else
+							//	{
+								objPlayer.objAudio.load();//++
+							//	}
+							console.log('[.....]EDRO.Objects.Player: !bIzNeedToBeStoppedEvent?');
+							//return true;
+							//objKIIM_StatisticalMembrane._error();
+							}
+
+						}
+
+						*/
+					//objKIIM_StatisticalMembrane._error();
+					//objPlayer.objVisibleControls.className	+=' errorAudio';
+					console.log('[Vvv]EDRO.Objects.Player: objPlayingBlock.setError+');
+
+
+					//objPlayer.bIzWhileOnHumanEvent=false;
+					console.log('[Vvv]EDRO.Objects.Player: bIzWhileOnHumanEvent=false');
+					//objPlayer.objAudio.load();
+					//this.bIzLoading=true;
+					
+					////objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onError dropHumanEvent flag->';
+					//objKIIM_StatisticalMembrane._stop();
+					//objPlayer.bIzWhileOnHumanEvent=false;
+					//console.log('[Vvv]EDRO.Objects.Player: bIzWhileOnHumanEvent=false');
+					console.log('[...]EDRO.Objects.Player: onError');
+					}
+				this.objAudio.onstalled		=function()
+					{
+					//alert('.onstalled	');
+					console.log('[Vvv]EDRO.Objects.Player: objAudio.onstalled');
+					//objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onStalled<br/><br/>';
+					//objPlayer.bIzWhileHumanEvent	=false; //+ new!  30.08.2020
+					console.log('[Vvv]EDRO.Objects.Player: bIzWhileHumanEvent=false');
+					//objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onStalled-> .load()<br/>';
+					//objPlayer.objAudio.play(); //++n
+					//objKIIM_StatisticalMembrane._error();
+
+
+					if(objReality.bIzAndroid)
+						{
+						console.log('[...]EDRO.Object Reality: Adroid');
+						objPlayer.objAudio.play();
+						}
+					else
+						{
+						objPlayer.objAudio.load();//--
+						}
+					if(objReality.bIzApple)
+						{
+						console.log('[...]EDRO.Object Reality: Apple');
+						}
+					if(objReality.bIzDesktop)
+						{
+						console.log('[...]EDRO.Object Reality: Other');
+						}
+					
+					this.bIzLoading		=false;
+					console.log('[...]EDRO.Objects.Player: objAudio.onstalled');
+					//objPlayer.objAudio.play(); //++n
+					}
+				this.objAudio.onabort		=function() //Abort is allowed in Russia. But we disallow abort. Abort is a murder death kill! Hfic Samin.
+					{
+					console.log('[Vvv]EDRO.Objects.Player: onAbort');
+					//alert('onabort');
+					//objReality.arrPlayer.bIzPlaying
+					if(objReality.arrPlayer.bIzLoading===true)
+						{
+						//objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onAbort while loading pass through';
+						}
+					else
+						{
+						if(objReality.arrPlayer.bIzPlaying===true)
+							{
+							objPlayer.objAudio.load();
+							}
+						}
+					//console.log('[Vvv]EDRO.Objects.Player: onAbort');
+					//objKIIM_StatisticalMembrane._error();
+					//objPlayer.bIzWhileHumanEvent		=false;
+					//console.log('[Vvv]EDRO.Objects.Player: bIzWhileHumanEvent=false');
+					//objPlayer.bIzNeedToBeStoppedEvent	=false;
+					//console.log('[Vvv=^+v]EDRO.Objects.Player: bIzNeedToBeStoppedEvent=true');
+					//objPlayer.objAudio.pause();  //+ new!  30.08.2020
+					////objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onAbort dropHumanEvent flag->';
+					console.log('[...]EDRO.Objects.Player: onAbort');
+					}
+				this.objAudio.onsuspend		=function()
+					{
+					//alert('onsuspend');
+					console.log('[Vvv]EDRO.Objects.Player: onSspend');
+					////objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onSuspend<br/>'; //drop 
+					//objPlayer.bIzWhileHumanEvent	=false; //+ new!  30.08.2020
+					//console.log('[Vvv]EDRO.Objects.Player: bIzWhileHumanEvent=false');
+					//objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onSuspend-> .drplg<br/>'; //drop log
+					if(objReality.bIzAndroid)
+						{
+						console.log('[...]EDRO.Object Reality: Adroid');
+						}
+					if(objReality.bIzApple)
+						{
+						console.log('[...]EDRO.Object Reality: Apple');
+						}
+					if(objReality.bIzDesktop)
+						{
+						console.log('[...]EDRO.Object Reality: Other');
+						}
+					if(objReality.arrPlayer.bIzLoading===true)
+						{
+						//objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onSuspend while loading pass through';
+						console.log('[...]EDRO.Object Suspend on loading');
+						}
+					else
+						{
+						if(objReality.arrPlayer.bIzPlaying===true)
+							{
+							console.log('[...]EDRO.Object Suspend on playing');
+							//objPlayer.objAudio.load();
+							}
+						console.log('[...]EDRO.Object Suspend on unknown');
+						}
+					//objPlayer.objAudio.play();
+					//objPlayer.objAudio.play(); //++n
+					console.log('[...]EDRO.Objects.Player: onSspend');
+					}
+				console.log('[..]EDRO.Objects.Player: Player.constructor()');
+				}
+			play(obj, strAudio, strAudioType)
+				{
+				//objPlayer.objAudio.play();
+				console.log('[Vv]EDRO.Objects.Player: play()');
+				//objPlayer.objDebugString.innerHTML+='objPlayer.Play-><br/>';
+				objReality.arrPlayer.bIzLoading		=true;
+				objPlayer.intLoadingDuration	=0;
+				objReality.arrPlayer.bIzPlaying		=false;
+				objPlayer.intPlayingDuration	=0;
+				objPlayer.objVisibleControlsPlaying.innerHTML='';
+				console.log('[Vv]EDRO.Objects.Player: clear.Indicator.Playing');
+				objPlayer.bIzWhileHumanEvent	=true;
+				console.log('[Vv]EDRO.Objects.Player: bIzWhileHumanEvent=true');
+				objPlayer.bIzPlayedOnceEvent	=false;
+				console.log('[Vv]EDRO.Objects.Player: bIzPlayedOnceEvent=false');
+
+				if(objPlayer.strPlayingID!=false)
+					{
+					console.log('[Vvv]EDRO.Objects.Player: strPlayingID!=false');
+					objPlayer.objVisibleControls.classList.remove('stopped');
+					objPlayer.objVisibleControls.classList.remove('playing');
+					objPlayer.objVisibleControls.classList.remove('loadingAudio');
+					objPlayer.objVisibleControls.classList.remove('WaitingAudio');
+					objPlayer.objVisibleControls.classList.remove('errorAudio');
+					objPlayer.objVisibleControls.classList.remove('overload');
+
+
+					objPlayer.objPlayingBlock	=document.getElementById(objPlayer.strPlayingID);
+					console.log('[Vvv]EDRO.Objects.Player: reload.objPlayer');
+					if(objPlayer.objPlayingBlock)
+						{
+						console.log('[Vvvv]EDRO.Objects.Player: reload.objPlayingBlock?');
+						objPlayer.objPlayingBlock.classList.remove('overload');
+						objPlayer.objPlayingBlock.classList.remove('playing');
+						objPlayer.objPlayingBlock.classList.remove('loadingAudio');
+						objPlayer.objPlayingBlock.classList.remove('WaitingAudio');
+						objPlayer.objPlayingBlock.classList.remove('errorAudio');
+						console.log('[....]EDRO.Objects.Player: reload.objPlayingBlock?');
+						}
+					console.log('[...]EDRO.Objects.Player: strPlayingID!=false');
+					}
+
+
+				//objPlayer.objCurrentBlock		=obj.parentNode.parentNode;
+				if(typeof(obj)=='object')
+					{
+					console.log('[Vvv]EDRO.Objects.Player: obj==object?');
+					objPlayer.objStation			=obj.parentNode.parentNode.parentNode;
+					objPlayer.strCurrentID			=objPlayer.objStation.id;
+					//objPlayer.objAudio.src			=b64clr(strAudio);
+					console.log('[...]EDRO.Objects.Player: obj==object?');
+
+					}
+				objPlayer.objCurrentBlock			=document.getElementById(objPlayer.strCurrentID);
+				console.log('[Vv]EDRO.Objects.Player: loadCurrentBlock by objPlayer.strCurrentID');
+				if(objPlayer.objCurrentBlock)
+						{
+						objPlayer.strStationName			=objPlayer.objCurrentBlock.getElementsByTagName('strScrolling')[0].innerHTML;
+						objPlayer.intNum				=objPlayer.objCurrentBlock.attributes.num.value;
+						}
+				//alert(objPlayer.intNum);
+				objEvent.arrReality.int1PlayingStationNum		=objPlayer.intNum;
+				objEvent.arrReality.strPlayingStationId			=objPlayer.strCurrentID;
+				objPlayer.objVisibleControlsPlaying.innerHTML			='<a style="color:white;text-decoration:none" href="#" onClick="objEvent.arrReality.strName=objPlayer.strStationName; objEvent.arrReality.strStyle=\'\';objEvent.arrReality.intBitrate=\'\';objEvent.arrReality.strCodec=\'\';objEvent._UpdateURLDyn(true);">'+objPlayer.strStationName+'</a>';
+				objPlayer.objVisibleControlsLoadingStationName.innerHTML	=objPlayer.strStationName;
+				objPlayer.objVisibleControlsNoConnectionStationName.innerHTML	=objPlayer.strStationName;
+				objPlayer.objVisibleControlsStopped.innerHTML			='<a style="color:gray;text-decoration:none" href="#" onClick="objEvent.arrReality.strName=objPlayer.strStationName; objEvent.arrReality.strStyle=\'\';objEvent.arrReality.intBitrate=\'\';objEvent.arrReality.strCodec=\'\';objEvent._UpdateURLDyn(true);">'+objPlayer.strStationName+'</a>';
+				objPlayer.objVisibleControlsOverloadStationName.innerHTML	=objPlayer.strStationName;
+				objPlayer.objVisibleControlsStopped.setAttribute('playerId', objPlayer.strCurrentID);
+				//objPlayer.objVisibleControlsStopped.setAttribute('playerId', strAudio);
+				objPlayer.objVisibleControls.className		+=' loadingAudio';
+				if(objPlayer.objCurrentBlock)
+						{
+						objPlayer.objCurrentBlock.className		+=' loadingAudio';
+						}
+				console.log('[Vv]EDRO.Objects.Player: Visible controls +loadingAudio');
+				console.log('[Vv]EDRO.Objects.Player: +loadingAudio');
+				//objPlayer.objAudio.setAttribute('type', strAudioType);
+				if(objReality.bIzAndroid)
+					{
+					console.log('[Vvv]EDRO.Objects.Player: bIzAndroid');
+					objPlayer.objAudio.src		=strAudio;
+					objPlayer.objAudio.volume	=1;
+					objPlayer.objAudio.play();
+					console.log('[...]EDRO.Objects.Player: bIzAndroid');
+					}
+				else
+					{
+					console.log('[Vvv]EDRO.Objects.Player: bIzAndroid=false');
+					objEvent._PlayStation(objPlayer.strCurrentID);
+					console.log('[...]EDRO.Objects.Player: bIzAndroid=false');
+					}
+				objPlayer.strPlayingID				=objPlayer.strCurrentID;
+				console.log('[Vv]EDRO.Objects.Player: Current>>Playing');
+				objPlayer.bIzWhileHumanEvent			=false;
+				console.log('[Vv]EDRO.Objects.Player: .bIzWhileHumanEvent=false');
+				objReality.arrPlayer.bIzLoading			=false;
+				//objPlayer.objAudio.src			=strAudio;
+				//objPlayer.objAudio.load();
+
+				console.log('[..]EDRO.Objects.Player: play()');
+				}
+			stop(strIsHumanOr='Unknown')
+				{
+				console.log('[Vv]EDRO.Objects.Player: stop()');
+				//objPlayer.objDebugString.innerHTML+='objPlayer.Stop-><br/>';
+				objPlayer.bIzWhileHumanEvent		=true;
+				console.log('[Vv]EDRO.Objects.Player: bIzWhileHumanEvent=true');
+				objPlayer.bIzPlayedOnceEvent		=false;
+				console.log('[Vv]EDRO.Objects.Player: bIzPlayedOnceEvent=false');
+				objPlayer.bIzNeedToBeStoppedEvent	=true;
+				console.log('[Vv]EDRO.Objects.Player: bIzNeedToBeStoppedEvent=true');
+
+				console.log('[Vv]EDRO.Objects.Player: BEFORE:pause()');
+				objPlayer.objAudio.pause();
+				console.log('[V]EDRO.Objects.Player: AFTER:pause()');
+				objPlayer.objAudio.src			='';
+				console.log('[Vv]EDRO.Objects.Player: ZzzuzzZ real stop patch 2009, progressed by assminog to total stop event 2020.');
+				console.log('[..]EDRO.Objects.Player: stop()');
+				}
+			updateOnReload()
+				{
+				console.log('[Vv]EDRO.Objects.Player: updateOnReload()');
+				//objPlayer.objDebugString.innerHTML+='objPlayer.updateOnReload-><br/>';
+				if(objPlayer.objVisibleControls.classList.contains('playing'))
+					{
+					//objPlayer.objDebugString.innerHTML+='objPlayer. has playing flag-><br/>';
+					objPlayer.objCurrentBlock	=document.getElementById(objPlayer.strCurrentID);
+					if(objPlayer.objCurrentBlock)
+						{
+						//objPlayer.objDebugString.innerHTML+='objPlayer. is current block-><br/>';
+						objPlayer.objCurrentBlock.className	+=' playing';
+						}
+					}
+				if(objPlayer.objVisibleControls.classList.contains('loadingAudio'))
+					{
+					//objPlayer.objDebugString.innerHTML+='objPlayer. has loadingAudio block-><br/>';
+					objPlayer.objCurrentBlock	=document.getElementById(objPlayer.strCurrentID);
+					if(objPlayer.objCurrentBlock)
+						{
+						//objPlayer.objDebugString.innerHTML+='objPlayer. adding loadingAudio flag to current block-><br/>';
+						objPlayer.objCurrentBlock.className	+=' loadingAudio';
+						}
+					}
+				console.log('[..]EDRO.Objects.Player: updateOnReload()');
+				}
+			keepCurrentState()
+				{
+				console.log('[Vv]EDRO.Objects.Player: keepCurrentState()');
+				console.log('[..]EDRO.Objects.Player: keepCurrentState()');
+				}
+			}
+		console.log('[.]EDRO.Objects.Player: Declare Player');
+		</script>
+oo2oo;
+		return $str;
+		}
+	}
+
+if(isset($objStation->strICQR))
+	{
+	$objStation->strICQR		=strSafeUsers($objStation->strICQR);
+	if($objStation->strICQR=='0/16')
+		{
+		$strICQRPrefix	='<color class="blink-fast" style="font-size:xx-small;background-color:red;color:white;">';
+		$strICQRSuffix	='</color>';
+		}
+	if($objStation->strICQR=='1/16')
+		{
+		$strICQRPrefix	='<color class="blink-medium" style="font-size:xx-small;background-color:red;color:white;">';
+		$strICQRSuffix	='</color>';
+		}
+	if($objStation->strICQR=='1.2/16')
+		{
+		$strICQRPrefix	='<color class="blink-slow" style="font-size:xx-small;color:red">';
+		$strICQRSuffix	='</color>';
+		}
+	if($objStation->strICQR=='1.5/16'||$objStation->strICQR=='1.6/16'||$objStation->strICQR=='1.7/16')
+		{
+		$strICQRPrefix	='<color class="blink-slow" style="font-size:xx-small;background-color:yellow;color:#000;">';
+		$strICQRSuffix	='</color>';
+		}
+	if($objStation->strICQR=='1.8/16'||$objStation->strICQR=='1.9/16'||$objStation->strICQR=='1.95/16')
+		{
+		$strICQRPrefix	='<color class="blink-slow" style="font-size:xx-small;background-color:yellow;color:green;">';
+		$strICQRSuffix	='</color>';
+		}
+	if($objStation->strICQR=='2/16'||$objStation->strICQR=='2.1/16'||$objStation->strICQR=='2.2/16')
+		{
+		$strICQRPrefix	='<color class="blink-slow" style="font-size:xx-small;background-color:yellow;color:green;">';
+		$strICQRSuffix	='</color>';
+		}
+	if($objStation->strICQR=='2.3/16'||$objStation->strICQR=='2.4/16')
+		{
+		$strICQRPrefix	='<color class="blink-slow" style="font-size:xx-small;background-color:yellow;color:blue;">';
+		$strICQRSuffix	='</color>';
+		}
+	if($objStation->strICQR=='2.5/16'||$objStation->strICQR=='2.6/16'||$objStation->strICQR=='2.7/16')
+		{
+		$strICQRPrefix	='<color class="blink-slow" style="font-size:xx-small;background-color:green;color:yellow;">';
+		$strICQRSuffix	='</color>';
+		}
+	if($objStation->strICQR=='2.8/16'||$objStation->strICQR=='2.9/16')
+		{
+		$strICQRPrefix	='<color class="blink-slow" style="font-size:xx-small;background-color:blue;color:yellow;">';
+		$strICQRSuffix	='</color>';
+		}
+	if($objStation->strICQR=='3.0/16'||$objStation->strICQR=='3.1/16'||$objStation->strICQR=='3.2/16'||$objStation->strICQR=='3.25/16'||$objStation->strICQR=='3.3/16'||$objStation->strICQR=='3.4/16'||$objStation->strICQR=='3.50/16'||$objStation->strICQR=='3.5/16'||$objStation->strICQR=='3.6/16'||$objStation->strICQR=='3.7/16'||$objStation->strICQR=='3.8/16')
+		{
+		$strICQRPrefix	='<color class="blink-slow" style="font-size:xx-small;background-color:green;color:white;">';
+		$strICQRSuffix	='</color>';
+
+		}
+	}
+else
+	{
+	$objStation->strICQR		='X/16';
+	}
+$strICQR_live	='';
+if(!empty($objStation->strICQR_live))
+	{
+	$strICQR_live	='<onAir class="brick left" style="color:pink;">'.$objStation->strICQR_live.'</onAir>';
+	}
+else
+	{
+	$strICQR_live	='<onAir class="brick left" style="color:pink;" title="Will be integrated soon. Your status: are you now in te play or this is record. Inspired by John Macraven. Thank you Mr. Macraven. You will not be forgived by the smart HIC robots.....">ON-AIR</onAir>';
+	}
+if(isset($objStation->strICQR_RU))
+	{
+	$objStation->strICQR_RU		='<marquee style="height:40px" class="brick left" scrollamount="1" scrolldelay="1000"  direction="up">'.str_replace('_br/_ ','<br/>', strSafeUsers($objStation->strICQR_RU)).'</marquee>';
+	}
+else
+	{
+	$objStation->strICQR_RU		='X/16';
+	}
+if(isset($objStation->strICQR_EN))
+	{
+	$objStation->strICQR_EN		='<marquee style="height:40px" class="brick left" scrollamount="1" scrolldelay="1000"  direction="up">'.str_replace('_br/_ ','<br/>',strSafeUsers($objStation->strICQR_EN)).'</marquee>';
+	}
+else
+	{
+	$objStation->strICQR_EN		='X/16';	
+	}
+$arrICQR['RU']		='HFIC ICQR: '.$strICQRPrefix.'['.$objStation->strICQR.']'.$strICQRSuffix.' '.$strICQR_live.'<color style="color:grey;"> -=djEmotion=- -=Dj methaMessage=-</color> '.$objStation->strICQR_RU;
+$arrICQR['EN']		='HFIC ICQR: '.$strICQRPrefix.'['.$objStation->strICQR.']'.$strICQRSuffix.' '.$strICQR_live.'<color style="color:grey;"> -=djEmotion=- -=Dj methaMessage=-</color> '.$objStation->strICQR_EN;
+
+
+/*© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru*/
+//////
+   //   /\ RCe
+  //  <  **> 
+ //     Jl
+//////
+class StationBlock
+	{
+	public  $strHTML;
+	public function __construct($arrStatrion, $arrPagination, $arrEventReality, $objEDRO)
+		{
+		/*echo '<pre>';
+		print_r($arrStatrion);
+		echo '</pre>';
+		exit;*/
+		$strAudioType	='';
+		//echo '/home/ЕДРО:ПОЛИМЕР/HiFiIntelligentClub/Stations/belongs/Genred/'.$arrStatrion['strId'].'.plmr';
+		$arrStationGenres	=(array)FileRead::objJSON('/home/ЕДРО:ПОЛИМЕР/о2о.БазаДанных/HiFiIntelligentClub/Stations/belongs/Genres/'.$arrStatrion['strId'].'.plmr');
+		//print_r($arrStationGenres);
+		$strGenre	='';
+		$strGenres	='';
+		if(is_array($arrStationGenres)&&!empty($arrStationGenres))
+			{
+			foreach($arrStationGenres as $strGenre)
+				{
+				$strGenres	.=Tag::strHTML($strGenre, $arrEventReality, 'strGenre', 11, $objEDRO);
+				}
+			}
+
+		$strId			=$arrStatrion['strId'];
+		$strName		=$arrStatrion['strName'];
+		$strAudio		=$arrStatrion['strAudio'];
+		//$strAudioType		=$arrStatrion['strAudioType'];
+		//$strAudioBitrate	=$arrStatrion['strAudioBitrate'];
+		//$strStyle		=$arrStatrion['strStyle'];
+		$int0ListNum		=$arrStatrion['int0ListNum'];
+		$arrICQR		=$arrStatrion['arrICQR'];
+		$strICQR_Q		=$arrStatrion['strICQR_Q'];
+		$int0PageStart		=$arrPagination['int0Start'];
+		$int1ListNum		=($int0PageStart+$int0ListNum)+1;
+					unset($arrStatrion);
+
+		/*if($_SESSION['strListener']=='e1NgS3lCcnYо26')
+			{
+			echo '<pre>';
+			print_r($arrPagination[$int0Start]);
+			echo '</pre>';
+			}
+    			//print_r($arrPagination['int0CurrentStation']);
+		*/
+		$intListPosition	=$int1ListNum;
+
+		$this->strHTML	='
+		<station
+			id	="'.$strAudio.'"
+			num	="'.$int1ListNum.'"
+			class	="block left rel layer_1_1 BLL BRJ TC1 BC1"
+			style	="
+				width		:398px;
+				height		:100px;
+				max-width	:99vw;
+				text-decoration	:none;
+				margin-right	:10px;
+				margin-bottom	:7px;
+				margin-top	:0;
+				"
+			>
+			<header
+				class="block BC1"
+				style="
+					width		:398px;
+					height		:60px;
+					"
+				>
+				<player
+					class="left"
+					style="
+						width		:40px;
+						height		:50px;
+						"
+					>'.
+					Player::strHTML($strAudio, $strAudioType).
+				'</player>
+				<stationName
+					class="block left TC1 BC1"
+					style="
+						width		:358px;
+						height		:100%;
+						"
+					>'.
+					Header::strHTML($strName, $arrEventReality, $arrICQR, $strICQR_Q, $objEDRO).
+				'</stationName>
+			</header>
+			<genre
+				class="block scrollerY"
+				style="
+					height		:40px;
+					"
+				>'.
+				StatisticIndicator::strDesign($arrPagination, $int0ListNum).
+				'
+				<blockText
+					class="block rel"
+					style="
+						height		:20px;
+						font-size	:xx-small;
+						"
+					>
+					<overlay 
+						title=""
+						class="abs TC1" 
+						style="
+							width			:100%;
+							height			:100%;
+							font-size		:xx-small;
+							background-color	:rgba(255,255,255,0.7);
+							font-size		:large;
+							text-align		:center;
+							"
+						>
+					</overlay>
+					<ifEN title="Declared styles:">
+						Declared:
+					</ifEN>
+					<ifRU title="Заявленные стили:">
+						Заявленные:
+					</ifRU>
+					
+				</blockText>
+				'.
+				$strGenres.
+				'
+				<blockText
+					class="block left rel"
+					style="
+						font-size	:xx-small;
+						height		:20px;
+						width		:49%;
+						"
+					>
+					<overlay 
+						title="Feature. Will be avaliable soon."
+						class="
+							abs TC1
+							" 
+						style="
+							width			:100%;
+							height			:100%;
+							font-size		:xx-small;
+							text-align		:center;
+							background-color	:rgba(255,255,255,0.7);
+							"
+						>
+					</overlay>
+					<ifEN>
+						ICQR:
+					</ifEN>
+					<ifRU>
+						ICQR:
+					</ifRU>
+				</blockText>
+				<blockText
+					class="
+						block left rel
+						"
+					style="
+						font-size	:xx-small;
+						height		:20px;
+						width		:49%;
+						"
+					>
+					<overlay 
+						title="Feature. Will be avaliable soon."
+						class="abs TC1" 
+						style="width:100%;height:100%;background-color:rgba(255,255,255,0.7);font-size:large;text-align:center;"
+						>
+					</overlay>
+					<ifEN>
+						Now:
+					</ifEN>
+					<ifRU>
+						Cейчас:
+					</ifRU>
+					
+				</blockText>
+			</genre>
+			<ICQR_Setup
+				class="block border-bottom"
+				style="
+					height		:20px;
+					width		:100%;
+					"
+				>
+			</ICQR_Setup>
+			'.
+			//HFIC_CreatorsRespect::strHTML($objKIIM, $this->arr['_strCopyrightInfo']).
+			''.
+			//Shader::strHTML($objKIIM, $this->strLogo).
+			''.
+			
+			''.
+			//Overlay::strHTML($objKIIM, 'Loading. Please wait.').
+			'
+			<description
+				class="block rel layer_1_4"
+				style="
+					display		:none; /*Disabeled untill 31.08.2020 23:59*/
+					"
+				>'.
+				//$this->arr['_strDescription'].
+			'</description>
+			<!--marquee>Сообщения Сообщения Сообщения</marquee-->
+		</station>';
+		//print_r($this);
+		}
+	public static function strHTML($arrStatrion, $arrPagination, $arrEventReality, $objEDRO=array())
+		{
+		$objStationBlock=new StationBlock($arrStatrion, $arrPagination, $arrEventReality, $objEDRO);
+		return $objStationBlock->strHTML;
+		}
+	}
+
+/*© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru*/
+//////
+   //   /\ RCe
+  //  <  **> 
+ //     Jl
+//////
+class StationLink
+	{
+	public $strHTML='';
+	public function __construct($_strData, $_arrSearch)
+		{
+		$strData=$_strData;
+		   unset($_strData);
+		$arrSearch=$_arrSearch;
+		     unset($_arrSearch);
+		$arrEvent=arrEventLink($arrSearch, 'name', $strData);
+		$this->strHTML=''.
+		'<a 
+			'.$arrEvent['strHref'].'
+			'.$arrEvent['strOnClick'].'
+			class="block BC2 TC2"
+
+			style="
+				width		:100%;
+				height		:100%;
+				text-align	:center;
+				text-decoration	:none;
+				"
+			>
+			>'.
+		'</a>';
+		//	onclick="
+		//		objSearch.strValueInputName=\''.$strData.'\';
+		//		objSearch._ActualizeInputFields();
+		//		objDynaScreen.strURL=this.href;
+		//		objEvent.strURL=this.href;
+		//		objDynaScreen._Update();
+		//		return false;
+		//		"
+		}
+
+	public static function strHTML($_strData, $_arrSearch)
+		{
+		$objStationLink=new StationLink($_strData, $_arrSearch);
+
+		return $objStationLink->strHTML;
+		}
+	}
+
+                     /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//        /\                  // /   
+//      <  **>               /// /  
+ //////   jl                ///// /    
+./././././././*/
+class StationList
+	{
+	public $strHTML;
+	private $arrEDRO=
+	array(
+		'arrE'=>
+		array(
+			'/','/search'
+			),
+		'arrD'=>
+		array(
+			'/home/EDRO/2.Design/.strFileList.php',
+			),
+		'arrR'=>
+		array(
+			'arrLang'=>
+			array(
+				'EN','RU',
+			),
+			'arrRole'=>
+			array(
+				'Listener'
+				),
+			),
+		'arrO'=>
+		array(
+			'strHTML'=>''
+			),
+		);
+	public function __construct($objEDRO)
+		{
+
+		$arrPagination=$objEDRO->arrObjects['мРасположение'];
+		$int0ListNum		=0;
+		foreach($objEDRO->arrObjects['мТаблица'] as $сРасположение)
+			{
+			$objStation				=FileRead::objJSON($сРасположение);
+			///$objGenres				=FileRead::objJSON($objKIIM, $сРасположение);
+			$arrStationS['strId']			=strSafeUsers($objStation->id);
+			$arrStationS['strStationName']		=strSafeUsers($objStation->server_name);
+			if(isset($objStation->strICQR_Q))
+				{
+				$arrStationS['strICQR_Q']		=strSafeUsers($objStation->strICQR_Q);
+				}
+			else
+				{
+				$arrStationS['strICQR_Q']		='';
+				}
+			//$objStation->server_type		=strSafeUsers($objStation->server_type);
+			//$objStation->bitrate			=strSafeUsers($objStation->bitrate);
+			//$objStation->genre			=strSafeUsers($objStation->genre);
+			if(isset($objStation->strICQR_live))
+				{
+				$arrStationS['strICQR_LIVE']		=strSafeUsers($objStation->strICQR_live);
+				}
+			else
+				{
+				$arrStationS['strICQR_LIVE']		='';
+				}
+			$arrStationS['arrStationDeclaredGenres']=array();
+			$arrStationS['arrICQRGenres']		=array();
+			$arrStationS['arrCurrentGenres']	=array();
+			$arrStationS['arrCurrentDjMessages']	=array();
+			$arrStationS['arrStationShedullerNotice']=
+				array(
+				'strShedulledProgramName'=>
+					array(
+					'strBegin'=>'xxxx-xx-xx xx:xx:::xx GMT+X',
+					'strEnd'=>'xxxx-xx-xx xx:xx:::xx GMT+X',
+					'strDjName'=>
+						array(
+						'Dj Logo',
+						'Dj NickName',
+						'Dj Contacts',
+						'Dj Welcome Message',
+						'Dj programm genre',
+						'Dj programm position HiFi/NoHiFi',
+						'Dj Social networks links',
+						'Dj own site',
+						'Dj adverticement messages',
+						'Dj adverticement images',
+						'Dj adverticement links',
+						'Dj adverticement interval',
+						'Dj thanks and respects words',
+						'Label name',
+						'Label logo image',
+						'Label Contacts',
+						'Label site',
+						'Label adverticement messages'
+						),
+					'arrChatMessages'=>array(),
+					'arrConnectionReport'=>
+						array(
+						'ConnectedFrom',
+						'FailureDate/Time',
+						'FailureType',
+						),
+					'arrQualityReport'=>
+						array(
+						'From',
+						'Date/Time',
+						),
+					'arrListenersReport'=>
+						array(
+						'From',
+						'Date/Time1',
+						'Date/Time2',
+						)
+					),
+				    
+				);
+			//echo'<pre>';
+			//print_r($objStation);
+			//echo'</pre>';
+			$arrICQR['RU']				='';
+			$arrICQR['EN']				='';
+			//echo'<pre>';
+			//	print_r($arrStationS);
+			//echo'</pre>';
+			//$a					=strSafeUsers(sarrConnect_RU);
+			//$b					=strSafeUsers(sarrConnect_EN);
+			$strICQRPrefix				='';
+			$strICQRSuffix				='';
+			if($objEDRO->arrReality['bIzAndroid'])
+				{
+				$strAudio	=сКодировать($arrStationS['strId'], 'д');
+				}
+			else
+				{
+				$strAudio	=$arrStationS['strId'];
+				//echo	$strAudio;
+				}
+			$arrStation=
+			array(
+				'strId'			=>$arrStationS['strId'],
+				'int0ListNum'		=>$int0ListNum,
+				'strName'		=>$arrStationS['strStationName'],
+				'strAudio'		=>$strAudio,
+				'strICQR_Q'		=>$arrStationS['strICQR_Q'],
+				// 'strAudioType'	=>$objStation->server_type,
+				// 'strAudioBitrate'	=>$objStation->bitrate,
+				// 'strStyle'		=>$objStation->genre,
+				'arrICQR'		=>$arrICQR
+				);
+		
+			$arrPagination['int0CurrentStation']	=$int0ListNum;
+			$this->strHTML.= StationBlock::strHTML($arrStation, $arrPagination, $objEDRO->arrEvent['arrReality'], $objEDRO);
+			$int0ListNum++;
+			}
+		}
+	public function _HTML($objEDRO)
+		{
+		$objStationList=new StationList($objEDRO);
+		}
+	public function strHTML($objEDRO)
+		{
+		$objStationList=new StationList($objEDRO);
+		return $objStationList->strHTML;
+		}
+	public function _EDRO($objEDRO)
+		{
+		$objStationList=new StationList($objEDRO);
+		return $objStationList->strEDRO;
+		}
+	}
+
+/*© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru*/
+//////
+   //   /\ RCe
+  //  <  **> 
+ //     Jl
+//////
+class StationQualityUPLink
+	{
+	public $strHTML='';
+	public function __construct($_strData, $_arrSearch, $objEDRO)
+		{
+		//$objKIIM=KIIM::objStart($_objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
+		//unset($_objKIIM);
+		//$strData=$_strData;
+		  // unset($_strData);
+		/*foreach($_arrSearch as $strName=>$strValue)
+			{
+			//$arrSearch[$strName]	=нольЧИлиС($strName,'');	
+			$arrSearch[$strName]	='';
+			}
+		unset($_arrSearch)*/
+		if($objEDRO->arrReality['strLangSignal']=='RU')
+			{
+			$strO='title="Записать значение имени станции в поиск по имени станции"';
+			}
+		else
+			{
+			$strO='title="Write station name to current search by name value."';
+			}
+		
+		$arrEvent=arrEventLink($_arrSearch, 'strName', $_strData);
+		$this->strHTML=''.
+		'<a 
+			'.$arrEvent['strHref'].'
+			'.$arrEvent['strOnClick'].'
+			class="block TC3 BC3 halfLine"
+			'.$strO.'
+			style="
+				width		:100%;
+				text-align	:center;
+				text-decoration	:none;
+				"
+			>
+			>'.
+		'</a>';
+		//
+//		$arrEvent=arrEventLink($arrSearch, 'name', $strData);
+//		$this->strHTML=''.
+/*		'<a 
+			'.$arrEvent['strHref'].'
+			'.$arrEvent['strOnClick'].'
+			class="block"
+			title=""
+			style="
+				color		:#000;
+				background-color:#FFF;
+				width		:100%;
+				height		:100%;
+				text-align	:center;
+				text-decoration	:none;
+				"
+			>'.
+			'+'.
+		'</a>';*/
+		//KIIM::objFinish($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
+		}
+
+	public static function strHTML($_strData, $_arrSearch, $objEDRO=array())
+		{
+		$objStationLink=new StationQualityUPLink($_strData, $_arrSearch, $objEDRO);
+		return $objStationLink->strHTML;
+		}
+	}
+
+/*© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru*/
+//////
+   //   /\ RCe
+  //  <  **> 
+ //     Jl
+//////
+class DynaScreenEventIndicator
+	{
+	public $strHTML;
+	public function __construct()
+		{
+		$this->strHTML='
+		<eventIndicator
+			id	="DynaScreenEventIndicator"
+			class	="brick abs layer_3_2  line"
+			style	="
+				display			:none;
+				top			:0px;
+				left			:0px;
+				width			:2px;
+				background-color	:#fff;
+				"
+			>
+			<light
+
+				class	="brick abs layer_3_4 blink-fast line"
+				style	="
+					display			:block;
+					top			:0px;
+					left			:0px;
+					width			:2px;
+					background-color	:#333;
+					"
+				>
+			</light>
+		</eventIndicator>';
+		$this->strHTML.=DynaScreenEventIndicator::strObjectInit();
+		}
+	public static function strObjectInit()
+		{
+		return Event::strOConstruct('DynaScreenEventIndicator');
+		}
+	public static function strObjectDeclare()
+		{
+		$str='
+		<script>
+			class DynaScreenEventIndicator
+				{
+				constructor()
+					{
+					this.objHTML=document.getElementById(\'DynaScreenEventIndicator\');
+					console.log(\'Loaded DynaScreen event indicator (objDynaScreenEventIndicator).\');
+					}
+				}
+		</script>';
+		return $str;
+		}
+	public static function strHTML()
+		{
+		$objDynaScreenEventIndicator=new DynaScreenEventIndicator();
+		return $objDynaScreenEventIndicator->strHTML;
+		}
+	}
+
+                     /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+
+
+                             |E    |D     |R      |O      |
+                             |Event|Design|Reality|Objects|
+
+                                       ЕДРО:ПОЛИМЕР
+                            ___________          ___________
+                           |   /////  /          \  \\\\\   |
+                           |  // /                    \ \\  |
+                           | /// /                    \ \\\ |
+                           |///// /                 \ \\\\\\|
+
+                                      ////// 2021
+                                    //        /\ 
+                                    //      <  **> 
+                                     //////   jl
+                                 /./././././././././.
+
+class IndicatorDimensionsDesign
+	{
+	public $strEDRO		='';
+	public function __construct()
+		{
+		$this->_Event();
+		$this->_Design();
+		$this->_Reality();
+		$this->_ObjectHTML()
+		
+		}
+	private 	function _Event()
+		{
+		}
+	private  	function _Design()
+		{
+		}
+	private  	function _Reality()
+		{
+		}
+	private  	function _ObjectHTML()
+		{
+		}
+	public 	staic	function strHTML()
+		{
+		}
+	}
+
+--.---------------------------------------------------------------------------------
+1.| EDRO Разложение, запись в 1 строку:
+--|---------------------------------------------------------------------------------
+  | EDRO	=objName[->E(),->D(),->R(),->O()]
+  |
+--|---------------------------------------------------------------------------------
+2.| EDRO Разложение, запись в 4 строки:
+--|---------------------------------------------------------------------------------
+  |[E]:=objName->strEvent()
+  |[D]:=objName->strDesign()
+  |[R]:=objName->strReality()
+  |[O]:=objName->strObjects()
+  |
+*/
+
+class IndicatorDimensions
+	{
+	public $strHTML ='';
+	private $arrEDRO=
+		array(
+			'arrE'=>
+			array(
+				'/','/search'
+				),
+			'arrD'=>
+			array(
+				'/home/EDRO/2.Design/.strFileList.php',
+				),
+			'arrR'=>
+			array(
+				'arrLang'=>
+				array(
+					'EN','RU',
+					),
+				'arrRole'=>
+				array(
+					'Listener'
+					),
+				),
+			'arrO'=>
+			array(
+				'strHTML'=>''
+				),
+			);
+	public function __construct()
+		{
+		//$this->_Event();
+		$this->_Design();
+		//$this->_Reality();
+		//$this->_Object();
+		//$this->strEDRO		='';
+		}
+	private function _Event()
+		{
+
+		}
+	private function _Design()
+		{
+		$this->strHTML='
+			<dimensionsDesign
+				id="designDimensions"
+				class="fixed block TC1 BC1 layer_5"
+				style="	
+					top		: 9px;
+					left		: 10px;
+					width		: 2px;
+					height		: 2px;
+					text-align	: center;
+					margin-right	: 1px;
+					"
+				>
+			</dimensionsDesign>
+		';
+		$this->strHTML.=$this->strObjectDeclare();
+		$this->strHTML.=$this->strObjectInit();
+		}
+	private function _Reality()
+		{
+		}
+	private function strObjectDeclare()
+		{
+		$str	=<<<oo2oo
+		<script>
+			console.log('[V]EDRO IndicatorDimensions: Declare.');
+			class IndicatorDimensions // Init after signal panel//
+				{
+				constructor()
+					{
+					console.log('[Vv]EDRO.IndicatorDimensions: construct.');
+					this.objStr		=document.getElementById('designDimensions');
+					console.log('[..]EDRO.IndicatorDimensions: construct.');
+					}
+				}
+			console.log('[.]EDRO IndicatorDimensions: Declare().');
+		</script>
+oo2oo;
+		return $str;
+		}
+	private function strObjectInit()
+		{
+		return Event::strOConstruct('IndicatorDimensions');
+		}
+	public static function strHTML()
+		{
+		$objIndicatorDimensions		=new IndicatorDimensions();
+		return $objIndicatorDimensions->strHTML;
+		}
+	}
+
+                     /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//        /\                  // /   
+//      <  **>               /// /  
+ //////   jl                ///// /    
+./././././././*/
+class IndicatorHiFi
+	{
+	public $strHTML		='';
+	public function __construct()
+		{
+		$this->strHTML='
+		<HiFi
+			class="rel left no-select ifNoFollowingDj TC3 BC3"
+			style="
+				height		:20px;
+				font-size	:smaller;
+				text-align	:center;
+				line-height	:18px;
+				"
+			>
+			<PictogramHelper
+				id		="strListener"
+				class		="block"
+				>
+
+
+			</PictogramHelper>
+		</HiFi>';
+		$this->strHTML.=$this->strObjectDeclare();
+		$this->strHTML.=$this->strObjectInit();
+		}
+	private function strObjectDeclare()
+		{
+		$str	=<<<oo2oo
+		<script>
+			console.log('[V]EDRO IndicatorHiFi: Declare.');
+			class IndicatorHiFi // Init after signal panel//
+				{
+				constructor()
+					{
+					console.log('[Vv]EDRO IndicatorHiFi: construct.');
+					
+				
+					this.objStr			=document.getElementById('strListener');
+
+					console.log('[..]EDRO IndicatorHiFi: construct.');
+					}
+				}
+			console.log('[.]EDRO IndicatorHiFi: Declare.');
+		</script>
+oo2oo;
+		return $str;
+		}
+	private function strObjectInit()
+		{
+		return Event::strOConstruct('IndicatorHiFi');
+		}
+	public function strHTML()
+		{
+		$objIndicatorHiFi		=new IndicatorHiFi();
+		return $objIndicatorHiFi->strHTML;
+		}
+	}
+
+                     /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//        /\                  // /   
+//      <  **>               /// /  
+ //////   jl                ///// /    
+./././././././*/
+class IndicatorLang
+	{
+	public $strHTML		='';
+	public function __construct()
+		{
+		$this->strHTML='
+			<lang
+				id="SignalLanguage"
+				class="rel right BC3 TC3"
+				style="	
+					height		: 100%;
+					width		: 25px;
+					text-align	: center;
+					margin-right	: 1px;
+					font-size	: small;
+					line-height	: 19px;
+					"
+				>
+				<!--handle
+					id="SignalLanguageInteractiveBlock"
+					class="block abs layer_3_2"
+					style="
+						display	:none;
+						right	:0;
+						top	:0;
+						width	:188px;
+						height	:86px;
+						"
+					>'.
+					/*SensorList::strHTML(array(
+								"RU","EN","FR","IT","BY","UA"
+								)
+							).*/
+				'</handle-->
+				<result
+					id="LanguageSignalWindow"
+					>
+					<ifRU
+						class="no-select"
+						>
+						RU
+					</ifRU>
+					<ifEN
+						class="no-select"
+						>
+						EN
+					</ifEN>
+				</result>
+			</lang>
+			';
+		$this->strHTML.=$this->strObjectDeclare();
+		$this->strHTML.=$this->strObjectInit();
+		}
+	private function strObjectDeclare()
+		{
+		$str	=<<<oo2oo
+		<script>
+			console.log('[V]EDRO IndicatorLang: Declare.');
+			class IndicatorLang // Init after signal panel//
+				{
+				constructor()
+					{
+					this.objStr		=document.getElementById('LanguageSignalWindow');
+					this.objStr.innerHTML	=strSignalLang;
+					}
+				}
+			console.log('[.]EDRO IndicatorLang: Declare.');
+		</script>
+oo2oo;
+		return $str;
+		}
+	private function strObjectInit()
+		{
+		return Event::strOConstruct('IndicatorLang');
+		}
+	public function strHTML()
+		{
+		$objIndicatorLang		=new IndicatorLang();
+		return $objIndicatorLang->strHTML;
+		}
+	}
+
+                     /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//        /\                  // /   
+//      <  **>               /// /  
+ //////   jl                ///// /    
+./././././././*/
+class IndicatorMasterClock
+	{
+	public $strHTML		='';
+	public function __construct()
+		{
+		$this->strHTML='
+			<masterClock
+				class="fix layer_3  block no-select TC3 BC3 V98"
+				style="	
+					width		: 40px;
+					height		: 20px;
+					left		: 0px;
+					text-align	: left;
+					font-size	: x-small;
+					"
+				>
+				<masterHeartBeat_ClockIndicator
+					id	="MasterClock"
+					class	="block"
+					title	="Player session total operation time"
+					style="
+						width		: 100%;
+						height		: 50%;
+						line-height	: 9px;
+						"
+					>
+					0
+				</masterHeartBeat_ClockIndicator>
+				<masterHeartBeat_ServerLoading
+					id	="ServerLoadingTime"
+					class	="block"
+					title	="Total server loading time"
+					style="
+						width		: 100%;
+						height		: 50%;
+						line-height	: 9px;
+						"
+					>
+					0
+				<masterHeartBeat_ServerLoading>
+			</masterClock>
+			';
+		$this->strHTML.=$this->strObjectDeclare();
+		$this->strHTML.=$this->strObjectInit();
+		}
+	private function strObjectDeclare()
+		{
+		$str	=<<<oo2oo
+		<script>
+			console.log('[V]EDRO IndicatorMasterClock: Declare.');
+			class IndicatorMasterClock
+				{
+				constructor()
+					{
+					console.log('[Vv]EDRO IndicatorMasterClock: construct.');
+					this.objStr			=document.getElementById('MasterClock');
+					this.objStrServerLoading	=document.getElementById('ServerLoadingTime');
+					console.log('[..]EDRO IndicatorMasterClock: construct.');
+					}
+				}
+			console.log('[.]EDRO IndicatorMasterClock: Declare.');
+		</script>
+oo2oo;
+		return $str;
+		}
+	private function strObjectInit()
+		{
+		return Event::strOConstruct('IndicatorMasterClock');
+		}
+	public function strHTML()
+		{
+		$objIndicatorMasterClock		=new IndicatorMasterClock();
+		return $objIndicatorMasterClock->strHTML;
+		}
+	}
+
+                     /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//        /\                  // /   
+//      <  **>               /// /  
+ //////   jl                ///// /    
+./././././././*/
+class IndicatorNetwork
+	{
+	public $strHTML		='';
+	public function __construct()
+		{
+		$this->strHTML='
+			<network
+				class	="fix block BRJ layer_2_1"
+				style	="
+					line-height	:9px;
+					margin-right	:1px;
+					"
+				>
+				<NetSrvReady
+					id="NetSrvReady"
+					class="block left  BLL"
+					style="	
+						left		: 10px;
+						height		: 10px;
+						width		: 10px;
+						background-color: #e3e3e3;
+						text-align	: center;
+						font-size	: x-small;
+						"
+					>
+					<ifRU
+						title		="Stream network avaliability status"
+						class		="no-select"
+						>
+						N
+					</ifRU>
+					<ifEN
+						title		="Статус доступности аудиопотока сети"
+						class		="no-select"
+						>
+						H
+					</ifEN>
+				</NetSrvReady>
+				<NetSrvPortsReady
+					id="NetSrvPortsReady"
+					class="block left  BLL"
+					style="	
+						height		: 10px;
+						width		: 10px;
+						background-color: #e3e3e3;
+						text-align	: center;
+						font-size	: x-small;
+						"
+					>
+					<ifRU
+						title		="Готовность к воспроизведению аудиопотока"
+						class		="no-select"
+						>
+						Р
+					</ifRU>
+					<ifEN
+						title		="Ready to play audiostream"
+						class		="no-select"
+						>
+						R
+					</ifEN>
+				</NetSrvPortsReady>
+			</network>';
+		$this->strHTML.=$this->strObjectDeclare();
+		$this->strHTML.=$this->strObjectInit();
+		}
+	private function strObjectDeclare()
+		{
+		$str	=<<<oo2oo
+		<script>
+			console.log('[V]EDRO IndicatorNetwork: Declare.');
+			class IndicatorNetwork
+				{
+				constructor()
+					{
+					console.log('[Vv]EDRO IndicatorNetwork: construct.');
+					this.objStrSrvReady			=document.getElementById('NetSrvReady');
+					this.objStrSrvPortsReady		=document.getElementById('NetSrvPortsReady');
+					console.log('[..]EDRO IndicatorNetwork: construct.');
+					}
+				}
+			console.log('[.]EDRO IndicatorNetwork: Declare.');
+		</script>
+oo2oo;
+		return $str;
+		}
+	private function strObjectInit()
+		{
+		return Event::strOConstruct('IndicatorNetwork');
+		}
+	public function strHTML()
+		{
+		$objIndicatorNetwork		=new IndicatorNetwork();
+		return $objIndicatorNetwork->strHTML;
+		}
+	}
+
+                     /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//        /\                  // /   
+//      <  **>               /// /  
+ //////   jl                ///// /    
+./././././././*/
+class IndicatorPlayer
+	{
+	public $str;
+	public function __construct()
+		{
+		//Новый год  🎄🎅
+		//✰✰
+		//★
+		//🌠
+		$this->str='
+		<playerControlAlwaysVisible
+			id	="playerControlAlwaysVisible"
+			class	="left no-select ЕС3 BC3"
+			style	="
+				text-align	:left;
+				width		:67%;
+				height		:100%;
+				margin-right	:1px;
+				"
+			>'.
+			'
+			<ifReady
+				class	="abs V99 block cursor BC1 TC1 layer_2_2 select scrollerY Lx2"
+				style	="
+					text-align	:left;
+					Width		:80vw;
+					"
+				>
+				<Hfic_Samin
+					class="block right"
+					style="
+						width		:40px;
+						height		:100%;
+						"
+					>
+					<image
+						title="Hfic: Is there any hifi sound can i hear?" 
+						src="cloudrepublic.ru/Hfic_Samin.jpg" 
+						class="block" 
+						style="
+							height:100%;
+							"
+					/>'.ICQRType::strHTML(array(), '', '', array()).'
+				</Hfic_Samin>
+				<!--ReadyButtonStat
+					class	="block right BLL TC3 BC3"
+					style	="
+						text-align	:left;
+						height		:100%;
+						width		:100px;
+						line-height	:13px;
+						"
+					>
+				</ReadyButtonStat-->
+				<readyText
+					class	="block scrollerY Lx2 BRJ"
+					style	="
+						height	:40px;
+						width	:40px;
+						"
+					>
+				</readyText>
+			</ifReady>
+			<ifOverload
+				class	="abs line V99"
+				style	="
+					display		:none;
+					left		:0px;
+					width		:100vw;
+					color		:#fff;
+					background-color:red;
+					"
+				>
+				<!--playerOverloadStat
+					class	="block right BLL TC3 BC3"
+					style	="
+						text-align	:left;
+						height		:100%;
+						width		:100px;
+						line-height	:13px;
+						"
+					>
+					<loadingDuration
+						class="block"
+						>
+						0
+					</loadingDuration>
+					<loadingErrors
+						class="block"
+						>
+						0
+					</loadingErrors>
+				</playerOverloadStat-->
+				<playerOverloadText
+					class	="block scrollerY"
+					style	="
+						height		:100%;
+						text-align	:left;
+						"
+					>
+					<playerOverloadStationName
+						
+						id	="playerControlAlwaysVisibleOverloadStationName"
+						>
+					</playerOverloadStationName>
+					<ifEN>
+						<marquee>This station rejects playing. May be this station is overload or your internet connection is not enoght. Can\'t stay connected. You can try to listen another station</marquee>
+					</ifEN>
+					<ifRU>
+						<marquee>Не получается подключиться к выбранной радиостанции. Возможно станция перегружена или интернет канал слишком мал, чтобы воспроизводить выбранную станцию. Вы можете попробовать выбрать другую радиостанцию.</marquee>
+					</ifRU>
+				</playerOverloadText>
+			</ifOverload>
+			<ifLoadingAudio
+				id	="objLoadingAudioTopSmall"
+				class	="brick left cursor TC1 no-select line"
+				onclick	="objPlayer.stop();"
+				style	="
+					display		:none;
+					width		:20px;
+					text-align	:center;
+					"
+				>
+				<playShader
+					class	="fix block layer_2"
+					style	="
+						left		:0px;
+						height		:20px;
+						width		:20px;
+						line-height	:20px;
+						background-color:#f0ff00;
+						"
+					>
+				</playShader>
+				<loadIndicator
+					class="fix brick layer_2_3  cursor no-select BLL BRJ TC3"
+					onclick	="objPlayer.stop();"
+					style	="
+						left		:0px;
+						font-size	:xx-small;
+						width		:20px;
+						line-height	:20px;
+						text-align	:center;
+						color		:#FFF;
+						background-color:#ffeb00b8;
+						"
+					>
+					<ifRU 
+						title	="Для отмены загрузки радио станции нажмите."
+						>
+						☒
+					</ifRU>
+					<ifEN
+						title	="To stop loading this audio stream just press."
+						>
+						☒
+					</ifEN>
+				</loadIndicator>
+			</ifLoadingAudio>
+			<ifLoadingAudio
+				class	="fix V99 cursor TC3 layer_2_2 no-select doubleLine"
+				style	="
+					display		:none;
+					left		:0px;
+					width		:100vw;
+					text-align	:left;
+					"
+				>
+				<playerLoadingButton
+					class	="block left BLJ TC3 BC3 doubleLine"
+					id	="playerControlAlwaysVisibleLoading"
+					onclick	="objPlayer.stop();"
+					style	="
+						text-align	:center;
+						height		:100%;
+						width		:40px
+						"
+					>
+					<ifRU
+						title="Нажмите чтобы отменить подключение"
+						>
+						☒
+					</ifRU>
+					<ifEN
+						title="Press to stop connecting"
+						>
+						☒
+					</ifEN>
+				</playerLoadingButton>
+				<!--playerLoadingStat
+					id	="playerControlAlwaysVisibleLoadingStat"
+					class	="block right BLL TC3 BC3"
+					style	="
+						text-align	:left;
+						height		:100%;
+						width		:100px;
+						line-height	:13px;
+						"
+					>
+					<loadingDuration
+						class="block"
+						>
+						<header
+							class="block left"
+							>pl
+						</header>
+						<digit
+							id	="playerControlAlwaysVisibleLoadingDuration"
+							>
+							0
+						</digit>
+						
+					</loadingDuration>
+					<loadingErrors
+						class="block"
+						>
+						<header
+							class="block left"
+							>pe
+						</header>
+						<digit
+							id	="playerControlAlwaysVisibleLoadingErrors"
+							>
+							0
+						</digit>
+					</loadingErrors>
+				</playerLoadingStat-->
+				<playerLoadingText
+					id	="playerControlAlwaysVisibleLoadingText"
+					class="block scrollerY TC1 BC1"
+					style	="
+						height		:100%;
+						"
+					>
+					<marquee>
+						<ifRU>
+							Подключаюсь к радиостанции...
+						</ifRU>
+						<ifEN>
+							Connecting to radiostation.... 
+						</ifEN>
+					</marquee>
+					<playerLoadingStationName
+						id	="playerControlAlwaysVisibleLoadingStationName"
+						>
+					</playerLoadingStationName>
+				</playerLoadingText>
+			</ifLoadingAudio>
+			<ifPlaying
+				id	="objPlayingAudioTopSmall"
+				class	="block TC3 line"
+				
+				style	="
+					display		:none;
+					width		:100%;
+					"
+				>
+				<playShader
+					class	="fix block layer_2"
+					style	="
+						left		:0px;
+						height		:20px;
+						width		:20px;
+						line-height	:20px;
+						background-color:#062b88;
+						"
+					>
+				</playShader>
+				<playIndicator
+					class="fix block left cursor no-select BLL BRJ TC3 layer_2_2"
+					onclick	="objPlayer.stop();"
+					style	="
+						left		:0px;
+						font-size	:xx-small;
+						width		:20px;
+						line-height	:20px;
+						text-align	:center;
+						color		:#FFF;
+						background-color:#062b8824;
+						"
+					>
+					<ifRU 
+						title="Для остановки воспроизведения нажмите."
+						>
+						■
+					</ifRU>
+					<ifEN
+						title="To stop plaing this audio stream just press."
+						>
+						■
+					</ifEN>
+				</playIndicator>
+				<playIndicatorSongName
+					id	="playerControlAlwaysVisiblePlaying"
+					class	="block left scrollerY"
+					style="
+						margin-right	:20px;
+						margin-left	:20px;
+						height		:100%;
+						max-width	:70%;
+						font-size	:large;
+						"
+					>
+					HiFiIntelligentClub
+				</playIndicatorSongName>
+			</ifPlaying>
+			<ifPlaying
+				class	="abs V99 cursor layer_2_2 select TC3 doubleLine"
+				style	="
+					display		:none;
+					left		:0;
+					width		:100vw;
+					text-align	:left;
+					background-color:#062b88;
+					"
+				>
+				<playerPlayingButton
+					class	="brick left BLL BRJ doubleLine"
+					style	="
+						    width	:40px;
+						    "
+					>
+					<playerPlayingButton
+						class	="brick left"
+						onclick	="objPlayer.stop();"
+						style="
+							text-align	: center;
+							width		: 40px;
+							color		: #FFF;
+							font-size	: small;
+							background-color: #2d90f52b;/*Цвет Министерства Культуры Российской Федерации*/
+							"
+						>
+						<ifRU 
+							title="Для остановки воспроизведения нажмите."
+							>
+							Стоп
+						</ifRU>
+						<ifEN
+							title="To stop plaing this audio stream just press."
+							>
+							Stop
+						</ifEN>
+					</playerPlayingButton>
+				</playerPlayingButton>
+				<playerPlayingLike
+					id	="playerControlAlwaysVisiblePlayingLike"
+					class	="block left BLL BRJ TC3 BC3 line"
+					style	="
+						font-size	:x-large;
+						text-align	:center;
+						width		:25px;
+						margin-left	:5px;
+						line-height	:13px;
+						"
+					onclick	="
+						alert(\'coming soon!\');
+						"
+					>
+					+
+				</playerPlayingLike>
+				<playerPlayingNews
+					id	="playerControlAlwaysVisiblePlayingNews"
+					class	="block right BLL BRJ TC3 BC3 line"
+					style	="
+						font-size	:large;
+						text-align	:center;
+						width		:95px;
+						margin-left	:5px;
+						margin-right	:85px;
+					
+						"
+					onclick	="
+						alert(\'coming soon!\');
+						"
+					>
+					<ifRU>Новости</ifRU>
+					<ifEN>News</ifEN>
+				</playerPlayingNews>
+				<!--a 
+					class="block left"
+					href		="/getNews"
+					onClick		="
+						return false;
+						"
+					>
+					<ifRU>
+						В избранные станции
+					</ifRU>
+					<ifEN>
+						To selected stations
+					</ifEN>
+				</a-->
+			</ifPlaying>
+			<ifNoConnection
+				class	="cursor layer_2_2 no-select TC3 BC3 doubleLine"
+				onclick	="objPlayer.play();"
+				style	="
+					display		:none;
+					color		:#000;
+					text-align	:center;
+					"
+				>⚠
+			</ifNoConnection>
+			<ifNoConnection
+				class	="abs V99 cursor layer_2_2 no-select BC1 TC1 doubleLine"
+				onclick	="objPlayer.play();"
+				style	="
+					display		:none;
+					width		:100vw;
+					left		:0px;
+					text-align	:center;
+					"
+				>
+				<!--playerNoConnectionStat
+					class	="block right BLL TC3 BC3"
+					style	="
+						text-align	:left;
+						height		:100%;
+						width		:100px;
+						line-height	:13px;
+						"
+					>
+					<NoConnectionDuration
+						class="block"
+						>
+						0
+					</NoConnectionDuration>
+					<NoConnectionErrors
+						class="block"
+						>
+						0
+					</NoConnectionErrors>
+				</playerNoConnectionStat-->
+				<playerNoConnectionext
+					class	="block scrollerY"
+					style	="
+						height		:100%;
+						text-align	:left;
+						"
+					>
+					<playerNoConnectionStationName
+						
+						id	="playerControlAlwaysVisibleNoConnectionStationName"
+						>
+					</playerNoConnectionStationName>
+					<ifRU>
+						<marquee>Радиостанция сейчас недоступна. Возможно она очень далеко, перегружена или отдыхает. Попробуйте выбрать выбрать другую радиостанцию из списка.</marquee>
+						
+					</ifRU>
+					<ifEN>
+					[p	<marquee>This station is currently offline. Please chose another station from station\'s list.</marquee>
+					</ifEN>
+				</playerNoConnectionext>
+			</ifNoConnection>
+			<ifStopped
+				class	="fix block cursor layer_2_2 TC3 no-select line BRJ"
+				onclick	="
+					//objPlayer.objAudio.src				=objPlayerIndicatorMembrane.getAttribute(\'playerId\');
+					objPlayer.play();
+					"
+				style	="
+					display		: none;
+					text-align	: center;
+					background-color: #0000006e;
+					width		: 40px;
+					"
+				>
+				▷
+			</ifStopped>
+			<ifStopped
+				class	="abs V99 cursor layer_2_2 BC1 select doubleLine"
+				style	="
+					display		:none;
+					left		:0;
+					width		:100vw;
+					text-align	:center;
+					color		:#777;
+					"
+				>
+				<playerPlayButton
+					class	="block left TC3 BC3 line"
+					onclick	="
+						//objPlayer.objAudio.src			=this.parentNode.getAttribute(\'playerId\');
+						objPlayer.play();
+						"
+					style	="
+						text-align	:center;
+						width		:40px;
+						"
+					>
+					<ifEN
+						title="Play station"
+						>Play
+					</ifEN>
+					<ifRU
+						title="Нажмите чтобы начать слушать радио."
+						>Воспр.
+					</ifRU>
+				</playerPlayButton>
+				<playerNoConnectionStat
+					class	="block right BLL TC3 BC3"
+					style	="
+						text-align	:left;
+						height		:100%;
+						width		:100px;
+						line-height	:13px;
+						"
+					>
+					<NoConnectionDuration
+						class="block"
+						>
+						0
+					</NoConnectionDuration>
+					<NoConnectionErrors
+						class="block"
+						>
+						0
+					</NoConnectionErrors>
+				</playerNoConnectionStat>
+				<playerPlayText
+					id	="playerControlAlwaysVisibleStopped"
+					class	="block scrollerY"
+					style	="
+						height		:100%;
+						"
+					onClick	="
+						objEvent.arrReality.strID=\'\';
+						objEvent.arrReality.strName=\'\'; 
+						objEvent.arrReality.strStyle=\'\';
+						objEvent.arrReality.intBitrate=\'\';
+						objEvent.arrReality.strCodec=\'\';
+						objEvent._UpdateURLDyn(true);"
+						"
+					>
+				</playerPlayText>
+			</ifStopped>
+		</playerControlAlwaysVisible>
+		'.Player::strObjectInit();
+		}
+	public static function strHTML()
+		{
+		$objIndicatorPlayer	=new IndicatorPlayer();
+		return $objIndicatorPlayer->str;
+		}
+	}
+
+                     /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//        /\                  // /   
+//      <  **>               /// /  
+ //////   jl                ///// /    
+./././././././*/
+class IndicatorRole
+	{
+	public $strHTML		='';
+	public function __construct()
+		{
+		$this->strHTML='
+			<role
+				id	="SignalRole"
+				class	="block right BRJ BLL BC3 TC3"
+				style	="	
+					height		: 100%;
+					/*width		: 60px;*/
+					padding-right	: 4px;
+					padding-left	: 4px;
+					font-size	: smaller;
+					text-align	: center;
+					line-height	: 18px;
+					"
+				>
+				<ifRU
+					class="no-select"
+					>
+					Роль
+				</ifRU>
+				<ifEN
+					class="no-select"
+					>
+					Role
+				</ifEN>
+			</role>
+		';
+		$this->strHTML.=$this->strObjectDeclare();
+		$this->strHTML.=$this->strObjectInit();
+		}
+	private function strObjectDeclare()
+		{
+		$str	=<<<oo2oo
+		<script>
+			console.log('[V]EDRO IndicatorRole: Declare.');
+			class IndicatorRole
+				{
+				constructor()
+					{
+					console.log('[Vv]EDRO IndicatorRole: construct.');
+					this.objStr			=document.getElementById('SignalRole');
+					this.objStr.innerHTML		=strSignalRole;
+					console.log('[..]EDRO IndicatorRole: construct.');
+					}
+				}
+			console.log('[.]EDRO IndicatorRole: Declare.');
+		</script>
+oo2oo;
+		return $str;
+		}
+	private function strObjectInit()
+		{
+		return Event::strOConstruct('IndicatorRole');
+		}
+
+	public function strHTML()
+		{
+		$objIndicatorRole		=new IndicatorRole();
+		return $objIndicatorRole->strHTML;
+		}
+	}
+                /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+////////////////////// /2021
+////////  /\ ///////// /
+/////// <  **> /////// /
+///////   jl ///////// /
+./././././././*/
+class IndicatorSuspend
+	{
+	public $strHTML		='';
+	public function __construct()
+		{
+		$this->strHTML='
+			<network
+				class	="fix block BRJ layer_2_1"
+				style	="
+					line-height	: 9px;
+					margin-right	: 1px;
+					"
+				>
+				<NetSrvSuspend
+					id	="NetSrvReady"
+					class	="block left  BLL"
+					style	="	
+						left		: 20px;
+						height		: 10px;
+						width		: 10px;
+						background-color: #e3e3e3;
+						text-align	: center;
+						font-size	: x-small;
+						"
+					>
+					<ifRU
+						title		="Stream network avaliability status"
+						class		="no-select"
+						>
+						N
+					</ifRU>
+					<ifEN
+						title		="Статус доступности аудиопотока сети"
+						class		="no-select"
+						>
+						H
+					</ifEN>
+				</NetSrvSuspend>
+			</network>';
+		$this->strHTML.=$this->strObjectDeclare();
+		$this->strHTML.=$this->strObjectInit();
+		}
+	private function strObjectDeclare()
+		{
+		$str	=<<<oo2oo
+		<script>
+			console.log('[V]EDRO IndicatorSuspend: Declare.');
+			class IndicatorSuspend
+				{
+				constructor()
+					{
+					console.log('[Vv]EDRO IndicatorSuspend: construct.');
+					this.objStrSrvReady			=document.getElementById('NetSrvReady');
+					this.objStrSrvPortsReady		=document.getElementById('NetSrvPortsReady');
+					console.log('[..]EDRO IndicatorSuspend: construct.');
+					}
+				}
+			console.log('[.]EDRO IndicatorSuspend: Declare.');
+		</script>
+oo2oo;
+		return $str;
+		}
+	private function strObjectInit()
+		{
+		return Event::strOConstruct('IndicatorSuspend');
+		}
+	public function strHTML()
+		{
+		$objIndicatorSuspend		=new IndicatorSuspend();
+		return $objIndicatorSuspend->strHTML;
+		}
+	}
+
+/*© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru*/
+//////
+   //   /\ RCe
+  //  <  **> 
+ //     Jl
+//////
+class PlayerEventIndicator
+	{
+	public $strHTML;
+	public function __construct()
+		{
+		$this->strHTML='
+		<eventIndicator
+			id	="PlayerEventIndicator1"
+			class="block abs layer_3_2 border-bottom"
+			style="
+				/*display	:none;*/
+				top	:0;
+				left	:3px;
+				width	:5px;
+				height	:5px;
+				background-color:#FFF;
+				"
+			>
+			<light
+				class	="block rel layer_3_4 blink-fast"
+				style	="
+					display	:block;
+					width	:5px;
+					height	:5px;
+					background-color:#333;
+					"
+				>
+			</light>
+		</eventIndicator>';
+		$this->strHTML.='
+		<eventIndicator
+			id	="PlayerEventIndicator2"
+			class="block abs layer_3_2 border-bottom"
+			style="
+				/*display	:none;*/
+				top	:0;
+				left	:11px;
+				width	:5px;
+				height	:5px;
+				background-color:#FFF;
+				"
+			>
+
+			<light
+				class	="block rel layer_3_4 blink-fast1"
+				style	="
+					display	:block;
+					width	:5px;
+					height	:5px;
+					background-color:#333;
+					"
+				>
+			
+			</light>
+		</eventIndicator>';
+		$this->strHTML.='
+		<eventIndicator
+			id	="PlayerEventIndicator3"
+			class="block abs layer_3_2 border-bottom"
+			style="
+				/*display	:none;*/
+				top	:0;
+				left	:19px;
+				width	:5px;
+				height	:5px;
+				background-color:#FFF;
+				"
+			>
+			<light
+
+				class	="block rel layer_3_4 blink-fast2"
+				style	="
+					display	:block;
+					width	:5px;
+					height	:5px;
+					background-color:#333;
+					"
+				>
+			
+			</light>
+		</eventIndicator>';
+		$this->strHTML.='
+		<eventIndicator
+			id	="PlayerEventIndicator4"
+			class="block abs layer_3_2 border-bottom"
+			style="
+				/*display	:none;*/
+				top	:0;
+				left	:27px;
+				width	:5px;
+				height	:5px;
+				background-color:#FFF;
+				"
+			>
+			<light
+
+				class	="block rel layer_3_4 blink-fast3"
+				style	="
+					display	:block;
+					width	:5px;
+					height	:5px;
+					background-color:#333;
+					"
+				>
+			
+			</light>
+		</eventIndicator>';
+		$this->strHTML.='
+		<eventIndicator
+			id	="PlayerEventIndicator5"
+			class="block abs layer_3_2 border-bottom"
+			style="
+				/*display	:none;*/
+				top	:0;
+				left	:35px;
+				width	:5px;
+				height	:5px;
+				background-color:#FFF;
+				"
+			>
+			<light
+
+				class	="block rel layer_3_4 blink-fast4"
+				style	="
+					display	:block;
+					width	:5px;
+					height	:5px;
+					background-color:#333;
+					"
+				>
+			
+			</light>
+		</eventIndicator>';
+		$this->strHTML.='
+		<eventIndicator
+			id	="PlayerEventIndicator6"
+			class="block abs layer_3_2 border-bottom"
+			style="
+				/*display	:none;*/
+				top	:0;
+				left	:43px;
+				width	:5px;
+				height	:5px;
+				background-color:#FFF;
+				"
+			>
+			<light
+
+				class	="block rel layer_3_4 blink-fast5"
+				style	="
+					display	:block;
+					width	:5px;
+					height	:5px;
+					background-color:#333;
+					"
+				>
+			
+			</light>
+		</eventIndicator>';
+		$this->strHTML.='
+		<eventIndicator
+			id	="PlayerEventIndicator7"
+			class="block abs layer_3_2 border-bottom"
+			style="
+				/*display	:none;*/
+				top	:0;
+				left	:51px;
+				width	:5px;
+				height	:5px;
+				background-color:#FFF;
+				"
+			>
+			<light
+
+				class	="block rel layer_3_4 blink-fast6"
+				style	="
+					display	:block;
+					width	:5px;
+					height	:5px;
+					background-color:#333;
+					"
+				>
+			
+			</light>
+		</eventIndicator>';
+		$this->strHTML='';
+		//$this->strHTML.=PlayerEventIndicator::strInitJs();
+		}
+	public static function strObjectInit()
+		{
+		return Event::strOConstruct('PlayerEventIndicator');
+		}
+	public static function strObjectDeclare()
+		{
+		$str='
+		<script>
+			class PlayerEventIndicator
+				{
+				constructor()
+					{
+					this.objHTML=document.getElementById(\'PlayerEventIndicator\');
+					console.log(\'Loaded Player event indicator (objPlayerEventIndicator).\');
+					}
+				}
+		</script>';
+		return $str;
+		}
+	public static function strHTML()
+		{
+		$objPlayerEventIndicator=new PlayerEventIndicator();
+		return $objPlayerEventIndicator->strHTML;
+		}
+	}
+
+                     /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//        /\                  // /   
+//      <  **>               /// /  
+ //////   jl                ///// /    
+./././././././*/
+class StatisticIndicator
+	{
+	public $strD;
+	private $int0PageStart	=0;
+	private	$int0ListNum	=0;
+	private	$int1ListNum	=0;
+	public function __construct($_arrPagination='', $_int0ListNum='')
+		{
+		$this->int0PageStart	= $_arrPagination['int0Start'];
+		$this->int0ListNum	= $_int0ListNum;
+		$this->int1ListNum	=($this->int0PageStart+$this->int0ListNum)+1;
+		$this->strD		=$this->strD();
+		}
+	private function strD()
+		{
+		$str='
+		<statisticIndicator
+			title	="Successfull listeners"  
+			class	="rel left block BRJ scrollerY" 
+			style	="width:40px;height:40px;font-size:xx-small;">
+			<overlay 
+				title="Feature. Will be avaliable soon."
+				class="abs TC1" 
+				style="width:100%;height:100%;background-color:rgba(255,255,255,0.7);font-size:large;text-align:center;line-height:39px"
+				>'.
+				$this->int1ListNum.
+				'<!--indicator
+								class="abs"
+					style="left:0px;width:10px;height:20%;background-color:rgba(177,177,177,0.9);"
+					>
+				</indicator>
+				<indicator
+					class="abs"
+					style="left:10px;width:10px;height:20%;background-color:rgba(77,77,77,0.9);"
+					>
+				</indicator>
+				<indicator
+					class="abs"
+					style="left:20px;width:10px;height:20%;background-color:rgba(0,0,0,0.9);"
+					>
+				</indicator>
+				<indicator
+					class="abs"
+					style="left:30px;width:10px;height:20%;background-color:rgba(120,120,120,0.9);"
+					>
+				</indicator-->
+			</overlay>
+			<played
+				title	="Played"
+				class	="block"
+				>
+				<strHeader>+</strHeader>
+				<int>0</int>
+			</played>
+			<avgPlayingTime
+				title	="Average playing time"
+				class	="block"
+				>
+				<strHeader>+</strHeader>
+				<strFormattedString>0</strFormattedString>
+				<strUnit>s</strUnit>
+			</avgPlayingTime>
+			<liked 
+				title	="Liked"
+				class	="block"
+				>
+				<strHeader>+</strHeader>
+				<int>0</int>
+			</liked>
+			<avgLoadingTime
+				title	="Average loading time"
+				class	="block"
+				>
+				<strHeader>-</strHeader>
+				<strFormattedString>0</strFormattedString>
+				<strUnit>s</strUnit>
+                	</avgLoadingTime>
+			<DropListener
+				title	="Drop listener"
+				class	="block"
+				>
+				<strHeader>-</strHeader>
+				<int>0</int>
+			</DropListener>
+			<Reconnects
+				title	="Reconnects while playing count"
+				class	="block"
+				>
+				<strHeader>-+</strHeader>
+				<int>0</int>
+                	</<Reconnects>
+			<viewed
+				title	="Viewed"
+				class	="block"
+				>
+				<strHeader>_</strHeader>
+				<int>0</int>
+			</viewed>
+		</statisticIndicator>';
+		return $str;
+		}
+	public static function strDesign($_arrPagination='', $_int0ListNum='')
+		{
+		$obj= new StatisticIndicator($_arrPagination, $_int0ListNum);
+		return $obj->strD;
+		}
+	}
+
+                     /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//         /\                  // /   
+//       <  **>               /// /  
+ //////    jl                ///// /    
+./././././././*/
+class SystemEventIndicatorStream
+	{
+	public $strHTML;
+	private $arrEDRO=
+	array(
+		'arrE'=>
+		array(
+			'/','/search'
+			),
+		'arrD'=>
+		array(
+			'/home/EDRO/2.Design/.strFileList.php',
+			),
+		'arrR'=>
+		array(
+			'arrLang'=>
+			array(
+				'EN','RU',
+				),
+			'arrRole'=>
+			array(
+				'Listener'
+				),
+			),
+		'arrO'=>
+		array(
+			'strHTML'=>''
+			),
+		);
+	public function __construct()
+		{
+		$this->strHTML='
+		<EDROContextSignals
+			class="abs layer_4 matrixTop V100 BC3 BT3"
+			style="	
+				left		:0;
+				height		:20px;
+				width		:100%;
+				"
+			>'.
+			DynaScreenEventIndicator::strHtml().
+			IndicatorPlayer::strHTML().
+			IndicatorNetwork::strHTML().
+			IndicatorHiFi::strHtml().
+			Login::strHTML().
+			IndicatorMasterClock::strHTML().
+			IndicatorDimensions::strHTML().
+			IndicatorLang::strHtml().
+			IndicatorRole::strHTML().
+		'</EDROContextSignals>';
+		}
+	public static function strHTML()
+		{
+		//$arrData['_strName']=$_objData->strName;
+		$objSystemEventIndicatorStream		=new SystemEventIndicatorStream();
+		return $objSystemEventIndicatorStream->strHTML;
+		}
+	}
+
+                     /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//        /\                  // /   
+//      <  **>               /// /  
+ //////   jl                ///// /    
+./././././././*/
+class FormInput
+	{
+	public $strHTML;
+	public function __construct($_arrReality)
+		{//$objKIIM=KIIM::objStart($_objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));unset($_objKIIM);
+
+
+		$strLang				=$_arrReality['strLang'];
+		$arrReality['strDisplayName']		=$_arrReality['arrName'][$strLang];
+		$arrReality['strInputName']		=$_arrReality['arrSetup']['strInputName'];
+		$arrReality['strInputValue']		=$_arrReality['arrSetup']['strInputValue'];
+		$arrReality['strInputType']		=$_arrReality['arrSetup']['strInputType'];
+		$arrReality['intInputSize']		=$_arrReality['arrSetup']['intInputSize'];
+		$arrReality['intInputMaxLength']	=$_arrReality['arrSetup']['intInputMaxLength'];
+		$arrReality['intInputWidth']		=$_arrReality['arrSetup']['intInputWidth'];
+					         unset($_arrReality);
+		//print_r($arrReality);
+		//exit;
+
+
+
+		$this->strHTML='
+			<input'.$arrReality['strInputName'].'
+				class="brick left"
+				style="
+					width			:'.($arrReality['intInputWidth']).'%;
+					"
+				>'.
+
+				//$strFirstSelect.
+				//$strSecSelect.
+				'
+				<input 
+					id=		"SearchBy'.$arrReality['strInputName'].'"
+					size		="'.$arrReality['intInputSize'].'"
+					maxlength	="'.$arrReality['intInputMaxLength'].'"
+					name		="'.strtolower($arrReality['strInputName']).'"
+					type		="'.$arrReality['strInputType'].'"
+					onchange	="
+							objEvent.arrReality[\''.$arrReality['strInputName'].'\']	=encodeURIComponent(this.value);
+							objEvent._UpdateURLDyn();
+							"
+					onFocusin	="
+							//objSearch.strActiveInputWidth	=this.parentNode.style.width;
+							//this.parentNode.style.width	=\'80%\';
+							
+							"
+					onFocusout	="
+							//this.parentNode.style.width	=objSearch.strActiveInputWidth;
+							"
+					value		="'.сПреобразовать($arrReality['strInputValue'], 'вСтроку').'"
+					placeholder	="'.$arrReality['strDisplayName'].'"
+					class		="brick left LTR_RTL L2"
+					style		="
+							width		:73%;
+							border		:0;
+							outline		:0;
+							text-align	:center;
+							"
+
+					/>
+				<resetButton
+					class="brick right sensor TC1 L2 border-right"
+					style="
+						width			:10%;
+						text-align		:center;
+						right			:0;
+						"
+					onclick="
+						objSearch.objValueInput'.$arrReality['strInputName'].'.value	=\'\';
+						objEvent.arrReality.'.$arrReality['strInputName'].'=\'\';
+						this.previousElementSibling.focus();
+						objEvent._UpdateURLDyn();
+						";
+					>
+					<ifRU	title="Сбросить"
+						>
+						x
+					</ifRU>
+					<ifEN
+						title="Reset"
+						>
+						x
+					</ifEN>
+				</resetButton>
+
+			</input'.$arrReality['strInputName'].'>
+			';
+		//KIIM::objFinish($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
+		}
+	public static function strHTML($_arrReality)
+		{
+		$objFormInput=new FormInput($_arrReality);
+		return $objFormInput->strHTML;
+		}
+	}
+
+// © A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru 2021
+set_time_limit(0);
+class ReadServer1
+	{
+	private	$E	= array(//ВходящиеНастройки ([E]vent are starting, then we'w got the setup of the event)
+			);
+	private	$D	= array(//НастройкиЭлементаНадКоторымПроизводитсяРабота([D]esign - the screen in front of listener's eyes)
+			///'strAddr'			=> '127.0.0.1', //Setup in server start 
+			///'intPort'			=> 75,
+			///'дТаймаут'			=> -1
+			);
+	private $R	= array(//Состояние операционной среды Реальность ([R]eality)
+			'рПриёмник'			=> '',
+			'рПередача'			=> '',
+			'сСостояние'			=> '',
+			'сОшибка'			=> '',
+			'ч0Ошибка'			=> '',
+			);
+	public 	$O	= array(//Использующиеся объекты для работы и их настройки по-умолчанию. ([O]bjects)
+			'оОшибка'			=> '',
+			'оСостояние'			=> '',
+			'oСекундомер'			=> '',
+		//	'оEDRO'				=> '',
+			);
+	function __construct($мНастройки)
+		{$this->R['сСостояние']			= __CLASS__.'/'.__FUNCTION__;
+		$this->E				= $мНастройки;
+		
+		$this->O['оСекундомер'] 		= new Секундомер(__CLASS__, __FUNCTION__);
+		
+		$this->O['оСостояние'] 			= new ОповещениеСостояние();
+		$this->O['оОшибка'] 			= new ОповещениеОшибка();
+							$this->_memoryPrepare();
+		}
+	private function _memoryPrepare()
+		{$this->R['сСостояние']			= __CLASS__.'/'.__FUNCTION__;
+							$this->O['оСостояние']->_PushCondition($this);
+		if($this->R['рПриёмник'])
+			{
+			}
+		else
+			{
+			$this->O['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
+			$this->R['рПриёмник']			= stream_socket_server($this->E['strProto'].'://'.$this->E['strAddr'].':'.$this->E['intPort'], $this->R['ч0Ошибка'], $this->R['сОшибка']);
+			if($this->R['ч0Ошибка'] || $this->R['сОшибка'])
+				{
+				$this->O['оОшибка']->_PushError($this);
+				}
+			if($this->R['рПриёмник']===FALSE)
+				{
+				$this->R['сОшибка']			= 'Невозможно запустить передачу рПриёмник';
+									$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
+									$this->O['оОшибка']->_PushError($this);
+									//sleep(111);
+									$this->_memoryPrepare();
+				}
+			else
+				{
+				$this->R['сОшибка']			= '';
+									$this->O['оСостояние']->_PushCondition($this);
+				}
+			$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
+			$this->O['оСостояние']->_PushCondition($this);
+			}
+		}
+	private function ifManyReconnects()
+		{
+		}
+	public function ifGgetRead()
+		{$this->R['сСостояние']			= __CLASS__.'/'.__FUNCTION__;
+		$this->O['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
+		
+							$this->O['оСостояние']->_PushCondition($this);
+		if($this->R['рПриёмник'])
+			{
+			$this->R['рПередача'] 			= stream_socket_accept($this->R['рПриёмник'], $this->E['дТаймаут']);
+			if($this->R['рПередача']===FALSE)
+				{
+				$this->R['сОшибка']			= 'Невозможно запустить передачу рПередача';
+									$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
+									$this->O['оОшибка']->_PushError($this);
+									
+									$this->_memoryPrepare();
+				}
+			else
+				{
+				$this->R['сОшибка']			= '';
+									$this->O['оСостояние']->_PushCondition($this);
+				}
+			}
+		else
+			{
+			$this->R['сОшибка']			= 'Невозможно запустить передачу рПриёмник';
+								$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
+								$this->O['оОшибка']->_PushError($this);
+								$this->_memoryPrepare();
+			}
+		$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
+		$this->O['оСостояние']->_PushCondition($this);
+		return $this->R['рПередача'];
+		}
+	}
+
+// © A.A.CheckMaRev assminog@gmail.com, tubmulur@yandex.ru, hfic.samin@vk.com 2021
+//р=Ресурс	сп=СтрокаПакет(Пакет для вебсервера)
+//Вдохновлённый коммуникацией с Алексеем Семёновым, по-настольгировав по былым временам ИТМО,
+//постеснялся оставлять недоинтегрированную структуру и витая мыслями где-то там, 
+//доделал интеграл, получив 1 абстрактный класс EDRO, и интерфейс EDRO-ЕДРО, переписываю уже целый день,
+//очень боюсь критики от спеца.. Надеюсь успею к утру :). Хорошего дня.
+//
+//          .                         .             .                           .                      .
+// .            .         Е  .                        .                           .                               .
+//                        Д
+//      .               EDRO              .              .                            .                                     .
+//                        О:ПОЛИМЕР
+//			    EDRO.SOT													
+//																	
+//																	
+//																	
+StartReadServer::XTerm();
+class StartReadServer
+	{
+	private $E	= array(  //ВходящиеНастройки ([E]vent are starting, then we'w got the setup of the event)
+				'дбг_сВходящиеНастройки' => '',
+				'мВходящиеНастройки'	=> array(),
+				'мСервер'		=>
+							array(
+							'strProto'		=> strProto,
+							'strAddr'		=> strAddr,
+							'intPort'		=> intPort,
+							'intReadBlockSize'	=> intReadBlockSize,
+							'дТаймаут'		=> дТаймаут,
+							),
+			);
+	private $D	= array( //НастройкиЭлементаНадКоторымПроизводитсяРабота([D]esign - the screen in front of listener's eyes)
+				'дбг_сНастройкиЭлемента'=> '',
+				'мНастройкиЭлемента'	=> array(),
+			);
+	private $R	= array( //Состояние операционной среды Реальность ([R]eality)
+				'рПередача'		=> '',
+				'strReadedBlock'	=> '',
+				'ч1Слушатель'		=> 0,
+				'сДоступ'		=> '/Listener',
+				'bIzSocket'		=> FALSE,
+				'bizReadedBlock'	=> FALSE,
+				'intWritedBytes'	=> 0,
+			);
+	public $O	= array( //Использующиеся объекты для работы и их настройки по-умолчанию. ([O]bjects)
+				'оЕДРО'			=> '',
+				'оКИМ'			=> '',
+				'оОшибка'		=> '',
+				'оСостояние'		=> '',
+				'оСекундомер'		=> '',
+				'оЖурнал'		=> '',
+			);
+	public static function XTerm()
+		{
+		while(TRUE)
+			{
+			$оReadServer = new StartReadServer();
+			}
+			//$оRead = Read::VoId();
+		}
+	public function __construct()
+		{
+		//$this->_СтартЖурнала();
+		//$this->_Буфферизация();
+		//$this->_VoidAuthorAndSystemName();
+		$this->O['оСостояние'] 			= new ОповещениеСостояние();
+		$this->O['оОшибка'] 			= new ОповещениеОшибка();
+		$this->O['оСекундомер'] 		= new Секундомер(__CLASS__, __FUNCTION__);
+		
+
+		$this->O['оСервер']			= new ReadServer1($this->E['мСервер']);
+		while($this->R['рПередача']=$this->O['оСервер']->ifGgetRead())
+			{
+			$this->_ЧтениеЗапроса();
+			$this->O['оЕДРО'] 			= new EDRO($this->R['strReadedBlock']);
+			//$this->_ОбработкаЗапроса();
+			
+			//$this->_ФормированиеОтвета(); 
+			//print_r($this);
+			//exit;
+			
+			$this->_ЗаписьОтвета();
+			$this->_СбросEventЖурнала();
+			//exit();
+			}
+		$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
+		}
+
+	private function _ЧтениеЗапроса()
+		{$this->R['сСостояние']			= __CLASS__.'/'.__FUNCTION__;
+		$this->O['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
+		
+		$strReadedBlock				= fread($this->R['рПередача'], $this->E['мСервер']['intReadBlockSize']);
+		if(empty($strReadedBlock))
+			{
+			$this->R['strReadedBlock']		= '';
+			$this->R['bizReadedBlock']		= FALSE;
+			$this->R['сОшибка']			= 'fread($_рПередача '.$this->E['мСервер']['intReadBlockSize'].') empty.';
+								$this->O['оОшибка']->_PushError($this);
+			}
+		else
+			{
+			$this->R['strReadedBlock']		= $strReadedBlock;
+			$this->R['bizReadedBlock']		= TRUE;
+			}
+		$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
+		}
+	private function _ОбработкаЗапроса()
+		{$this->R['сСостояние']			= __CLASS__.'/'.__FUNCTION__;
+		$this->O['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
+		
+		/*
+		if($this->R['bizReadedBlock']===TRUE)
+			{
+			$мЗаголовки			= explode("\n", $this->R['strReadedBlock']);
+			foreach($мЗаголовки as $сЗапрос)
+				{
+				if(strpos($сЗапрос, ': ')!==FALSE)
+					{
+					$this->R['мЗаголовки'][сНачДоСимвола($сЗапрос, ':')]	= сНачОтСимвола($сЗапрос, ' ');
+					}
+				}
+			if(isset($this->R['мЗаголовки']['ч1Слушатель']))
+				{
+				$this->R['ч1Слушатель']			= $this->R['мЗаголовки']['ч1Слушатель'];
+				if(is_file($this->E['сСлушатель'] 	= сРасположениеО2о.$this->R['сДоступ'].'/'.$this->R['ч1Слушатель'].cЗаписьО2о))
+					{
+					$this->E['strListenerBlock']		= file_get_contents($this->E['сСлушатель']);
+					}
+				else
+					{
+					$this->R['сОшибка']			= 'fread(рПередача empty.';
+										$this->O['оОшибка']->_PushError($this);
+					}
+				}
+			}
+		else
+			{
+			$this->R['мЗаголовки']			= array();
+			}*/
+		$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
+		}
+	private function _ФормированиеОтвета()
+		{$this->R['сСостояние']			= __CLASS__.'/'.__FUNCTION__;
+		$this->O['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
+		//print_r($this);
+		//$this->O['мЗаголовки']		= MyJSON::str($this->R['мЗаголовки']);
+		$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
+		}
+	private function _ЗаписьОтвета()
+		{
+		$this->O['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
+		
+							fwrite($this->R['рПередача'], $this->E['strListenerBlock'], strlen($this->E['strListenerBlock']));
+		
+							fclose($this->R['рПередача']);
+		
+		$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
+		}
+	private function _СбросEventЖурнала()
+		{$this->R['сСостояние']			= __CLASS__.'/'.__FUNCTION__;
+		//print_r($this);
+		//$this->E = array();
+		}
+	public function _СтартЖурнала()
+		{
+		$this->O['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
+		
+		//$this->E[]		= array('v'.__CLASS__.'/'.__FUNCTION__ => '');$intStartTime = сВремя();
+		//$this->_КИМ('Start');
+		//$сРасположениеСчётчикВход	=$this->сЖурналРасположение.'/CountUp/Вход.plmr';
+		//$сРасположениеСчётчикВходИстор	=$this->сЖурналРасположение.'/CountUp/History/Вход.plmr';
+		
+		//$ч0СчётчикВход			=file_get_contents($сРасположениеСчётчикВход); сТекущееВремяСтемп()
+		//				 file_put_contents($сРасположениеСчётчикВход, ($ч0СчётчикВход+1));
+		//				 /*DEBUG*/ file_put_contents($сРасположениеСчётчикВходИстор,"\n=====\n".'	Start:		'.date("Y-m-d H:i:s").сТекущееВремяСтемп()."\n", FILE_APPEND);
+		//$this->_КИМ('End');
+		//$this->E[]		= array('.'.__CLASS__.'/'.__FUNCTION__ => (сВремя() - $intStartTime));
+
+		$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
+		}
+	private function _Буфферизация()
+		{
+		$this->O['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
+		
+		//$this->O['strFaviconBin']		= file_get_contents('/home/HiFiIntelligentClub.Ru/favicon.png');
+		//$this->O['strJPGLogo']		= file_get_contents('/home/HiFiIntelligentClub.Ru/Hfic_Samin.jpg');
+		//$this->O['strRobotsTxt']		= file_get_contents('/home/HiFiIntelligentClub.Ru/robots.txt');
+		
+		$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
+		}
+
+	}
+?>
