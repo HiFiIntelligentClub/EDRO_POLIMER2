@@ -2130,6 +2130,42 @@ class MyXML
 		return $objTag->arrTag;
 		}
 	}
+
+//© A.A.CheckMaRev assminog@gmail.com, tubmulur@yandex.ru, Hfic.Samin@vk.com 2021
+		          /*© A.A.CheckMaRev assminog@gmail.com*/
+		    ////// 				//
+		   //   /\ RCe			/////////
+		      //  <  **> 				//
+		     //     Jl   				//
+		    //////				/////////
+function сВЗаголовок($_с)
+	{
+	$с	= сРазделитьПередЗаглавной(substr($_с, 3, strlen($_с)));
+	
+	return $с;
+	}
+function сРазделитьПередЗаглавной($_сВход, $_сРазделить='-', $_nu1BeginOffset=0, $_nu1сОтPlusOffset=0) // Слово  SAME FUNCTIONS
+	{
+	//if(empty($_сВход)||(strpos($_сВход, $_сДо)===FALSE)){return FALSE;}
+	if(empty($_сВход)){return FALSE;}
+	$сВход		= substr($_сВход, $_nu1сОтPlusOffset);
+	$сВход		= (string)$сВход;
+	$ч1Длинна	= strlen($сВход);
+	$ч0Длинна	= ($ч1Длинна-1);
+	$сСлово		= FALSE;
+	for($ч0Шаг=0;$ч0Шаг<=$ч0Длинна;$ч0Шаг++)
+	    {
+	    $сСлово.=$сВход[$ч0Шаг];
+	    if($ч0Шаг!=0 && ctype_upper(сВход[$ч0Шаг]))
+		{
+		$сСлово		= substr($сСлово,0,-1).$_сРазделить.сВход[$ч0Шаг];
+		}
+	    else
+		{
+		}
+	    }
+	return $сСлово;
+	}
  
 //© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com
 function д4Время()
@@ -2406,6 +2442,10 @@ class Event
 					$this->E['strExt']			= сКонцДоСимвола($this->E['strName'], '.');
 					$this->E['bIzDynamic']			= $this->bIzDynamic($strEvenParams);
 					}
+				elseif($strListenerRealityName=='Connection')
+					{
+					$this->R['strConnection'] 		= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					}
 				elseif($strListenerRealityName=='Accept')
 					{
 					$arr=explode(',' ,trim(сНачОтСимвола($strListenerReality, ":", 0, 1)));
@@ -2417,10 +2457,6 @@ class Event
 						$arr	=array();
 						}
 					$this->E['arrAcceptContent']		= $arr;
-					}
-				elseif($strListenerRealityName=='Connection')
-					{
-					$this->R['strConnection'] 		= сНачОтСимвола($strListenerReality, ":", 0, 1);
 					}
 				elseif($strListenerRealityName=='User-Agent')
 					{
@@ -2445,11 +2481,11 @@ class Event
 					}
 				elseif($strListenerRealityName=='Cache-Control')
 					{
-					//$this->R['strCacheControl'] 		= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					$this->R['strCacheControl'] 		= сНачОтСимвола($strListenerReality, ":", 0, 1);
 					}
 				elseif($strListenerRealityName=='Pragma')
 					{
-					//$this->R['strPragma'] 		= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					$this->R['strPragma'] 		= сНачОтСимвола($strListenerReality, ":", 0, 1);
 					}
 				elseif($strListenerRealityName=='Upgrade-Insecure-Requests')
 					{
