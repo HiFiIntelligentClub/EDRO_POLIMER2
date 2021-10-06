@@ -115,20 +115,60 @@ define('cЗаписьО2о'							, '/0.О20'							);
 сРасположение(о2о):Наименование(ШтатнаяЕдиница).Наименование(Язык).Наименование(Страна).ПорядкНомер(РабочаяПапкаСлушателя)->
 сРасположение(о2о):Наименование(ШтатнаяЕдиница).Наименование(Язык).Наименование(Страна).ПорядкНомер(РабочаяПапкаСлушателя)->
 */
-?>//© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com
-<?php
+
+//© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com
 function э($с)
 	{
 	echo $с;
 	}
-?>//© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com
-<?php
-function эEDRO($_НеизвестТипДанных)
+
+//© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com
+function эEDRO($arrE, $arrD, $arrR, $arrO)
 	{
-	print_r($_НеизвестТипДанных);
+	echo"\n";
+	echo'----E-------------------------------'."\n";
+	foreach($arrE as $с1 => $с12)
+		{
+		if(is_array($с12))
+			{
+			foreach($с12 as $с121 => $с122)
+				{
+				echo strNDigit(40, $с1).strNDigit(30, $с121, 'fromEnd').strNDigit(40, $с122, 'fromEnd')."\n";
+				}
+			}
+		else
+			{
+			echo strNDigit(40, $с1).strNDigit(40, $с12, 'fromEnd')."\n";
+			}
+		}
+	echo'----D-------------------------------'."\n";
+	foreach($arrD as $с2 => $с22)
+		{
+		echo strNDigit(40, $с2).strNDigit(40, $с22, 'fromEnd')."\n";
+		}
+	echo'----R-------------------------------'."\n";
+	foreach($arrR as $с3 => $с32)
+		{
+		if(is_array($с32))
+			{
+			foreach($с32 as $с321 => $с322)
+				{
+				echo strNDigit(20, $с3).strNDigit(40, $с321, 'fromEnd').strNDigit(20, $с322, 'fromEnd')."\n";
+				}
+			}
+		else
+			{
+			echo strNDigit(40, $с3).strNDigit(40, $с32, 'fromEnd')."\n";
+			}
+		}
+	echo'----O-------------------------------'."\n";
+	foreach($arrO as $с4 => $с42)
+		{
+		echo strNDigit(40, $с4)."\n";
+		}
 	}
-?>//© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com
-<?php
+
+//© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com
 function эСкорость($_НеизвестТипДанных)
 	{
 	print_r($_НеизвестТипДанных);
@@ -182,11 +222,11 @@ class ОповещениеСостояние
 	private function _VoidAuthorAndSystemName()
 		{
 		//system('clear');
-		эEDRO('-------------------------------------------------------------------------------------------------------------------------------------------');
-		эEDRO('----------=ЕДРО:ПОЛИМЕР II (Только чтение) © A.A.CheckMaRev assminog@gmail.com, tubmulur@yandex.ru, hfic.samin@vk.com 2021=----------------');
-		эEDRO('-------------------------------------------------------------------------------------------------------------------------------------------');
-		эEDRO("\n");
-		эEDRO("\n");
+		э('-------------------------------------------------------------------------------------------------------------------------------------------');
+		э('----------=ЕДРО:ПОЛИМЕР II (Только чтение) © A.A.CheckMaRev assminog@gmail.com, tubmulur@yandex.ru, hfic.samin@vk.com 2021=----------------');
+		э('-------------------------------------------------------------------------------------------------------------------------------------------');
+		э("\n");
+		э("\n");
 		}
 	public function __construct($о=array())
 		{
@@ -195,49 +235,49 @@ class ОповещениеСостояние
 	public function  _PushCondition($о=array())
 		{
 		$this->_VoidAuthorAndSystemName();
-		эEDRO('-E--------------------------------------------------------------------D--------------------------------------------------------------------');
-		эEDRO('                                                                     -                                                                     ');
-		эEDRO('                                                                     -                                                                     ');
-		эEDRO('                                                                     -                                                                     ');
-		эEDRO('                                                                     -                                                                     ');
-		эEDRO('                                                                     -                                                                     ');
-		эEDRO('                                                                     -                                                                     ');
-		эEDRO('                                                                     -                                                                     ');
-		эEDRO('                                                                     -                                                                     ');
-		эEDRO('                                                                     -                                                                     ');
-		эEDRO('                                                                     -                                                                     ');
-		эEDRO('                                                                     -                 On aiR Only                                         ');
-		эEDRO('                   Hello                                             -                                                                     ');
-		эEDRO('                                                                     -                                                                     ');
-		эEDRO('                         Ori                                         -                                                                     ');
-		эEDRO('                                                                     -                                                                     ');
-		эEDRO('                                                                     -                                                                     ');
-		эEDRO('                                                                     -                                                                     ');
-		эEDRO('                                                                     -                                                                     ');
-		эEDRO('                                                                     -                                                                     ');
-		эEDRO('                                                                     -                                                                     ');
-		эEDRO('-R--------------------------------------------------------------------O--------------------------------------------------------------------');
-		эEDRO('                                                                     -                                                                     ');
-		эEDRO('                                                                     -                                                                     ');
-		эEDRO('                                                                     -                                                                     ');
-		эEDRO('                                                                     -                                                                     ');
-		эEDRO('                                                                     -                                                                     ');
-		эEDRO('                                                                     -                                                                     ');
-		эEDRO('                                                                     -                                                                     ');
-		эEDRO('                                                                     -          1Mix.co.uk                                                 ');
-		эEDRO('                                                                     -          https://www.facebook.com/oriuplift                         ');
-		эEDRO('                                                                     -  Near|   https://HiFiIntelligentClub.com/Ori                        ');
-		эEDRO('                                                                     -      |   https://HiFiIntelligentClub.com/OriUplift                  ');
-		эEDRO('                 1Mix.co.uk                                          -  start   https://HiFiIntelligentClub.ru/Ori                         ');
-		эEDRO('                                                                     -      |   https://HiFiIntelligentClub.com/OriUplift                  ');
-		эEDRO('                                                                     -      |   https://Ori.HiFiIntelligentClub.com                        ');
-		эEDRO('                                                                     -      |   https://OriUplift.HiFiIntelligentClub.com                  ');
-		эEDRO('                                                                     -      v   ...HIC.com    after collecting some money                  ');
-		эEDRO('                                                                     -                                                                     ');
-		эEDRO('                                                                     -                                                                     ');
-		эEDRO('                                                                     -                                                                     ');
-		эEDRO('                                                                     -                                                                     ');
-		эEDRO('-------------------------------------------------------------------------------------------------------------------------------------------');
+		э('-E--------------------------------------------------------------------D--------------------------------------------------------------------');
+		э('                                                                     -                                                                     ');
+		э('                                                                     -                                                                     ');
+		э('                                                                     -                                                                     ');
+		э('                                                                     -                                                                     ');
+		э('                                                                     -                                                                     ');
+		э('                                                                     -                                                                     ');
+		э('                                                                     -                                                                     ');
+		э('                                                                     -                                                                     ');
+		э('                                                                     -                                                                     ');
+		э('                                                                     -                                                                     ');
+		э('                                                                     -                 On aiR Only                                         ');
+		э('                   Hello                                             -                                                                     ');
+		э('                                                                     -                                                                     ');
+		э('                         Ori                                         -                                                                     ');
+		э('                                                                     -                                                                     ');
+		э('                                                                     -                                                                     ');
+		э('                                                                     -                                                                     ');
+		э('                                                                     -                                                                     ');
+		э('                                                                     -                                                                     ');
+		э('                                                                     -                                                                     ');
+		э('-R--------------------------------------------------------------------O--------------------------------------------------------------------');
+		э('                                                                     -                                                                     ');
+		э('                                                                     -                                                                     ');
+		э('                                                                     -                                                                     ');
+		э('                                                                     -                                                                     ');
+		э('                                                                     -                                                                     ');
+		э('                                                                     -                                                                     ');
+		э('                                                                     -                                                                     ');
+		э('                                                                     -          1Mix.co.uk                                                 ');
+		э('                                                                     -          https://www.facebook.com/oriuplift                         ');
+		э('                                                                     -  Near|   https://HiFiIntelligentClub.com/Ori                        ');
+		э('                                                                     -      |   https://HiFiIntelligentClub.com/OriUplift                  ');
+		э('                 1Mix.co.uk                                          -  start   https://HiFiIntelligentClub.ru/Ori                         ');
+		э('                                                                     -      |   https://HiFiIntelligentClub.com/OriUplift                  ');
+		э('                                                                     -      |   https://Ori.HiFiIntelligentClub.com                        ');
+		э('                                                                     -      |   https://OriUplift.HiFiIntelligentClub.com                  ');
+		э('                                                                     -      v   ...HIC.com    after collecting some money                  ');
+		э('                                                                     -                                                                     ');
+		э('                                                                     -                                                                     ');
+		э('                                                                     -                                                                     ');
+		э('                                                                     -                                                                     ');
+		э('-------------------------------------------------------------------------------------------------------------------------------------------');
 
 		//эEDRO __CLASS__);
 		if(isset($о->O))
@@ -671,11 +711,11 @@ function arrAllEventIncomeParametrsFallBack()
 	array(
 	'arrReality'=>array(
 		'strName'		=>array('int0FallBack'	=>'','int0MaxLength'	=>100,),//
-		'strStyle'		=>array('int0FallBack'	=>'','int0MaxLength'	=>65,),//
-		'strGenre'		=>array('int0FallBack'	=>'','int0MaxLength'	=>65,),//
 		'strHiFiType'		=>array('int0FallBack'	=>'','int0MaxLength'	=>65,),//
-		'intBitrate'		=>array('int0FallBack'	=>'','int0MaxLength'	=>4,),
-		'strCodec'		=>array('int0FallBack'	=>'','int0MaxLength'	=>16,),
+	//	'strStyle'		=>array('int0FallBack'	=>'','int0MaxLength'	=>65,),//
+		'strGenre'		=>array('int0FallBack'	=>'','int0MaxLength'	=>65,),//
+	//	'intBitrate'		=>array('int0FallBack'	=>'','int0MaxLength'	=>4,),
+	//	'strCodec'		=>array('int0FallBack'	=>'','int0MaxLength'	=>16,),
 		'int0Page'		=>array('int0FallBack'	=>0, 'int0MaxLength'	=>6,),
 		'int1OnPage'		=>array('int0FallBack'	=>1, 'int0MaxLength'	=>3, 'int0MaxValue'	=>140,),
 		'int1PlayingStationNum'	=>array('int0FallBack'	=>0, 'int0MaxLength'	=>10,),
@@ -684,16 +724,19 @@ function arrAllEventIncomeParametrsFallBack()
 		'strListenerDate'	=>array('int0FallBack'	=>'','int0MaxLength'	=>150,),),
         'arrObjects'		=>array(
 		'arrEventData'		=>array('arrEN'		
-					=>array('strAlias'	=>false, 'strTitle'	=>'Title',),
-		'arrRU'			=>array('strAlias'	=>false, 'strTitle'	=>'Заголовок',),),
-		'arrEventTestConditions'=>array('arrEventName'	=>array('int0MaxLength'	=>28,),
+							=>array('strAlias'	=>false, 'strTitle'	=>'Title',),
+						'arrRU'			
+							=>array('strAlias'	=>false, 'strTitle'	=>'Заголовок',),),
+		'arrEventTestConditions'=>array('arrEventName'	
+							=>array('int0MaxLength'	=>28,),
 		'arrEventPage'		=>array('strFindTextToMarkExist' 	=>'HIC',),),
-		'arrEventsOnErrors'	=>array('arrEventName'	=>array('strReport'		=>'Event name is too long.',
+		'arrEventsOnErrors'	=>array('arrEventName'	
+							=>array('strReport'		=>'Event name is too long.',
 									'strPriority'		=>'Urgent',
 									'сУмолч'		=>'/',),
 		'arrEventPage'		=>array('strReport'		=>'Can not open event page: arrEventName',
-									'strPriority'		=>'Urgent',
-									'сУмолч'		=>'/',),),),
+						'strPriority'		=>'Urgent',
+						'сУмолч'		=>'/',),),),
 		);
 	return $arrO;
 	}
@@ -1259,6 +1302,101 @@ function strEncode($_strString, $_strKey, $_strAct='e') //E or  /d
     //
 ?>
 <?php
+function strNDigit($_intN, $_str, $strPos="fromBegin", $_strNULLSymbol='_') //suffix/prefix
+	{
+	$intN		=$_intN;
+	       unset($_intN);
+	$str		=$_str;
+	       unset($_str);
+	$strNULLSymbol	=$_strNULLSymbol;
+	       unset($_strNULLSymbol);
+	$strAdd='';
+	$strOverflowAlert		=':';
+	if(strlen($str)>$intN)
+	    {
+	    $strOverflowAlert='*';
+	    }
+    
+	for($intI=0;$intI<$intN;$intI++)
+	    {
+	    if(!isset($str[$intI]))
+		{
+		$strAdd.=$strNULLSymbol;
+		}
+	    }
+	switch($strPos)
+	    {
+	    case 'fromBegin':
+		$str=$strOverflowAlert.$strAdd.$str;
+	    break;
+	    case 'fromEnd':
+		$str=$strOverflowAlert.$str.$strAdd;
+	    break;
+	    }
+	return $str;
+	}
+function strNDigitVisible($_intN, $_str, $_strShowFrom='fromEnd')  //fromEnd/FromBegin
+	{
+	$intN		=$_intN;
+	       unset($_intN);
+	$str		=$_str;
+	       unset($_str);
+	$strShowFrom	=$_strShowFrom;
+	       unset($_strShowFrom);
+	switch($strShowFrom)
+	    {
+	    case 'fromBegin':
+		$str=substr($str, 0, $intN);
+	    break;
+	    case 'fromEnd':
+		$str=substr($str, -$intN);
+	    break;
+	    }
+	return $str;
+	}
+function strNDigitMainTrace($_float)
+	{
+	$float=$_float;
+	 unset($_float);
+	$int=floor($float);
+                 unset($float);
+	$strNDigit=strNDigit(2, $int, 'fromBegin','0');
+	if($int>5)
+	    {
+	    $strAlertPrefix='??:';
+	    }
+	elseif($int>=1)
+	    {
+	    $strAlertPrefix='_?:';
+	    }
+	else
+	    {
+	    $strAlertPrefix='__:';
+	    }
+	$str=$strAlertPrefix.$strNDigit;
+	return $str;
+	}
+function strNDigitMicroTrace($_int)
+	{
+	$int=$_int;
+           unset($_int);
+	$strNDigit=strNDigit(3, $int, 'fromBegin','0');
+	if($int>500)
+	    {
+	    $strAlertPrefix='??:';
+	    }
+	elseif($int>100)
+	    {
+	    $strAlertPrefix='_?:';
+	    }
+	else
+	    {
+	    $strAlertPrefix='__:';
+	    }
+	$str=$strAlertPrefix.$strNDigit;
+	return $str;
+	}
+
 //© A.A.CheckMaRev assminog@gmail.com, tubmulur@yandex.ru, Hfic.Samin@vk.com 2021
 function чРосХэш($_сВход) // 
 	{
@@ -2072,7 +2210,7 @@ class ЕДРО
 		}
 	private function _ПрочитатьD($сРасположение)
 		{
-		$this->Р	= FileRead::objJSON($сРасположение.'/run.D');
+		$this->Р	= FileRead::arrJSON($сРасположение.'/run.D');
 		}
 	private function _ПрочитатьO($сРасположение)
 		{
@@ -2137,8 +2275,9 @@ class EDRO
 		$oDesign			= new Design($this->E);
 		$this->D			= $oDesign->D;
 					    unset($oDesign);
-		print_r($this);
-		exit;
+		$this->D['strServerName']	= 'ЕДРО:ПОЛИМЕР';
+						эEDRO($this->E, $this->D, $this->R, $this->O);
+						exit;
 		//$arr			= arrEventParams2Array($_сЗаголовки);
 		/*if($this->R['bizReadedBlock']===TRUE)
 			{
@@ -2822,10 +2961,10 @@ class Design
 	public $D	= array( //НастройкиЭлементаНадКоторымПроизводитсяРабота([D]esign - the screen in front of listener's eyes)
 			//	'дбг_сНастройкиЭлемента'=> '',
 			//	'мНастройкиЭлемента'	=> array(),
-			'arrHaveLanguage'		=> array(),
-			'arrHaveContentType'		=> array(),
-			'arrHaveEncoding'		=> array(),
-			'arrAllowedAccess'		=> array(),
+			// 'arrHaveLanguage'		=> array(),
+			// 'arrHaveContentType'		=> array(),
+			// 'arrHaveEncoding'		=> array(),
+			// 'arrAllowedAccess'		=> array(),
 			// 'strAllowedConnection'		=> array(),
 			);
 	private $R	= array( //Состояние операционной среды Реальность ([R]eality)
