@@ -2395,7 +2395,7 @@ class Event
 			if(($strListenerRealityName=сНачДоСимвола($strListenerReality, ' '))!==FALSE)
 				{
 				$strListenerRealityName		= str_replace(':' ,'' ,$strListenerRealityName);
-				if($strListenerRealityName=="GET"||$strListenerRealityName=="POST")//||$strListenerRealityName=="PUT"
+				if($strListenerRealityName=="GET"||$strListenerRealityName=="POST"||$strListenerRealityName=="HEAD"||$strListenerRealityName=="PUT")//||$strListenerRealityName=="PUT"
 					{
 					$this->R['strAction']			= сНачДоСимвола($strListenerReality, ' ');
 					$this->R['strProto']			= сКонцДоСимвола($strListenerReality, ' ');
@@ -2405,10 +2405,6 @@ class Event
 					$this->E['arrEvenParams']		= arrEventParams2Array($strEvenParams);
 					$this->E['strExt']			= сКонцДоСимвола($this->E['strName'], '.');
 					$this->E['bIzDynamic']			= $this->bIzDynamic($strEvenParams);
-					}
-				elseif($strListenerRealityName=='Host')
-					{
-					$this->R['strTo']			= сНачОтСимвола($strListenerReality, ":", 0, 1);
 					}
 				elseif($strListenerRealityName=='Accept')
 					{
@@ -2424,7 +2420,7 @@ class Event
 					}
 				elseif($strListenerRealityName=='Connection')
 					{
-					//$this->R['strConnection'] 		= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					$this->R['strConnection'] 		= сНачОтСимвола($strListenerReality, ":", 0, 1);
 					}
 				elseif($strListenerRealityName=='User-Agent')
 					{
@@ -2442,6 +2438,10 @@ class Event
 				elseif($strListenerRealityName=='Referer')
 					{
 					$this->R['strFrom'] 			= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					}
+				elseif($strListenerRealityName=='Host')
+					{
+					$this->R['strTo']			= сНачОтСимвола($strListenerReality, ":", 0, 1);
 					}
 				elseif($strListenerRealityName=='Cache-Control')
 					{
