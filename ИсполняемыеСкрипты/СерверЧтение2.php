@@ -2437,11 +2437,11 @@ class Event
 					}
 				elseif($strListenerRealityName=='Referer')
 					{
-					$this->R['strFrom'] 			= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					$this->R['strFrom'] 			= trim(сНачОтСимвола($strListenerReality, ":", 0, 1));
 					}
 				elseif($strListenerRealityName=='Host')
 					{
-					$this->R['strTo']			= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					$this->R['strTo']			= trim(сНачОтСимвола($strListenerReality, ":", 0, 1));
 					}
 				elseif($strListenerRealityName=='Cache-Control')
 					{
@@ -3430,6 +3430,281 @@ oo2oo;
 	}
 ?>
 <?php
+                     /*_____
+© Andrey Chekmaryov 2021
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Email:    Hfic.Samin@vk.com
+Phone:    +7(911)7874457
+Whatsapp: +7(911)7874457
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international :  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international :  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+	|ЕСЛИ 
+	ДЕЙСТВИЕ
+	РЕАЛЬНОСТЬ
+			ОБЪЕКТ.
+
+ ////
+//        /\
+//      <  **>
+ //////   jl
+./././././././*/
+
+class Objects
+	{
+	//public $arrObjects;
+	private $E	= array(  //ВходящиеНастройки ([E]vent are starting, then we'w got the setup of the event)
+			//	'мВходящиеНастройки'	=> array(), 
+			//	From Listener
+			);
+	public $D	= array( //НастройкиЭлементаНадКоторымПроизводитсяРабота([D]esign - the screen in front of listener's eyes)
+			//	'мНастройкиЭлемента'	=> array(),
+			//	To Listener
+			);
+	private $R	= array( //Состояние операционной среды Реальность ([R]eality)
+			//	Listener
+			);
+	public $O	= array( //Использующиеся объекты для работы и их настройки по-умолчанию. ([O]bjects)
+			'оОшибка'		=> '',
+			'оСостояние'		=> '',
+			'оСекундомер'		=> '',
+			);
+	public function __construct()
+		{
+		//$this->arrReality['сРасположениеКорень']	='/home/ЕДРО:ПОЛИМЕР/о2о.БазаДанных/HiFiIntelligentClub'; //moved to REALITY
+		$strPlatformPrefix	= '';
+		$strHiFiType		= сПреобразовать($this->arrEvent['arrReality']['strHiFiType'], 'вСтроку');
+		//$strHiFiType		= '/HiFi beginner';
+
+		$arrHiFi['Low quality']		='Low';   //NoHiFi
+		$arrHiFi['HiFi beginner']	='beginner'; //HiFi
+		$arrHiFi['HiFi casual']		='casual'; //HiFi
+		$arrHiFi['HiFi often']		='often';  //HiFi
+		$arrHiFi['HiFi mustbe']		='mustbe'; //HiFi
+		$arrHiFi['HiFi modern']		='HiFi 2.1'; //2.1
+		$arrHiFi['HiFi modern_casual']	='HiFi 5.1'; //5.1
+		$arrHiFi['HiFi modern_casual+']	='HiFi 7.1'; //7.1
+		//print_r($this->arrEvent['arrReality']['strStationID']);
+		//exit();
+	/*	
+		foreach($arrHiFi as $strHiFiTypeName =>$strHiFiShortName)
+
+			{
+			if(strpos($strHiFiType, $strHiFiShortName)!==FALSE)
+				{
+				$strHiFiType	=$strHiFiTypeName;
+				}
+			}
+		if($strHiFiType=='')
+			{
+			$strHiFiType		='/HiFi beginner';
+			}
+		else
+			{
+			$strHiFiType		='/'.$strHiFiType;
+			}
+		$this->arrEvent['arrReality']['strHiFiType']	=$strHiFiType;
+		if($this->arrReality['bIzAndroid'])
+			{
+			$strPlatformPrefix	='/Android';
+			}
+		if($this->arrReality['bIzApple'])
+			{
+			echo $strPlatformPrefix	='/Apple';
+			}
+		//$сРасположениеКорень	=$сРасположениеКорень;
+
+		$strSearchName		=сПреобразовать(mb_strtolower($this->arrEvent['arrReality']['strName']),'вКоманду');
+		if(strlen($strSearchName)<3)
+			{
+			$strSearchName	='';
+			}
+		$strSearchGenre		=сПреобразовать(mb_strtolower($this->arrEvent['arrReality']['strGenre']),'вКоманду');
+		$strSearch		=мЖанр_мЯзык_мТранскрипция($strSearchGenre);
+
+		$strSearchType   	=empty($strSearchName)? '/unordered/':'/search/';
+		//echo $сРасположениеКорень.'/Stations/strICQRTypeF.php';
+		include($this->arrReality['сРасположениеКорень'].'/Stations/strICQRTypeF.php');
+
+		$strSearchPath		='/Stations/'.$strICQRTypeF.'/'.$strHiFiType.$strPlatformPrefix;
+		if($strSearchGenre=='')
+			{
+			$strSearchPath	.=$strSearchType;
+			}
+		else
+			{
+			$strSearchPath	.='/Genres/search/'.$strSearchGenre.$strSearchType;
+			}
+		$strSearchPath;
+		if($this->arrEvent['arrReality']['strPlayingStationId']!='')
+			{
+			}
+		else
+			{
+			}
+
+		$this->arrObjects['сРасположение']		=$this->arrReality['сРасположениеКорень'].$strSearchPath;
+		if($strSearchName=='')
+			{
+			$objTotal	=FileRead::objJSON($this->arrObjects['сРасположение'].'/total.plmr');
+
+			$this->arrObjects['ч0РасположениеTotal']	= ($objTotal->int1Total-1);
+			if($this->arrObjects['ч0РасположениеTotal']=='')
+				{
+				echo 'No data';
+				}
+		//exit;
+			$this->arrObjects['мРасположение']		=Pagination::arr($this);
+
+			for($int0I=$this->arrObjects['мРасположение']['int0Start'];$int0I<=$this->arrObjects['мРасположение']['int0Untill'];$int0I++)
+				{
+				$this->arrObjects['мТаблица'][]	=$this->arrObjects['сРасположение'].'/'.$int0I.'.plmr';
+				}
+			}
+		else
+			{
+			
+			$this->arrObjects['сРасположение']	=$this->arrObjects['сРасположение'];
+			$strSearch		=$this->arrObjects['сРасположение'];
+			$strPattern		='ls -R -1 "'.$strSearch.'"'.'*'.$strSearchName.'*';
+			
+			$arrSearch		=exec($strPattern, $arrSearchPaths, $arrSearchPaths2);
+			//print_r($arrSearchPaths);
+			$strPath		='';
+			$ч1РасположениеTotal	=0;
+			$мРасположение		=array();
+			if(is_array($arrSearchPaths))
+				{
+				//print_r($arrSearchPaths);
+				//exit;
+				foreach($arrSearchPaths as $intPosition=>$strRecord)
+					{
+					if(preg_match('/^[0-9]+\.plmr$/', $strRecord, $arrMatches)===1)
+						{
+						if(substr($strRecord,0,1)==0)
+							{
+							$strPath =substr($arrSearchPaths[($intPosition-1)],0 ,-1);
+							}
+						$мРасположение[]	=$strPath.'/'.$strRecord;
+						$ч1РасположениеTotal++;
+						}
+					}
+				}
+			if($ч1РасположениеTotal>1)
+				{
+				$ч0РасположениеTotal			=($ч1РасположениеTotal-1);
+				}
+			else
+				{
+				$ч0РасположениеTotal			=0;
+				}
+			$this->arrObjects['ч0РасположениеTotal']	=$ч0РасположениеTotal;
+			$this->arrObjects['мРасположение']		=Pagination::arr($this);
+
+			for($int0I=$this->arrObjects['мРасположение']['int0Start'];$int0I<=$this->arrObjects['мРасположение']['int0Untill'];$int0I++)
+				{
+				$this->arrObjects['мТаблица'][]		=$мРасположение[$int0I];
+				}
+			//echo '<pre>';
+			//print_r($мРасположение);
+			//echo '</pre>';
+			}
+	*/
+		/*if($this->arrReality['bIzAndroid'])
+			{
+			echo '<pre>';
+			print_r($this->arrEvent['arrReality']['strHiFiType']);
+			echo '</pre>';
+			exit;
+			}*/
+		//echo '<pre>';
+		//print_r($this);
+		//echo '</pre>';
+		//exit;
+		}
+	public static function strObjectInit()
+		{
+		$str='';
+		return $str;
+		}
+	public static function strCopyrightDeclare()
+		{
+		$str='
+		<copyright
+			id="PageCopyrightTag"
+			class="BC3 TC3 layer_5_Nav no-select halfLine"
+			style="
+				text-align	:center;
+				position	:fixed;
+				bottom		:0;
+				left		:0;
+				width		:100%;
+				"
+			>
+			<font 
+				style="font-size:xx-small"
+				>HiFiIntelligentClub. © tubmulur@yandex.ru 2021 
+				<ifRU
+					>
+					На облаке Reg.Ru.
+				</ifRU>
+				<ifEN
+					>
+					On Reg.Ru cloud.
+				</ifEN>
+			</font>
+		</copyright>
+		<script>
+			var oEl=document.getElementById("PageCopyrightTag");
+		</script>';
+		return $str;
+		}
+	public static function strAudioDeclare()
+		{
+		/*$str='
+		<shader
+			class	="fix brick layer_5"
+			style	="
+				top		:20px;
+				right		:80px;
+				height		:40px;
+				width		:40px;
+				overflow	:hidden;
+				"
+			>
+			<audio 
+				id		="objHiFiIntelligentClubAudio"
+				class		="block right"
+				
+				controls	=""
+				name		="media"
+				>
+				<source 
+					src		="" 
+					type		="audio/mpeg"
+					/>
+			</audio>
+		</shader>
+		';*/
+		//return $str;
+		}
+	public static function strObjectDeclare()
+		{
+		$str='';
+		return $str;
+		}
+	}
+
 
 
 
