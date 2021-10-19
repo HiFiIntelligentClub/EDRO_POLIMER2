@@ -117,9 +117,9 @@ define('cЗаписьО2о'							, '/0.О20'							);
 */
 
 //© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com
-function э($с)
+function э($_с)
 	{
-	echo $с;
+	print_r($_с);
 	}
 
 //© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com
@@ -195,8 +195,8 @@ class ОповещениеОшибка
 		}
 	public function _PushError($о)
 		{
-		эОтладки( __CLASS__);
-		эОтладки($о);
+		э( __CLASS__);
+		э($о);
 		}
 	}
 function фОшибка($str)
@@ -2305,16 +2305,21 @@ class EDRO
 		$this->O['оСостояние'] 		= new ОповещениеСостояние();
 		$this->O['оСекундомер'] 	= new Секундомер(__CLASS__, __FUNCTION__);
 		$oEvent				= new Event($strHeaders);
-		$this->E			= $oEvent->E;
-		$this->R			= $oEvent->R;
-					    unset($oEvent);
-		$oDesign			= new Design($this->E);
-		$this->D			= $oDesign->D;
-					    unset($oDesign);
-		$oReality			= new Reality($this->E, $this->D, $this->R);
+		$oDesign			= new Design($strHeaders);
+		$oReality			= new Reality($strHeaders);
+		//$this->E			= $oEvent->E;
 
-						эEDRO($this->E, $this->D, $this->R, $this->O);
-						exit;
+		//$this->R			= $oEvent->R;
+		///			    unset($oEvent);
+		//$oDesign			= new Design($this->E);
+		//$this->D			= $oDesign->D;
+					    unset($oDesign);
+		//$oReality			= new Reality($this->E, $this->D, $this->R);
+		//$oObjects			= new Objects($this->E, $this->D, $this->R);
+		print_r($this);
+
+						//эEDRO($this->E, $this->D, $this->R, $this->O);
+		//				exit;
 
 
 		/*if($this->R['bizReadedBlock']===TRUE)
@@ -2379,6 +2384,7 @@ class Event
 			//	'мВходящиеНастройки'	=> array(),
 			'strName'			=> '', // /
 			'strExt'			=> '', // .cvb
+			'strType'			=> '', 
 			'bIzDynamic'			=> FALSE,
 			'arrEvenParams'			=> array(),
 			'arrAcceptContent'		=> array(),
@@ -2437,10 +2443,18 @@ class Event
 					$this->R['strProto']			= сКонцДоСимвола($strListenerReality, ' ');
 					$strEvent				= trim(CheckMaSubstr($strListenerReality , strlen($strListenerRealityName),  -strlen($this->R['strProto'])));
 					$this->E['strName']			= сНачДоСимвола($strEvent, "?");
-					$strEvenParams				= сНачОтСимвола($strEvent, "?", 0, 1);
-					$this->E['arrEvenParams']		= arrEventParams2Array($strEvenParams);
+					$strEventParams				= сНачОтСимвола($strEvent, "?", 0, 1);
+					$this->E['arrEventParams']		= arrEventParams2Array($strEventParams);
 					$this->E['strExt']			= сКонцДоСимвола($this->E['strName'], '.');
-					$this->E['bIzDynamic']			= $this->bIzDynamic($strEvenParams);
+					$this->R['bIzDynamic']			= $this->bIzDynamic($strEventParams);
+					}
+				elseif($strListenerRealityName=='Referer')
+					{
+					$this->R['strFrom'] 			= trim(сНачОтСимвола($strListenerReality, ":", 0, 1));
+					}
+				elseif($strListenerRealityName=='Host')
+					{
+					$this->R['strTo']			= trim(сНачОтСимвола($strListenerReality, ":", 0, 1));
 					}
 				elseif($strListenerRealityName=='Connection')
 					{
@@ -2458,10 +2472,9 @@ class Event
 						}
 					$this->E['arrAcceptContent']		= $arr;
 					}
-				elseif($strListenerRealityName=='User-Agent')
+				elseif($strListenerRealityName=='DNT')
 					{
-					$strUserAgent				= сНачОтСимвола($strListenerReality, ":", 0, 1);
-					$this->R['arrPlatform'] 		= arrUserAgent2Platform($strUserAgent);
+					$this->R['bizDNT'] 			= сНачОтСимвола($strListenerReality, ":", 0, 1);
 					}
 				elseif($strListenerRealityName=='Accept-Language')
 					{
@@ -2471,21 +2484,18 @@ class Event
 					{
 					$this->R['strAcceptEncoding']		= сНачОтСимвола($strListenerReality, ":", 0, 1);
 					}
-				elseif($strListenerRealityName=='Referer')
+				elseif($strListenerRealityName=='User-Agent')
 					{
-					$this->R['strFrom'] 			= trim(сНачОтСимвола($strListenerReality, ":", 0, 1));
-					}
-				elseif($strListenerRealityName=='Host')
-					{
-					$this->R['strTo']			= trim(сНачОтСимвола($strListenerReality, ":", 0, 1));
+					$strUserAgent				= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					$this->R['arrPlatform'] 		= arrUserAgent2Platform($strUserAgent);
 					}
 				elseif($strListenerRealityName=='Cache-Control')
 					{
-					$this->R['strCacheControl'] 		= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					//$this->R['strCacheControl'] 		= сНачОтСимвола($strListenerReality, ":", 0, 1);
 					}
 				elseif($strListenerRealityName=='Pragma')
 					{
-					$this->R['strPragma'] 		= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					//$this->R['strPragma'] 		= сНачОтСимвола($strListenerReality, ":", 0, 1);
 					}
 				elseif($strListenerRealityName=='Upgrade-Insecure-Requests')
 					{
@@ -2571,8 +2581,10 @@ class Event
 			}
 		return $bIzDynamic;
 		}
+
 	public function strRealityInit()
 		{
+		/*
 		$str='<script>';
 			//$str.='alert(\'x\');';
 			$str.='console.log(\'[V]EDRO.Event: strParamsInit()\');';
@@ -2580,6 +2592,7 @@ class Event
 			$str.='objEvent._Search();';
 			$str.='console.log(\'[.]EDRO.Event: strParamsInit()\');';
 		$str.='</script>';
+		*/
 		return $str;
 		}
 	public static function strOConstruct($_strClassName)
@@ -3012,14 +3025,13 @@ class Design
 			'оСостояние'		=> '',
 			'оСекундомер'		=> '',
 			);
-	public function __construct($arrE)
+	public function __construct($arrH)
 		{
 		$this->O['оОшибка'] 			= new ОповещениеОшибка();
 		$this->O['оСостояние'] 			= new ОповещениеСостояние();
 		$this->O['оСекундомер'] 		= new Секундомер(__CLASS__, __FUNCTION__);
 		$strTemplate				= сРасположениеО2оDB.сНазваниеО2оDB.'/Events/'.сПреобразовать($arrE['strName'], "вКоманду");
-		$оЕДРО 					= new ЕДРО('Настройки', $strTemplate);
-		$this->D				= $оЕДРО->Р;
+		
 		//print_r($this);
 		//exit;
 		}
@@ -3157,24 +3169,25 @@ class Reality
 			//	'мВходящиеНастройки'	=> array(), 
 			//	From Listener
 			);
-	public $D	= array( //НастройкиЭлементаНадКоторымПроизводитсяРабота([D]esign - the screen in front of listener's eyes)
+	private $D	= array( //НастройкиЭлементаНадКоторымПроизводитсяРабота([D]esign - the screen in front of listener's eyes)
 			//	'мНастройкиЭлемента'	=> array(),
 			//	To Listener
 			);
-	private $R	= array( //Состояние операционной среды Реальность ([R]eality)
+	public $R	= array( //Состояние операционной среды Реальность ([R]eality)
 			//	Listener
+			'bizDNT'		=> FALSE, //Add event indicator to the top!!!!!!!!!!!!!
 			);
 	public $O	= array( //Использующиеся объекты для работы и их настройки по-умолчанию. ([O]bjects)
 			'оОшибка'		=> '',
 			'оСостояние'		=> '',
 			'оСекундомер'		=> '',
 			);
-	public function __construct($arrE, $arrD, $arrR)
+	public function __construct($arrH)
 		{
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
-		$this->E	= $arrE;
-		$this->D	= $arrD;
-		$this->R	= $arrR;
+		//$this->E	= $arrE;
+		//$this->D	= $arrD;
+		//$this->R	= $arrR;
 	/*+1+*/	$this->_IsDNT();
 	/*+2+*/	$this->_isConsole();
 		
@@ -3241,15 +3254,14 @@ class Reality
 			{
 			}
 		}
-	private function _IsDNT()
+	private function _isDNT()
 		{
-		if(isset($_SERVER['HTTP_DNT'])&&$_SERVER['HTTP_DNT']==1)
-			{
-			//$str	= FileRead::strGetDesignHTML('/home/EDRO/4.Objects/Read/Cloud/Disk/Pages/_isDnt.php', $this);!!
-				_Report('Listener is using DO NO TRACK sett to on');
-			echo 	$str;
-			exit(0);
-			}
+		//if($this->R['bDNT']==TRUE) // DNT
+		//	{
+		//	$str	= FileRead::strGetDesignHTML('/home/EDRO/4.Objects/Read/Cloud/Disk/Pages/_isDnt.php', $this);
+		//		_Report('Listener is using DO NO TRACK sett to on');
+		//	return $str;
+		//	}
 		}
 	public static function strObjectInit()
 		{	
@@ -3482,14 +3494,14 @@ Facebook: https://facebook.com/HiFiIntelligentClub
 Site[Ru] Public browsing international :  http://HiFiIntelligentClub.Ru
 Site[En] Public browsing international :  http://HiFiIntelligentClub.COM
 Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
-
-|E    |D     |R      |O      |
-|Event|Design|Reality|Objects|
-	|ЕСЛИ 
-	ДЕЙСТВИЕ
-	РЕАЛЬНОСТЬ
-			ОБЪЕКТ.
-
+.---------------------------------------------------------------,
+|E		|D		|R		|O		|
+|Event		|Design		|Reality	|Objects	|
+|ЕСЛИ 		|ЕСЛИ 		|ЕСЛИ 		|ЕСЛИ 		|
+|ДЕЙСТВИЕ	|ДЕЙСТВИЕ	|ДЕЙСТВИЕ	|ДЕЙСТВИЕ	|
+|РЕАЛЬНОСТЬ	|РЕАЛЬНОСТЬ	|РЕАЛЬНОСТЬ	|РЕАЛЬНОСТЬ	|
+|ОБЪЕКТ		|ОБЪЕКТ		|ОБЪЕКТ		|ОБЪЕКТ		|
+'---------------------------------------------------------------'
  ////
 //        /\
 //      <  **>
@@ -3503,7 +3515,7 @@ class Objects
 			//	'мВходящиеНастройки'	=> array(), 
 			//	From Listener
 			);
-	public $D	= array( //НастройкиЭлементаНадКоторымПроизводитсяРабота([D]esign - the screen in front of listener's eyes)
+	private $D	= array( //НастройкиЭлементаНадКоторымПроизводитсяРабота([D]esign - the screen in front of listener's eyes)
 			//	'мНастройкиЭлемента'	=> array(),
 			//	To Listener
 			);
@@ -3515,8 +3527,12 @@ class Objects
 			'оСостояние'		=> '',
 			'оСекундомер'		=> '',
 			);
-	public function __construct()
+	public function __construct($arrH)
 		{
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//$this->E	= $arrE;
+		//$this->D	= $arrD;
+		//$this->R	= $arrR;
 		//$this->arrReality['сРасположениеКорень']	='/home/ЕДРО:ПОЛИМЕР/о2о.БазаДанных/HiFiIntelligentClub'; //moved to REALITY
 		$strPlatformPrefix	= '';
 		$strHiFiType		= сПреобразовать($this->arrEvent['arrReality']['strHiFiType'], 'вСтроку');
@@ -9314,8 +9330,8 @@ class StartReadServer
 							),
 			);
 	private $D	= array( //НастройкиЭлементаНадКоторымПроизводитсяРабота([D]esign - the screen in front of listener's eyes)
-				'дбг_сНастройкиЭлемента'=> '',
-				'мНастройкиЭлемента'	=> array(),
+				// 'дбг_сНастройкиЭлемента'=> '',
+				// 'мНастройкиЭлемента'	=> array(),
 			);
 	private $R	= array( //Состояние операционной среды Реальность ([R]eality)
 				'рПередача'		=> '',
@@ -9356,10 +9372,9 @@ class StartReadServer
 		while($this->R['рПередача']=$this->O['оСервер']->ifGgetRead())
 			{
 			$this->_ЧтениеЗапроса();
-			$this->O['оЕДРО'] 			= new EDRO($this->R['strReadedBlock']);
-			//$this->_ОбработкаЗапроса();
+			$this->_ОбработкаЗапроса();
 			
-			//$this->_ФормированиеОтвета(); 
+			$this->_ФормированиеОтвета(); 
 			//print_r($this);
 			//exit;
 			
@@ -9367,12 +9382,11 @@ class StartReadServer
 			$this->_СбросEventЖурнала();
 			//exit();
 			}
-		$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
+							$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
 		}
-
 	private function _ЧтениеЗапроса()
 		{$this->R['сСостояние']			= __CLASS__.'/'.__FUNCTION__;
-		$this->O['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
+							$this->O['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
 		
 		$strReadedBlock				= fread($this->R['рПередача'], $this->E['мСервер']['intReadBlockSize']);
 		if(empty($strReadedBlock))
@@ -9387,59 +9401,49 @@ class StartReadServer
 			$this->R['strReadedBlock']		= $strReadedBlock;
 			$this->R['bizReadedBlock']		= TRUE;
 			}
-		$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
+							$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
 		}
 	private function _ОбработкаЗапроса()
 		{$this->R['сСостояние']			= __CLASS__.'/'.__FUNCTION__;
-		$this->O['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
+							$this->O['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
+
+		$this->O['оЕДРО'] 			= new EDRO($this->R['strReadedBlock']); 
+
+							$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
+		}
+	private function _ФормированиеОтвета()
+		{$this->R['сСостояние']			= __CLASS__.'/'.__FUNCTION__;
+							$this->O['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
+
+							//эЕДРО($this->O['оЕДРО']);
+							print_r($this->O['оЕДРО']);
+
+							$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
+		}
+	private function _ЗаписьОтвета()
+		{$this->R['сСостояние']			= __CLASS__.'/'.__FUNCTION__;
+							$this->O['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
 		
-		/*
-		if($this->R['bizReadedBlock']===TRUE)
+		if($this->R['рПередача'])
 			{
-			$мЗаголовки			= explode("\n", $this->R['strReadedBlock']);
-			foreach($мЗаголовки as $сЗапрос)
+			$intWrited	= fwrite($this->R['рПередача'], $this->E['strListenerBlock'], strlen($this->E['strListenerBlock']));
+					fclose($this->R['рПередача']);
+			if(	($intWrited>0)&&
+				($intWrited==strlen($this->E['strListenerBlock'])))
 				{
-				if(strpos($сЗапрос, ': ')!==FALSE)
-					{
-					$this->R['мЗаголовки'][сНачДоСимвола($сЗапрос, ':')]	= сНачОтСимвола($сЗапрос, ' ');
-					}
 				}
-			if(isset($this->R['мЗаголовки']['ч1Слушатель']))
+			else
 				{
-				$this->R['ч1Слушатель']			= $this->R['мЗаголовки']['ч1Слушатель'];
-				if(is_file($this->E['сСлушатель'] 	= сРасположениеО2о.$this->R['сДоступ'].'/'.$this->R['ч1Слушатель'].cЗаписьО2о))
-					{
-					$this->E['strListenerBlock']		= file_get_contents($this->E['сСлушатель']);
-					}
-				else
-					{
-					$this->R['сОшибка']			= 'fread(рПередача empty.';
-										$this->O['оОшибка']->_PushError($this);
-					}
+				$this->R['сОшибка']		= 'Write result to listener are not equal to quantity of data attempted to write to';
+								$this->O['оОшибка']->_PushError($this);
 				}
 			}
 		else
 			{
-			$this->R['мЗаголовки']			= array();
-			}*/
-		$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
-		}
-	private function _ФормированиеОтвета()
-		{$this->R['сСостояние']			= __CLASS__.'/'.__FUNCTION__;
-		$this->O['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
-		//print_r($this);
-		//$this->O['мЗаголовки']		= MyJSON::str($this->R['мЗаголовки']);
-		$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
-		}
-	private function _ЗаписьОтвета()
-		{
-		$this->O['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
-		
-							fwrite($this->R['рПередача'], $this->E['strListenerBlock'], strlen($this->E['strListenerBlock']));
-		
-							fclose($this->R['рПередача']);
-		
-		$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
+			$this->R['сОшибка']			= 'fwrite answer to listener($this->R[рПередача] failed';
+								$this->O['оОшибка']->_PushError($this);
+			}
+							$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
 		}
 	private function _СбросEventЖурнала()
 		{$this->R['сСостояние']			= __CLASS__.'/'.__FUNCTION__;
@@ -9447,8 +9451,8 @@ class StartReadServer
 		//$this->E = array();
 		}
 	public function _СтартЖурнала()
-		{
-		$this->O['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
+		{$this->R['сСостояние']			= __CLASS__.'/'.__FUNCTION__;
+							$this->O['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
 		
 		//$this->E[]		= array('v'.__CLASS__.'/'.__FUNCTION__ => '');$intStartTime = сВремя();
 		//$this->_КИМ('Start');
@@ -9461,17 +9465,17 @@ class StartReadServer
 		//$this->_КИМ('End');
 		//$this->E[]		= array('.'.__CLASS__.'/'.__FUNCTION__ => (сВремя() - $intStartTime));
 
-		$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
+							$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
 		}
 	private function _Буфферизация()
-		{
-		$this->O['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
+		{$this->R['сСостояние']			= __CLASS__.'/'.__FUNCTION__;
+							$this->O['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
 		
 		//$this->O['strFaviconBin']		= file_get_contents('/home/HiFiIntelligentClub.Ru/favicon.png');
 		//$this->O['strJPGLogo']		= file_get_contents('/home/HiFiIntelligentClub.Ru/Hfic_Samin.jpg');
 		//$this->O['strRobotsTxt']		= file_get_contents('/home/HiFiIntelligentClub.Ru/robots.txt');
 		
-		$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
+							$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
 		}
 
 	}
