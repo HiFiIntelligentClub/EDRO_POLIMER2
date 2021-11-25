@@ -543,6 +543,9 @@ function сНачДоСимвола($_сВход, $_сДо='?', $_nu1BeginOffset
 	    }
 	return $сСлово;
 	}
+function сНачДоСлова($_сВход, $_сДо='da', $_nu1BeginOffset=0, $_nu1сОтPlusOffset=0) // Слово  SAME FUNCTIONS
+	{
+	}
 
 function сНачОтДоСимвола($_сВход, $_сОт, $_сДо, $_nu1BeginOffset=0, $_nu1сОтPlusOffset=1)
 	{
