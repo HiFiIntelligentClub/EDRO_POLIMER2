@@ -394,194 +394,6 @@ function strParType($_strParName)
 	return $strParType;
 	}
 
-class OS
-	{
-	public function __construct()
-		{
-		}
-	}
-?>#!/usr/bin/php
-<?php
-//э('-------------------------------------------------------------------------------------------------------------------------------------------');
-//э('----------=ЕДРО:ПОЛИМЕР II (Только чтение) © A.A.CheckMaRev assminog@gmail.com, tubmulur@yandex.ru, hfic.samin@vk.com 2021=----------------');
-//э('-------------------------------------------------------------------------------------------------------------------------------------------');
-//ч0 = 0,1,2,3,4,5,6
-//ч1 = 1,2,3,4,5,6,7
-//5249
-//1010 0100 0010 1001
-//42025
-//
-readAudioBuff();
-function readAudioBuff()
-	{
-	$ч1СемпловВСекунду	= 48000;
-	$ч1Каналов		= 2;
-	$ч1Бит			= 16;
-	$ч1БитБайт		= 8;
-	$ч1АудиоФрейм		= ($ч1СемпловВСекунду*$ч1Каналов*($ч1Бит/$ч1БитБайт));
-	//echo $ч1АудиоФрейм;
-	//exit;
-				_ДискСкриптЗапись($ч1АудиоФрейм);
-
-	$pFile			= fopen('/tmp/testFields'.$ч1АудиоФрейм.'bytes.wav', 'r');
-	$ч1ЧастотаОт		= 0;
-	$ч1ЧастотаДо		= 80;
-	$ч1ШагОтображения	= 1;
-	$ч1СемпловНаПолосу	= 1;
-	$ч1БайтНаКонвеер	= 4;
-
-	while(true)
-		{
-		$сАудио 	= fread($pFile, $ч1АудиоФрейм);
-		//echo $сАудио;
-		/*
-		if(!$фАудиоДанные)
-			{
-			if(strpos())
-				{
-				$фАудиоДанные	= TRUE;
-				}
-			}
-		*/
-		$мУрМакс	= мУрМаксимумНаШиринеСпектра($сАудио, $ч1СемпловНаПолосу, $ч1БайтНаКонвеер);
-		print_r($мУрМакс);
-		exit;
-		///print_r($мУрМакс);
-		/*
-		///exit;
-		echo $ч1УрМаксКомп1	= intRoundUp(($мУрМакс[0]/2));   //KOMPRESSOR
-		echo '|';
-		echo $ч1УрМаксКомп2	= intRoundUp(($мУрМакс[1]/2));   //KOMPRESSOR
-		echo '|';
-		*/
-		if($ч1ШагОтображения>=$ч1ЧастотаОт &&
-			$ч1ШагОтображения<=$ч1ЧастотаДо)
-			{
-			_ЭУрПолосаГромкости($ч1УрМаксКомп1, $ч1УрМаксКомп2, $ч1ШагОтображения);
-			}
-
-		if($ч1ШагОтображения == $ч1СемпловВСекунду/$ч1СемпловНаПолосу)
-			{
-			system('clear');
-			$ч1ШагОтображения	= 1;
-			}
-		$ч1ШагОтображения++;
-		}
-	}
-
-function мУрМаксимумНаШиринеСпектра($сАудио, $ч1СемпловНаПолосу, $ч1БайтНаКонвеер)
-	{
-	$сАудио		= (string)$сАудио;
-	$ч1АудиоДлинна	= strlen($сАудио);
-
-	//$ч0БайтШаг	= 0;
-	$ч1УрМакс1	= 1;
-	$ч1УрМакс2	= 1;
-	$ч0БайтШаг	= 0;
-	$ч0WordHex1	= 0000;
-	$ч0WordHex2	= 0000;
-	//$ч1Экр	= 1;
-	while($сАудио[$ч0БайтШаг])
-		{
-		//echo $сАудио[($ч0БайтШаг+1)];
-		//exit;
-		//echo $сАудио[($ч0БайтШаг+1)];
-		//exit;
-		for($ч1Экр=1;$ч1Экр<=($ч1СемпловНаПолосу*$ч1БайтНаКонвеер);$ч1Экр++)
-			{
-			if(isset($сАудио[($ч0БайтШаг+1)]))
-				{
-				$ч0WordHex1	= bin2hex($сАудио[$ч0БайтШаг].$сАудио[($ч0БайтШаг+1)]);
-				echo $ч1Ур1	= hexdec($ч0WordHex1);
-				exit;
-				if($ч1УрМакс1<=$ч1Ур1)
-					{
-					$ч1УрМакс1	= $ч1Ур1;
-					}
-				}
-			if(isset($сАудио[($ч0БайтШаг+2)]))
-				{
-				if(isset($сАудио[($ч0БайтШаг+3)]))
-					{
-					$ч0WordHex2	= bin2hex($сАудио[($ч0БайтШаг+2)].$сАудио[($ч0БайтШаг+3)]);
-					$ч1Ур2		= hexdec($ч0WordHex2);
-					if($ч1УрМакс2<=$ч1Ур2)
-						{
-						$ч1УрМакс2	= $ч1Ур2;
-						}
-					}
-				else
-					{
-					echo 'error $ч0БайтШаг+2'."\n";
-					}
-				}
-			else
-				{
-				echo 'error $ч0БайтШаг+3'."\n";
-				}
-			}
-		$ч0БайтШаг	= ($ч0БайтШаг+4);
-		}
-	return array(
-		"0"	=> $ч1УрМакс1,
-		"1"	=> $ч1УрМакс2
-		);
-	}
-
-function _ЭУрПолосаГромкости($ч1УрМаксКомп1, $ч1УрМаксКомп2, $ч1ШагОтображения)
-	{
-	$с	= $ч1ШагОтображения.'.'.$ч1УрМаксКомп1;
-	for($ч1=1;$ч1<=$ч1УрМаксКомп1;$ч1++)
-		{
-		$с.='|';
-		}
-	$с.='  ||'."\n";
-	$с.= $ч1ШагОтображения.'.'.$ч1УрМаксКомп2;
-	for($ч1=1;$ч1<=$ч1УрМаксКомп2;$ч1++)
-		{
-		$с.='|';
-		}
-	$с.='  ||'."\n";
-	echo $с;
-	}
-
-
-/*
-function intRoundUp($_float)
-	{
-	$float	=$_float;
-	   unset($_float);
-	$intRoundedUp=FALSE;
-	$intDotPos		=strpos($float,'.');
-	if($intDotPos!==FALSE)
-	    {
-	    $float		=substr($float, 0, $intDotPos);
-	    $float++;
-	    $intRoundedUp	=$float;
-	    }
-	else
-	    {
-	    $intRoundedUp	=$float;
-	    //$intPages
-	    }
-	return $intRoundedUp;
-	}
-*/
-
-function _ДискСкриптЗапись($ч1АудиоФрейм)
-	{
-	$с="#!/bin/bash\n";
-	$с.="#stdbuf -o256b arecord -i | cat > /tmp/f\n";
-	$с.="#sudo -u chekmarev ffmpeg -f pulse -i alsa_input.pci-0000_00_1b.0.stereo-fallback -ac 1 /wav/recording.wav\n";
-	$с.="#sudo -u chekmarev stdbuf -o128 arecord -i alsa_input.pci-0000_00_1b.0.stereo-fallback | cat > /tmp/f\n";
-	$с.="sudo -u chekmarev pactl list short sources\n";
-	$с.="rm /tmp/testFields".$ч1АудиоФрейм."bytes.wav\n";
-	$с.="sudo -u chekmarev  mkfifo /tmp/testFields".$ч1АудиоФрейм."bytes.wav\n";
-	$с.="sudo -u chekmarev stdbuf -o".$ч1АудиоФрейм." ffmpeg -f pulse -i alsa_input.pci-0000_00_1b.0.stereo-fallback /tmp/testFields".$ч1АудиоФрейм."bytes.wav\n";
-	file_put_contents('/home/1.ЕДРО:ПОЛИМЕР2/СерверЧтение2/003.БиблиотекаФункций/001.ОперационнаяСистема/__.Bash/Record.sh', $с);
-	exec('chmod +x /home/1.ЕДРО:ПОЛИМЕР2/СерверЧтение2/003.БиблиотекаФункций/001.ОперационнаяСистема/__.Bash/Record.sh');
-	}
-
 //© A.A.CheckMaRev assminog@gmail.com, tubmulur@yandex.ru, Hfic.Samin@vk.com 2021
 function нольЧИлиС($_сИмя, $_сДанные)
 	{
@@ -726,6 +538,16 @@ function сНачДоСимвола($_сВход, $_сДо='?', $_nu1BeginOffset
 	}
 function сНачДоСлова($_сВход, $_сДо='da', $_nu1BeginOffset=0, $_nu1сОтPlusOffset=0) // Слово  SAME FUNCTIONS
 	{
+	if(empty($_сВход)){return FALSE;}
+	$сВход		= substr($_сВход, $_nu1сОтPlusOffset);
+	$сВход		= (string)$сВход;
+	$ч1ДлиннаВход	= strlen($сВход);
+	$ч1ДлиннаДо	= strlen($_сДо);
+	$сСлово		= FALSE;
+	for($ч0Шаг=0;$ч0Шаг<$ч1ДлиннаВход;$ч0Шаг++)
+		{
+		
+		}
 	}
 
 function сНачОтДоСимвола($_сВход, $_сОт, $_сДо, $_nu1BeginOffset=0, $_nu1сОтPlusOffset=1)
@@ -3334,8 +3156,9 @@ class EDRO
 		$this->R			= $oReality->R;
 
 		$oObjects			= new Objects($this);
-		print_r($this);
-		exit;
+		$this->O			= $oObjects->O;
+		//print_r($this);
+		//exit;
 		//				$this->O['оСостояние']->O['оСекундомер']->_Стоп();
 		//$this->E			= $oEvent->E;
 
@@ -4338,7 +4161,7 @@ class Reality
 
 		///////////////////////////////////////////!!!!
 		
-		//$this->arrReality['сРасположениеКорень']	= '/home/ЕДРО:ПОЛИМЕР/о2о.БазаДанных/'.strDataBase;
+		$this->R['сРасположениеКорень']	= сРасположениеО2оDB.сНазваниеО2оDB;
 		///$this->arrReality['strRoleSignal']		= 'Listener';
 		///$this->arrReality['strListnersPath']		= '/home/EDRO.o2o/'.$this->arrReality['strRoleSignal'];
 		//$this->arrReality['strListenerId']		= СоздатьСеанс::с($this->arrReality['strRoleSignal'], $this);
@@ -4675,7 +4498,7 @@ class Objects
 		$this->R	= $o->R;
 		//$this->arrReality['сРасположениеКорень']	='/home/ЕДРО:ПОЛИМЕР/о2о.БазаДанных/HiFiIntelligentClub'; //moved to REALITY
 		$strPlatformPrefix	= '';
-		$strHiFiType		= сПреобразовать($this->E['arrReality']['strHiFiType'], 'вСтроку');
+		$strHiFiType		= сПреобразовать($this->E['arrEventParams']['strHiFiType'], 'вСтроку');
 		//$strHiFiType		= '/HiFi beginner';
 
 		$arrHiFi['Low quality']		='Low';   //NoHiFi
@@ -4706,29 +4529,33 @@ class Objects
 			$strHiFiType		='/'.$strHiFiType;
 			}
 		$this->arrEvent['arrReality']['strHiFiType']	=$strHiFiType;
-		if($this->arrReality['bIzAndroid'])
+		*/
+		if($this->R['arrPlatform']['bIzAndroid'])
 			{
 			$strPlatformPrefix	='/Android';
 			}
-		if($this->arrReality['bIzApple'])
+		if($this->R['arrPlatform']['bIzAppleMobile'])
 			{
 			echo $strPlatformPrefix	='/Apple';
 			}
 		//$сРасположениеКорень	=$сРасположениеКорень;
 
-		$strSearchName		=сПреобразовать(mb_strtolower($this->arrEvent['arrReality']['strName']),'вКоманду');
+		$strSearchName		=сПреобразовать(mb_strtolower($this->E['arrEventParams']['strName']),'вКоманду');
 		if(strlen($strSearchName)<3)
 			{
 			$strSearchName	='';
 			}
-		$strSearchGenre		=сПреобразовать(mb_strtolower($this->arrEvent['arrReality']['strGenre']),'вКоманду');
+		$strSearchGenre		=сПреобразовать(mb_strtolower($this->E['arrEventParams']['strGenre']),'вКоманду');
 		$strSearch		=мЖанр_мЯзык_мТранскрипция($strSearchGenre);
 
 		$strSearchType   	=empty($strSearchName)? '/unordered/':'/search/';
+		/*
 		//echo $сРасположениеКорень.'/Stations/strICQRTypeF.php';
-		include($this->arrReality['сРасположениеКорень'].'/Stations/strICQRTypeF.php');
-
-		$strSearchPath		='/Stations/'.$strICQRTypeF.'/'.$strHiFiType.$strPlatformPrefix;
+		$strICQRTypeF='ICQR_Q';
+		//include($this->arrReality['сРасположениеКорень'].'/Stations/strICQRTypeF.php');
+		*/
+		$strICQRTypeF='ICQR_Q';
+		//$strSearchPath		='/Stations/'.$strICQRTypeF.'/'.$strHiFiType.$strPlatformPrefix;
 		if($strSearchGenre=='')
 			{
 			$strSearchPath	.=$strSearchType;
@@ -4738,36 +4565,36 @@ class Objects
 			$strSearchPath	.='/Genres/search/'.$strSearchGenre.$strSearchType;
 			}
 		$strSearchPath;
-		if($this->arrEvent['arrReality']['strPlayingStationId']!='')
+		if($this->E['arrEventParams']['strPlayingStationId']!='')
 			{
 			}
 		else
 			{
 			}
 
-		$this->arrObjects['сРасположение']		=$this->arrReality['сРасположениеКорень'].$strSearchPath;
+		$this->O['сРасположение']		=$this->R['сРасположениеКорень'].$strSearchPath;
 		if($strSearchName=='')
 			{
-			$objTotal	=FileRead::objJSON($this->arrObjects['сРасположение'].'/total.plmr');
+			$objTotal	=FileRead::objJSON($this->O['сРасположение'].'/total.plmr');
 
-			$this->arrObjects['ч0РасположениеTotal']	= ($objTotal->int1Total-1);
-			if($this->arrObjects['ч0РасположениеTotal']=='')
+			$this->O['ч0РасположениеTotal']	= ($objTotal->int1Total-1);
+			if($this->O['ч0РасположениеTotal']=='')
 				{
 				echo 'No data';
 				}
 		//exit;
-			$this->arrObjects['мРасположение']		=Pagination::arr($this);
+			$this->O['мРасположение']		=Pagination::arr($this);
 
-			for($int0I=$this->arrObjects['мРасположение']['int0Start'];$int0I<=$this->arrObjects['мРасположение']['int0Untill'];$int0I++)
+			for($int0I=$this-O['мРасположение']['int0Start'];$int0I<=$this->O['мРасположение']['int0Untill'];$int0I++)
 				{
-				$this->arrObjects['мТаблица'][]	=$this->arrObjects['сРасположение'].'/'.$int0I.'.plmr';
+				$this->O['мТаблица'][]	=$this->O['сРасположение'].'/'.$int0I.'.plmr';
 				}
 			}
 		else
 			{
 			
-			$this->arrObjects['сРасположение']	=$this->arrObjects['сРасположение'];
-			$strSearch		=$this->arrObjects['сРасположение'];
+			$this->O['сРасположение']	=$this->O['сРасположение'];
+			$strSearch		=$this->O['сРасположение'];
 			$strPattern		='ls -R -1 "'.$strSearch.'"'.'*'.$strSearchName.'*';
 			
 			$arrSearch		=exec($strPattern, $arrSearchPaths, $arrSearchPaths2);
@@ -4781,7 +4608,7 @@ class Objects
 				//exit;
 				foreach($arrSearchPaths as $intPosition=>$strRecord)
 					{
-					if(preg_match('/^[0-9]+\.plmr$/', $strRecord, $arrMatches)===1)
+					if(сКонцДоСимвола($strRecord, '.')=='plmr')
 						{
 						if(substr($strRecord,0,1)==0)
 							{
@@ -4800,18 +4627,18 @@ class Objects
 				{
 				$ч0РасположениеTotal			=0;
 				}
-			$this->arrObjects['ч0РасположениеTotal']	=$ч0РасположениеTotal;
-			$this->arrObjects['мРасположение']		=Pagination::arr($this);
+			$this->O['ч0РасположениеTotal']		=$ч0РасположениеTotal;
+			$this->O['мРасположение']		=Pagination::arr($this);
 
-			for($int0I=$this->arrObjects['мРасположение']['int0Start'];$int0I<=$this->arrObjects['мРасположение']['int0Untill'];$int0I++)
+			for($int0I=$this->O['мРасположение']['int0Start'];$int0I<=$this->O['мРасположение']['int0Untill'];$int0I++)
 				{
-				$this->arrObjects['мТаблица'][]		=$мРасположение[$int0I];
+				$this->O['мТаблица'][]		=$мРасположение[$int0I];
 				}
 			//echo '<pre>';
 			//print_r($мРасположение);
 			//echo '</pre>';
 			}
-	*/
+	
 		/*if($this->arrReality['bIzAndroid'])
 			{
 			echo '<pre>';
@@ -6655,28 +6482,28 @@ class Pagination
 		   //unset($_objKIIM);
 			//print_r($objEDRO);
 			//exit;
-		/*echo*/$int1PlayingStationNum		=$objEDRO->arrEvent['arrReality']['int1PlayingStationNum'];
-		/*echo*/$int0Page			=($objEDRO->arrEvent['arrReality']['int0Page']); //0,1,xxx
-		/*echo*/$int1OnPage			=$objEDRO->arrEvent['arrReality']['int1OnPage']; //1-> 8 = 8
+		/*echo*/$int1PlayingStationNum		=$objEDRO->E['arrEventParams']['int1PlayingStationNum'];
+		/*echo*/$int0Page			=($objEDRO->E['arrEventParams']['int0Page']); //0,1,xxx
+		/*echo*/$int1OnPage			=$objEDRO->E['arrEventParams']['int1OnPage']; //1-> 8 = 8
 		/*echo*/$int0Start			=0+($int0Page*$int1OnPage);//From 0 to 7 intStart=8 ->15 intStart=16;
 		/*echo*/$int1Untill			=($int0Start+$int1OnPage);//From 0 to 7 including 7 = 8
 		/*echo*/$int0Untill			=($int1Untill-1);
-			if($objEDRO->arrObjects['ч0РасположениеTotal'])
+			if($objEDRO->O['ч0РасположениеTotal'])
 				{
-		/*echo*/	if($objEDRO->arrObjects['ч0РасположениеTotal']===0)
+		/*echo*/	if($objEDRO->O['ч0РасположениеTotal']===0)
 					{
 					$int1Total	=1; //Channge in par
 					$int0Total	=0;
 					}
 				else
 					{
-					$int1Total	=($objEDRO->arrObjects['ч0РасположениеTotal']+1); //Channge in par
+					$int1Total	=($objEDRO->O['ч0РасположениеTotal']+1); //Channge in par
 					$int0Total	=($int1Total-1);
 					}
 				}
 			else
 				{
-				$objTotal	=FileRead::objJSON($objEDRO->arrObjects['сРасположениеTotal']); //0-lastone
+				$objTotal	=FileRead::objJSON($objEDRO->O['сРасположениеTotal']); //0-lastone
 				if($objTotal===0)
 					{
 					$int1Total	=1; //Channge in par
@@ -10971,7 +10798,7 @@ class ЕДРО
 				//$ЕЧтениеВход		= $this->O['ЕЧтениеВход']->R['сЗапрос'];
 
 				$this->O['оЕДРО']	= new EDRO($this->O['ЕЧтениеВход']->R['сЗапрос']);
-
+				print_r($this->O['оЕДРО']);
 			//	$this->O['EЗаписьВыход']		= new EЗаписьВыход($this->R['рПередача'], );
 				}
 				//print_r($this);
