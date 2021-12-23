@@ -2989,112 +2989,6 @@ $str='
 //$this->ч0ВыполненоЧастей++;
 //$this->_Кон();
 
-// © A.A.CheckMaRev assminog@gmail.com, tubmulur@yandex.ru, Hfic.Samin@vk.com 2021
-set_time_limit(0);
-class СерверЧтенияЛокальный
-	{
-	private	$E	= array(//ВходящиеНастройки ([E]vent are starting, then we'w got the setup of the event)
-			);
-	private	$D	= array(//НастройкиЭлементаНадКоторымПроизводитсяРабота([D]esign - the screen in front of listener's eyes)
-			///'strAddr'			=> '127.0.0.1', //Setup in server start 
-			///'intPort'			=> 75,
-			///'дТаймаут'			=> -1
-			);
-	public $R	= array(//Состояние операционной среды Реальность ([R]eality)
-			'сСостояние'			=> '',
-			'рПриёмник'			=> '',
-			'сОшибка'			=> '',
-			'ч0Ошибка'			=> '',
-			);
-	private	$O	= array(//Использующиеся объекты для работы и их настройки по-умолчанию. ([O]bjects)
-			'оОшибка'			=> '',
-			'оСостояние'			=> '',
-		//	'оEDRO'				=> '',
-			);
-	function __construct($мНастройки)
-		{
-		$this->R['сСостояние']			= __CLASS__.'/'.__FUNCTION__;
-		$this->E				= $мНастройки;
-		//$this->O['оСостояние'] 		= new ОповещениеСостояние(__CLASS__,__FUNCTION__);
-		//$this->O['оОшибка'] 			= new ОповещениеОшибка();
-		$this->R['рПриёмник']			= $this->рСпозиционироватьДляЗагрузкиОткрытуюКоробкуДляДанных();
-		}
-	private function рСпозиционироватьДляЗагрузкиОткрытуюКоробкуДляДанных()
-		{
-		$this->R['сСостояние']			= __CLASS__.'/'.__FUNCTION__;
-		//					$this->O['оСостояние']->_PushCondition($this);
-		$рПриёмник				= FALSE;
-		if($this->R['рПриёмник'])
-			{
-			$рПриёмник				= $this->R['рПриёмник'];
-			}
-		else
-			{
-			//$this->O['оСостояние']->O['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
-			$рПриёмник			= stream_socket_server($this->E['strProto'].'://'.$this->E['strAddr'].':'.$this->E['intPort'], $this->R['ч0Ошибка'], $this->R['сОшибка']);
-			if($this->R['ч0Ошибка'])
-				{
-				$this->R['сОшибка']		= $this->R['ч0Ошибка'].': '.$this->R['сОшибка'];
-								фОшибка($this->R['сОшибка']);
-				//$this->O['оОшибка']->_PushError($this);
-				}
-			else
-				{
-				if($рПриёмник===FALSE)
-					{
-					$this->R['сОшибка']		= 'Невозможно запустить передачу рПриёмник';
-									фОшибка($this->R['сОшибка']);
-					}
-				else
-					{
-					$this->R['сОшибка']		= '';
-					//				$this->O['оСостояние']->_PushCondition($this);
-					}
-				//$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
-				}
-			}
-		return $рПриёмник;
-		}
-	private function ifManyReconnects()
-		{
-		}
-	public function ifWaitForListenerAccess()
-		{
-		$this->R['сСостояние']			= __CLASS__.'/'.__FUNCTION__;
-		//$this->O['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
-		
-		//					$this->O['оСостояние']->_PushCondition($this);
-		if($this->R['рПриёмник'])
-			{
-			$рПередача 		= stream_socket_accept($this->R['рПриёмник'], $this->E['дТаймаут']);
-			if($рПередача===FALSE)
-				{
-				$this->R['сОшибка']	= 'Невозможно запустить передачу рПередача';
-								фОшибка($this->R['сОшибка']);
-				//				$this->O['оСостояние']->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
-				//				$this->O['оОшибка']->_PushError($this);
-								$this->рСпозиционироватьДляЗагрузкиОткрытуюКоробкуДляДанных();
-				}
-			else
-				{
-				$this->R['сОшибка']		= '';
-				//				$this->O['оСостояние']->_PushCondition($this);
-				}
-			}
-		else
-			{
-			echo $this->R['сОшибка']	= 'Невозможно запустить передачу рПриёмник';
-							фОшибка($this->R['сОшибка']);
-			//				$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
-			//				$this->O['оОшибка']->_PushError($this);
-							$this->рСпозиционироватьДляЗагрузкиОткрытуюКоробкуДляДанных();
-			}
-		//$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
-		//$this->O['оСостояние']->_PushCondition($this);
-		return $рПередача;
-		}
-	}
-
 // © A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com 2021
 class EDRO
 	{
@@ -3155,8 +3049,8 @@ class EDRO
 		$oReality			= new Reality($this->E);
 		$this->R			= $oReality->R;
 
-		$oObjects			= new Objects($this);
-		$this->O			= $oObjects->O;
+		//$oObjects			= new Objects($this);
+		//$this->O			= $oObjects->O;
 		//print_r($this);
 		//exit;
 		//				$this->O['оСостояние']->O['оСекундомер']->_Стоп();
@@ -3166,7 +3060,7 @@ class EDRO
 		///			    unset($oEvent);
 		//$oDesign			= new Design($this->E);
 		//$this->D			= $oDesign->D;
-					    unset($oDesign);
+
 		//$oReality			= new Reality($this->E, $this->D, $this->R);
 		//$oObjects			= new Objects($this->E, $this->D, $this->R);
 
@@ -3836,6 +3730,1215 @@ oо2оo;
 	}
 
                      /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//        /\                  // /   
+//      <  **>               /// /  
+ //////   jl                ///// /    
+./././././././*/
+class HiFiNavigation
+	{
+	public $strHTML;
+	public function __construct($_arrPagination, $arrReality, $objEDRO)
+		{
+
+		$intPage		=$_arrPagination['int0Page'];
+		$intStart		=$_arrPagination['int0Start'];
+		$intEnd			=$_arrPagination['int0Untill'];
+		$intPageParamName	='int0Page';
+		$intPages		=$_arrPagination['int0Pages'];
+		$intTotal		=$_arrPagination['int0Total'];
+		$intNextPage		=($intPage+1);
+		$intPrevPage		=($intPage-1);
+		if($objEDRO->arrReality['strLangSignal']=='RU')
+			{
+			$arrO['Forward']	='Нажмите, чтобы перейти на следующую страницу.';
+			$arrO['Backward']	='Нажмите, чтобы перейти на предидущую страницу.';
+			$arrO['Counters']	='[Отображены станции от-до][Не отображено станций до конца списка][Всего станций]';
+			$arrO['Selector']	='Введите номер страницы на которую вы хотите перепрыгнуть.';
+			}
+		else
+			{
+			$arrO['Forward']	='Press this button, to go to the next page.';
+			$arrO['Backward']	='Press this button, to go to the previous page.';
+			$arrO['Counters']	='[Showing stations from-to][Stations remain][Total stations]';
+			$arrO['Selector']	='Enter the page number to jump to.';
+			}
+		//echo $intPageParamName;
+		//echo $intNextPage;
+		//	$arrEventLink=arrEventLink($arrReality, $intPageParamName, $intNextPage, true);
+		//	echo $arrEventLink['strHref'];
+		
+		$str='
+		<pageNavShader
+			class="
+				fixed V1 block layer_4 BC1 TC1 BBV Lx2
+				"
+			style="
+				left		:0;
+				width		:100%;
+				"
+			>
+		</pageNavShader>
+		<pageNav
+			class="
+				fixed V1 block layer_5 BC1 TC1 BBV Lx2
+				"
+			style="
+				left		:15%;
+				width		:70%;
+				text-align	:center;
+				margin		:auto;
+				"
+			>';
+
+			if($intPage<$intPages)
+				{
+				$arrEventLink=arrEventLink($arrReality, $intPageParamName, $intNextPage, true);
+				$str.=
+				'<a
+				id	="objPageForward"'
+				.$arrEventLink['strHref'].' '
+				.$arrEventLink['strOnClick'].
+				'class="block right BBV BTA BC2 TC2 cursor no-select Lx2t2"
+					style="
+						font-size	:large;
+						width		:34%;
+						text-align	:center;
+						text-decoration	:none;
+						"
+					title="'.$arrO['Forward'].'"
+					>
+					>>
+				</a>';
+				}
+			else
+				{
+				$str.=
+				'<abuf
+					id	="objPageForward"
+					href	="#"
+					onclick	=""
+					class	="block right BBV BTA BC1 TC1 cursor no-select Lx2t2"
+					style	="
+						width		:34%;
+						text-align	:center;
+						text-decoration	:none;
+						"
+					>
+				</abuf>';
+				}
+			$str.=
+			'<pagerNum
+				class="fix V1 block tcenter BC1 TC1 BLL BRJ BBV BTA no-select Lx2"
+				style="
+					left		:36%;
+					width		:28%;
+					"
+				title="'.$arrO['Counters'].'"
+				>
+
+
+				<strPage
+					class="brick tcenter"
+					>
+					<input 
+						id	="objPageNumberSelect"
+						class	=""
+						style	="
+							width:40%;
+							"
+						onChange="
+							//bizHiFiNavigationInputSelect	=false; //Need to send result
+							objEvent.arrReality.'.$intPageParamName.'=this.value;
+							objEvent._UpdateURLDyn();
+							return false;
+							"
+						onFocusin="
+							//objHiFiNavigation.bizPageSelectFoucus=true;
+							bizHiFiNavigationInputSelect	=true;
+							"
+						onfocusout="
+							//objHiFiNavigation.bizPageSelectFoucus=false;
+							bizHiFiNavigationInputSelect	=false;
+							"
+						type	="number" 
+						value	="'.$intPage.'"
+						step	="1" 
+						min	="0" 
+						max	="'.$intPages.'"
+						title	="'.$arrO['Selector'].'"
+					/>
+					<strPages
+						id	="objPageMaximum"
+						class	="L1"
+						style="
+							width:60%;
+							"
+						>
+						<ifRU>из </ifRU>
+						<ifEN>of </ifEN>
+						<int0Max
+							id	="objPageMaximum"
+							>
+							'.$intPages.'
+						</int0Max>
+					</strPages>
+				</strPage>
+			</pagerNum>';
+			if($intPage<1)
+				{
+				$str.='
+				<abuf
+					id	="objPageBackward"
+					onclick	=""
+					class	="block left BBV BTA BC1 TC1 cursor no-select Lx2"
+					style	="
+						text-align	:center;
+						text-decoration	:none;
+						"
+					>
+				</abuf>';
+				}
+			else
+				{
+				$arrEventLink=arrEventLink($arrReality, $intPageParamName, $intPrevPage, true);
+				$str.=
+				'<a
+					id	="objPageBackward"'.
+					$arrEventLink['strHref'].' '.
+					$arrEventLink['strOnClick'].'
+					class="block left BBV BTA BC2 TC2 cursor no-select Lx2t2"
+					style="
+						font-size	:large;
+						width		:34%;
+						text-align	:center;
+						text-decoration	:none;
+						"
+					title="'.$arrO['Backward'].'"
+					>
+					<<
+				</a>';
+				}
+		$str.=
+		'</pageNav>';
+		$str.=HiFiNavigation::strObjectInit();
+		$this->strHTML	=$str;
+		}
+	public static function strObjectDeclare()
+		{
+		$str	=<<<oo2oo
+		<script>
+			console.log('[Vv]HiFiNavigation declare.');
+			class HiFiNavigation
+				{
+				objRight		='';
+				objLeft			='';
+				//bizPageSelectFoucus	=true;
+				int0Page		=0;
+				int0PageMaximum		=0;
+				constructor()
+					{
+					this.objXHR		=new XMLHttpRequest();
+					this.objRight		=document.getElementById("objPageForward");
+					this.objLeft		=document.getElementById("objPageBackward");
+					this.int0Page		=document.getElementById("objPageNumberSelect").value;
+					this.int0PageMaximum	=document.getElementById("objPageMaximum").innerHTML;
+					this.objXHR.onload	=function()
+						{
+						console.log('[Vvv]EDRO.Objects: objXHR.onload');
+						if(objHiFiNavigation.objXHR.status==200)
+							{	
+							if(objReality.bIzPlayer)
+								{
+								}
+							if(objReality.bIzDynaScreen)
+								{
+								}
+							if(objReality.bIzCheckMaNet)
+								{
+								}
+							}
+						else
+							{
+							}
+						console.log('[...]EDRO.Objects: objXHR.onload');
+						}
+					this.objXHR.onProgress		=function(event)
+						{
+						console.log('[Vvv]EDRO.Objects: objXHR.onProgress');
+						if(event.lengthComputable)
+							{
+							//console.log('Получено'+event.loaded+'байт из'+event.total+'байт.');
+							}
+						else
+							{
+							//console.log('Получено'+event.loaded+'байт');
+							}
+						console.log('[...]EDRO.Objects: objXHR.onProgress');
+						}
+					this.objXHR.onError=function()
+						{
+						console.log('[Vvv]EDRO.Objects: objXHR.onError');
+						console.log('[...]EDRO.Objects: objXHR.onError');
+						}
+					console.log('[..]EDRO.Event: Constructor');
+					}
+				}
+			console.log('[..]HiFiNavigation declare.');
+		</script>
+oo2oo;
+		return $str;
+		}
+	public static function strObjectInit()
+		{
+		return Event::strOConstruct('HiFiNavigation');
+		}
+	public static function strHTML($_arrPagination, $_arrReality, $objEDRO=array())
+		{
+		$objHiFiNavigation=new HiFiNavigation($_arrPagination, $_arrReality, $objEDRO);
+		return $objHiFiNavigation->strHTML;
+		}
+	}
+
+                     /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//        /\                  // /   
+//      <  **>               /// /  
+ //////   jl                ///// /    
+./././././././*/
+class Pagination
+	{
+	public $arr	=array();
+	public function __construct($objEDRO)
+		{
+		/*echo '<pre>';
+		print_r($objEDRO->arrEvent);
+		echo '</pre>';*/
+		//exit;
+		//$objEDRO->arrEvent['arrReality']['int0PlayingStationNum'];
+		//$objKIIM=$_objKIIM;
+		   //unset($_objKIIM);
+			//print_r($objEDRO);
+			//exit;
+		/*echo*/$int1PlayingStationNum		=$objEDRO->E['arrEventParams']['int1PlayingStationNum'];
+		/*echo*/$int0Page			=($objEDRO->E['arrEventParams']['int0Page']); //0,1,xxx
+		/*echo*/$int1OnPage			=$objEDRO->E['arrEventParams']['int1OnPage']; //1-> 8 = 8
+		/*echo*/$int0Start			=0+($int0Page*$int1OnPage);//From 0 to 7 intStart=8 ->15 intStart=16;
+		/*echo*/$int1Untill			=($int0Start+$int1OnPage);//From 0 to 7 including 7 = 8
+		/*echo*/$int0Untill			=($int1Untill-1);
+			if($objEDRO->O['ч0РасположениеTotal'])
+				{
+		/*echo*/	if($objEDRO->O['ч0РасположениеTotal']===0)
+					{
+					$int1Total	=1; //Channge in par
+					$int0Total	=0;
+					}
+				else
+					{
+					$int1Total	=($objEDRO->O['ч0РасположениеTotal']+1); //Channge in par
+					$int0Total	=($int1Total-1);
+					}
+				}
+			else
+				{
+				$objTotal	=FileRead::objJSON($objEDRO->O['сРасположениеTotal']); //0-lastone
+				if($objTotal===0)
+					{
+					$int1Total	=1; //Channge in par
+					$int0Total	=0;
+					}
+				else
+					{
+		/*echo*/		$int1Total	=($objTotal->total+1); //Channge in par
+					$int0Total	=($int1Total-1);
+					}    
+				}
+
+		unset($objTotal);
+		if($int1OnPage==0)
+			{
+			
+			$int1Pages		=intRoundUp(($int1Total)/1);
+			}
+		else
+			{
+			/*echo*/$int1Pages	=intRoundUp(($int1Total)/$int1OnPage);//totall is not from 0, to find we need to convert ;
+			}
+		$int0Pages		=($int1Pages-1);
+		if($int0Page>$int0Pages)
+			{
+			$objEDRO->arrEvent['arrReality']['int0Page']	=$int0Pages;
+			$int0Page					=$int0Pages;
+			/*echo*/ $int0Start	=0+($int0Pages*$int1OnPage);//From 0 to 7 intStart=8 ->15 intStart=16;
+			/*echo*/ $int1Untill	=($int0Start+$int1OnPage);//From 0 to 7 including 7 = 8
+			}
+		else
+			{
+			//$int0Page					=($int1Page-1);
+			}
+		if($int0Total<$int0Untill)
+			{
+			$int0Untill=$int0Total;
+			}
+		else
+			{
+			//$int0Untill=($int1Untill-1);
+			}
+		if($int0Total<$int0Start)
+			{
+			$int0Start	=($int1OnPage*$int0Page);
+			}
+		/*if($int0PlayingStationNum>=0)
+			{
+			$int0Page	=round(($int1PlayingStationNum/$int1OnPage), 0);
+			}
+		else
+			{
+			$int0Page	=round((($int0Start+1)/$int1OnPage), 0);
+			}*/
+		$arrReturn['int0Start']		=$int0Start;
+		$arrReturn['int0Page']		=$int0Page;
+		$arrReturn['int0Pages']		=$int0Pages;
+		$arrReturn['int1OnPage']	=$int1OnPage;
+		$arrReturn['int0Untill']	=$int0Untill;
+		$arrReturn['int0Total']		=($int1Total-1);
+
+		$this->arr			=$arrReturn;
+		}
+
+	public static function arr($objEDRO)
+		{
+		$objPagination		=new Pagination($objEDRO);
+		return $objPagination->arr;
+		}
+	}
+
+                     /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//        /\                  // /   
+//      <  **>               /// /  
+ //////   jl                ///// /    
+./././././././*/
+class LogIn
+	{
+	public $strHTML		='';
+	public function __construct()
+		{
+		$this->strHTML='
+			<buttonLogin
+				id	="objLoginButton"
+				class	="brick left BLL BLR sensorButton"
+				style	="
+					text-align	:center;
+					padding		:0 5px 0 5px;
+					"
+				>
+				<ifEN style="width:100%;">LogIn</ifEN>
+				<ifRU style="width:100%;">Вход</ifRU>
+			</buttonLogin>
+			';
+
+		$this->strHTML.='
+			<HiFiLoginForm
+				id	="objLoginForm"
+				class	="fix block layer_6  HL0 V99 TC1 BC1 BBV"
+				onclick	="
+					//this.parentNode.classList.remove(\'CutDown\');
+					//this.parentNode.className+=\' Expanded\';
+					"
+				style	="
+					width		:100vw;
+					height		:100vh;
+					"
+				>
+				<menu
+					class	="block"
+					style	="
+						width		:100%;
+						height		:40px;
+						padding		:0;
+						margin		:0;
+						"
+					>
+					<topTouchBuffer
+						class	="block TC2 BC2"
+						style	="
+							height	:10px;
+							width	:100%;
+							font-size	:x-small;
+							"
+						>
+					</topTouchBuffer>
+					<ifRU>Вход</ifRU>
+					<ifEN>LogIn</ifEN>
+					<closeButton
+						class	="sensor block right TC3 BC3"
+						style	="
+							height		:20px;
+							width		:60px;
+							text-align	:center;
+							line-height	:18px;
+								"
+						onclick	="
+							this.parentNode.parentNode.parentNode.classList.remove(\'Expanded\');
+							this.parentNode.parentNode.parentNode.className+=\' CutDown\';
+							"
+						>
+						<ifRU>
+							x
+						</ifRU>
+						<ifEN>
+							x
+						</ifEN>
+					</closeButton>
+					<bottomTouchBuffer
+						class	="block TC2 BC2"
+						style	="
+							height		:10px;
+							width		:100%;
+							font-size	:x-small;
+							"
+						>
+					</bottomTouchBuffer>
+				</menu>
+				<data
+					class	="block scrollerY TC1 BC1"
+					style	="
+						width	:100%;
+						height	:152px;
+						"
+					>
+					<form 
+						id		="objFormLogin"
+						class		="block TC1 BC1"
+						action		="/search"
+						onsubmit	="return false;"
+						style		="
+								width		:100%;
+								height		:152px;
+								"
+						>
+					</form>
+				</data>
+			</HiFiLoginForm>';
+		$this->strHTML.=$this->strObjectDeclare();
+		$this->strHTML.=$this->strObjectInit();
+		}
+	private function strObjectDeclare()
+		{
+		$str	=<<<oo2oo
+		<script>
+			console.log('[V]EDRO LogIn: Declare.');
+			class Login // Init after signal panel//
+				{
+				constructor()
+					{
+					console.log('[Vv]EDRO Login: construct.');
+					
+				
+					this.objButton			=document.getElementById('objLoginButton');
+					this.objFormBrick		=document.getElementById('objLoginForm');
+					this.objForm			=document.getElementById('objFormLogin');
+
+					console.log('[..]EDRO Login: construct.');
+					}
+				}
+			console.log('[.]EDRO LogIn: Declare.');
+		</script>
+oo2oo;
+		return $str;
+		}
+	private function strObjectInit()
+		{
+		return Event::strOConstruct('LogIn');
+		}
+	public static function strButton()
+		{
+		}
+	public static function strHTML()
+		{
+		//$obj		=new LogIn();
+		//return $obj->strHTML;
+		}
+	}
+
+                     /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//        /\                  // /   
+//      <  **>               /// /  
+ //////   jl                ///// /    
+./././././././*/
+class Overlay
+	{
+	public 	$strHTML;
+	private $arrEvent	=
+		array(
+		'close'=>
+			array(
+			'strLink'		=>'',
+			'strOnClick'		=>'this.parentNode.className +=\' hidden\';',
+			)
+		);
+	private $arrDesign	=
+		array(
+		'close'=>
+			array(
+			'strClass'		=>'',
+			'strStyle'		=>'',
+			'intLayer'		=>'',
+			),
+		'informationWindow'=>
+			array(
+			'strClass'		=>'',
+			'strStyle'		=>'',
+			'strLayer'		=>'layer_6',
+			),
+		'scrollerPart '=>
+			array(
+			'strClass'		=>'',
+			'strStyle'		=>'',
+			'intLayer'		=>1,
+			),
+		);
+	private $objReality	=
+		array(
+		'close'=>
+			array(
+			'arrRole'=>
+			array(
+				'Listener', 'Operator'
+				),
+			'arrLang'=>
+			array(
+				'ifEN'	=>'',
+				'ifRU'	=>'',
+				),
+			),
+		'informationWindow'=>
+			array(
+			'arrRole'=>
+			array(
+				'Listener', 'Operator'
+				),
+			'arrLang'=>
+			array(
+				'ifEN'	=>'',
+				'ifRU'	=>'',
+				),
+			),
+		'scrollerPart'=>
+			array(
+			'arrRole'=>
+			array(
+				'Listener', 'Operator'
+				),
+			'arrLang'=>
+			array(
+				'ifEN'	=>'',
+				'ifRU'	=>'',
+				),
+			),
+		);
+	private $arrObjects	=
+		array(
+		'title'=>array(
+			'EN'=>'Close this window',
+			'RU'=>'Закрыть это окошко',
+			),
+		);
+	public function __construct($objEDRO=array())
+		{
+		$this->strHTML='
+		<informationWindow
+			id	="objInformationOverlay"
+			class	="fixed V94 block window '.$this->arrDesign['informationWindow']['strLayer'].' TC3 BC3 BBV BTA"
+			style	="
+				width		:100vw;
+				height		:300px;
+				max-height	:50vh;
+				"
+			>
+			<close
+				class		="block TC1 BC2 sensor"
+				onClick		="'.$this->arrEvent['close']['strOnClick'].'"
+				>
+				<close
+					class	="block right"
+					style	="
+						width		: 40px;
+						color		: #fff;
+						background-color: #000;
+						text-align	: center;
+						"
+					title	="'.$this->arrObjects['title'][$objEDRO->arrReality['strLangSignal']].'"
+						>
+						X
+	    				</close>
+				HiFiIntelligentClub
+			</close>
+			<scrollerPart 
+				class	="block scrollerY"
+				style	="
+					width		:100vw;
+					height		:240px;
+					max-height	:40vh;
+					"
+				>
+				<ifEN>HiFi Intelligent Club - is the friend for the real people who are exist right here and now. Only for today.</ifEN>
+				<ifRU>HiFi Intelligent Club - для людей, существующих сдесь и сейчас. Только сегодня.</ifRU>
+				<ifRU>
+					<p>
+						<a name="УвеличитьЭкран"><h2>Слишком мелко?</h2></a>
+						<p>
+							<color style="font-size:x-large;color:green">Зажмите клавишу ctrl(Контрл) 
+							и крутите колесо мышки. Станет крупнее/мельче.</color><br/>
+							Приложение само подстроится под ваши настройки, удалив с экрана выступающие за край элементы.<br/>
+							CTRL+Колесо мыши: Выведите на экран станцию такого размера, как вам удобно смотреть!
+						</p>
+						<p>
+							Искренне ваш Hfic.Samin Президент HiFiIntelligentClub.
+						</p>
+					</p>
+				</ifRU>
+				<ifEN>
+					<p>
+						<a name="Enlarge_ctrlmouseWheel"><h2>"Too small text?"</h2></a>
+						<p>
+							<color style="font-size:x-large;color:green">Hold down the ctrl key and turn the 
+							mouse wheel</color><br/>
+							The application will adjust itself to your vision, Displaying a station of the 
+							size that is convenient for you to look at!
+						</p>
+						<p>
+							Sincerely yours Hfic. Samin President of HiFiIntelligentClub.
+						</p>
+					</p>
+				</ifEN>
+			</scrollerPart>
+
+		</informationWindow>';
+
+
+
+
+/*-[.]*/	}
+
+/*-[E]*/private function strEvent()
+		{
+		//$strD='class="'.$this->arrDesign['strClass'].'" ';
+		//$strD.='style="'.$this->arrDesign['strStyle'].'" ';
+		return $strD;
+/*-[.]*/	}
+/*-[D]*/private function strDesign()
+		{
+		//$strD='class="'.$this->arrDesign['strClass'].'" ';
+		//$strD.='style="'.$this->arrDesign['strStyle'].'" ';
+		return $strD;
+/*-[.]*/	}
+/*-[R]*/private function strReality()
+		{
+		//print_r($_SESSION);
+		//$this->objReality['arrRole'];
+		//$this->objReality['arrLang'];
+		//$strR='<ifRU>'.$this->objReality['arrLang']['ifRU'].'</ifRU>';
+		//$strR.='<ifEN>'.$this->objReality['arrLang']['ifEN'].'</ifEN>';
+		return $strR;
+		}
+/*-[O]*/private function strObject()
+		{
+		return $strO;
+/*-[.]*/	}
+	public static function strHTML($objEDRO=array())
+		{
+		$objOverlay=new Overlay($objEDRO);
+		return $objOverlay->strHTML;
+		}
+	}
+
+                     /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//        /\                  // /   
+//      <  **>               /// /  
+ //////   jl                ///// /    
+./././././././*/
+class Registration
+	{
+	public $strHTML		='';
+	public function __construct()
+		{
+		$this->strHTML='
+			<buttonRegister
+				id	="objRegisterButton"
+				class	="brick left BLL BLR sensorButton"
+				style	="
+					text-align	:center;
+					padding		:0 5px 0 5px;
+					"
+				>
+				<ifEN style="width:100%;">Register</ifEN>
+				<ifRU style="width:100%;">Регистрация</ifRU>
+			</buttonRegister>
+			';
+
+		$this->strHTML.='
+			<HiFiRegistrationForm
+				id	="objRegisterForm"
+				class	="fix block layer_6  HL0 V99 TC1 BC1 BBV"
+				onclick	="
+					//this.parentNode.classList.remove(\'CutDown\');
+					//this.parentNode.className+=\' Expanded\';
+					"
+				style	="
+					height		:150px;
+					width		:100vw;
+					"
+				>
+				<menu
+					class	="block"
+					style	="
+						width		:100%;
+						height		:40px;
+						padding		:0;
+						margin		:0;
+						"
+					>
+					<topTouchBuffer
+						class	="block TC2 BC2"
+						style	="
+							height	:10px;
+							width	:100%;
+							font-size	:x-small;
+							"
+						>
+					</topTouchBuffer>
+					<ifRU>Регистрация</ifRU>
+					<ifEN>REgistration</ifEN>
+					<closeButton
+						class	="sensor block right TC3 BC3"
+						style	="
+							height		:20px;
+							width		:60px;
+							text-align	:center;
+							line-height	:18px;
+								"
+						onclick	="
+							this.parentNode.parentNode.parentNode.classList.remove(\'Expanded\');
+							this.parentNode.parentNode.parentNode.className+=\' CutDown\';
+							"
+						>
+						<ifRU>
+							x
+						</ifRU>
+						<ifEN>
+							x
+						</ifEN>
+					</closeButton>
+					<bottomTouchBuffer
+						class	="block TC2 BC2"
+						style	="
+							height		:10px;
+							width		:100%;
+							font-size	:x-small;
+							"
+						>
+					</bottomTouchBuffer>
+				</menu>
+				<data
+					class	="block scrollerY TC1 BC1"
+					style	="
+						width	:100%;
+						height	:152px;
+						"
+					>
+					<form 
+						id		="objFormRegistration"
+						class		="block TC1 BC1"
+						action		="/search"
+						onsubmit	="return false;"
+						style		="
+								width		:100%;
+								height		:152px;
+								"
+						>
+					</form>
+				</data>
+			</HiFiRegistrationForm>';
+		$this->strHTML.=$this->strObjectDeclare();
+		$this->strHTML.=$this->strObjectInit();
+		}
+	private function strObjectDeclare()
+		{
+		$str	=<<<oo2oo
+		<script>
+			console.log('[V]EDRO Register: Declare.');
+			class Registration // Init after signal panel//
+				{
+				constructor()
+					{
+					console.log('[Vv]EDRO Register: construct.');
+					
+				
+					this.objButton			=document.getElementById('objRegisterButton');
+					this.objFormBrick		=document.getElementById('objRegisterForm');
+					this.objForm			=document.getElementById('objFormRegistration');
+
+					console.log('[..]EDRO Register: construct.');
+					}
+				}
+			console.log('[.]EDRO Register: Declare.');
+		</script>
+oo2oo;
+		return $str;
+		}
+	private function strObjectInit()
+		{
+		return Event::strOConstruct('Registration');
+		}
+	public function strHTML()
+		{
+		$obj		=new Registration();
+		return $obj->strHTML;
+		}
+	}
+
+                     /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//        /\                  // /   
+//      <  **>               /// /  
+ //////   jl                ///// /    
+./././././././*/
+class StationSearchBlock  // feat Мира Стрельцова. 07.08.2020 Шеорше ля фам, господа конкуренты. Hfic.Samin -> PreReleased at 21-21-2021
+	{
+	private $arr;
+	public $strHTML;
+	private $strLogo;
+	private $strName;
+	private $strFile;
+	private $strType;
+	private $strAudio;
+	public function __construct($_arrValues=array(), $_arrReality) //$_arrValues 'name' 'style' 'bitrate' 'codec'
+		{
+		$strSearchName		=$_arrValues['strName'];
+		//if($_arrValues['strGenre']!==''&&isset($_arrValues['strStyle'])&&$strStyle!=''&&$strStyle!='undefined')
+		//	{
+		//	$strSearchGenre		=$_arrValues['strStyle'];
+		//	}
+		//else
+		//	{
+			$strSearchGenre		=$_arrValues['strGenre'];
+		//	}
+		
+				   unset($_arrValues);
+		$strLang		=$_arrReality['strLangSignal'];
+				   unset($_arrReality);
+		$arrInputName 		=
+			array(
+			'strLang'	=> $strLang,
+			'arrName'	=>
+				array(
+				'RU'=>'Название',
+				'EN'=>'Name'
+				), 
+			'arrSetup'	=>
+				array(
+
+				'strInputValue'		=>  $strSearchName,
+				'strInputType'		=>  'text',
+				'strInputName'		=>  'strName',
+				'intInputSize'		=>  25,
+				'intInputMaxLength'	=>  250,
+				'intInputWidth'		=>  50,
+				)
+			);
+		$arrInputGenre 		=
+			array(
+			'strLang'	=>$strLang,
+			'arrName'	=>
+				array(
+				'RU'=>'Жанр',
+				'EN'=>'Genre'
+				), 
+			'arrSetup'	=>
+				array(
+
+				'strInputValue'		=> $strSearchGenre,
+				'strInputType'		=> 'text',
+				'strInputName'		=> 'strGenre',
+				'intInputSize'		=>  15,
+				'intInputMaxLength'	=>  20,
+				'intInputWidth'		=>  40,
+				)
+			);
+
+		$this->strHTML	='
+			<hficSearch
+				class="fix HR0 V99 layer_5 default"
+				>
+				<ifCutDown
+					class	="block right sensor TC1 BC1 no-select"
+					onclick	="
+						this.parentNode.classList.remove(\'CutDown\');
+						this.parentNode.className+=\' Expanded\';
+						objSearch.objValueInputstrGenre.focus();
+						"
+					style	="
+						text-align	:center;
+						line-height	:36px;
+						height		:40px;
+						width		:80px;
+						"
+					>
+					<ifRU>
+						ПОИСК
+					</ifRU>
+					<ifEN>
+						SEARCH
+					</ifEN>
+				</ifCutDown>
+				<ifExpanded
+					class	="fix brick HL0 HV99 TC1 BC0 BBV L2" 
+
+					style	="
+						width		:100vw;
+						min-width	:320px;
+						"
+					>
+					<form 
+						id		="formStationSearch"
+						class		="brick TC1 BC0"
+						action		="/search"
+						onsubmit	="return false;"
+						style		="
+								width	:100%;
+								"
+						>
+						<searchByGenre
+						class	="fix brick left L0 V99 no-select layer_2_2"
+						style	="
+							color	:#4c4c4c;
+							left	:0px;
+							"
+							>
+							<ifEN>[=]Search by genre</ifEN>
+							<ifRU>[=]Поиск по жанру:</ifRU>
+						</searchByGenre>
+						<searchStationName
+						class	="fix brick left L0 V99 no-select layer_2_2"
+						style	="
+							color	:#4c4c4c;
+							left	:40%;
+							"
+							>
+							<ifEN>[+]Search by name:</ifEN>
+							<ifRU>[+]Поиск по имени:</ifRU>
+						</searchStationName>
+						<searchInputs
+							class	="brick left"
+							style	="
+								width		:100%;
+								margin-top	:5px;
+								"
+							>
+							'.
+							FormInput::strHtml($arrInputGenre).
+							FormInput::strHtml($arrInputName).
+							'<closeButton
+								class="fix sensor block TC2 BC2 Lx2 V99 HR0 layer_2_3"
+								style="
+									width		:10%;
+									text-align	:center;
+									"
+	    							onclick="
+									this.parentNode.parentNode.parentNode.parentNode.classList.remove(\'Expanded\');
+									this.parentNode.parentNode.parentNode.parentNode.parentNode.className+=\' CutDown\';
+									"
+								>
+								<ifRU
+									class="brick"
+									style="width:100%;height:100%;"
+									title="Закрыть форму и отобразить результаты поиска. Результаты поиска можно вывсти и не закрывая форму, просто нажав на клавишу enter, на клавиатуре по окончанию ввода."
+									>x
+								</ifRU>
+								<ifEN
+									class="brick"
+									style="width:100%;height:100%;"
+									title="Close search form and display search results. You can display search results without closing this search form, by clicking enter button on your keyboard."
+									>x
+								</ifEN>
+							</closeButton>
+						</searchInputs>
+						<!--bottomTouchBuffer
+							class	="fix block TC2 BC2 V97 L0"
+							style	="
+								width		:100%;
+								"
+							>
+							<ifEN>Your IP:</ifEN><ifRU>Ваш IP:</ifRU>
+							'.$_SERVER['REMOTE_ADDR'].'
+						</bottomTouchBuffer-->
+					</form>';
+				//<data
+				//	class="block scrollerY TC1 BC1"
+				///	style="
+				//		width	:100%;
+				//		height	:152px;
+				//		"
+					//	>
+					//		//FormInput::strHtml($objKIIM, array('RU'=>'РФИд','EN'=>'RFId'), $strSearchId).
+					//		$this->strHTML	.=FileRead::str($objKIIM,'/home/EDRO/4.Objects/Read/Cloud/Disk/Pages/SearchBlock.php');
+					//		$this->strHTML	.='<hr/>';
+					//		foreach($_SERVER as $strName => $strValue)
+					//			{
+					//			$this->strHTML	.='<srv class="block">'.$strName.' - '.$strValue.'</srv>';
+					///			}
+					//		$this->strHTML	.='<hr/>';
+					//	$this->strHTML	.='
+					//	</questions>';
+
+					$this->strHTML	.='
+				</ifExpanded>
+				'.
+				$this->strObjectInit();
+				$this->strHTML	.=
+			'</hficSearch>
+			';
+		}
+	private function strObjectInit()
+		{
+		return Event::strOConstruct('Search');
+		}
+	public static function strObjectDeclare()
+		{
+		$str	=<<<oo2oo
+		<script>
+		console.log('[V]EDRO.Object.SearchForm: Declare');
+		class Search //Init in  StationSearchBlock.php
+			{
+			constructor()
+				{
+				console.log('[Vv]EDRO.Object.SearchForm: Construct');
+				this.objStationSearch		=document.getElementById('formStationSearch');
+				this.objValueInputstrName	=document.getElementById('SearchBystrName');
+				this.strValueInputstrName	=this.objValueInputstrName.value;
+				this.objValueInputstrGenre	=document.getElementById('SearchBystrGenre');
+				this.strValueInputstrGenre	=this.objValueInputstrGenre.value;
+				//this.objValueInputintBitrate	=document.getElementById('SearchByintBitrate');
+				//this.strValueInputintBitrate	=this.objValueInputintBitrate.value;
+				//this.objValueInputstrCodec	=document.getElementById('SearchBystrCodec');
+				//this.strValueInputstrCodec	=this.objValueInputstrCodec.value;
+				this.bIzHistory			=true;
+				console.log('[..]EDRO.Object.SearchForm: Construct');
+				}
+			}
+		console.log('[.]EDRO.Object.SearchForm: Declare');
+		</script>
+oo2oo;
+		return $str;
+		}
+	public static function strHTML($_arrValues=array(), $_arrReality)
+		{
+		//$arrData['_strName']=$_objData->strName;
+		$obj=new StationSearchBlock($_arrValues, $_arrReality);
+		return $obj->strHTML;
+		}
+	}
+
+                     /*_____
 © Andrey Chekmaryov 2021
 
 Email:    assminog@gmail.com
@@ -3890,6 +4993,7 @@ class Design
 		//print_r($o);
 		//$this->O['оСостояние'] 			= new ОповещениеСостояние(__CLASS__,__FUNCTION__);
 		//$this->O['оОшибка'] 			= new ОповещениеОшибка();
+		$this->D['сРасположениеКорень']		= сРасположениеО2оDB.сНазваниеО2оDB;
 		$this->D['strTemplate']			= сРасположениеО2оDB.сНазваниеО2оDB.'/Events/'.сПреобразовать($arrE['strName'], "вКоманду");
 		
 		//print_r($this);
@@ -3999,6 +5103,1694 @@ oo2oo;
 		return $str;
 		}
 	}
+
+/*© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru*/
+//////
+   //   /\ RCe
+  //  <  **> 
+ //     Jl
+//////
+class DynaScreen
+	{
+	public $strHTML;
+	public function __construct($_arrData)
+		{
+		}
+	public static function strStart($objEDRO, $strSearchForm)
+		{
+		if($objEDRO->arrEvent['bIzDynamic'])
+			{
+			$intHeight	=122;
+			if($objEDRO->arrReality['bIzApple'])
+				{
+				$intHeight	=102;
+				}
+			$str		=$objEDRO->strRealityInit();
+			$str		.='
+				<brickTop 
+					class="block" 
+					style="width:100%;height:'.$intHeight.'px;margin:0;padding:0;"
+					>
+				</brickTop>';
+
+			}
+		else
+			{
+			$str		=FileRead::strGetDesignHTML('/home/EDRO.SetOfTools/System/6.HTML_Interfaces/0.HTML_HeadInterface.php', $objEDRO);
+			$str		.=$strSearchForm;
+			$str		.=Listeners::strHTML($objEDRO->arrReality['arrCurrentListeners'], $objEDRO->arrEvent['arrReality']);
+			//$str		.=FileRead::strGetDesignHTML(array(), '/home/EDRO/4.Objects/Read/Cloud/Disk/Pages/_UpdateMessage.php', $objEDRO);
+			$str		.='
+			<dynaScreen
+				id	="DynaScreen"
+				class	="fixed block layer_1"
+				style	="
+					top			:0;
+					left			:0;
+					width			:100%;
+					height			:100%;
+					display			:block;
+					"
+				>
+				<brickTop 
+					class="block" 
+					style="width:100%;height:82px;margin:0;padding:0;"
+					>
+				</brickTop>
+				';
+			}
+		
+		//$str.='<marginTop class="block" style="width:100%;height:2%"></marginTop>';
+		//$str.='<pageDate id="pageDateTimeServer" style="display:none">'.сКодировать(date('Y-m-d H:i:s').$_SESSION['strListener'], 'вКоманду').'</pageDate>';
+		//file_put_contents('/home/HiFiIntelligentClub.Ru/tmp/symbols.txt', сКодировать(date('Y-m-d H:i:s').$_SESSION['strListener'], 'вКоманду'));
+
+		return $str;
+		}
+	public static function strEnd($objEDRO, $bIzDynamic)
+		{
+		$str='';
+		if($bIzDynamic)
+			{
+			//$str.='<brickBottom class="block" style="width:100%;height:200px"></brickBottom>';
+			}
+		else
+			{
+			//$str='<brickBottom class="block" style="width:100%;height:100px"></brickBottom>';
+			$str.='</dynaScreen>';
+			$str.=DynaScreen::strObjectInit();
+			$str.=Design::strObjectInit();
+			$str.=Objects::strObjectInit();
+			}
+		return $str;
+		}
+	public static function strObjectInit()
+		{
+		return Event::strOConstruct('DynaScreen');
+		}
+	public static function strObjectDeclare()
+		{
+		$str	= <<<oo2oo
+		<script>
+		console.log('[V]EDRO.Objects: DynaScreen');
+		class DynaScreen
+			{
+			constructor()
+				{
+				console.log('[Vv]EDRO.Objects.DynaScreen: construct()');
+				this.objXHR		=new XMLHttpRequest();
+				this.objHTML		=document.getElementById('DynaScreen');
+				this.intHeight		=0;
+				this.intWidth		=0;
+				this._GetDimensions();
+				this.objXHR.onload	=function()
+					{
+					console.log('[Vvv]EDRO.Objects: DynaScreen.objXHR.onload');
+					if(objDynaScreen.objXHR.status==200)
+						{	
+						if(objReality.bIzDynaScreen)
+							{
+							objDynaScreen.objHTML.innerHTML	=objDynaScreen.objXHR.response;
+							objReality.bIzHistory		=false;
+							objReality.bIzDynaScreen	=false;
+							objReality.bIzLoading		=false;
+							}
+						objReality.bIzLoading		=false;
+						objReality.bIzHistory		=false;
+						objReality.bIzDynaScreen	=false;
+						objPlayer.updateOnReload();
+						objDynaScreenEventIndicator.objHTML.style.display="none";
+						}
+					else
+						{
+						objReality.bIzLoading		=false;
+						objReality.bIzHistory		=false;
+						objReality.bIzDynaScreen	=false;
+						objDynaScreenEventIndicator.objHTML.style.display="none";
+						}
+					console.log('[...]EDRO.Objects: DynaScreen.objXHR.onload');
+					}
+				this.objXHR.onProgress		=function(event)
+					{
+					console.log('[Vvv]EDRO.Objects: DynaScreen.objXHR.onProgress');
+					if(event.lengthComputable)
+						{
+						//console.log('Получено'+event.loaded+'байт из'+event.total+'байт.');
+						}
+					else
+						{
+						//console.log('Получено'+event.loaded+'байт');
+						}
+					console.log('[...]EDRO.Objects: DynaScreen.objXHR.onProgress');
+					}
+				this.objXHR.onError=function()
+					{
+					console.log('[Vvv]EDRO.Objects: DynaScreen.objXHR.onError');
+					objReality.bIzLoading		=false;
+					objReality.bIzDynaScreen	=false;
+					objReality.bIzError		=true;
+					
+					objDynaScreenEventIndicator.objHTML.style.display="none";
+					console.log('[...]EDRO.Objects: DynaScreen.objXHR.onError');
+					}
+				//this.strEvent		='/search';
+				//this.strParametrs	='';
+				//this.strDynaUpdate	='';
+				//this.strUrl		='';
+				//this.bIzHistory		=true;
+				console.log('[..]EDRO.Objects: DynaScreen.construct()');
+				}
+			_GetDimensions()
+				{
+				//console.log('[Vv]EDRO.Objects.DynaScreen:  _GetDimensions()');
+				this.intHeight		=this.objHTML.offsetHeight;
+				this.intWidth		=this.objHTML.offsetWidth;
+				//console.log('[..]EDRO.Objects.DynaScreen:  _GetDimensions()');
+				}
+			}
+		console.log('[.]EDRO.Design: DynaScreen');
+		</script>
+oo2oo;
+		return $str;
+		}
+	public static function strHTML($_objData)
+		{
+		$objDynaScreen=new DynaScreen($_objData);
+		return $objDynaScreen->strHTML;
+		}
+	}
+
+/*© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru*/
+//////
+   //   /\ RCe
+  //  <  **> 
+ //     Jl
+//////
+class DynaScreenEventIndicator
+	{
+	public $strHTML;
+	public function __construct()
+		{
+		$this->strHTML='
+		<eventIndicator
+			id	="DynaScreenEventIndicator"
+			class	="brick abs layer_3_2  line"
+			style	="
+				display			:none;
+				top			:0px;
+				left			:0px;
+				width			:2px;
+				background-color	:#fff;
+				"
+			>
+			<light
+
+				class	="brick abs layer_3_4 blink-fast line"
+				style	="
+					display			:block;
+					top			:0px;
+					left			:0px;
+					width			:2px;
+					background-color	:#333;
+					"
+				>
+			</light>
+		</eventIndicator>';
+		$this->strHTML.=DynaScreenEventIndicator::strObjectInit();
+		}
+	public static function strObjectInit()
+		{
+		return Event::strOConstruct('DynaScreenEventIndicator');
+		}
+	public static function strObjectDeclare()
+		{
+		$str='
+		<script>
+			class DynaScreenEventIndicator
+				{
+				constructor()
+					{
+					this.objHTML=document.getElementById(\'DynaScreenEventIndicator\');
+					console.log(\'Loaded DynaScreen event indicator (objDynaScreenEventIndicator).\');
+					}
+				}
+		</script>';
+		return $str;
+		}
+	public static function strHTML()
+		{
+		$objDynaScreenEventIndicator=new DynaScreenEventIndicator();
+		return $objDynaScreenEventIndicator->strHTML;
+		}
+	}
+
+                     /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+
+
+                             |E    |D     |R      |O      |
+                             |Event|Design|Reality|Objects|
+
+                                       ЕДРО:ПОЛИМЕР
+                            ___________          ___________
+                           |   /////  /          \  \\\\\   |
+                           |  // /                    \ \\  |
+                           | /// /                    \ \\\ |
+                           |///// /                 \ \\\\\\|
+
+                                      ////// 2021
+                                    //        /\ 
+                                    //      <  **> 
+                                     //////   jl
+                                 /./././././././././.
+
+class IndicatorDimensionsDesign
+	{
+	public $strEDRO		='';
+	public function __construct()
+		{
+		$this->_Event();
+		$this->_Design();
+		$this->_Reality();
+		$this->_ObjectHTML()
+		
+		}
+	private 	function _Event()
+		{
+		}
+	private  	function _Design()
+		{
+		}
+	private  	function _Reality()
+		{
+		}
+	private  	function _ObjectHTML()
+		{
+		}
+	public 	staic	function strHTML()
+		{
+		}
+	}
+
+--.---------------------------------------------------------------------------------
+1.| EDRO Разложение, запись в 1 строку:
+--|---------------------------------------------------------------------------------
+  | EDRO	=objName[->E(),->D(),->R(),->O()]
+  |
+--|---------------------------------------------------------------------------------
+2.| EDRO Разложение, запись в 4 строки:
+--|---------------------------------------------------------------------------------
+  |[E]:=objName->strEvent()
+  |[D]:=objName->strDesign()
+  |[R]:=objName->strReality()
+  |[O]:=objName->strObjects()
+  |
+*/
+
+class IndicatorDimensions
+	{
+	public $strHTML ='';
+	private $arrEDRO=
+		array(
+			'arrE'=>
+			array(
+				'/','/search'
+				),
+			'arrD'=>
+			array(
+				'/home/EDRO/2.Design/.strFileList.php',
+				),
+			'arrR'=>
+			array(
+				'arrLang'=>
+				array(
+					'EN','RU',
+					),
+				'arrRole'=>
+				array(
+					'Listener'
+					),
+				),
+			'arrO'=>
+			array(
+				'strHTML'=>''
+				),
+			);
+	public function __construct()
+		{
+		//$this->_Event();
+		$this->_Design();
+		//$this->_Reality();
+		//$this->_Object();
+		//$this->strEDRO		='';
+		}
+	private function _Event()
+		{
+
+		}
+	private function _Design()
+		{
+		$this->strHTML='
+			<dimensionsDesign
+				id="designDimensions"
+				class="fixed block TC1 BC1 layer_5"
+				style="	
+					top		: 9px;
+					left		: 10px;
+					width		: 2px;
+					height		: 2px;
+					text-align	: center;
+					margin-right	: 1px;
+					"
+				>
+			</dimensionsDesign>
+		';
+		$this->strHTML.=$this->strObjectDeclare();
+		$this->strHTML.=$this->strObjectInit();
+		}
+	private function _Reality()
+		{
+		}
+	private function strObjectDeclare()
+		{
+		$str	=<<<oo2oo
+		<script>
+			console.log('[V]EDRO IndicatorDimensions: Declare.');
+			class IndicatorDimensions // Init after signal panel//
+				{
+				constructor()
+					{
+					console.log('[Vv]EDRO.IndicatorDimensions: construct.');
+					this.objStr		=document.getElementById('designDimensions');
+					console.log('[..]EDRO.IndicatorDimensions: construct.');
+					}
+				}
+			console.log('[.]EDRO IndicatorDimensions: Declare().');
+		</script>
+oo2oo;
+		return $str;
+		}
+	private function strObjectInit()
+		{
+		return Event::strOConstruct('IndicatorDimensions');
+		}
+	public static function strHTML()
+		{
+		$objIndicatorDimensions		=new IndicatorDimensions();
+		return $objIndicatorDimensions->strHTML;
+		}
+	}
+
+                     /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//        /\                  // /   
+//      <  **>               /// /  
+ //////   jl                ///// /    
+./././././././*/
+class IndicatorHiFi
+	{
+	public $strHTML		='';
+	public function __construct()
+		{
+		$this->strHTML='
+		<HiFi
+			class="rel left no-select ifNoFollowingDj TC3 BC3"
+			style="
+				height		:20px;
+				font-size	:smaller;
+				text-align	:center;
+				line-height	:18px;
+				"
+			>
+			<PictogramHelper
+				id		="strListener"
+				class		="block"
+				>
+
+
+			</PictogramHelper>
+		</HiFi>';
+		$this->strHTML.=$this->strObjectDeclare();
+		$this->strHTML.=$this->strObjectInit();
+		}
+	private function strObjectDeclare()
+		{
+		$str	=<<<oo2oo
+		<script>
+			console.log('[V]EDRO IndicatorHiFi: Declare.');
+			class IndicatorHiFi // Init after signal panel//
+				{
+				constructor()
+					{
+					console.log('[Vv]EDRO IndicatorHiFi: construct.');
+					
+				
+					this.objStr			=document.getElementById('strListener');
+
+					console.log('[..]EDRO IndicatorHiFi: construct.');
+					}
+				}
+			console.log('[.]EDRO IndicatorHiFi: Declare.');
+		</script>
+oo2oo;
+		return $str;
+		}
+	private function strObjectInit()
+		{
+		return Event::strOConstruct('IndicatorHiFi');
+		}
+	public function strHTML()
+		{
+		$objIndicatorHiFi		= new IndicatorHiFi();
+		return $objIndicatorHiFi->strHTML;
+		}
+	}
+
+                     /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//        /\                  // /   
+//      <  **>               /// /  
+ //////   jl                ///// /    
+./././././././*/
+class IndicatorLang
+	{
+	public $strHTML		='';
+	public function __construct()
+		{
+		$this->strHTML='
+			<lang
+				id="SignalLanguage"
+				class="rel right BC3 TC3"
+				style="	
+					height		: 100%;
+					width		: 25px;
+					text-align	: center;
+					margin-right	: 1px;
+					font-size	: small;
+					line-height	: 19px;
+					"
+				>
+				<!--handle
+					id="SignalLanguageInteractiveBlock"
+					class="block abs layer_3_2"
+					style="
+						display	:none;
+						right	:0;
+						top	:0;
+						width	:188px;
+						height	:86px;
+						"
+					>'.
+					/*SensorList::strHTML(array(
+								"RU","EN","FR","IT","BY","UA"
+								)
+							).*/
+				'</handle-->
+				<result
+					id="LanguageSignalWindow"
+					>
+					<ifRU
+						class="no-select"
+						>
+						RU
+					</ifRU>
+					<ifEN
+						class="no-select"
+						>
+						EN
+					</ifEN>
+				</result>
+			</lang>
+			';
+		$this->strHTML.=$this->strObjectDeclare();
+		$this->strHTML.=$this->strObjectInit();
+		}
+	private function strObjectDeclare()
+		{
+		$str	=<<<oo2oo
+		<script>
+			console.log('[V]EDRO IndicatorLang: Declare.');
+			class IndicatorLang // Init after signal panel//
+				{
+				constructor()
+					{
+					this.objStr		=document.getElementById('LanguageSignalWindow');
+					this.objStr.innerHTML	=strSignalLang;
+					}
+				}
+			console.log('[.]EDRO IndicatorLang: Declare.');
+		</script>
+oo2oo;
+		return $str;
+		}
+	private function strObjectInit()
+		{
+		return Event::strOConstruct('IndicatorLang');
+		}
+	public function strHTML()
+		{
+		$objIndicatorLang		=new IndicatorLang();
+		return $objIndicatorLang->strHTML;
+		}
+	}
+
+                     /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//        /\                  // /   
+//      <  **>               /// /  
+ //////   jl                ///// /    
+./././././././*/
+class IndicatorMasterClock
+	{
+	public $strHTML		='';
+	public function __construct()
+		{
+		$this->strHTML='
+			<masterClock
+				class="fix layer_3  block no-select TC3 BC3 V98"
+				style="	
+					width		: 40px;
+					height		: 20px;
+					left		: 0px;
+					text-align	: left;
+					font-size	: x-small;
+					"
+				>
+				<masterHeartBeat_ClockIndicator
+					id	="MasterClock"
+					class	="block"
+					title	="Player session total operation time"
+					style="
+						width		: 100%;
+						height		: 50%;
+						line-height	: 9px;
+						"
+					>
+					0
+				</masterHeartBeat_ClockIndicator>
+				<masterHeartBeat_ServerLoading
+					id	="ServerLoadingTime"
+					class	="block"
+					title	="Total server loading time"
+					style="
+						width		: 100%;
+						height		: 50%;
+						line-height	: 9px;
+						"
+					>
+					0
+				<masterHeartBeat_ServerLoading>
+			</masterClock>
+			';
+		$this->strHTML.=$this->strObjectDeclare();
+		$this->strHTML.=$this->strObjectInit();
+		}
+	private function strObjectDeclare()
+		{
+		$str	=<<<oo2oo
+		<script>
+			console.log('[V]EDRO IndicatorMasterClock: Declare.');
+			class IndicatorMasterClock
+				{
+				constructor()
+					{
+					console.log('[Vv]EDRO IndicatorMasterClock: construct.');
+					this.objStr			=document.getElementById('MasterClock');
+					this.objStrServerLoading	=document.getElementById('ServerLoadingTime');
+					console.log('[..]EDRO IndicatorMasterClock: construct.');
+					}
+				}
+			console.log('[.]EDRO IndicatorMasterClock: Declare.');
+		</script>
+oo2oo;
+		return $str;
+		}
+	private function strObjectInit()
+		{
+		return Event::strOConstruct('IndicatorMasterClock');
+		}
+	public function strHTML()
+		{
+		$objIndicatorMasterClock		=new IndicatorMasterClock();
+		return $objIndicatorMasterClock->strHTML;
+		}
+	}
+
+                     /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//        /\                  // /   
+//      <  **>               /// /  
+ //////   jl                ///// /    
+./././././././*/
+class IndicatorNetwork
+	{
+	public $strHTML		='';
+	public function __construct()
+		{
+		$this->strHTML='
+			<network
+				class	="fix block BRJ layer_2_1"
+				style	="
+					line-height	:9px;
+					margin-right	:1px;
+					"
+				>
+				<NetSrvReady
+					id="NetSrvReady"
+					class="block left  BLL"
+					style="	
+						left		: 10px;
+						height		: 10px;
+						width		: 10px;
+						background-color: #e3e3e3;
+						text-align	: center;
+						font-size	: x-small;
+						"
+					>
+					<ifRU
+						title		="Stream network avaliability status"
+						class		="no-select"
+						>
+						N
+					</ifRU>
+					<ifEN
+						title		="Статус доступности аудиопотока сети"
+						class		="no-select"
+						>
+						H
+					</ifEN>
+				</NetSrvReady>
+				<NetSrvPortsReady
+					id="NetSrvPortsReady"
+					class="block left  BLL"
+					style="	
+						height		: 10px;
+						width		: 10px;
+						background-color: #e3e3e3;
+						text-align	: center;
+						font-size	: x-small;
+						"
+					>
+					<ifRU
+						title		="Готовность к воспроизведению аудиопотока"
+						class		="no-select"
+						>
+						Р
+					</ifRU>
+					<ifEN
+						title		="Ready to play audiostream"
+						class		="no-select"
+						>
+						R
+					</ifEN>
+				</NetSrvPortsReady>
+			</network>';
+		$this->strHTML.=$this->strObjectDeclare();
+		$this->strHTML.=$this->strObjectInit();
+		}
+	private function strObjectDeclare()
+		{
+		$str	=<<<oo2oo
+		<script>
+			console.log('[V]EDRO IndicatorNetwork: Declare.');
+			class IndicatorNetwork
+				{
+				constructor()
+					{
+					console.log('[Vv]EDRO IndicatorNetwork: construct.');
+					this.objStrSrvReady			=document.getElementById('NetSrvReady');
+					this.objStrSrvPortsReady		=document.getElementById('NetSrvPortsReady');
+					console.log('[..]EDRO IndicatorNetwork: construct.');
+					}
+				}
+			console.log('[.]EDRO IndicatorNetwork: Declare.');
+		</script>
+oo2oo;
+		return $str;
+		}
+	private function strObjectInit()
+		{
+		return Event::strOConstruct('IndicatorNetwork');
+		}
+	public function strHTML()
+		{
+		$objIndicatorNetwork		=new IndicatorNetwork();
+		return $objIndicatorNetwork->strHTML;
+		}
+	}
+
+                     /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//        /\                  // /   
+//      <  **>               /// /  
+ //////   jl                ///// /    
+./././././././*/
+class IndicatorPlayer
+	{
+	public $str;
+	public function __construct()
+		{
+		//Новый год  🎄🎅
+		//✰✰
+		//★
+		//🌠
+		$this->str='
+		<playerControlAlwaysVisible
+			id	="playerControlAlwaysVisible"
+			class	="left no-select ЕС3 BC3"
+			style	="
+				text-align	:left;
+				width		:67%;
+				height		:100%;
+				margin-right	:1px;
+				"
+			>'.
+			'
+			<ifReady
+				class	="abs V99 block cursor BC1 TC1 layer_2_2 select scrollerY Lx2"
+				style	="
+					text-align	:left;
+					Width		:80vw;
+					"
+				>
+				<Hfic_Samin
+					class="block right"
+					style="
+						width		:40px;
+						height		:100%;
+						"
+					>
+					<image
+						title="Hfic: Is there any hifi sound can i hear?" 
+						src="cloudrepublic.ru/Hfic_Samin.jpg" 
+						class="block" 
+						style="
+							height:100%;
+							"
+					/>'.ICQRType::strHTML(array(), '', '', array()).'
+				</Hfic_Samin>
+				<!--ReadyButtonStat
+					class	="block right BLL TC3 BC3"
+					style	="
+						text-align	:left;
+						height		:100%;
+						width		:100px;
+						line-height	:13px;
+						"
+					>
+				</ReadyButtonStat-->
+				<readyText
+					class	="block scrollerY Lx2 BRJ"
+					style	="
+						height	:40px;
+						width	:40px;
+						"
+					>
+				</readyText>
+			</ifReady>
+			<ifOverload
+				class	="abs line V99"
+				style	="
+					display		:none;
+					left		:0px;
+					width		:100vw;
+					color		:#fff;
+					background-color:red;
+					"
+				>
+				<!--playerOverloadStat
+					class	="block right BLL TC3 BC3"
+					style	="
+						text-align	:left;
+						height		:100%;
+						width		:100px;
+						line-height	:13px;
+						"
+					>
+					<loadingDuration
+						class="block"
+						>
+						0
+					</loadingDuration>
+					<loadingErrors
+						class="block"
+						>
+						0
+					</loadingErrors>
+				</playerOverloadStat-->
+				<playerOverloadText
+					class	="block scrollerY"
+					style	="
+						height		:100%;
+						text-align	:left;
+						"
+					>
+					<playerOverloadStationName
+						
+						id	="playerControlAlwaysVisibleOverloadStationName"
+						>
+					</playerOverloadStationName>
+					<ifEN>
+						<marquee>This station rejects playing. May be this station is overload or your internet connection is not enoght. Can\'t stay connected. You can try to listen another station</marquee>
+					</ifEN>
+					<ifRU>
+						<marquee>Не получается подключиться к выбранной радиостанции. Возможно станция перегружена или интернет канал слишком мал, чтобы воспроизводить выбранную станцию. Вы можете попробовать выбрать другую радиостанцию.</marquee>
+					</ifRU>
+				</playerOverloadText>
+			</ifOverload>
+			<ifLoadingAudio
+				id	="objLoadingAudioTopSmall"
+				class	="brick left cursor TC1 no-select line"
+				onclick	="objPlayer.stop();"
+				style	="
+					display		:none;
+					width		:20px;
+					text-align	:center;
+					"
+				>
+				<playShader
+					class	="fix block layer_2"
+					style	="
+						left		:0px;
+						height		:20px;
+						width		:20px;
+						line-height	:20px;
+						background-color:#f0ff00;
+						"
+					>
+				</playShader>
+				<loadIndicator
+					class="fix brick layer_2_3  cursor no-select BLL BRJ TC3"
+					onclick	="objPlayer.stop();"
+					style	="
+						left		:0px;
+						font-size	:xx-small;
+						width		:20px;
+						line-height	:20px;
+						text-align	:center;
+						color		:#FFF;
+						background-color:#ffeb00b8;
+						"
+					>
+					<ifRU 
+						title	="Для отмены загрузки радио станции нажмите."
+						>
+						☒
+					</ifRU>
+					<ifEN
+						title	="To stop loading this audio stream just press."
+						>
+						☒
+					</ifEN>
+				</loadIndicator>
+			</ifLoadingAudio>
+			<ifLoadingAudio
+				class	="fix V99 cursor TC3 layer_2_2 no-select doubleLine"
+				style	="
+					display		:none;
+					left		:0px;
+					width		:100vw;
+					text-align	:left;
+					"
+				>
+				<playerLoadingButton
+					class	="block left BLJ TC3 BC3 doubleLine"
+					id	="playerControlAlwaysVisibleLoading"
+					onclick	="objPlayer.stop();"
+					style	="
+						text-align	:center;
+						height		:100%;
+						width		:40px
+						"
+					>
+					<ifRU
+						title="Нажмите чтобы отменить подключение"
+						>
+						☒
+					</ifRU>
+					<ifEN
+						title="Press to stop connecting"
+						>
+						☒
+					</ifEN>
+				</playerLoadingButton>
+				<!--playerLoadingStat
+					id	="playerControlAlwaysVisibleLoadingStat"
+					class	="block right BLL TC3 BC3"
+					style	="
+						text-align	:left;
+						height		:100%;
+						width		:100px;
+						line-height	:13px;
+						"
+					>
+					<loadingDuration
+						class="block"
+						>
+						<header
+							class="block left"
+							>pl
+						</header>
+						<digit
+							id	="playerControlAlwaysVisibleLoadingDuration"
+							>
+							0
+						</digit>
+						
+					</loadingDuration>
+					<loadingErrors
+						class="block"
+						>
+						<header
+							class="block left"
+							>pe
+						</header>
+						<digit
+							id	="playerControlAlwaysVisibleLoadingErrors"
+							>
+							0
+						</digit>
+					</loadingErrors>
+				</playerLoadingStat-->
+				<playerLoadingText
+					id	="playerControlAlwaysVisibleLoadingText"
+					class="block scrollerY TC1 BC1"
+					style	="
+						height		:100%;
+						"
+					>
+					<marquee>
+						<ifRU>
+							Подключаюсь к радиостанции...
+						</ifRU>
+						<ifEN>
+							Connecting to radiostation.... 
+						</ifEN>
+					</marquee>
+					<playerLoadingStationName
+						id	="playerControlAlwaysVisibleLoadingStationName"
+						>
+					</playerLoadingStationName>
+				</playerLoadingText>
+			</ifLoadingAudio>
+			<ifPlaying
+				id	="objPlayingAudioTopSmall"
+				class	="block TC3 line"
+				
+				style	="
+					display		:none;
+					width		:100%;
+					"
+				>
+				<playShader
+					class	="fix block layer_2"
+					style	="
+						left		:0px;
+						height		:20px;
+						width		:20px;
+						line-height	:20px;
+						background-color:#062b88;
+						"
+					>
+				</playShader>
+				<playIndicator
+					class="fix block left cursor no-select BLL BRJ TC3 layer_2_2"
+					onclick	="objPlayer.stop();"
+					style	="
+						left		:0px;
+						font-size	:xx-small;
+						width		:20px;
+						line-height	:20px;
+						text-align	:center;
+						color		:#FFF;
+						background-color:#062b8824;
+						"
+					>
+					<ifRU 
+						title="Для остановки воспроизведения нажмите."
+						>
+						■
+					</ifRU>
+					<ifEN
+						title="To stop plaing this audio stream just press."
+						>
+						■
+					</ifEN>
+				</playIndicator>
+				<playIndicatorSongName
+					id	="playerControlAlwaysVisiblePlaying"
+					class	="block left scrollerY"
+					style="
+						margin-right	:20px;
+						margin-left	:20px;
+						height		:100%;
+						max-width	:70%;
+						font-size	:large;
+						"
+					>
+					HiFiIntelligentClub
+				</playIndicatorSongName>
+			</ifPlaying>
+			<ifPlaying
+				class	="abs V99 cursor layer_2_2 select TC3 doubleLine"
+				style	="
+					display		:none;
+					left		:0;
+					width		:100vw;
+					text-align	:left;
+					background-color:#062b88;
+					"
+				>
+				<playerPlayingButton
+					class	="brick left BLL BRJ doubleLine"
+					style	="
+						    width	:40px;
+						    "
+					>
+					<playerPlayingButton
+						class	="brick left"
+						onclick	="objPlayer.stop();"
+						style="
+							text-align	: center;
+							width		: 40px;
+							color		: #FFF;
+							font-size	: small;
+							background-color: #2d90f52b;/*Цвет Министерства Культуры Российской Федерации*/
+							"
+						>
+						<ifRU 
+							title="Для остановки воспроизведения нажмите."
+							>
+							Стоп
+						</ifRU>
+						<ifEN
+							title="To stop plaing this audio stream just press."
+							>
+							Stop
+						</ifEN>
+					</playerPlayingButton>
+				</playerPlayingButton>
+				<playerPlayingLike
+					id	="playerControlAlwaysVisiblePlayingLike"
+					class	="block left BLL BRJ TC3 BC3 line"
+					style	="
+						font-size	:x-large;
+						text-align	:center;
+						width		:25px;
+						margin-left	:5px;
+						line-height	:13px;
+						"
+					onclick	="
+						alert(\'coming soon!\');
+						"
+					>
+					+
+				</playerPlayingLike>
+				<playerPlayingNews
+					id	="playerControlAlwaysVisiblePlayingNews"
+					class	="block right BLL BRJ TC3 BC3 line"
+					style	="
+						font-size	:large;
+						text-align	:center;
+						width		:95px;
+						margin-left	:5px;
+						margin-right	:85px;
+					
+						"
+					onclick	="
+						alert(\'coming soon!\');
+						"
+					>
+					<ifRU>Новости</ifRU>
+					<ifEN>News</ifEN>
+				</playerPlayingNews>
+				<!--a 
+					class="block left"
+					href		="/getNews"
+					onClick		="
+						return false;
+						"
+					>
+					<ifRU>
+						В избранные станции
+					</ifRU>
+					<ifEN>
+						To selected stations
+					</ifEN>
+				</a-->
+			</ifPlaying>
+			<ifNoConnection
+				class	="cursor layer_2_2 no-select TC3 BC3 doubleLine"
+				onclick	="objPlayer.play();"
+				style	="
+					display		:none;
+					color		:#000;
+					text-align	:center;
+					"
+				>⚠
+			</ifNoConnection>
+			<ifNoConnection
+				class	="abs V99 cursor layer_2_2 no-select BC1 TC1 doubleLine"
+				onclick	="objPlayer.play();"
+				style	="
+					display		:none;
+					width		:100vw;
+					left		:0px;
+					text-align	:center;
+					"
+				>
+				<!--playerNoConnectionStat
+					class	="block right BLL TC3 BC3"
+					style	="
+						text-align	:left;
+						height		:100%;
+						width		:100px;
+						line-height	:13px;
+						"
+					>
+					<NoConnectionDuration
+						class="block"
+						>
+						0
+					</NoConnectionDuration>
+					<NoConnectionErrors
+						class="block"
+						>
+						0
+					</NoConnectionErrors>
+				</playerNoConnectionStat-->
+				<playerNoConnectionext
+					class	="block scrollerY"
+					style	="
+						height		:100%;
+						text-align	:left;
+						"
+					>
+					<playerNoConnectionStationName
+						
+						id	="playerControlAlwaysVisibleNoConnectionStationName"
+						>
+					</playerNoConnectionStationName>
+					<ifRU>
+						<marquee>Радиостанция сейчас недоступна. Возможно она очень далеко, перегружена или отдыхает. Попробуйте выбрать выбрать другую радиостанцию из списка.</marquee>
+						
+					</ifRU>
+					<ifEN>
+					[p	<marquee>This station is currently offline. Please chose another station from station\'s list.</marquee>
+					</ifEN>
+				</playerNoConnectionext>
+			</ifNoConnection>
+			<ifStopped
+				class	="fix block cursor layer_2_2 TC3 no-select line BRJ"
+				onclick	="
+					//objPlayer.objAudio.src				=objPlayerIndicatorMembrane.getAttribute(\'playerId\');
+					objPlayer.play();
+					"
+				style	="
+					display		: none;
+					text-align	: center;
+					background-color: #0000006e;
+					width		: 40px;
+					"
+				>
+				▷
+			</ifStopped>
+			<ifStopped
+				class	="abs V99 cursor layer_2_2 BC1 select doubleLine"
+				style	="
+					display		:none;
+					left		:0;
+					width		:100vw;
+					text-align	:center;
+					color		:#777;
+					"
+				>
+				<playerPlayButton
+					class	="block left TC3 BC3 line"
+					onclick	="
+						//objPlayer.objAudio.src			=this.parentNode.getAttribute(\'playerId\');
+						objPlayer.play();
+						"
+					style	="
+						text-align	:center;
+						width		:40px;
+						"
+					>
+					<ifEN
+						title="Play station"
+						>Play
+					</ifEN>
+					<ifRU
+						title="Нажмите чтобы начать слушать радио."
+						>Воспр.
+					</ifRU>
+				</playerPlayButton>
+				<playerNoConnectionStat
+					class	="block right BLL TC3 BC3"
+					style	="
+						text-align	:left;
+						height		:100%;
+						width		:100px;
+						line-height	:13px;
+						"
+					>
+					<NoConnectionDuration
+						class="block"
+						>
+						0
+					</NoConnectionDuration>
+					<NoConnectionErrors
+						class="block"
+						>
+						0
+					</NoConnectionErrors>
+				</playerNoConnectionStat>
+				<playerPlayText
+					id	="playerControlAlwaysVisibleStopped"
+					class	="block scrollerY"
+					style	="
+						height		:100%;
+						"
+					onClick	="
+						objEvent.arrReality.strID=\'\';
+						objEvent.arrReality.strName=\'\'; 
+						objEvent.arrReality.strStyle=\'\';
+						objEvent.arrReality.intBitrate=\'\';
+						objEvent.arrReality.strCodec=\'\';
+						objEvent._UpdateURLDyn(true);"
+						"
+					>
+				</playerPlayText>
+			</ifStopped>
+		</playerControlAlwaysVisible>
+		'.Player::strObjectInit();
+		}
+	public static function strHTML()
+		{
+		$objIndicatorPlayer	=new IndicatorPlayer();
+		return $objIndicatorPlayer->str;
+		}
+	}
+
+                     /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//        /\                  // /   
+//      <  **>               /// /  
+ //////   jl                ///// /    
+./././././././*/
+class IndicatorRole
+	{
+	public $strHTML		='';
+	public function __construct()
+		{
+		$this->strHTML='
+			<role
+				id	="SignalRole"
+				class	="block right BRJ BLL BC3 TC3"
+				style	="	
+					height		: 100%;
+					/*width		: 60px;*/
+					padding-right	: 4px;
+					padding-left	: 4px;
+					font-size	: smaller;
+					text-align	: center;
+					line-height	: 18px;
+					"
+				>
+				<ifRU
+					class="no-select"
+					>
+					Роль
+				</ifRU>
+				<ifEN
+					class="no-select"
+					>
+					Role
+				</ifEN>
+			</role>
+		';
+		$this->strHTML.=$this->strObjectDeclare();
+		$this->strHTML.=$this->strObjectInit();
+		}
+	private function strObjectDeclare()
+		{
+		$str	=<<<oo2oo
+		<script>
+			console.log('[V]EDRO IndicatorRole: Declare.');
+			class IndicatorRole
+				{
+				constructor()
+					{
+					console.log('[Vv]EDRO IndicatorRole: construct.');
+					this.objStr			=document.getElementById('SignalRole');
+					this.objStr.innerHTML		=strSignalRole;
+					console.log('[..]EDRO IndicatorRole: construct.');
+					}
+				}
+			console.log('[.]EDRO IndicatorRole: Declare.');
+		</script>
+oo2oo;
+		return $str;
+		}
+	private function strObjectInit()
+		{
+		return Event::strOConstruct('IndicatorRole');
+		}
+
+	public function strHTML()
+		{
+		$objIndicatorRole		=new IndicatorRole();
+		return $objIndicatorRole->strHTML;
+		}
+	}
+
+/*© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru*/
+//////
+   //   /\ RCe
+  //  <  **> 
+ //     Jl
+//////
+class PlayerEventIndicator
+	{
+	public $strHTML;
+	public function __construct()
+		{
+		$this->strHTML='
+		<eventIndicator
+			id	="PlayerEventIndicator1"
+			class="block abs layer_3_2 border-bottom"
+			style="
+				/*display	:none;*/
+				top	:0;
+				left	:3px;
+				width	:5px;
+				height	:5px;
+				background-color:#FFF;
+				"
+			>
+			<light
+				class	="block rel layer_3_4 blink-fast"
+				style	="
+					display	:block;
+					width	:5px;
+					height	:5px;
+					background-color:#333;
+					"
+				>
+			</light>
+		</eventIndicator>';
+		$this->strHTML.='
+		<eventIndicator
+			id	="PlayerEventIndicator2"
+			class="block abs layer_3_2 border-bottom"
+			style="
+				/*display	:none;*/
+				top	:0;
+				left	:11px;
+				width	:5px;
+				height	:5px;
+				background-color:#FFF;
+				"
+			>
+
+			<light
+				class	="block rel layer_3_4 blink-fast1"
+				style	="
+					display	:block;
+					width	:5px;
+					height	:5px;
+					background-color:#333;
+					"
+				>
+			
+			</light>
+		</eventIndicator>';
+		$this->strHTML.='
+		<eventIndicator
+			id	="PlayerEventIndicator3"
+			class="block abs layer_3_2 border-bottom"
+			style="
+				/*display	:none;*/
+				top	:0;
+				left	:19px;
+				width	:5px;
+				height	:5px;
+				background-color:#FFF;
+				"
+			>
+			<light
+
+				class	="block rel layer_3_4 blink-fast2"
+				style	="
+					display	:block;
+					width	:5px;
+					height	:5px;
+					background-color:#333;
+					"
+				>
+			
+			</light>
+		</eventIndicator>';
+		$this->strHTML.='
+		<eventIndicator
+			id	="PlayerEventIndicator4"
+			class="block abs layer_3_2 border-bottom"
+			style="
+				/*display	:none;*/
+				top	:0;
+				left	:27px;
+				width	:5px;
+				height	:5px;
+				background-color:#FFF;
+				"
+			>
+			<light
+
+				class	="block rel layer_3_4 blink-fast3"
+				style	="
+					display	:block;
+					width	:5px;
+					height	:5px;
+					background-color:#333;
+					"
+				>
+			
+			</light>
+		</eventIndicator>';
+		$this->strHTML.='
+		<eventIndicator
+			id	="PlayerEventIndicator5"
+			class="block abs layer_3_2 border-bottom"
+			style="
+				/*display	:none;*/
+				top	:0;
+				left	:35px;
+				width	:5px;
+				height	:5px;
+				background-color:#FFF;
+				"
+			>
+			<light
+
+				class	="block rel layer_3_4 blink-fast4"
+				style	="
+					display	:block;
+					width	:5px;
+					height	:5px;
+					background-color:#333;
+					"
+				>
+			
+			</light>
+		</eventIndicator>';
+		$this->strHTML.='
+		<eventIndicator
+			id	="PlayerEventIndicator6"
+			class="block abs layer_3_2 border-bottom"
+			style="
+				/*display	:none;*/
+				top	:0;
+				left	:43px;
+				width	:5px;
+				height	:5px;
+				background-color:#FFF;
+				"
+			>
+			<light
+
+				class	="block rel layer_3_4 blink-fast5"
+				style	="
+					display	:block;
+					width	:5px;
+					height	:5px;
+					background-color:#333;
+					"
+				>
+			
+			</light>
+		</eventIndicator>';
+		$this->strHTML.='
+		<eventIndicator
+			id	="PlayerEventIndicator7"
+			class="block abs layer_3_2 border-bottom"
+			style="
+				/*display	:none;*/
+				top	:0;
+				left	:51px;
+				width	:5px;
+				height	:5px;
+				background-color:#FFF;
+				"
+			>
+			<light
+
+				class	="block rel layer_3_4 blink-fast6"
+				style	="
+					display	:block;
+					width	:5px;
+					height	:5px;
+					background-color:#333;
+					"
+				>
+			
+			</light>
+		</eventIndicator>';
+		$this->strHTML='';
+		//$this->strHTML.=PlayerEventIndicator::strInitJs();
+		}
+	public static function strObjectInit()
+		{
+		return Event::strOConstruct('PlayerEventIndicator');
+		}
+	public static function strObjectDeclare()
+		{
+		$str='
+		<script>
+			class PlayerEventIndicator
+				{
+				constructor()
+					{
+					this.objHTML=document.getElementById(\'PlayerEventIndicator\');
+					console.log(\'Loaded Player event indicator (objPlayerEventIndicator).\');
+					}
+				}
+		</script>';
+		return $str;
+		}
+	public static function strHTML()
+		{
+		$objPlayerEventIndicator=new PlayerEventIndicator();
+		return $objPlayerEventIndicator->strHTML;
+		}
+	}
                 /*_____
 © Andrey Chekmaryov 2020 Hfic.Samin@vk.com 2021
 
@@ -4095,6 +6887,180 @@ oo2oo;
 	}
 
                      /*_____
+© Andrey Chekmaryov 2020
+
+Email:    assminog@gmail.com
+Email:    tubmulur@yandex.ru
+Phone:    +7(911)787-44-57
+Whatsapp: +7(911)787-44-57
+Telegram: https://t.me/HficSamin
+VK:       https://vk.com/Hfic.Samin
+VK:       https://vk.com/HiFiIntelligentClub
+Facebook: https://facebook.com/Hfic.Samin
+Facebook: https://facebook.com/HiFiIntelligentClub
+Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
+Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
+Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
+|E    |D     |R      |O      |
+|Event|Design|Reality|Objects|
+ ////// 2020                   /////  / 
+//         /\                  // /   
+//       <  **>               /// /  
+ //////    jl                ///// /    
+./././././././*/
+class SystemEventIndicatorStream
+	{
+	public $strHTML;
+	private $arrEDRO=
+	array(
+		'arrE'=>
+		array(
+			'/','/search'
+			),
+		'arrD'=>
+		array(
+			'/home/EDRO/2.Design/.strFileList.php',
+			),
+		'arrR'=>
+		array(
+			'arrLang'=>
+			array(
+				'EN','RU',
+				),
+			'arrRole'=>
+			array(
+				'Listener'
+				),
+			),
+		'arrO'=>
+		array(
+			'strHTML'=>''
+			),
+		);
+	public function __construct()
+		{
+		$this->strHTML='
+		<EDROContextSignals
+			class="abs layer_4 matrixTop V100 BC3 BT3"
+			style="	
+				left		:0;
+				height		:20px;
+				width		:100%;
+				"
+			>'.
+			DynaScreenEventIndicator::strHtml().
+			IndicatorPlayer::strHTML().
+			IndicatorNetwork::strHTML().
+			IndicatorHiFi::strHtml().
+			Login::strHTML().
+			IndicatorMasterClock::strHTML().
+			IndicatorDimensions::strHTML().
+			IndicatorLang::strHtml().
+			IndicatorRole::strHTML().
+		'</EDROContextSignals>';
+		}
+	public static function strHTML()
+		{
+		//$arrData['_strName']=$_objData->strName;
+		$objSystemEventIndicatorStream		=new SystemEventIndicatorStream();
+		return $objSystemEventIndicatorStream->strHTML;
+		}
+	}
+
+/*© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru*/
+////// 
+   //   /\ RCe
+  //  <  **> 
+ //     Jl   
+//////
+class Listeners
+	{
+	public $strHTML;
+	public function __construct($_objKIIM, $_мСлушатели, $_мПоиск)
+		{
+		$objKIIM=$_objKIIM;
+		   unset($_objKIIM);
+	
+		$objKIIM=KIIM::objStart($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
+
+		$мСлушатели	=$_мСлушатели;
+		$мСлушатели5Мин	=$_мСлушатели['мСлушателиЗаПятьМинут'];
+		           unset($_мСлушатели);
+		$this->strHTML='
+			<activeListeners 
+				class="fixed V3 block BTA layer_5 BC1 TC1" 
+				style="
+					left		:0px;
+					Width		:100%;
+					height		:20px;
+					font-size	:small;
+					"
+				>
+				<listenersAmount
+					class	="block left"
+					style	="font-size:xx-small;width:50px;line-height:10px;"
+					>
+					<listeners5mins 
+						class	="TC3 BC3 block left"
+						style	="width:100%;;text-align:left;"
+						title	="Listeners in past 5 minutes."
+						>5m:'.
+						$мСлушатели['чСлушателиЗаПятьМинут'].
+					'<listeners5mins>'.
+					'<listeners24hours 
+						class	="TC3 BC3 block left"
+						style	="width:100%;text-align:right;"
+						title	="Listeners in past 24 hours."
+						>24h:'.
+						$мСлушатели['чСлушателиЗа24Часа'].
+					'</listeners24hours>'.
+					'<listenersSome 
+						class	="TC3 BC3 block left"
+						title	="Listeners from the last o2o clearing."
+						>/T:'.
+						$мСлушатели['чСлушателиВсегоЗаписей'].
+					'</listenersSome>'.
+					':
+				</listenersAmount>
+				';
+		$ч0СлушателиНаЭкране=0;
+		foreach($мСлушатели5Мин as $чСлушательИД=>$мСлушательПараметры)
+			{
+			if(!empty($мСлушательПараметры['strStyle']))
+				{
+				$this->strHTML.='
+					<activeListener 
+						class="block left scrollerY scrollerGlide BRJ BC1 TC1" 
+						style="
+							height:20px;
+							"
+						>
+						';
+						$this->strHTML	.=Tag::strHTML($objKIIM, $мСлушательПараметры['strStyle'], $_мПоиск, 'strStyle');
+				$this->strHTML.='
+					</activeListener>
+					';
+				if($ч0СлушателиНаЭкране>10)
+					{
+					break;
+					}
+				$ч0СлушателиНаЭкране++;
+				}
+			}
+		$this->strHTML.='
+			</activeListeners>
+			';
+		$this->strHTML;
+		KIIM::objFinish($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
+		}
+	public static function strHTML($_objKIIM, $_мСлушатели, $_мПоиск)
+		{
+		$о	=new Listeners($_objKIIM, $_мСлушатели, $_мПоиск);
+		return $о->strHTML;
+		}
+	}
+
+                     /*_____
 © Andrey Chekmaryov 2021
 
 Email:    assminog@gmail.com
@@ -4130,10 +7096,17 @@ class Reality
 	public $R	= array( //Состояние операционной среды Реальность ([R]eality)
 			//	Listener
 			'bIzDNT'		=> FALSE, //Add event indicator to the top!!!!!!!!!!!!!
+			'bIzDynamic'		=> FALSE,
 			'strTo'			=> '',
-			'arrPlatform'		=> array(),
 			'strConnection'		=> '',
+			'strPlatform'		=> '',
+			'strPlatformPrefix'	=> '',
+			'strEventParams'	=> '',
+			'strEvent'		=> '',
+			'strEventExt'		=> '',
+
 			'strHiFiType'		=> '',
+			
 			);
 	public $O	= array( //Использующиеся объекты для работы и их настройки по-умолчанию. ([O]bjects)
 			'оОшибка'		=> '',
@@ -4146,10 +7119,44 @@ class Reality
 		//$this->E	= $arrE;
 		//$this->D	= $arrD;
 		//$this->R	= $arrR;
-		$this->R['bIzDNT']		= $arrE['bIzDNT'];
-		$this->R['strConnection']	= $arrE['strConnection'];
+		if($arrE['bIzDNT']===TRUE)
+			{
+			$this->R['bIzDNT']		= TRUE;
+			}
+		if($arrE['bIzDynamic']===TRUE)
+			{
+			$this->R['bIzDynamic'] 		= TRUE;
+			}
 		$this->R['strTo']		= $arrE['strTo'];
-		$this->R['arrPlatform']		= $arrE['arrPlatform'];
+		$this->R['strConnection']	= $arrE['strConnection'];
+		foreach($arrE['arrPlatform'] as $strPlatform => $bIzPlatform)
+			{
+			if($bIzPlatform===TRUE)
+				{
+				$this->R['strPlatform']	= $strPlatform;
+				break;
+				}
+			}
+		if($arrE['arrPlatform']['bIzAndroid'])
+			{
+			$this->R['strPlatformPrefix']	='/Android';
+			}
+		if($arrE['arrPlatform']['bIzAppleMobile'])
+			{
+			$this->R['strPlatformPrefix']	='/Apple';
+			}
+		foreach($arrE['arrEventParams'] as $strEventParam => $strEventParamVal)
+			{
+			$this->R['strEventParams'].='&'.$strEventParam.'='.$strEventParamVal;
+			}
+		$this->R['strEventParams']	= substr($this->R['strEventParams'], 1);
+		$this->R['strEvent']		= $arrE['strName'];
+		$this->R['strEventExt']		= $arrE['strExt'];
+
+
+		$this->R['strHiFiType']		= сПреобразовать($arrE['arrEventParams']['strHiFiType'], 'вСтроку');
+
+
 
 	/*+1+*/	$this->_IsDNT();
 	/*+2+*/	$this->_isConsole();
@@ -4161,7 +7168,7 @@ class Reality
 
 		///////////////////////////////////////////!!!!
 		
-		$this->R['сРасположениеКорень']	= сРасположениеО2оDB.сНазваниеО2оDB;
+		
 		///$this->arrReality['strRoleSignal']		= 'Listener';
 		///$this->arrReality['strListnersPath']		= '/home/EDRO.o2o/'.$this->arrReality['strRoleSignal'];
 		//$this->arrReality['strListenerId']		= СоздатьСеанс::с($this->arrReality['strRoleSignal'], $this);
@@ -4498,9 +7505,10 @@ class Objects
 		$this->R	= $o->R;
 		//$this->arrReality['сРасположениеКорень']	='/home/ЕДРО:ПОЛИМЕР/о2о.БазаДанных/HiFiIntelligentClub'; //moved to REALITY
 		$strPlatformPrefix	= '';
-		$strHiFiType		= сПреобразовать($this->E['arrEventParams']['strHiFiType'], 'вСтроку');
+		//$strHiFiType		= сПреобразовать($this->E['arrEventParams']['strHiFiType'], 'вСтроку');
 		//$strHiFiType		= '/HiFi beginner';
 
+		/*
 		$arrHiFi['Low quality']		='Low';   //NoHiFi
 		$arrHiFi['HiFi beginner']	='beginner'; //HiFi
 		$arrHiFi['HiFi casual']		='casual'; //HiFi
@@ -4509,6 +7517,7 @@ class Objects
 		$arrHiFi['HiFi modern']		='HiFi 2.1'; //2.1
 		$arrHiFi['HiFi modern_casual']	='HiFi 5.1'; //5.1
 		$arrHiFi['HiFi modern_casual+']	='HiFi 7.1'; //7.1
+		*/
 		//print_r($this->arrEvent['arrReality']['strStationID']);
 		//exit();
 	/*	
@@ -4530,6 +7539,7 @@ class Objects
 			}
 		$this->arrEvent['arrReality']['strHiFiType']	=$strHiFiType;
 		*/
+		/*
 		if($this->R['arrPlatform']['bIzAndroid'])
 			{
 			$strPlatformPrefix	='/Android';
@@ -4538,6 +7548,7 @@ class Objects
 			{
 			echo $strPlatformPrefix	='/Apple';
 			}
+		*/
 		//$сРасположениеКорень	=$сРасположениеКорень;
 
 		$strSearchName		=сПреобразовать(mb_strtolower($this->E['arrEventParams']['strName']),'вКоманду');
@@ -4549,11 +7560,7 @@ class Objects
 		$strSearch		=мЖанр_мЯзык_мТранскрипция($strSearchGenre);
 
 		$strSearchType   	=empty($strSearchName)? '/unordered/':'/search/';
-		/*
-		//echo $сРасположениеКорень.'/Stations/strICQRTypeF.php';
-		$strICQRTypeF='ICQR_Q';
-		//include($this->arrReality['сРасположениеКорень'].'/Stations/strICQRTypeF.php');
-		*/
+
 		$strICQRTypeF='ICQR_Q';
 		//$strSearchPath		='/Stations/'.$strICQRTypeF.'/'.$strHiFiType.$strPlatformPrefix;
 		if($strSearchGenre=='')
@@ -5514,1483 +8521,6 @@ class ПрочитатьСлушателей
 		//exit(0);
 		$оПрочитатьСлушателей	=new ПрочитатьСлушателей($_сРасполож);
 		return $оПрочитатьСлушателей->м020;
-		}
-	}
-
-/*© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru*/
-//////
-   //   /\ RCe
-  //  <  **> 
- //     Jl
-//////
-class DynaScreen
-	{
-	public $strHTML;
-	public function __construct($_arrData)
-		{
-		}
-	public static function strStart($objEDRO, $strSearchForm)
-		{
-		if($objEDRO->arrEvent['bIzDynamic'])
-			{
-			$intHeight	=122;
-			if($objEDRO->arrReality['bIzApple'])
-				{
-				$intHeight	=102;
-				}
-			$str		=$objEDRO->strRealityInit();
-			$str		.='
-				<brickTop 
-					class="block" 
-					style="width:100%;height:'.$intHeight.'px;margin:0;padding:0;"
-					>
-				</brickTop>';
-
-			}
-		else
-			{
-			$str		=FileRead::strGetDesignHTML('/home/EDRO.SetOfTools/System/6.HTML_Interfaces/0.HTML_HeadInterface.php', $objEDRO);
-			$str		.=$strSearchForm;
-			$str		.=Listeners::strHTML($objEDRO->arrReality['arrCurrentListeners'], $objEDRO->arrEvent['arrReality']);
-			//$str		.=FileRead::strGetDesignHTML(array(), '/home/EDRO/4.Objects/Read/Cloud/Disk/Pages/_UpdateMessage.php', $objEDRO);
-			$str		.='
-			<dynaScreen
-				id	="DynaScreen"
-				class	="fixed block layer_1"
-				style	="
-					top			:0;
-					left			:0;
-					width			:100%;
-					height			:100%;
-					display			:block;
-					"
-				>
-				<brickTop 
-					class="block" 
-					style="width:100%;height:82px;margin:0;padding:0;"
-					>
-				</brickTop>
-				';
-			}
-		
-		//$str.='<marginTop class="block" style="width:100%;height:2%"></marginTop>';
-		//$str.='<pageDate id="pageDateTimeServer" style="display:none">'.сКодировать(date('Y-m-d H:i:s').$_SESSION['strListener'], 'вКоманду').'</pageDate>';
-		//file_put_contents('/home/HiFiIntelligentClub.Ru/tmp/symbols.txt', сКодировать(date('Y-m-d H:i:s').$_SESSION['strListener'], 'вКоманду'));
-
-		return $str;
-		}
-	public static function strEnd($objEDRO, $bIzDynamic)
-		{
-		$str='';
-		if($bIzDynamic)
-			{
-			//$str.='<brickBottom class="block" style="width:100%;height:200px"></brickBottom>';
-			}
-		else
-			{
-			//$str='<brickBottom class="block" style="width:100%;height:100px"></brickBottom>';
-			$str.='</dynaScreen>';
-			$str.=DynaScreen::strObjectInit();
-			$str.=Design::strObjectInit();
-			$str.=Objects::strObjectInit();
-			}
-		return $str;
-		}
-	public static function strObjectInit()
-		{
-		return Event::strOConstruct('DynaScreen');
-		}
-	public static function strObjectDeclare()
-		{
-		$str	= <<<oo2oo
-		<script>
-		console.log('[V]EDRO.Objects: DynaScreen');
-		class DynaScreen
-			{
-			constructor()
-				{
-				console.log('[Vv]EDRO.Objects.DynaScreen: construct()');
-				this.objXHR		=new XMLHttpRequest();
-				this.objHTML		=document.getElementById('DynaScreen');
-				this.intHeight		=0;
-				this.intWidth		=0;
-				this._GetDimensions();
-				this.objXHR.onload	=function()
-					{
-					console.log('[Vvv]EDRO.Objects: DynaScreen.objXHR.onload');
-					if(objDynaScreen.objXHR.status==200)
-						{	
-						if(objReality.bIzDynaScreen)
-							{
-							objDynaScreen.objHTML.innerHTML	=objDynaScreen.objXHR.response;
-							objReality.bIzHistory		=false;
-							objReality.bIzDynaScreen	=false;
-							objReality.bIzLoading		=false;
-							}
-						objReality.bIzLoading		=false;
-						objReality.bIzHistory		=false;
-						objReality.bIzDynaScreen	=false;
-						objPlayer.updateOnReload();
-						objDynaScreenEventIndicator.objHTML.style.display="none";
-						}
-					else
-						{
-						objReality.bIzLoading		=false;
-						objReality.bIzHistory		=false;
-						objReality.bIzDynaScreen	=false;
-						objDynaScreenEventIndicator.objHTML.style.display="none";
-						}
-					console.log('[...]EDRO.Objects: DynaScreen.objXHR.onload');
-					}
-				this.objXHR.onProgress		=function(event)
-					{
-					console.log('[Vvv]EDRO.Objects: DynaScreen.objXHR.onProgress');
-					if(event.lengthComputable)
-						{
-						//console.log('Получено'+event.loaded+'байт из'+event.total+'байт.');
-						}
-					else
-						{
-						//console.log('Получено'+event.loaded+'байт');
-						}
-					console.log('[...]EDRO.Objects: DynaScreen.objXHR.onProgress');
-					}
-				this.objXHR.onError=function()
-					{
-					console.log('[Vvv]EDRO.Objects: DynaScreen.objXHR.onError');
-					objReality.bIzLoading		=false;
-					objReality.bIzDynaScreen	=false;
-					objReality.bIzError		=true;
-					
-					objDynaScreenEventIndicator.objHTML.style.display="none";
-					console.log('[...]EDRO.Objects: DynaScreen.objXHR.onError');
-					}
-				//this.strEvent		='/search';
-				//this.strParametrs	='';
-				//this.strDynaUpdate	='';
-				//this.strUrl		='';
-				//this.bIzHistory		=true;
-				console.log('[..]EDRO.Objects: DynaScreen.construct()');
-				}
-			_GetDimensions()
-				{
-				//console.log('[Vv]EDRO.Objects.DynaScreen:  _GetDimensions()');
-				this.intHeight		=this.objHTML.offsetHeight;
-				this.intWidth		=this.objHTML.offsetWidth;
-				//console.log('[..]EDRO.Objects.DynaScreen:  _GetDimensions()');
-				}
-			}
-		console.log('[.]EDRO.Design: DynaScreen');
-		</script>
-oo2oo;
-		return $str;
-		}
-	public static function strHTML($_objData)
-		{
-		$objDynaScreen=new DynaScreen($_objData);
-		return $objDynaScreen->strHTML;
-		}
-	}
-
-                     /*_____
-© Andrey Chekmaryov 2020
-
-Email:    assminog@gmail.com
-Email:    tubmulur@yandex.ru
-Phone:    +7(911)787-44-57
-Whatsapp: +7(911)787-44-57
-Telegram: https://t.me/HficSamin
-VK:       https://vk.com/Hfic.Samin
-VK:       https://vk.com/HiFiIntelligentClub
-Facebook: https://facebook.com/Hfic.Samin
-Facebook: https://facebook.com/HiFiIntelligentClub
-Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
-Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
-Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
-|E    |D     |R      |O      |
-|Event|Design|Reality|Objects|
- ////// 2020                   /////  / 
-//        /\                  // /   
-//      <  **>               /// /  
- //////   jl                ///// /    
-./././././././*/
-class HiFiNavigation
-	{
-	public $strHTML;
-	public function __construct($_arrPagination, $arrReality, $objEDRO)
-		{
-
-		$intPage		=$_arrPagination['int0Page'];
-		$intStart		=$_arrPagination['int0Start'];
-		$intEnd			=$_arrPagination['int0Untill'];
-		$intPageParamName	='int0Page';
-		$intPages		=$_arrPagination['int0Pages'];
-		$intTotal		=$_arrPagination['int0Total'];
-		$intNextPage		=($intPage+1);
-		$intPrevPage		=($intPage-1);
-		if($objEDRO->arrReality['strLangSignal']=='RU')
-			{
-			$arrO['Forward']	='Нажмите, чтобы перейти на следующую страницу.';
-			$arrO['Backward']	='Нажмите, чтобы перейти на предидущую страницу.';
-			$arrO['Counters']	='[Отображены станции от-до][Не отображено станций до конца списка][Всего станций]';
-			$arrO['Selector']	='Введите номер страницы на которую вы хотите перепрыгнуть.';
-			}
-		else
-			{
-			$arrO['Forward']	='Press this button, to go to the next page.';
-			$arrO['Backward']	='Press this button, to go to the previous page.';
-			$arrO['Counters']	='[Showing stations from-to][Stations remain][Total stations]';
-			$arrO['Selector']	='Enter the page number to jump to.';
-			}
-		//echo $intPageParamName;
-		//echo $intNextPage;
-		//	$arrEventLink=arrEventLink($arrReality, $intPageParamName, $intNextPage, true);
-		//	echo $arrEventLink['strHref'];
-		
-		$str='
-		<pageNavShader
-			class="
-				fixed V1 block layer_4 BC1 TC1 BBV Lx2
-				"
-			style="
-				left		:0;
-				width		:100%;
-				"
-			>
-		</pageNavShader>
-		<pageNav
-			class="
-				fixed V1 block layer_5 BC1 TC1 BBV Lx2
-				"
-			style="
-				left		:15%;
-				width		:70%;
-				text-align	:center;
-				margin		:auto;
-				"
-			>';
-
-			if($intPage<$intPages)
-				{
-				$arrEventLink=arrEventLink($arrReality, $intPageParamName, $intNextPage, true);
-				$str.=
-				'<a
-				id	="objPageForward"'
-				.$arrEventLink['strHref'].' '
-				.$arrEventLink['strOnClick'].
-				'class="block right BBV BTA BC2 TC2 cursor no-select Lx2t2"
-					style="
-						font-size	:large;
-						width		:34%;
-						text-align	:center;
-						text-decoration	:none;
-						"
-					title="'.$arrO['Forward'].'"
-					>
-					>>
-				</a>';
-				}
-			else
-				{
-				$str.=
-				'<abuf
-					id	="objPageForward"
-					href	="#"
-					onclick	=""
-					class	="block right BBV BTA BC1 TC1 cursor no-select Lx2t2"
-					style	="
-						width		:34%;
-						text-align	:center;
-						text-decoration	:none;
-						"
-					>
-				</abuf>';
-				}
-			$str.=
-			'<pagerNum
-				class="fix V1 block tcenter BC1 TC1 BLL BRJ BBV BTA no-select Lx2"
-				style="
-					left		:36%;
-					width		:28%;
-					"
-				title="'.$arrO['Counters'].'"
-				>
-
-
-				<strPage
-					class="brick tcenter"
-					>
-					<input 
-						id	="objPageNumberSelect"
-						class	=""
-						style	="
-							width:40%;
-							"
-						onChange="
-							//bizHiFiNavigationInputSelect	=false; //Need to send result
-							objEvent.arrReality.'.$intPageParamName.'=this.value;
-							objEvent._UpdateURLDyn();
-							return false;
-							"
-						onFocusin="
-							//objHiFiNavigation.bizPageSelectFoucus=true;
-							bizHiFiNavigationInputSelect	=true;
-							"
-						onfocusout="
-							//objHiFiNavigation.bizPageSelectFoucus=false;
-							bizHiFiNavigationInputSelect	=false;
-							"
-						type	="number" 
-						value	="'.$intPage.'"
-						step	="1" 
-						min	="0" 
-						max	="'.$intPages.'"
-						title	="'.$arrO['Selector'].'"
-					/>
-					<strPages
-						id	="objPageMaximum"
-						class	="L1"
-						style="
-							width:60%;
-							"
-						>
-						<ifRU>из </ifRU>
-						<ifEN>of </ifEN>
-						<int0Max
-							id	="objPageMaximum"
-							>
-							'.$intPages.'
-						</int0Max>
-					</strPages>
-				</strPage>
-			</pagerNum>';
-			if($intPage<1)
-				{
-				$str.='
-				<abuf
-					id	="objPageBackward"
-					onclick	=""
-					class	="block left BBV BTA BC1 TC1 cursor no-select Lx2"
-					style	="
-						text-align	:center;
-						text-decoration	:none;
-						"
-					>
-				</abuf>';
-				}
-			else
-				{
-				$arrEventLink=arrEventLink($arrReality, $intPageParamName, $intPrevPage, true);
-				$str.=
-				'<a
-					id	="objPageBackward"'.
-					$arrEventLink['strHref'].' '.
-					$arrEventLink['strOnClick'].'
-					class="block left BBV BTA BC2 TC2 cursor no-select Lx2t2"
-					style="
-						font-size	:large;
-						width		:34%;
-						text-align	:center;
-						text-decoration	:none;
-						"
-					title="'.$arrO['Backward'].'"
-					>
-					<<
-				</a>';
-				}
-		$str.=
-		'</pageNav>';
-		$str.=HiFiNavigation::strObjectInit();
-		$this->strHTML	=$str;
-		}
-	public static function strObjectDeclare()
-		{
-		$str	=<<<oo2oo
-		<script>
-			console.log('[Vv]HiFiNavigation declare.');
-			class HiFiNavigation
-				{
-				objRight		='';
-				objLeft			='';
-				//bizPageSelectFoucus	=true;
-				int0Page		=0;
-				int0PageMaximum		=0;
-				constructor()
-					{
-					this.objXHR		=new XMLHttpRequest();
-					this.objRight		=document.getElementById("objPageForward");
-					this.objLeft		=document.getElementById("objPageBackward");
-					this.int0Page		=document.getElementById("objPageNumberSelect").value;
-					this.int0PageMaximum	=document.getElementById("objPageMaximum").innerHTML;
-					this.objXHR.onload	=function()
-						{
-						console.log('[Vvv]EDRO.Objects: objXHR.onload');
-						if(objHiFiNavigation.objXHR.status==200)
-							{	
-							if(objReality.bIzPlayer)
-								{
-								}
-							if(objReality.bIzDynaScreen)
-								{
-								}
-							if(objReality.bIzCheckMaNet)
-								{
-								}
-							}
-						else
-							{
-							}
-						console.log('[...]EDRO.Objects: objXHR.onload');
-						}
-					this.objXHR.onProgress		=function(event)
-						{
-						console.log('[Vvv]EDRO.Objects: objXHR.onProgress');
-						if(event.lengthComputable)
-							{
-							//console.log('Получено'+event.loaded+'байт из'+event.total+'байт.');
-							}
-						else
-							{
-							//console.log('Получено'+event.loaded+'байт');
-							}
-						console.log('[...]EDRO.Objects: objXHR.onProgress');
-						}
-					this.objXHR.onError=function()
-						{
-						console.log('[Vvv]EDRO.Objects: objXHR.onError');
-						console.log('[...]EDRO.Objects: objXHR.onError');
-						}
-					console.log('[..]EDRO.Event: Constructor');
-					}
-				}
-			console.log('[..]HiFiNavigation declare.');
-		</script>
-oo2oo;
-		return $str;
-		}
-	public static function strObjectInit()
-		{
-		return Event::strOConstruct('HiFiNavigation');
-		}
-	public static function strHTML($_arrPagination, $_arrReality, $objEDRO=array())
-		{
-		$objHiFiNavigation=new HiFiNavigation($_arrPagination, $_arrReality, $objEDRO);
-		return $objHiFiNavigation->strHTML;
-		}
-	}
-
-/*© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru*/
-////// 
-   //   /\ RCe
-  //  <  **> 
- //     Jl   
-//////
-class Listeners
-	{
-	public $strHTML;
-	public function __construct($_objKIIM, $_мСлушатели, $_мПоиск)
-		{
-		$objKIIM=$_objKIIM;
-		   unset($_objKIIM);
-	
-		$objKIIM=KIIM::objStart($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
-
-		$мСлушатели	=$_мСлушатели;
-		$мСлушатели5Мин	=$_мСлушатели['мСлушателиЗаПятьМинут'];
-		           unset($_мСлушатели);
-		$this->strHTML='
-			<activeListeners 
-				class="fixed V3 block BTA layer_5 BC1 TC1" 
-				style="
-					left		:0px;
-					Width		:100%;
-					height		:20px;
-					font-size	:small;
-					"
-				>
-				<listenersAmount
-					class	="block left"
-					style	="font-size:xx-small;width:50px;line-height:10px;"
-					>
-					<listeners5mins 
-						class	="TC3 BC3 block left"
-						style	="width:100%;;text-align:left;"
-						title	="Listeners in past 5 minutes."
-						>5m:'.
-						$мСлушатели['чСлушателиЗаПятьМинут'].
-					'<listeners5mins>'.
-					'<listeners24hours 
-						class	="TC3 BC3 block left"
-						style	="width:100%;text-align:right;"
-						title	="Listeners in past 24 hours."
-						>24h:'.
-						$мСлушатели['чСлушателиЗа24Часа'].
-					'</listeners24hours>'.
-					'<listenersSome 
-						class	="TC3 BC3 block left"
-						title	="Listeners from the last o2o clearing."
-						>/T:'.
-						$мСлушатели['чСлушателиВсегоЗаписей'].
-					'</listenersSome>'.
-					':
-				</listenersAmount>
-				';
-		$ч0СлушателиНаЭкране=0;
-		foreach($мСлушатели5Мин as $чСлушательИД=>$мСлушательПараметры)
-			{
-			if(!empty($мСлушательПараметры['strStyle']))
-				{
-				$this->strHTML.='
-					<activeListener 
-						class="block left scrollerY scrollerGlide BRJ BC1 TC1" 
-						style="
-							height:20px;
-							"
-						>
-						';
-						$this->strHTML	.=Tag::strHTML($objKIIM, $мСлушательПараметры['strStyle'], $_мПоиск, 'strStyle');
-				$this->strHTML.='
-					</activeListener>
-					';
-				if($ч0СлушателиНаЭкране>10)
-					{
-					break;
-					}
-				$ч0СлушателиНаЭкране++;
-				}
-			}
-		$this->strHTML.='
-			</activeListeners>
-			';
-		$this->strHTML;
-		KIIM::objFinish($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
-		}
-	public static function strHTML($_objKIIM, $_мСлушатели, $_мПоиск)
-		{
-		$о	=new Listeners($_objKIIM, $_мСлушатели, $_мПоиск);
-		return $о->strHTML;
-		}
-	}
-
-                     /*_____
-© Andrey Chekmaryov 2020
-
-Email:    assminog@gmail.com
-Email:    tubmulur@yandex.ru
-Phone:    +7(911)787-44-57
-Whatsapp: +7(911)787-44-57
-Telegram: https://t.me/HficSamin
-VK:       https://vk.com/Hfic.Samin
-VK:       https://vk.com/HiFiIntelligentClub
-Facebook: https://facebook.com/Hfic.Samin
-Facebook: https://facebook.com/HiFiIntelligentClub
-Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
-Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
-Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
-|E    |D     |R      |O      |
-|Event|Design|Reality|Objects|
- ////// 2020                   /////  / 
-//        /\                  // /   
-//      <  **>               /// /  
- //////   jl                ///// /    
-./././././././*/
-class LogIn
-	{
-	public $strHTML		='';
-	public function __construct()
-		{
-		$this->strHTML='
-			<buttonLogin
-				id	="objLoginButton"
-				class	="brick left BLL BLR sensorButton"
-				style	="
-					text-align	:center;
-					padding		:0 5px 0 5px;
-					"
-				>
-				<ifEN style="width:100%;">LogIn</ifEN>
-				<ifRU style="width:100%;">Вход</ifRU>
-			</buttonLogin>
-			';
-
-		$this->strHTML.='
-			<HiFiLoginForm
-				id	="objLoginForm"
-				class	="fix block layer_6  HL0 V99 TC1 BC1 BBV"
-				onclick	="
-					//this.parentNode.classList.remove(\'CutDown\');
-					//this.parentNode.className+=\' Expanded\';
-					"
-				style	="
-					width		:100vw;
-					height		:100vh;
-					"
-				>
-				<menu
-					class	="block"
-					style	="
-						width		:100%;
-						height		:40px;
-						padding		:0;
-						margin		:0;
-						"
-					>
-					<topTouchBuffer
-						class	="block TC2 BC2"
-						style	="
-							height	:10px;
-							width	:100%;
-							font-size	:x-small;
-							"
-						>
-					</topTouchBuffer>
-					<ifRU>Вход</ifRU>
-					<ifEN>LogIn</ifEN>
-					<closeButton
-						class	="sensor block right TC3 BC3"
-						style	="
-							height		:20px;
-							width		:60px;
-							text-align	:center;
-							line-height	:18px;
-								"
-						onclick	="
-							this.parentNode.parentNode.parentNode.classList.remove(\'Expanded\');
-							this.parentNode.parentNode.parentNode.className+=\' CutDown\';
-							"
-						>
-						<ifRU>
-							x
-						</ifRU>
-						<ifEN>
-							x
-						</ifEN>
-					</closeButton>
-					<bottomTouchBuffer
-						class	="block TC2 BC2"
-						style	="
-							height		:10px;
-							width		:100%;
-							font-size	:x-small;
-							"
-						>
-					</bottomTouchBuffer>
-				</menu>
-				<data
-					class	="block scrollerY TC1 BC1"
-					style	="
-						width	:100%;
-						height	:152px;
-						"
-					>
-					<form 
-						id		="objFormLogin"
-						class		="block TC1 BC1"
-						action		="/search"
-						onsubmit	="return false;"
-						style		="
-								width		:100%;
-								height		:152px;
-								"
-						>
-					</form>
-				</data>
-			</HiFiLoginForm>';
-		$this->strHTML.=$this->strObjectDeclare();
-		$this->strHTML.=$this->strObjectInit();
-		}
-	private function strObjectDeclare()
-		{
-		$str	=<<<oo2oo
-		<script>
-			console.log('[V]EDRO LogIn: Declare.');
-			class Login // Init after signal panel//
-				{
-				constructor()
-					{
-					console.log('[Vv]EDRO Login: construct.');
-					
-				
-					this.objButton			=document.getElementById('objLoginButton');
-					this.objFormBrick		=document.getElementById('objLoginForm');
-					this.objForm			=document.getElementById('objFormLogin');
-
-					console.log('[..]EDRO Login: construct.');
-					}
-				}
-			console.log('[.]EDRO LogIn: Declare.');
-		</script>
-oo2oo;
-		return $str;
-		}
-	private function strObjectInit()
-		{
-		return Event::strOConstruct('LogIn');
-		}
-	public static function strButton()
-		{
-		}
-	public static function strHTML()
-		{
-		//$obj		=new LogIn();
-		//return $obj->strHTML;
-		}
-	}
-
-                     /*_____
-© Andrey Chekmaryov 2020
-
-Email:    assminog@gmail.com
-Email:    tubmulur@yandex.ru
-Phone:    +7(911)787-44-57
-Whatsapp: +7(911)787-44-57
-Telegram: https://t.me/HficSamin
-VK:       https://vk.com/Hfic.Samin
-VK:       https://vk.com/HiFiIntelligentClub
-Facebook: https://facebook.com/Hfic.Samin
-Facebook: https://facebook.com/HiFiIntelligentClub
-Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
-Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
-Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
-|E    |D     |R      |O      |
-|Event|Design|Reality|Objects|
- ////// 2020                   /////  / 
-//        /\                  // /   
-//      <  **>               /// /  
- //////   jl                ///// /    
-./././././././*/
-class Overlay
-	{
-	public 	$strHTML;
-	private $arrEvent	=
-		array(
-		'close'=>
-			array(
-			'strLink'		=>'',
-			'strOnClick'		=>'this.parentNode.className +=\' hidden\';',
-			)
-		);
-	private $arrDesign	=
-		array(
-		'close'=>
-			array(
-			'strClass'		=>'',
-			'strStyle'		=>'',
-			'intLayer'		=>'',
-			),
-		'informationWindow'=>
-			array(
-			'strClass'		=>'',
-			'strStyle'		=>'',
-			'strLayer'		=>'layer_6',
-			),
-		'scrollerPart '=>
-			array(
-			'strClass'		=>'',
-			'strStyle'		=>'',
-			'intLayer'		=>1,
-			),
-		);
-	private $objReality	=
-		array(
-		'close'=>
-			array(
-			'arrRole'=>
-			array(
-				'Listener', 'Operator'
-				),
-			'arrLang'=>
-			array(
-				'ifEN'	=>'',
-				'ifRU'	=>'',
-				),
-			),
-		'informationWindow'=>
-			array(
-			'arrRole'=>
-			array(
-				'Listener', 'Operator'
-				),
-			'arrLang'=>
-			array(
-				'ifEN'	=>'',
-				'ifRU'	=>'',
-				),
-			),
-		'scrollerPart'=>
-			array(
-			'arrRole'=>
-			array(
-				'Listener', 'Operator'
-				),
-			'arrLang'=>
-			array(
-				'ifEN'	=>'',
-				'ifRU'	=>'',
-				),
-			),
-		);
-	private $arrObjects	=
-		array(
-		'title'=>array(
-			'EN'=>'Close this window',
-			'RU'=>'Закрыть это окошко',
-			),
-		);
-	public function __construct($objEDRO=array())
-		{
-		$this->strHTML='
-		<informationWindow
-			id	="objInformationOverlay"
-			class	="fixed V94 block window '.$this->arrDesign['informationWindow']['strLayer'].' TC3 BC3 BBV BTA"
-			style	="
-				width		:100vw;
-				height		:300px;
-				max-height	:50vh;
-				"
-			>
-			<close
-				class		="block TC1 BC2 sensor"
-				onClick		="'.$this->arrEvent['close']['strOnClick'].'"
-				>
-				<close
-					class	="block right"
-					style	="
-						width		: 40px;
-						color		: #fff;
-						background-color: #000;
-						text-align	: center;
-						"
-					title	="'.$this->arrObjects['title'][$objEDRO->arrReality['strLangSignal']].'"
-						>
-						X
-	    				</close>
-				HiFiIntelligentClub
-			</close>
-			<scrollerPart 
-				class	="block scrollerY"
-				style	="
-					width		:100vw;
-					height		:240px;
-					max-height	:40vh;
-					"
-				>
-				<ifEN>HiFi Intelligent Club - is the friend for the real people who are exist right here and now. Only for today.</ifEN>
-				<ifRU>HiFi Intelligent Club - для людей, существующих сдесь и сейчас. Только сегодня.</ifRU>
-				<ifRU>
-					<p>
-						<a name="УвеличитьЭкран"><h2>Слишком мелко?</h2></a>
-						<p>
-							<color style="font-size:x-large;color:green">Зажмите клавишу ctrl(Контрл) 
-							и крутите колесо мышки. Станет крупнее/мельче.</color><br/>
-							Приложение само подстроится под ваши настройки, удалив с экрана выступающие за край элементы.<br/>
-							CTRL+Колесо мыши: Выведите на экран станцию такого размера, как вам удобно смотреть!
-						</p>
-						<p>
-							Искренне ваш Hfic.Samin Президент HiFiIntelligentClub.
-						</p>
-					</p>
-				</ifRU>
-				<ifEN>
-					<p>
-						<a name="Enlarge_ctrlmouseWheel"><h2>"Too small text?"</h2></a>
-						<p>
-							<color style="font-size:x-large;color:green">Hold down the ctrl key and turn the 
-							mouse wheel</color><br/>
-							The application will adjust itself to your vision, Displaying a station of the 
-							size that is convenient for you to look at!
-						</p>
-						<p>
-							Sincerely yours Hfic. Samin President of HiFiIntelligentClub.
-						</p>
-					</p>
-				</ifEN>
-			</scrollerPart>
-
-		</informationWindow>';
-
-
-
-
-/*-[.]*/	}
-
-/*-[E]*/private function strEvent()
-		{
-		//$strD='class="'.$this->arrDesign['strClass'].'" ';
-		//$strD.='style="'.$this->arrDesign['strStyle'].'" ';
-		return $strD;
-/*-[.]*/	}
-/*-[D]*/private function strDesign()
-		{
-		//$strD='class="'.$this->arrDesign['strClass'].'" ';
-		//$strD.='style="'.$this->arrDesign['strStyle'].'" ';
-		return $strD;
-/*-[.]*/	}
-/*-[R]*/private function strReality()
-		{
-		//print_r($_SESSION);
-		//$this->objReality['arrRole'];
-		//$this->objReality['arrLang'];
-		//$strR='<ifRU>'.$this->objReality['arrLang']['ifRU'].'</ifRU>';
-		//$strR.='<ifEN>'.$this->objReality['arrLang']['ifEN'].'</ifEN>';
-		return $strR;
-		}
-/*-[O]*/private function strObject()
-		{
-		return $strO;
-/*-[.]*/	}
-	public static function strHTML($objEDRO=array())
-		{
-		$objOverlay=new Overlay($objEDRO);
-		return $objOverlay->strHTML;
-		}
-	}
-
-                     /*_____
-© Andrey Chekmaryov 2020
-
-Email:    assminog@gmail.com
-Email:    tubmulur@yandex.ru
-Phone:    +7(911)787-44-57
-Whatsapp: +7(911)787-44-57
-Telegram: https://t.me/HficSamin
-VK:       https://vk.com/Hfic.Samin
-VK:       https://vk.com/HiFiIntelligentClub
-Facebook: https://facebook.com/Hfic.Samin
-Facebook: https://facebook.com/HiFiIntelligentClub
-Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
-Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
-Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
-|E    |D     |R      |O      |
-|Event|Design|Reality|Objects|
- ////// 2020                   /////  / 
-//        /\                  // /   
-//      <  **>               /// /  
- //////   jl                ///// /    
-./././././././*/
-class Pagination
-	{
-	public $arr	=array();
-	public function __construct($objEDRO)
-		{
-		/*echo '<pre>';
-		print_r($objEDRO->arrEvent);
-		echo '</pre>';*/
-		//exit;
-		//$objEDRO->arrEvent['arrReality']['int0PlayingStationNum'];
-		//$objKIIM=$_objKIIM;
-		   //unset($_objKIIM);
-			//print_r($objEDRO);
-			//exit;
-		/*echo*/$int1PlayingStationNum		=$objEDRO->E['arrEventParams']['int1PlayingStationNum'];
-		/*echo*/$int0Page			=($objEDRO->E['arrEventParams']['int0Page']); //0,1,xxx
-		/*echo*/$int1OnPage			=$objEDRO->E['arrEventParams']['int1OnPage']; //1-> 8 = 8
-		/*echo*/$int0Start			=0+($int0Page*$int1OnPage);//From 0 to 7 intStart=8 ->15 intStart=16;
-		/*echo*/$int1Untill			=($int0Start+$int1OnPage);//From 0 to 7 including 7 = 8
-		/*echo*/$int0Untill			=($int1Untill-1);
-			if($objEDRO->O['ч0РасположениеTotal'])
-				{
-		/*echo*/	if($objEDRO->O['ч0РасположениеTotal']===0)
-					{
-					$int1Total	=1; //Channge in par
-					$int0Total	=0;
-					}
-				else
-					{
-					$int1Total	=($objEDRO->O['ч0РасположениеTotal']+1); //Channge in par
-					$int0Total	=($int1Total-1);
-					}
-				}
-			else
-				{
-				$objTotal	=FileRead::objJSON($objEDRO->O['сРасположениеTotal']); //0-lastone
-				if($objTotal===0)
-					{
-					$int1Total	=1; //Channge in par
-					$int0Total	=0;
-					}
-				else
-					{
-		/*echo*/		$int1Total	=($objTotal->total+1); //Channge in par
-					$int0Total	=($int1Total-1);
-					}    
-				}
-
-		unset($objTotal);
-		if($int1OnPage==0)
-			{
-			
-			$int1Pages		=intRoundUp(($int1Total)/1);
-			}
-		else
-			{
-			/*echo*/$int1Pages	=intRoundUp(($int1Total)/$int1OnPage);//totall is not from 0, to find we need to convert ;
-			}
-		$int0Pages		=($int1Pages-1);
-		if($int0Page>$int0Pages)
-			{
-			$objEDRO->arrEvent['arrReality']['int0Page']	=$int0Pages;
-			$int0Page					=$int0Pages;
-			/*echo*/ $int0Start	=0+($int0Pages*$int1OnPage);//From 0 to 7 intStart=8 ->15 intStart=16;
-			/*echo*/ $int1Untill	=($int0Start+$int1OnPage);//From 0 to 7 including 7 = 8
-			}
-		else
-			{
-			//$int0Page					=($int1Page-1);
-			}
-		if($int0Total<$int0Untill)
-			{
-			$int0Untill=$int0Total;
-			}
-		else
-			{
-			//$int0Untill=($int1Untill-1);
-			}
-		if($int0Total<$int0Start)
-			{
-			$int0Start	=($int1OnPage*$int0Page);
-			}
-		/*if($int0PlayingStationNum>=0)
-			{
-			$int0Page	=round(($int1PlayingStationNum/$int1OnPage), 0);
-			}
-		else
-			{
-			$int0Page	=round((($int0Start+1)/$int1OnPage), 0);
-			}*/
-		$arrReturn['int0Start']		=$int0Start;
-		$arrReturn['int0Page']		=$int0Page;
-		$arrReturn['int0Pages']		=$int0Pages;
-		$arrReturn['int1OnPage']	=$int1OnPage;
-		$arrReturn['int0Untill']	=$int0Untill;
-		$arrReturn['int0Total']		=($int1Total-1);
-
-		$this->arr			=$arrReturn;
-		}
-
-	public static function arr($objEDRO)
-		{
-		$objPagination		=new Pagination($objEDRO);
-		return $objPagination->arr;
-		}
-	}
-
-                     /*_____
-© Andrey Chekmaryov 2020
-
-Email:    assminog@gmail.com
-Email:    tubmulur@yandex.ru
-Phone:    +7(911)787-44-57
-Whatsapp: +7(911)787-44-57
-Telegram: https://t.me/HficSamin
-VK:       https://vk.com/Hfic.Samin
-VK:       https://vk.com/HiFiIntelligentClub
-Facebook: https://facebook.com/Hfic.Samin
-Facebook: https://facebook.com/HiFiIntelligentClub
-Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
-Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
-Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
-|E    |D     |R      |O      |
-|Event|Design|Reality|Objects|
- ////// 2020                   /////  / 
-//        /\                  // /   
-//      <  **>               /// /  
- //////   jl                ///// /    
-./././././././*/
-class Registration
-	{
-	public $strHTML		='';
-	public function __construct()
-		{
-		$this->strHTML='
-			<buttonRegister
-				id	="objRegisterButton"
-				class	="brick left BLL BLR sensorButton"
-				style	="
-					text-align	:center;
-					padding		:0 5px 0 5px;
-					"
-				>
-				<ifEN style="width:100%;">Register</ifEN>
-				<ifRU style="width:100%;">Регистрация</ifRU>
-			</buttonRegister>
-			';
-
-		$this->strHTML.='
-			<HiFiRegistrationForm
-				id	="objRegisterForm"
-				class	="fix block layer_6  HL0 V99 TC1 BC1 BBV"
-				onclick	="
-					//this.parentNode.classList.remove(\'CutDown\');
-					//this.parentNode.className+=\' Expanded\';
-					"
-				style	="
-					height		:150px;
-					width		:100vw;
-					"
-				>
-				<menu
-					class	="block"
-					style	="
-						width		:100%;
-						height		:40px;
-						padding		:0;
-						margin		:0;
-						"
-					>
-					<topTouchBuffer
-						class	="block TC2 BC2"
-						style	="
-							height	:10px;
-							width	:100%;
-							font-size	:x-small;
-							"
-						>
-					</topTouchBuffer>
-					<ifRU>Регистрация</ifRU>
-					<ifEN>REgistration</ifEN>
-					<closeButton
-						class	="sensor block right TC3 BC3"
-						style	="
-							height		:20px;
-							width		:60px;
-							text-align	:center;
-							line-height	:18px;
-								"
-						onclick	="
-							this.parentNode.parentNode.parentNode.classList.remove(\'Expanded\');
-							this.parentNode.parentNode.parentNode.className+=\' CutDown\';
-							"
-						>
-						<ifRU>
-							x
-						</ifRU>
-						<ifEN>
-							x
-						</ifEN>
-					</closeButton>
-					<bottomTouchBuffer
-						class	="block TC2 BC2"
-						style	="
-							height		:10px;
-							width		:100%;
-							font-size	:x-small;
-							"
-						>
-					</bottomTouchBuffer>
-				</menu>
-				<data
-					class	="block scrollerY TC1 BC1"
-					style	="
-						width	:100%;
-						height	:152px;
-						"
-					>
-					<form 
-						id		="objFormRegistration"
-						class		="block TC1 BC1"
-						action		="/search"
-						onsubmit	="return false;"
-						style		="
-								width		:100%;
-								height		:152px;
-								"
-						>
-					</form>
-				</data>
-			</HiFiRegistrationForm>';
-		$this->strHTML.=$this->strObjectDeclare();
-		$this->strHTML.=$this->strObjectInit();
-		}
-	private function strObjectDeclare()
-		{
-		$str	=<<<oo2oo
-		<script>
-			console.log('[V]EDRO Register: Declare.');
-			class Registration // Init after signal panel//
-				{
-				constructor()
-					{
-					console.log('[Vv]EDRO Register: construct.');
-					
-				
-					this.objButton			=document.getElementById('objRegisterButton');
-					this.objFormBrick		=document.getElementById('objRegisterForm');
-					this.objForm			=document.getElementById('objFormRegistration');
-
-					console.log('[..]EDRO Register: construct.');
-					}
-				}
-			console.log('[.]EDRO Register: Declare.');
-		</script>
-oo2oo;
-		return $str;
-		}
-	private function strObjectInit()
-		{
-		return Event::strOConstruct('Registration');
-		}
-	public function strHTML()
-		{
-		$obj		=new Registration();
-		return $obj->strHTML;
-		}
-	}
-
-                     /*_____
-© Andrey Chekmaryov 2020
-
-Email:    assminog@gmail.com
-Email:    tubmulur@yandex.ru
-Phone:    +7(911)787-44-57
-Whatsapp: +7(911)787-44-57
-VK:       https://vk.com/Hfic.Samin
-VK:       https://vk.com/HiFiIntelligentClub
-Facebook: https://facebook.com/Hfic.Samin
-Facebook: https://facebook.com/HiFiIntelligentClub
-Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
-Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
-Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
-|E    |D     |R      |O      |
-|Event|Design|Reality|Objects|
- ////// 2020                   /////  / 
-//        /\                  // /   
-//      <  **>               /// /  
- //////   jl                ///// /    
-./././././././*/
-class StationSearchBlock  // feat Мира Стрельцова. 07.08.2020 Шеорше ля фам, господа конкуренты. Hfic.Samin -> PreReleased at 21-21-2021
-	{
-	private $arr;
-	public $strHTML;
-	private $strLogo;
-	private $strName;
-	private $strFile;
-	private $strType;
-	private $strAudio;
-	public function __construct($_arrValues=array(), $_arrReality) //$_arrValues 'name' 'style' 'bitrate' 'codec'
-		{
-		$strSearchName		=$_arrValues['strName'];
-		//if($_arrValues['strGenre']!==''&&isset($_arrValues['strStyle'])&&$strStyle!=''&&$strStyle!='undefined')
-		//	{
-		//	$strSearchGenre		=$_arrValues['strStyle'];
-		//	}
-		//else
-		//	{
-			$strSearchGenre		=$_arrValues['strGenre'];
-		//	}
-		
-				   unset($_arrValues);
-		$strLang		=$_arrReality['strLangSignal'];
-				   unset($_arrReality);
-		$arrInputName 		=
-			array(
-			'strLang'	=> $strLang,
-			'arrName'	=>
-				array(
-				'RU'=>'Название',
-				'EN'=>'Name'
-				), 
-			'arrSetup'	=>
-				array(
-
-				'strInputValue'		=>  $strSearchName,
-				'strInputType'		=>  'text',
-				'strInputName'		=>  'strName',
-				'intInputSize'		=>  25,
-				'intInputMaxLength'	=>  250,
-				'intInputWidth'		=>  50,
-				)
-			);
-		$arrInputGenre 		=
-			array(
-			'strLang'	=>$strLang,
-			'arrName'	=>
-				array(
-				'RU'=>'Жанр',
-				'EN'=>'Genre'
-				), 
-			'arrSetup'	=>
-				array(
-
-				'strInputValue'		=> $strSearchGenre,
-				'strInputType'		=> 'text',
-				'strInputName'		=> 'strGenre',
-				'intInputSize'		=>  15,
-				'intInputMaxLength'	=>  20,
-				'intInputWidth'		=>  40,
-				)
-			);
-
-		$this->strHTML	='
-			<hficSearch
-				class="fix HR0 V99 layer_5 default"
-				>
-				<ifCutDown
-					class	="block right sensor TC1 BC1 no-select"
-					onclick	="
-						this.parentNode.classList.remove(\'CutDown\');
-						this.parentNode.className+=\' Expanded\';
-						objSearch.objValueInputstrGenre.focus();
-						"
-					style	="
-						text-align	:center;
-						line-height	:36px;
-						height		:40px;
-						width		:80px;
-						"
-					>
-					<ifRU>
-						ПОИСК
-					</ifRU>
-					<ifEN>
-						SEARCH
-					</ifEN>
-				</ifCutDown>
-				<ifExpanded
-					class	="fix brick HL0 HV99 TC1 BC0 BBV L2" 
-
-					style	="
-						width		:100vw;
-						min-width	:320px;
-						"
-					>
-					<form 
-						id		="formStationSearch"
-						class		="brick TC1 BC0"
-						action		="/search"
-						onsubmit	="return false;"
-						style		="
-								width	:100%;
-								"
-						>
-						<searchByGenre
-						class	="fix brick left L0 V99 no-select layer_2_2"
-						style	="
-							color	:#4c4c4c;
-							left	:0px;
-							"
-							>
-							<ifEN>[=]Search by genre</ifEN>
-							<ifRU>[=]Поиск по жанру:</ifRU>
-						</searchByGenre>
-						<searchStationName
-						class	="fix brick left L0 V99 no-select layer_2_2"
-						style	="
-							color	:#4c4c4c;
-							left	:40%;
-							"
-							>
-							<ifEN>[+]Search by name:</ifEN>
-							<ifRU>[+]Поиск по имени:</ifRU>
-						</searchStationName>
-						<searchInputs
-							class	="brick left"
-							style	="
-								width		:100%;
-								margin-top	:5px;
-								"
-							>
-							'.
-							FormInput::strHtml($arrInputGenre).
-							FormInput::strHtml($arrInputName).
-							'<closeButton
-								class="fix sensor block TC2 BC2 Lx2 V99 HR0 layer_2_3"
-								style="
-									width		:10%;
-									text-align	:center;
-									"
-	    							onclick="
-									this.parentNode.parentNode.parentNode.parentNode.classList.remove(\'Expanded\');
-									this.parentNode.parentNode.parentNode.parentNode.parentNode.className+=\' CutDown\';
-									"
-								>
-								<ifRU
-									class="brick"
-									style="width:100%;height:100%;"
-									title="Закрыть форму и отобразить результаты поиска. Результаты поиска можно вывсти и не закрывая форму, просто нажав на клавишу enter, на клавиатуре по окончанию ввода."
-									>x
-								</ifRU>
-								<ifEN
-									class="brick"
-									style="width:100%;height:100%;"
-									title="Close search form and display search results. You can display search results without closing this search form, by clicking enter button on your keyboard."
-									>x
-								</ifEN>
-							</closeButton>
-						</searchInputs>
-						<!--bottomTouchBuffer
-							class	="fix block TC2 BC2 V97 L0"
-							style	="
-								width		:100%;
-								"
-							>
-							<ifEN>Your IP:</ifEN><ifRU>Ваш IP:</ifRU>
-							'.$_SERVER['REMOTE_ADDR'].'
-						</bottomTouchBuffer-->
-					</form>';
-				//<data
-				//	class="block scrollerY TC1 BC1"
-				///	style="
-				//		width	:100%;
-				//		height	:152px;
-				//		"
-					//	>
-					//		//FormInput::strHtml($objKIIM, array('RU'=>'РФИд','EN'=>'RFId'), $strSearchId).
-					//		$this->strHTML	.=FileRead::str($objKIIM,'/home/EDRO/4.Objects/Read/Cloud/Disk/Pages/SearchBlock.php');
-					//		$this->strHTML	.='<hr/>';
-					//		foreach($_SERVER as $strName => $strValue)
-					//			{
-					//			$this->strHTML	.='<srv class="block">'.$strName.' - '.$strValue.'</srv>';
-					///			}
-					//		$this->strHTML	.='<hr/>';
-					//	$this->strHTML	.='
-					//	</questions>';
-
-					$this->strHTML	.='
-				</ifExpanded>
-				'.
-				$this->strObjectInit();
-				$this->strHTML	.=
-			'</hficSearch>
-			';
-		}
-	private function strObjectInit()
-		{
-		return Event::strOConstruct('Search');
-		}
-	public static function strObjectDeclare()
-		{
-		$str	=<<<oo2oo
-		<script>
-		console.log('[V]EDRO.Object.SearchForm: Declare');
-		class Search //Init in  StationSearchBlock.php
-			{
-			constructor()
-				{
-				console.log('[Vv]EDRO.Object.SearchForm: Construct');
-				this.objStationSearch		=document.getElementById('formStationSearch');
-				this.objValueInputstrName	=document.getElementById('SearchBystrName');
-				this.strValueInputstrName	=this.objValueInputstrName.value;
-				this.objValueInputstrGenre	=document.getElementById('SearchBystrGenre');
-				this.strValueInputstrGenre	=this.objValueInputstrGenre.value;
-				//this.objValueInputintBitrate	=document.getElementById('SearchByintBitrate');
-				//this.strValueInputintBitrate	=this.objValueInputintBitrate.value;
-				//this.objValueInputstrCodec	=document.getElementById('SearchBystrCodec');
-				//this.strValueInputstrCodec	=this.objValueInputstrCodec.value;
-				this.bIzHistory			=true;
-				console.log('[..]EDRO.Object.SearchForm: Construct');
-				}
-			}
-		console.log('[.]EDRO.Object.SearchForm: Declare');
-		</script>
-oo2oo;
-		return $str;
-		}
-	public static function strHTML($_arrValues=array(), $_arrReality)
-		{
-		//$arrData['_strName']=$_objData->strName;
-		$obj=new StationSearchBlock($_arrValues, $_arrReality);
-		return $obj->strHTML;
 		}
 	}
 
@@ -8706,1905 +10236,6 @@ class StationQualityUPLink
 		}
 	}
 
-/*© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru*/
-//////
-   //   /\ RCe
-  //  <  **> 
- //     Jl
-//////
-class DynaScreenEventIndicator
-	{
-	public $strHTML;
-	public function __construct()
-		{
-		$this->strHTML='
-		<eventIndicator
-			id	="DynaScreenEventIndicator"
-			class	="brick abs layer_3_2  line"
-			style	="
-				display			:none;
-				top			:0px;
-				left			:0px;
-				width			:2px;
-				background-color	:#fff;
-				"
-			>
-			<light
-
-				class	="brick abs layer_3_4 blink-fast line"
-				style	="
-					display			:block;
-					top			:0px;
-					left			:0px;
-					width			:2px;
-					background-color	:#333;
-					"
-				>
-			</light>
-		</eventIndicator>';
-		$this->strHTML.=DynaScreenEventIndicator::strObjectInit();
-		}
-	public static function strObjectInit()
-		{
-		return Event::strOConstruct('DynaScreenEventIndicator');
-		}
-	public static function strObjectDeclare()
-		{
-		$str='
-		<script>
-			class DynaScreenEventIndicator
-				{
-				constructor()
-					{
-					this.objHTML=document.getElementById(\'DynaScreenEventIndicator\');
-					console.log(\'Loaded DynaScreen event indicator (objDynaScreenEventIndicator).\');
-					}
-				}
-		</script>';
-		return $str;
-		}
-	public static function strHTML()
-		{
-		$objDynaScreenEventIndicator=new DynaScreenEventIndicator();
-		return $objDynaScreenEventIndicator->strHTML;
-		}
-	}
-
-                     /*_____
-© Andrey Chekmaryov 2020
-
-Email:    assminog@gmail.com
-Email:    tubmulur@yandex.ru
-Phone:    +7(911)787-44-57
-Whatsapp: +7(911)787-44-57
-Telegram: https://t.me/HficSamin
-VK:       https://vk.com/Hfic.Samin
-VK:       https://vk.com/HiFiIntelligentClub
-Facebook: https://facebook.com/Hfic.Samin
-Facebook: https://facebook.com/HiFiIntelligentClub
-Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
-Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
-Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
-
-
-                             |E    |D     |R      |O      |
-                             |Event|Design|Reality|Objects|
-
-                                       ЕДРО:ПОЛИМЕР
-                            ___________          ___________
-                           |   /////  /          \  \\\\\   |
-                           |  // /                    \ \\  |
-                           | /// /                    \ \\\ |
-                           |///// /                 \ \\\\\\|
-
-                                      ////// 2021
-                                    //        /\ 
-                                    //      <  **> 
-                                     //////   jl
-                                 /./././././././././.
-
-class IndicatorDimensionsDesign
-	{
-	public $strEDRO		='';
-	public function __construct()
-		{
-		$this->_Event();
-		$this->_Design();
-		$this->_Reality();
-		$this->_ObjectHTML()
-		
-		}
-	private 	function _Event()
-		{
-		}
-	private  	function _Design()
-		{
-		}
-	private  	function _Reality()
-		{
-		}
-	private  	function _ObjectHTML()
-		{
-		}
-	public 	staic	function strHTML()
-		{
-		}
-	}
-
---.---------------------------------------------------------------------------------
-1.| EDRO Разложение, запись в 1 строку:
---|---------------------------------------------------------------------------------
-  | EDRO	=objName[->E(),->D(),->R(),->O()]
-  |
---|---------------------------------------------------------------------------------
-2.| EDRO Разложение, запись в 4 строки:
---|---------------------------------------------------------------------------------
-  |[E]:=objName->strEvent()
-  |[D]:=objName->strDesign()
-  |[R]:=objName->strReality()
-  |[O]:=objName->strObjects()
-  |
-*/
-
-class IndicatorDimensions
-	{
-	public $strHTML ='';
-	private $arrEDRO=
-		array(
-			'arrE'=>
-			array(
-				'/','/search'
-				),
-			'arrD'=>
-			array(
-				'/home/EDRO/2.Design/.strFileList.php',
-				),
-			'arrR'=>
-			array(
-				'arrLang'=>
-				array(
-					'EN','RU',
-					),
-				'arrRole'=>
-				array(
-					'Listener'
-					),
-				),
-			'arrO'=>
-			array(
-				'strHTML'=>''
-				),
-			);
-	public function __construct()
-		{
-		//$this->_Event();
-		$this->_Design();
-		//$this->_Reality();
-		//$this->_Object();
-		//$this->strEDRO		='';
-		}
-	private function _Event()
-		{
-
-		}
-	private function _Design()
-		{
-		$this->strHTML='
-			<dimensionsDesign
-				id="designDimensions"
-				class="fixed block TC1 BC1 layer_5"
-				style="	
-					top		: 9px;
-					left		: 10px;
-					width		: 2px;
-					height		: 2px;
-					text-align	: center;
-					margin-right	: 1px;
-					"
-				>
-			</dimensionsDesign>
-		';
-		$this->strHTML.=$this->strObjectDeclare();
-		$this->strHTML.=$this->strObjectInit();
-		}
-	private function _Reality()
-		{
-		}
-	private function strObjectDeclare()
-		{
-		$str	=<<<oo2oo
-		<script>
-			console.log('[V]EDRO IndicatorDimensions: Declare.');
-			class IndicatorDimensions // Init after signal panel//
-				{
-				constructor()
-					{
-					console.log('[Vv]EDRO.IndicatorDimensions: construct.');
-					this.objStr		=document.getElementById('designDimensions');
-					console.log('[..]EDRO.IndicatorDimensions: construct.');
-					}
-				}
-			console.log('[.]EDRO IndicatorDimensions: Declare().');
-		</script>
-oo2oo;
-		return $str;
-		}
-	private function strObjectInit()
-		{
-		return Event::strOConstruct('IndicatorDimensions');
-		}
-	public static function strHTML()
-		{
-		$objIndicatorDimensions		=new IndicatorDimensions();
-		return $objIndicatorDimensions->strHTML;
-		}
-	}
-
-                     /*_____
-© Andrey Chekmaryov 2020
-
-Email:    assminog@gmail.com
-Email:    tubmulur@yandex.ru
-Phone:    +7(911)787-44-57
-Whatsapp: +7(911)787-44-57
-Telegram: https://t.me/HficSamin
-VK:       https://vk.com/Hfic.Samin
-VK:       https://vk.com/HiFiIntelligentClub
-Facebook: https://facebook.com/Hfic.Samin
-Facebook: https://facebook.com/HiFiIntelligentClub
-Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
-Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
-Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
-|E    |D     |R      |O      |
-|Event|Design|Reality|Objects|
- ////// 2020                   /////  / 
-//        /\                  // /   
-//      <  **>               /// /  
- //////   jl                ///// /    
-./././././././*/
-class IndicatorHiFi
-	{
-	public $strHTML		='';
-	public function __construct()
-		{
-		$this->strHTML='
-		<HiFi
-			class="rel left no-select ifNoFollowingDj TC3 BC3"
-			style="
-				height		:20px;
-				font-size	:smaller;
-				text-align	:center;
-				line-height	:18px;
-				"
-			>
-			<PictogramHelper
-				id		="strListener"
-				class		="block"
-				>
-
-
-			</PictogramHelper>
-		</HiFi>';
-		$this->strHTML.=$this->strObjectDeclare();
-		$this->strHTML.=$this->strObjectInit();
-		}
-	private function strObjectDeclare()
-		{
-		$str	=<<<oo2oo
-		<script>
-			console.log('[V]EDRO IndicatorHiFi: Declare.');
-			class IndicatorHiFi // Init after signal panel//
-				{
-				constructor()
-					{
-					console.log('[Vv]EDRO IndicatorHiFi: construct.');
-					
-				
-					this.objStr			=document.getElementById('strListener');
-
-					console.log('[..]EDRO IndicatorHiFi: construct.');
-					}
-				}
-			console.log('[.]EDRO IndicatorHiFi: Declare.');
-		</script>
-oo2oo;
-		return $str;
-		}
-	private function strObjectInit()
-		{
-		return Event::strOConstruct('IndicatorHiFi');
-		}
-	public function strHTML()
-		{
-		$objIndicatorHiFi		=new IndicatorHiFi();
-		return $objIndicatorHiFi->strHTML;
-		}
-	}
-
-                     /*_____
-© Andrey Chekmaryov 2020
-
-Email:    assminog@gmail.com
-Email:    tubmulur@yandex.ru
-Phone:    +7(911)787-44-57
-Whatsapp: +7(911)787-44-57
-Telegram: https://t.me/HficSamin
-VK:       https://vk.com/Hfic.Samin
-VK:       https://vk.com/HiFiIntelligentClub
-Facebook: https://facebook.com/Hfic.Samin
-Facebook: https://facebook.com/HiFiIntelligentClub
-Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
-Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
-Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
-|E    |D     |R      |O      |
-|Event|Design|Reality|Objects|
- ////// 2020                   /////  / 
-//        /\                  // /   
-//      <  **>               /// /  
- //////   jl                ///// /    
-./././././././*/
-class IndicatorLang
-	{
-	public $strHTML		='';
-	public function __construct()
-		{
-		$this->strHTML='
-			<lang
-				id="SignalLanguage"
-				class="rel right BC3 TC3"
-				style="	
-					height		: 100%;
-					width		: 25px;
-					text-align	: center;
-					margin-right	: 1px;
-					font-size	: small;
-					line-height	: 19px;
-					"
-				>
-				<!--handle
-					id="SignalLanguageInteractiveBlock"
-					class="block abs layer_3_2"
-					style="
-						display	:none;
-						right	:0;
-						top	:0;
-						width	:188px;
-						height	:86px;
-						"
-					>'.
-					/*SensorList::strHTML(array(
-								"RU","EN","FR","IT","BY","UA"
-								)
-							).*/
-				'</handle-->
-				<result
-					id="LanguageSignalWindow"
-					>
-					<ifRU
-						class="no-select"
-						>
-						RU
-					</ifRU>
-					<ifEN
-						class="no-select"
-						>
-						EN
-					</ifEN>
-				</result>
-			</lang>
-			';
-		$this->strHTML.=$this->strObjectDeclare();
-		$this->strHTML.=$this->strObjectInit();
-		}
-	private function strObjectDeclare()
-		{
-		$str	=<<<oo2oo
-		<script>
-			console.log('[V]EDRO IndicatorLang: Declare.');
-			class IndicatorLang // Init after signal panel//
-				{
-				constructor()
-					{
-					this.objStr		=document.getElementById('LanguageSignalWindow');
-					this.objStr.innerHTML	=strSignalLang;
-					}
-				}
-			console.log('[.]EDRO IndicatorLang: Declare.');
-		</script>
-oo2oo;
-		return $str;
-		}
-	private function strObjectInit()
-		{
-		return Event::strOConstruct('IndicatorLang');
-		}
-	public function strHTML()
-		{
-		$objIndicatorLang		=new IndicatorLang();
-		return $objIndicatorLang->strHTML;
-		}
-	}
-
-                     /*_____
-© Andrey Chekmaryov 2020
-
-Email:    assminog@gmail.com
-Email:    tubmulur@yandex.ru
-Phone:    +7(911)787-44-57
-Whatsapp: +7(911)787-44-57
-Telegram: https://t.me/HficSamin
-VK:       https://vk.com/Hfic.Samin
-VK:       https://vk.com/HiFiIntelligentClub
-Facebook: https://facebook.com/Hfic.Samin
-Facebook: https://facebook.com/HiFiIntelligentClub
-Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
-Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
-Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
-|E    |D     |R      |O      |
-|Event|Design|Reality|Objects|
- ////// 2020                   /////  / 
-//        /\                  // /   
-//      <  **>               /// /  
- //////   jl                ///// /    
-./././././././*/
-class IndicatorMasterClock
-	{
-	public $strHTML		='';
-	public function __construct()
-		{
-		$this->strHTML='
-			<masterClock
-				class="fix layer_3  block no-select TC3 BC3 V98"
-				style="	
-					width		: 40px;
-					height		: 20px;
-					left		: 0px;
-					text-align	: left;
-					font-size	: x-small;
-					"
-				>
-				<masterHeartBeat_ClockIndicator
-					id	="MasterClock"
-					class	="block"
-					title	="Player session total operation time"
-					style="
-						width		: 100%;
-						height		: 50%;
-						line-height	: 9px;
-						"
-					>
-					0
-				</masterHeartBeat_ClockIndicator>
-				<masterHeartBeat_ServerLoading
-					id	="ServerLoadingTime"
-					class	="block"
-					title	="Total server loading time"
-					style="
-						width		: 100%;
-						height		: 50%;
-						line-height	: 9px;
-						"
-					>
-					0
-				<masterHeartBeat_ServerLoading>
-			</masterClock>
-			';
-		$this->strHTML.=$this->strObjectDeclare();
-		$this->strHTML.=$this->strObjectInit();
-		}
-	private function strObjectDeclare()
-		{
-		$str	=<<<oo2oo
-		<script>
-			console.log('[V]EDRO IndicatorMasterClock: Declare.');
-			class IndicatorMasterClock
-				{
-				constructor()
-					{
-					console.log('[Vv]EDRO IndicatorMasterClock: construct.');
-					this.objStr			=document.getElementById('MasterClock');
-					this.objStrServerLoading	=document.getElementById('ServerLoadingTime');
-					console.log('[..]EDRO IndicatorMasterClock: construct.');
-					}
-				}
-			console.log('[.]EDRO IndicatorMasterClock: Declare.');
-		</script>
-oo2oo;
-		return $str;
-		}
-	private function strObjectInit()
-		{
-		return Event::strOConstruct('IndicatorMasterClock');
-		}
-	public function strHTML()
-		{
-		$objIndicatorMasterClock		=new IndicatorMasterClock();
-		return $objIndicatorMasterClock->strHTML;
-		}
-	}
-
-                     /*_____
-© Andrey Chekmaryov 2020
-
-Email:    assminog@gmail.com
-Email:    tubmulur@yandex.ru
-Phone:    +7(911)787-44-57
-Whatsapp: +7(911)787-44-57
-Telegram: https://t.me/HficSamin
-VK:       https://vk.com/Hfic.Samin
-VK:       https://vk.com/HiFiIntelligentClub
-Facebook: https://facebook.com/Hfic.Samin
-Facebook: https://facebook.com/HiFiIntelligentClub
-Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
-Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
-Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
-|E    |D     |R      |O      |
-|Event|Design|Reality|Objects|
- ////// 2020                   /////  / 
-//        /\                  // /   
-//      <  **>               /// /  
- //////   jl                ///// /    
-./././././././*/
-class IndicatorNetwork
-	{
-	public $strHTML		='';
-	public function __construct()
-		{
-		$this->strHTML='
-			<network
-				class	="fix block BRJ layer_2_1"
-				style	="
-					line-height	:9px;
-					margin-right	:1px;
-					"
-				>
-				<NetSrvReady
-					id="NetSrvReady"
-					class="block left  BLL"
-					style="	
-						left		: 10px;
-						height		: 10px;
-						width		: 10px;
-						background-color: #e3e3e3;
-						text-align	: center;
-						font-size	: x-small;
-						"
-					>
-					<ifRU
-						title		="Stream network avaliability status"
-						class		="no-select"
-						>
-						N
-					</ifRU>
-					<ifEN
-						title		="Статус доступности аудиопотока сети"
-						class		="no-select"
-						>
-						H
-					</ifEN>
-				</NetSrvReady>
-				<NetSrvPortsReady
-					id="NetSrvPortsReady"
-					class="block left  BLL"
-					style="	
-						height		: 10px;
-						width		: 10px;
-						background-color: #e3e3e3;
-						text-align	: center;
-						font-size	: x-small;
-						"
-					>
-					<ifRU
-						title		="Готовность к воспроизведению аудиопотока"
-						class		="no-select"
-						>
-						Р
-					</ifRU>
-					<ifEN
-						title		="Ready to play audiostream"
-						class		="no-select"
-						>
-						R
-					</ifEN>
-				</NetSrvPortsReady>
-			</network>';
-		$this->strHTML.=$this->strObjectDeclare();
-		$this->strHTML.=$this->strObjectInit();
-		}
-	private function strObjectDeclare()
-		{
-		$str	=<<<oo2oo
-		<script>
-			console.log('[V]EDRO IndicatorNetwork: Declare.');
-			class IndicatorNetwork
-				{
-				constructor()
-					{
-					console.log('[Vv]EDRO IndicatorNetwork: construct.');
-					this.objStrSrvReady			=document.getElementById('NetSrvReady');
-					this.objStrSrvPortsReady		=document.getElementById('NetSrvPortsReady');
-					console.log('[..]EDRO IndicatorNetwork: construct.');
-					}
-				}
-			console.log('[.]EDRO IndicatorNetwork: Declare.');
-		</script>
-oo2oo;
-		return $str;
-		}
-	private function strObjectInit()
-		{
-		return Event::strOConstruct('IndicatorNetwork');
-		}
-	public function strHTML()
-		{
-		$objIndicatorNetwork		=new IndicatorNetwork();
-		return $objIndicatorNetwork->strHTML;
-		}
-	}
-
-                     /*_____
-© Andrey Chekmaryov 2020
-
-Email:    assminog@gmail.com
-Email:    tubmulur@yandex.ru
-Phone:    +7(911)787-44-57
-Whatsapp: +7(911)787-44-57
-Telegram: https://t.me/HficSamin
-VK:       https://vk.com/Hfic.Samin
-VK:       https://vk.com/HiFiIntelligentClub
-Facebook: https://facebook.com/Hfic.Samin
-Facebook: https://facebook.com/HiFiIntelligentClub
-Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
-Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
-Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
-|E    |D     |R      |O      |
-|Event|Design|Reality|Objects|
- ////// 2020                   /////  / 
-//        /\                  // /   
-//      <  **>               /// /  
- //////   jl                ///// /    
-./././././././*/
-class IndicatorPlayer
-	{
-	public $str;
-	public function __construct()
-		{
-		//Новый год  🎄🎅
-		//✰✰
-		//★
-		//🌠
-		$this->str='
-		<playerControlAlwaysVisible
-			id	="playerControlAlwaysVisible"
-			class	="left no-select ЕС3 BC3"
-			style	="
-				text-align	:left;
-				width		:67%;
-				height		:100%;
-				margin-right	:1px;
-				"
-			>'.
-			'
-			<ifReady
-				class	="abs V99 block cursor BC1 TC1 layer_2_2 select scrollerY Lx2"
-				style	="
-					text-align	:left;
-					Width		:80vw;
-					"
-				>
-				<Hfic_Samin
-					class="block right"
-					style="
-						width		:40px;
-						height		:100%;
-						"
-					>
-					<image
-						title="Hfic: Is there any hifi sound can i hear?" 
-						src="cloudrepublic.ru/Hfic_Samin.jpg" 
-						class="block" 
-						style="
-							height:100%;
-							"
-					/>'.ICQRType::strHTML(array(), '', '', array()).'
-				</Hfic_Samin>
-				<!--ReadyButtonStat
-					class	="block right BLL TC3 BC3"
-					style	="
-						text-align	:left;
-						height		:100%;
-						width		:100px;
-						line-height	:13px;
-						"
-					>
-				</ReadyButtonStat-->
-				<readyText
-					class	="block scrollerY Lx2 BRJ"
-					style	="
-						height	:40px;
-						width	:40px;
-						"
-					>
-				</readyText>
-			</ifReady>
-			<ifOverload
-				class	="abs line V99"
-				style	="
-					display		:none;
-					left		:0px;
-					width		:100vw;
-					color		:#fff;
-					background-color:red;
-					"
-				>
-				<!--playerOverloadStat
-					class	="block right BLL TC3 BC3"
-					style	="
-						text-align	:left;
-						height		:100%;
-						width		:100px;
-						line-height	:13px;
-						"
-					>
-					<loadingDuration
-						class="block"
-						>
-						0
-					</loadingDuration>
-					<loadingErrors
-						class="block"
-						>
-						0
-					</loadingErrors>
-				</playerOverloadStat-->
-				<playerOverloadText
-					class	="block scrollerY"
-					style	="
-						height		:100%;
-						text-align	:left;
-						"
-					>
-					<playerOverloadStationName
-						
-						id	="playerControlAlwaysVisibleOverloadStationName"
-						>
-					</playerOverloadStationName>
-					<ifEN>
-						<marquee>This station rejects playing. May be this station is overload or your internet connection is not enoght. Can\'t stay connected. You can try to listen another station</marquee>
-					</ifEN>
-					<ifRU>
-						<marquee>Не получается подключиться к выбранной радиостанции. Возможно станция перегружена или интернет канал слишком мал, чтобы воспроизводить выбранную станцию. Вы можете попробовать выбрать другую радиостанцию.</marquee>
-					</ifRU>
-				</playerOverloadText>
-			</ifOverload>
-			<ifLoadingAudio
-				id	="objLoadingAudioTopSmall"
-				class	="brick left cursor TC1 no-select line"
-				onclick	="objPlayer.stop();"
-				style	="
-					display		:none;
-					width		:20px;
-					text-align	:center;
-					"
-				>
-				<playShader
-					class	="fix block layer_2"
-					style	="
-						left		:0px;
-						height		:20px;
-						width		:20px;
-						line-height	:20px;
-						background-color:#f0ff00;
-						"
-					>
-				</playShader>
-				<loadIndicator
-					class="fix brick layer_2_3  cursor no-select BLL BRJ TC3"
-					onclick	="objPlayer.stop();"
-					style	="
-						left		:0px;
-						font-size	:xx-small;
-						width		:20px;
-						line-height	:20px;
-						text-align	:center;
-						color		:#FFF;
-						background-color:#ffeb00b8;
-						"
-					>
-					<ifRU 
-						title	="Для отмены загрузки радио станции нажмите."
-						>
-						☒
-					</ifRU>
-					<ifEN
-						title	="To stop loading this audio stream just press."
-						>
-						☒
-					</ifEN>
-				</loadIndicator>
-			</ifLoadingAudio>
-			<ifLoadingAudio
-				class	="fix V99 cursor TC3 layer_2_2 no-select doubleLine"
-				style	="
-					display		:none;
-					left		:0px;
-					width		:100vw;
-					text-align	:left;
-					"
-				>
-				<playerLoadingButton
-					class	="block left BLJ TC3 BC3 doubleLine"
-					id	="playerControlAlwaysVisibleLoading"
-					onclick	="objPlayer.stop();"
-					style	="
-						text-align	:center;
-						height		:100%;
-						width		:40px
-						"
-					>
-					<ifRU
-						title="Нажмите чтобы отменить подключение"
-						>
-						☒
-					</ifRU>
-					<ifEN
-						title="Press to stop connecting"
-						>
-						☒
-					</ifEN>
-				</playerLoadingButton>
-				<!--playerLoadingStat
-					id	="playerControlAlwaysVisibleLoadingStat"
-					class	="block right BLL TC3 BC3"
-					style	="
-						text-align	:left;
-						height		:100%;
-						width		:100px;
-						line-height	:13px;
-						"
-					>
-					<loadingDuration
-						class="block"
-						>
-						<header
-							class="block left"
-							>pl
-						</header>
-						<digit
-							id	="playerControlAlwaysVisibleLoadingDuration"
-							>
-							0
-						</digit>
-						
-					</loadingDuration>
-					<loadingErrors
-						class="block"
-						>
-						<header
-							class="block left"
-							>pe
-						</header>
-						<digit
-							id	="playerControlAlwaysVisibleLoadingErrors"
-							>
-							0
-						</digit>
-					</loadingErrors>
-				</playerLoadingStat-->
-				<playerLoadingText
-					id	="playerControlAlwaysVisibleLoadingText"
-					class="block scrollerY TC1 BC1"
-					style	="
-						height		:100%;
-						"
-					>
-					<marquee>
-						<ifRU>
-							Подключаюсь к радиостанции...
-						</ifRU>
-						<ifEN>
-							Connecting to radiostation.... 
-						</ifEN>
-					</marquee>
-					<playerLoadingStationName
-						id	="playerControlAlwaysVisibleLoadingStationName"
-						>
-					</playerLoadingStationName>
-				</playerLoadingText>
-			</ifLoadingAudio>
-			<ifPlaying
-				id	="objPlayingAudioTopSmall"
-				class	="block TC3 line"
-				
-				style	="
-					display		:none;
-					width		:100%;
-					"
-				>
-				<playShader
-					class	="fix block layer_2"
-					style	="
-						left		:0px;
-						height		:20px;
-						width		:20px;
-						line-height	:20px;
-						background-color:#062b88;
-						"
-					>
-				</playShader>
-				<playIndicator
-					class="fix block left cursor no-select BLL BRJ TC3 layer_2_2"
-					onclick	="objPlayer.stop();"
-					style	="
-						left		:0px;
-						font-size	:xx-small;
-						width		:20px;
-						line-height	:20px;
-						text-align	:center;
-						color		:#FFF;
-						background-color:#062b8824;
-						"
-					>
-					<ifRU 
-						title="Для остановки воспроизведения нажмите."
-						>
-						■
-					</ifRU>
-					<ifEN
-						title="To stop plaing this audio stream just press."
-						>
-						■
-					</ifEN>
-				</playIndicator>
-				<playIndicatorSongName
-					id	="playerControlAlwaysVisiblePlaying"
-					class	="block left scrollerY"
-					style="
-						margin-right	:20px;
-						margin-left	:20px;
-						height		:100%;
-						max-width	:70%;
-						font-size	:large;
-						"
-					>
-					HiFiIntelligentClub
-				</playIndicatorSongName>
-			</ifPlaying>
-			<ifPlaying
-				class	="abs V99 cursor layer_2_2 select TC3 doubleLine"
-				style	="
-					display		:none;
-					left		:0;
-					width		:100vw;
-					text-align	:left;
-					background-color:#062b88;
-					"
-				>
-				<playerPlayingButton
-					class	="brick left BLL BRJ doubleLine"
-					style	="
-						    width	:40px;
-						    "
-					>
-					<playerPlayingButton
-						class	="brick left"
-						onclick	="objPlayer.stop();"
-						style="
-							text-align	: center;
-							width		: 40px;
-							color		: #FFF;
-							font-size	: small;
-							background-color: #2d90f52b;/*Цвет Министерства Культуры Российской Федерации*/
-							"
-						>
-						<ifRU 
-							title="Для остановки воспроизведения нажмите."
-							>
-							Стоп
-						</ifRU>
-						<ifEN
-							title="To stop plaing this audio stream just press."
-							>
-							Stop
-						</ifEN>
-					</playerPlayingButton>
-				</playerPlayingButton>
-				<playerPlayingLike
-					id	="playerControlAlwaysVisiblePlayingLike"
-					class	="block left BLL BRJ TC3 BC3 line"
-					style	="
-						font-size	:x-large;
-						text-align	:center;
-						width		:25px;
-						margin-left	:5px;
-						line-height	:13px;
-						"
-					onclick	="
-						alert(\'coming soon!\');
-						"
-					>
-					+
-				</playerPlayingLike>
-				<playerPlayingNews
-					id	="playerControlAlwaysVisiblePlayingNews"
-					class	="block right BLL BRJ TC3 BC3 line"
-					style	="
-						font-size	:large;
-						text-align	:center;
-						width		:95px;
-						margin-left	:5px;
-						margin-right	:85px;
-					
-						"
-					onclick	="
-						alert(\'coming soon!\');
-						"
-					>
-					<ifRU>Новости</ifRU>
-					<ifEN>News</ifEN>
-				</playerPlayingNews>
-				<!--a 
-					class="block left"
-					href		="/getNews"
-					onClick		="
-						return false;
-						"
-					>
-					<ifRU>
-						В избранные станции
-					</ifRU>
-					<ifEN>
-						To selected stations
-					</ifEN>
-				</a-->
-			</ifPlaying>
-			<ifNoConnection
-				class	="cursor layer_2_2 no-select TC3 BC3 doubleLine"
-				onclick	="objPlayer.play();"
-				style	="
-					display		:none;
-					color		:#000;
-					text-align	:center;
-					"
-				>⚠
-			</ifNoConnection>
-			<ifNoConnection
-				class	="abs V99 cursor layer_2_2 no-select BC1 TC1 doubleLine"
-				onclick	="objPlayer.play();"
-				style	="
-					display		:none;
-					width		:100vw;
-					left		:0px;
-					text-align	:center;
-					"
-				>
-				<!--playerNoConnectionStat
-					class	="block right BLL TC3 BC3"
-					style	="
-						text-align	:left;
-						height		:100%;
-						width		:100px;
-						line-height	:13px;
-						"
-					>
-					<NoConnectionDuration
-						class="block"
-						>
-						0
-					</NoConnectionDuration>
-					<NoConnectionErrors
-						class="block"
-						>
-						0
-					</NoConnectionErrors>
-				</playerNoConnectionStat-->
-				<playerNoConnectionext
-					class	="block scrollerY"
-					style	="
-						height		:100%;
-						text-align	:left;
-						"
-					>
-					<playerNoConnectionStationName
-						
-						id	="playerControlAlwaysVisibleNoConnectionStationName"
-						>
-					</playerNoConnectionStationName>
-					<ifRU>
-						<marquee>Радиостанция сейчас недоступна. Возможно она очень далеко, перегружена или отдыхает. Попробуйте выбрать выбрать другую радиостанцию из списка.</marquee>
-						
-					</ifRU>
-					<ifEN>
-					[p	<marquee>This station is currently offline. Please chose another station from station\'s list.</marquee>
-					</ifEN>
-				</playerNoConnectionext>
-			</ifNoConnection>
-			<ifStopped
-				class	="fix block cursor layer_2_2 TC3 no-select line BRJ"
-				onclick	="
-					//objPlayer.objAudio.src				=objPlayerIndicatorMembrane.getAttribute(\'playerId\');
-					objPlayer.play();
-					"
-				style	="
-					display		: none;
-					text-align	: center;
-					background-color: #0000006e;
-					width		: 40px;
-					"
-				>
-				▷
-			</ifStopped>
-			<ifStopped
-				class	="abs V99 cursor layer_2_2 BC1 select doubleLine"
-				style	="
-					display		:none;
-					left		:0;
-					width		:100vw;
-					text-align	:center;
-					color		:#777;
-					"
-				>
-				<playerPlayButton
-					class	="block left TC3 BC3 line"
-					onclick	="
-						//objPlayer.objAudio.src			=this.parentNode.getAttribute(\'playerId\');
-						objPlayer.play();
-						"
-					style	="
-						text-align	:center;
-						width		:40px;
-						"
-					>
-					<ifEN
-						title="Play station"
-						>Play
-					</ifEN>
-					<ifRU
-						title="Нажмите чтобы начать слушать радио."
-						>Воспр.
-					</ifRU>
-				</playerPlayButton>
-				<playerNoConnectionStat
-					class	="block right BLL TC3 BC3"
-					style	="
-						text-align	:left;
-						height		:100%;
-						width		:100px;
-						line-height	:13px;
-						"
-					>
-					<NoConnectionDuration
-						class="block"
-						>
-						0
-					</NoConnectionDuration>
-					<NoConnectionErrors
-						class="block"
-						>
-						0
-					</NoConnectionErrors>
-				</playerNoConnectionStat>
-				<playerPlayText
-					id	="playerControlAlwaysVisibleStopped"
-					class	="block scrollerY"
-					style	="
-						height		:100%;
-						"
-					onClick	="
-						objEvent.arrReality.strID=\'\';
-						objEvent.arrReality.strName=\'\'; 
-						objEvent.arrReality.strStyle=\'\';
-						objEvent.arrReality.intBitrate=\'\';
-						objEvent.arrReality.strCodec=\'\';
-						objEvent._UpdateURLDyn(true);"
-						"
-					>
-				</playerPlayText>
-			</ifStopped>
-		</playerControlAlwaysVisible>
-		'.Player::strObjectInit();
-		}
-	public static function strHTML()
-		{
-		$objIndicatorPlayer	=new IndicatorPlayer();
-		return $objIndicatorPlayer->str;
-		}
-	}
-
-                     /*_____
-© Andrey Chekmaryov 2020
-
-Email:    assminog@gmail.com
-Email:    tubmulur@yandex.ru
-Phone:    +7(911)787-44-57
-Whatsapp: +7(911)787-44-57
-Telegram: https://t.me/HficSamin
-VK:       https://vk.com/Hfic.Samin
-VK:       https://vk.com/HiFiIntelligentClub
-Facebook: https://facebook.com/Hfic.Samin
-Facebook: https://facebook.com/HiFiIntelligentClub
-Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
-Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
-Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
-|E    |D     |R      |O      |
-|Event|Design|Reality|Objects|
- ////// 2020                   /////  / 
-//        /\                  // /   
-//      <  **>               /// /  
- //////   jl                ///// /    
-./././././././*/
-class IndicatorRole
-	{
-	public $strHTML		='';
-	public function __construct()
-		{
-		$this->strHTML='
-			<role
-				id	="SignalRole"
-				class	="block right BRJ BLL BC3 TC3"
-				style	="	
-					height		: 100%;
-					/*width		: 60px;*/
-					padding-right	: 4px;
-					padding-left	: 4px;
-					font-size	: smaller;
-					text-align	: center;
-					line-height	: 18px;
-					"
-				>
-				<ifRU
-					class="no-select"
-					>
-					Роль
-				</ifRU>
-				<ifEN
-					class="no-select"
-					>
-					Role
-				</ifEN>
-			</role>
-		';
-		$this->strHTML.=$this->strObjectDeclare();
-		$this->strHTML.=$this->strObjectInit();
-		}
-	private function strObjectDeclare()
-		{
-		$str	=<<<oo2oo
-		<script>
-			console.log('[V]EDRO IndicatorRole: Declare.');
-			class IndicatorRole
-				{
-				constructor()
-					{
-					console.log('[Vv]EDRO IndicatorRole: construct.');
-					this.objStr			=document.getElementById('SignalRole');
-					this.objStr.innerHTML		=strSignalRole;
-					console.log('[..]EDRO IndicatorRole: construct.');
-					}
-				}
-			console.log('[.]EDRO IndicatorRole: Declare.');
-		</script>
-oo2oo;
-		return $str;
-		}
-	private function strObjectInit()
-		{
-		return Event::strOConstruct('IndicatorRole');
-		}
-
-	public function strHTML()
-		{
-		$objIndicatorRole		=new IndicatorRole();
-		return $objIndicatorRole->strHTML;
-		}
-	}
-                /*_____
-© Andrey Chekmaryov 2020 Hfic.Samin@vk.com 2021
-
-Email:    assminog@gmail.com
-Email:    tubmulur@yandex.ru
-Phone:    +7(911)787-44-57
-Whatsapp: +7(911)787-44-57
-Telegram: https://t.me/HficSamin
-VK:       https://vk.com/Hfic.Samin
-VK:       https://vk.com/HiFiIntelligentClub
-Facebook: https://facebook.com/Hfic.Samin
-Facebook: https://facebook.com/HiFiIntelligentClub
-Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
-Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
-Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
-|E    |D     |R      |O      |
-|Event|Design|Reality|Objects|
-////////////////////// /2021
-////////  /\ ///////// /
-/////// <  **> /////// /
-///////   jl ///////// /
-./././././././*/
-class IndicatorSuspend
-	{
-	public $strHTML		='';
-	public function __construct()
-		{
-		$this->strHTML='
-			<network
-				class	="fix block BRJ layer_2_1"
-				style	="
-					line-height	: 9px;
-					margin-right	: 1px;
-					"
-				>
-				<NetSrvSuspend
-					id	="NetSrvReady"
-					class	="block left  BLL"
-					style	="	
-						left		: 20px;
-						height		: 10px;
-						width		: 10px;
-						background-color: #e3e3e3;
-						text-align	: center;
-						font-size	: x-small;
-						"
-					>
-					<ifRU
-						title		="Stream network avaliability status"
-						class		="no-select"
-						>
-						N
-					</ifRU>
-					<ifEN
-						title		="Статус доступности аудиопотока сети"
-						class		="no-select"
-						>
-						H
-					</ifEN>
-				</NetSrvSuspend>
-			</network>';
-		$this->strHTML.=$this->strObjectDeclare();
-		$this->strHTML.=$this->strObjectInit();
-		}
-	private function strObjectDeclare()
-		{
-		$str	=<<<oo2oo
-		<script>
-			console.log('[V]EDRO IndicatorSuspend: Declare.');
-			class IndicatorSuspend
-				{
-				constructor()
-					{
-					console.log('[Vv]EDRO IndicatorSuspend: construct.');
-					this.objStrSrvReady			=document.getElementById('NetSrvReady');
-					this.objStrSrvPortsReady		=document.getElementById('NetSrvPortsReady');
-					console.log('[..]EDRO IndicatorSuspend: construct.');
-					}
-				}
-			console.log('[.]EDRO IndicatorSuspend: Declare.');
-		</script>
-oo2oo;
-		return $str;
-		}
-	private function strObjectInit()
-		{
-		return Event::strOConstruct('IndicatorSuspend');
-		}
-	public function strHTML()
-		{
-		$objIndicatorSuspend		=new IndicatorSuspend();
-		return $objIndicatorSuspend->strHTML;
-		}
-	}
-
-/*© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru*/
-//////
-   //   /\ RCe
-  //  <  **> 
- //     Jl
-//////
-class PlayerEventIndicator
-	{
-	public $strHTML;
-	public function __construct()
-		{
-		$this->strHTML='
-		<eventIndicator
-			id	="PlayerEventIndicator1"
-			class="block abs layer_3_2 border-bottom"
-			style="
-				/*display	:none;*/
-				top	:0;
-				left	:3px;
-				width	:5px;
-				height	:5px;
-				background-color:#FFF;
-				"
-			>
-			<light
-				class	="block rel layer_3_4 blink-fast"
-				style	="
-					display	:block;
-					width	:5px;
-					height	:5px;
-					background-color:#333;
-					"
-				>
-			</light>
-		</eventIndicator>';
-		$this->strHTML.='
-		<eventIndicator
-			id	="PlayerEventIndicator2"
-			class="block abs layer_3_2 border-bottom"
-			style="
-				/*display	:none;*/
-				top	:0;
-				left	:11px;
-				width	:5px;
-				height	:5px;
-				background-color:#FFF;
-				"
-			>
-
-			<light
-				class	="block rel layer_3_4 blink-fast1"
-				style	="
-					display	:block;
-					width	:5px;
-					height	:5px;
-					background-color:#333;
-					"
-				>
-			
-			</light>
-		</eventIndicator>';
-		$this->strHTML.='
-		<eventIndicator
-			id	="PlayerEventIndicator3"
-			class="block abs layer_3_2 border-bottom"
-			style="
-				/*display	:none;*/
-				top	:0;
-				left	:19px;
-				width	:5px;
-				height	:5px;
-				background-color:#FFF;
-				"
-			>
-			<light
-
-				class	="block rel layer_3_4 blink-fast2"
-				style	="
-					display	:block;
-					width	:5px;
-					height	:5px;
-					background-color:#333;
-					"
-				>
-			
-			</light>
-		</eventIndicator>';
-		$this->strHTML.='
-		<eventIndicator
-			id	="PlayerEventIndicator4"
-			class="block abs layer_3_2 border-bottom"
-			style="
-				/*display	:none;*/
-				top	:0;
-				left	:27px;
-				width	:5px;
-				height	:5px;
-				background-color:#FFF;
-				"
-			>
-			<light
-
-				class	="block rel layer_3_4 blink-fast3"
-				style	="
-					display	:block;
-					width	:5px;
-					height	:5px;
-					background-color:#333;
-					"
-				>
-			
-			</light>
-		</eventIndicator>';
-		$this->strHTML.='
-		<eventIndicator
-			id	="PlayerEventIndicator5"
-			class="block abs layer_3_2 border-bottom"
-			style="
-				/*display	:none;*/
-				top	:0;
-				left	:35px;
-				width	:5px;
-				height	:5px;
-				background-color:#FFF;
-				"
-			>
-			<light
-
-				class	="block rel layer_3_4 blink-fast4"
-				style	="
-					display	:block;
-					width	:5px;
-					height	:5px;
-					background-color:#333;
-					"
-				>
-			
-			</light>
-		</eventIndicator>';
-		$this->strHTML.='
-		<eventIndicator
-			id	="PlayerEventIndicator6"
-			class="block abs layer_3_2 border-bottom"
-			style="
-				/*display	:none;*/
-				top	:0;
-				left	:43px;
-				width	:5px;
-				height	:5px;
-				background-color:#FFF;
-				"
-			>
-			<light
-
-				class	="block rel layer_3_4 blink-fast5"
-				style	="
-					display	:block;
-					width	:5px;
-					height	:5px;
-					background-color:#333;
-					"
-				>
-			
-			</light>
-		</eventIndicator>';
-		$this->strHTML.='
-		<eventIndicator
-			id	="PlayerEventIndicator7"
-			class="block abs layer_3_2 border-bottom"
-			style="
-				/*display	:none;*/
-				top	:0;
-				left	:51px;
-				width	:5px;
-				height	:5px;
-				background-color:#FFF;
-				"
-			>
-			<light
-
-				class	="block rel layer_3_4 blink-fast6"
-				style	="
-					display	:block;
-					width	:5px;
-					height	:5px;
-					background-color:#333;
-					"
-				>
-			
-			</light>
-		</eventIndicator>';
-		$this->strHTML='';
-		//$this->strHTML.=PlayerEventIndicator::strInitJs();
-		}
-	public static function strObjectInit()
-		{
-		return Event::strOConstruct('PlayerEventIndicator');
-		}
-	public static function strObjectDeclare()
-		{
-		$str='
-		<script>
-			class PlayerEventIndicator
-				{
-				constructor()
-					{
-					this.objHTML=document.getElementById(\'PlayerEventIndicator\');
-					console.log(\'Loaded Player event indicator (objPlayerEventIndicator).\');
-					}
-				}
-		</script>';
-		return $str;
-		}
-	public static function strHTML()
-		{
-		$objPlayerEventIndicator=new PlayerEventIndicator();
-		return $objPlayerEventIndicator->strHTML;
-		}
-	}
-
-                     /*_____
-© Andrey Chekmaryov 2020
-
-Email:    assminog@gmail.com
-Email:    tubmulur@yandex.ru
-Phone:    +7(911)787-44-57
-Whatsapp: +7(911)787-44-57
-Telegram: https://t.me/HficSamin
-VK:       https://vk.com/Hfic.Samin
-VK:       https://vk.com/HiFiIntelligentClub
-Facebook: https://facebook.com/Hfic.Samin
-Facebook: https://facebook.com/HiFiIntelligentClub
-Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
-Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
-Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
-|E    |D     |R      |O      |
-|Event|Design|Reality|Objects|
- ////// 2020                   /////  / 
-//        /\                  // /   
-//      <  **>               /// /  
- //////   jl                ///// /    
-./././././././*/
-class StatisticIndicator
-	{
-	public $strD;
-	private $int0PageStart	=0;
-	private	$int0ListNum	=0;
-	private	$int1ListNum	=0;
-	public function __construct($_arrPagination='', $_int0ListNum='')
-		{
-		$this->int0PageStart	= $_arrPagination['int0Start'];
-		$this->int0ListNum	= $_int0ListNum;
-		$this->int1ListNum	=($this->int0PageStart+$this->int0ListNum)+1;
-		$this->strD		=$this->strD();
-		}
-	private function strD()
-		{
-		$str='
-		<statisticIndicator
-			title	="Successfull listeners"  
-			class	="rel left block BRJ scrollerY" 
-			style	="width:40px;height:40px;font-size:xx-small;">
-			<overlay 
-				title="Feature. Will be avaliable soon."
-				class="abs TC1" 
-				style="width:100%;height:100%;background-color:rgba(255,255,255,0.7);font-size:large;text-align:center;line-height:39px"
-				>'.
-				$this->int1ListNum.
-				'<!--indicator
-								class="abs"
-					style="left:0px;width:10px;height:20%;background-color:rgba(177,177,177,0.9);"
-					>
-				</indicator>
-				<indicator
-					class="abs"
-					style="left:10px;width:10px;height:20%;background-color:rgba(77,77,77,0.9);"
-					>
-				</indicator>
-				<indicator
-					class="abs"
-					style="left:20px;width:10px;height:20%;background-color:rgba(0,0,0,0.9);"
-					>
-				</indicator>
-				<indicator
-					class="abs"
-					style="left:30px;width:10px;height:20%;background-color:rgba(120,120,120,0.9);"
-					>
-				</indicator-->
-			</overlay>
-			<played
-				title	="Played"
-				class	="block"
-				>
-				<strHeader>+</strHeader>
-				<int>0</int>
-			</played>
-			<avgPlayingTime
-				title	="Average playing time"
-				class	="block"
-				>
-				<strHeader>+</strHeader>
-				<strFormattedString>0</strFormattedString>
-				<strUnit>s</strUnit>
-			</avgPlayingTime>
-			<liked 
-				title	="Liked"
-				class	="block"
-				>
-				<strHeader>+</strHeader>
-				<int>0</int>
-			</liked>
-			<avgLoadingTime
-				title	="Average loading time"
-				class	="block"
-				>
-				<strHeader>-</strHeader>
-				<strFormattedString>0</strFormattedString>
-				<strUnit>s</strUnit>
-                	</avgLoadingTime>
-			<DropListener
-				title	="Drop listener"
-				class	="block"
-				>
-				<strHeader>-</strHeader>
-				<int>0</int>
-			</DropListener>
-			<Reconnects
-				title	="Reconnects while playing count"
-				class	="block"
-				>
-				<strHeader>-+</strHeader>
-				<int>0</int>
-                	</<Reconnects>
-			<viewed
-				title	="Viewed"
-				class	="block"
-				>
-				<strHeader>_</strHeader>
-				<int>0</int>
-			</viewed>
-		</statisticIndicator>';
-		return $str;
-		}
-	public static function strDesign($_arrPagination='', $_int0ListNum='')
-		{
-		$obj= new StatisticIndicator($_arrPagination, $_int0ListNum);
-		return $obj->strD;
-		}
-	}
-
-                     /*_____
-© Andrey Chekmaryov 2020
-
-Email:    assminog@gmail.com
-Email:    tubmulur@yandex.ru
-Phone:    +7(911)787-44-57
-Whatsapp: +7(911)787-44-57
-Telegram: https://t.me/HficSamin
-VK:       https://vk.com/Hfic.Samin
-VK:       https://vk.com/HiFiIntelligentClub
-Facebook: https://facebook.com/Hfic.Samin
-Facebook: https://facebook.com/HiFiIntelligentClub
-Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
-Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
-Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
-|E    |D     |R      |O      |
-|Event|Design|Reality|Objects|
- ////// 2020                   /////  / 
-//         /\                  // /   
-//       <  **>               /// /  
- //////    jl                ///// /    
-./././././././*/
-class SystemEventIndicatorStream
-	{
-	public $strHTML;
-	private $arrEDRO=
-	array(
-		'arrE'=>
-		array(
-			'/','/search'
-			),
-		'arrD'=>
-		array(
-			'/home/EDRO/2.Design/.strFileList.php',
-			),
-		'arrR'=>
-		array(
-			'arrLang'=>
-			array(
-				'EN','RU',
-				),
-			'arrRole'=>
-			array(
-				'Listener'
-				),
-			),
-		'arrO'=>
-		array(
-			'strHTML'=>''
-			),
-		);
-	public function __construct()
-		{
-		$this->strHTML='
-		<EDROContextSignals
-			class="abs layer_4 matrixTop V100 BC3 BT3"
-			style="	
-				left		:0;
-				height		:20px;
-				width		:100%;
-				"
-			>'.
-			DynaScreenEventIndicator::strHtml().
-			IndicatorPlayer::strHTML().
-			IndicatorNetwork::strHTML().
-			IndicatorHiFi::strHtml().
-			Login::strHTML().
-			IndicatorMasterClock::strHTML().
-			IndicatorDimensions::strHTML().
-			IndicatorLang::strHtml().
-			IndicatorRole::strHTML().
-		'</EDROContextSignals>';
-		}
-	public static function strHTML()
-		{
-		//$arrData['_strName']=$_objData->strName;
-		$objSystemEventIndicatorStream		=new SystemEventIndicatorStream();
-		return $objSystemEventIndicatorStream->strHTML;
-		}
-	}
-
-                     /*_____
-© Andrey Chekmaryov Hfic.Samin@vk.com 2021
-
-Email:    assminog@gmail.com
-Email:    tubmulur@yandex.ru
-Phone:    +7(911)787-44-57
-Whatsapp: +7(911)787-44-57
-Telegram: https://t.me/HficSamin
-VK:       https://vk.com/Hfic.Samin
-VK:       https://vk.com/HiFiIntelligentClub
-Facebook: https://facebook.com/Hfic.Samin
-Facebook: https://facebook.com/HiFiIntelligentClub
-Site[Ru] Public browsing international:  http://HiFiIntelligentClub.Ru
-Site[En] Public browsing international:  http://HiFiIntelligentClub.COM
-Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dplvsz36zsqqu7ad2foo5m3tmad.onion
-|E    |D     |R      |O      |
-|Event|Design|Reality|Objects|
- ////// 2020                   /////  / 
-//         /\                  // /   
-//       <  **>               /// /  
- //////    jl                ///// /    
-./././././././*/
-class SystemEventIndicatorStreamIsDNT
-	{
-	public $strHTML;
-	private $arrEDRO=
-	array(
-		'arrE'=>
-		array(
-			'/','/search'
-			),
-		'arrD'=>
-		array(
-			'/home/EDRO/2.Design/.strFileList.php',
-			),
-		'arrR'=>
-		array(
-			'arrLang'=>
-			array(
-				'EN','RU',
-				),
-			'arrRole'=>
-			array(
-				'Listener'
-				),
-			),
-		'arrO'=>
-		array(
-			'strHTML'=>''
-			),
-		);
-	public function __construct()
-		{
-		$this->strHTML='
-		<EDROContextSignals
-			class="abs layer_4 matrixTop V100 BC3 BT3"
-			style="	
-				left		:0;
-				height		:20px;
-				width		:100%;
-				"
-			>'.
-			DynaScreenEventIndicator::strHtml().
-			IndicatorPlayer::strHTML().
-			IndicatorNetwork::strHTML().
-			IndicatorHiFi::strHtml().
-			Login::strHTML().
-			IndicatorMasterClock::strHTML().
-			IndicatorDimensions::strHTML().
-			IndicatorLang::strHtml().
-			IndicatorRole::strHTML().
-		'</EDROContextSignals>';
-		}
-	public static function strHTML()
-		{
-		//$arrData['_strName']=$_objData->strName;
-		$objSystemEventIndicatorStream		=new SystemEventIndicatorStream();
-		return $objSystemEventIndicatorStream->strHTML;
-		}
-	}
-
                      /*_____
 © Andrey Chekmaryov 2020
 
@@ -10740,201 +10371,292 @@ class FormInput
 //											||/.				
 //										       ./.					
 //										      . 							
-ЕДРО::XTerm();
-class ЕДРО
-	{
-	private $E	= array(  //ВходящиеНастройки ([E]vent are starting, then we'w got the setup of the event)
-				// 'дбг_сВходящиеНастройки' => '',
-				// 'мВходящиеНастройки'	=> array(),
-				'мСервер'		=>
-							array(
-							'strProto'		=> strProto,
-							'strAddr'		=> strAddr,
-							'intPort'		=> intPort,
-							'intReadBlockSize'	=> intReadBlockSize,
-							'дТаймаут'		=> дТаймаут,
-							),
+$мСерверы	= array(
+			array(
+				'strProto'		=> strProto,
+				'strAddr'		=> strAddr,
+				'intPort'		=> intPort,
+				'intReadBlockSize'	=> intReadBlockSize,
+				'дТаймаут'		=> дТаймаут,
+				),
 			);
-	private $D	= array(  //НастройкиЭлементаНадКоторымПроизводитсяРабота([D]esign - the screen in front of listener's eyes)
-				 // 'дбг_сНастройкиЭлемента'=> '',
-				// 'мНастройкиЭлемента'	=> array(),
-			);
-	private $R	= array( //Состояние операционной среды Реальность ([R]eality)
-				'СЗапрос'		=> '',
-				'ч1Слушатель'		=> 0,
-				'сДоступ'		=> '/Listener',
-				'bIzSocket'		=> FALSE,
-				'bizReadedBlock'	=> FALSE,
-				'intWritedBytes'	=> 0,
-			);
-	public $O	= array( //Использующиеся объекты для работы и их настройки по-умолчанию. ([O]bjects)
-				'EЗаписьВыход'		=> '',
-				'оЕДРО'			=> '',
-				'оСостояние'		=> '',
-				'оОшибка'		=> '',
-				'оСервер'		=> '',
-			);
-	public static function XTerm()
-		{
-		while(TRUE)
-			{
-			$оЕДРО = new ЕДРО();
-			}
-		}
-	public function __construct()
-		{
-		$this->R['сСостояние']		= __CLASS__.'/'.__FUNCTION__;
-		//$this->O['оСостояние'] 	= new ОповещениеСостояние(__CLASS__, __FUNCTION__);
-		//$this->O['оОшибка'] 		= new ОповещениеОшибка();
-		
-		$this->O['оСервер']		= new СерверЧтенияЛокальный($this->E['мСервер']);
-
-		while($рПередача = $this->O['оСервер']->ifWaitForListenerAccess())
-			{
-			$this->O['ЕЧтениеВход']		= new ЕЧтениеВход($рПередача, $this->E['мСервер']['intReadBlockSize']);
-
-			if($this->O['ЕЧтениеВход']->R['фЗапрос']===TRUE)
-				{
-				//$ЕЧтениеВход		= $this->O['ЕЧтениеВход']->R['сЗапрос'];
-
-				$this->O['оЕДРО']	= new EDRO($this->O['ЕЧтениеВход']->R['сЗапрос']);
-				print_r($this->O['оЕДРО']);
-			//	$this->O['EЗаписьВыход']		= new EЗаписьВыход($this->R['рПередача'], );
-				}
-				//print_r($this);
-				exit;
-			}
-		
-		}
-	}
-
-//© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com 2021
-class ПрочитатьЕ
-	{
-	}
-class ПрочитатьD
-	{
-	}
-class ПрочитатьR
-	{
-	}
-class ПрочитатьO
-	{
-	}
-
+ЕДРО::XTerm($мСерверы);
 class ЕДРО
 	{
 	public $Е	= FALSE;
-	public $Д	= 'Прочитать';
-	public $Р	= 'json';
-	public $О	= 'php';
-	public function __construct($сД, $сРасположение)
+	public $Д	= '';
+	public $Р	= FALSE;
+	public $О	= '';
+	public static function XTerm($мСерверы)
 		{
-		//switch($сД)
-		//	{
-			///case'Настройки':
-			//	$this->_ПрочитатьD($сРасположение);
-			//break;
-			//case'Объект':
-			//	$this->_ПрочитатьO($сРасположение);
-			//break;
-		//	}
+		while(TRUE)
+			{
+			$оЕДРО = new ЕДРО($мСерверы);
+			}
 		}
-	private function _ПрочитатьD($сРасположение)
+	public function __construct($мСерверы)
 		{
-		//$this->Р	= FileRead::arrJSON($сРасположение.'/run.D');
+		//$this->R['сСостояние']		= __CLASS__.'/'.__FUNCTION__;
+		//$this->O['оСостояние'] 	= new ОповещениеСостояние(__CLASS__, __FUNCTION__);
+		//$this->O['оОшибка'] 		= new ОповещениеОшибка();
+		
+		$оСервер		= new СерверЧтенияЛокальный($мСерверы['0']);
+		while($Е = $оСервер->ifWaitForListenerAccess())
+			{
+			$оЕЧтениеВход	= new ЕЧтениеВход($Е, $мСерверы[0]['intReadBlockSize']);
+			$Е1		= $оЕЧтениеВход->Е;
+			if($Е1)
+				{
+				$oEDRO	= new EDRO($оЕЧтениеВход->Р);
+				if($oEDRO->E['strName']=='robots.txt')
+					{
+					
+					}
+				elseif($oEDRO->E['strName']=='favicon.ico')
+					{
+					$strContentType		='Content-Type: image/png';
+					fwrite($connect, "HTTP/1.1 200 OK\r\nContent-Type: image/png\r\nServer-name: Abhasia LaDa.Rdo\r\nContent-Length:".strlen($faviconBin)."\r\nConnection: close\r\n\r\n".$faviconBin);
+					}
+				else
+					{
+					$strContentType		='Content-Type: text/html';
+					}
+				print_r($oEDRO);
+				//$Е2	
+				$Д2	= ДПамятьЗаголовкиДляКлиентаСлушателя::str($oEDRO);
+				$Р2	= РПамятьЭкранДляКлиентаСлушателя::str($oEDRO);
+				$О2 	= ОЗаписьОтветСлушателюКонецСреза::str($Е, $Д2, $Р2);
+				}
+			//$Д1 $оЕЧтениеВход-> Д
+			//$Р1 $оЕЧтениеВход-> Р
+			//$О1 $оЕЧтениеВход-> О
+			}
+		//$Д
+		//$Р
+		//$О
+		/*while($рПередача = $оСервер->ifWaitForListenerAccess())
+			{
+			if(ЕЧтениеВход::ф($рПередача, $мСерверы[0]['intReadBlockSize'])===TRUE)
+				{
+
+				$оЕ	= new EDRO($this->O['ЕЧтениеВход']->R['сЗапрос']);
+				
+				$Д	= ДПамятьЗаголовкиДляКлиентаСлушателя::str($оЕ);
+				$Р	= РПамятьЭкранДляКлиентаСлушателя::str($оЕ);
+				
+				$this->O['EЗаписьВыход']			= new ОЗаписьОтветСлушателюКонецСреза($this->R['рПередача'], '');
+										unset($this->O['оЕДРО']);
+				}
+				
+			}*/
+		
 		}
-	private function _ПрочитатьO($сРасположение)
+	}
+
+// © A.A.CheckMaRev assminog@gmail.com, tubmulur@yandex.ru, Hfic.Samin@vk.com 2021
+// Первая версия была названа Абхазя. Текущая версия - ЕДРО:ПОЛИМЕР2
+set_time_limit(0);
+class СерверЧтенияЛокальный
+	{
+	public 	$Е	= FALSE;
+	public 	$Д	= '';
+	public 	$Р	= FALSE;
+	public 	$О	= '';
+
+	private $дТаймаут	= -1;
+	private	$мНастройки	= array();
+
+	function __construct($мНастройки)
 		{
-		//if(is_file($сРасположение.'/0.php'))
-		//	{
-		//$this->О	= FileRead::objJSON($сРасположение.'/run.php');
-		//	}
-		//echo $сРасположение;
+		$this->мНастройки	= $мНастройки;
+
+		$рПриёмник	= stream_socket_server($this->мНастройки['strProto'].'://'.$this->мНастройки['strAddr'].':'.$this->мНастройки['intPort'], $ч0Ошибка, $сОшибка);
+		if(empty($рПриёмник)||!empty($ч0Ошибка))
+			{
+			$this->Е	= FALSE;
+			$this->Д	= __CLASS__.'->'.__FUNCTION__.' stream_socket_server('.$this->мНастройки['strProto'].'://'.$this->мНастройки['strAddr'].':'.$this->мНастройки['intPort'].', '.$ч0Ошибка.' - '.$сОшибка.')';
+			$this->Р	= FALSE;
+			$this->О	= $this->Д;
+			}
+		else
+			{
+			$this->Е	= TRUE;
+			$this->Д	= __CLASS__.'->'.__FUNCTION__.' stream_socket_server('.$this->мНастройки['strProto'].'://'.$this->мНастройки['strAddr'].':'.$this->мНастройки['intPort'].', '.$ч0Ошибка.' - '.$сОшибка.')';
+			$this->Р	= $рПриёмник;
+			$this->О	= '';
+			}
+		}
+	public function ifWaitForListenerAccess()
+		{
+		if($this->Е && $this->Р!==FALSE)
+			{
+			$рПередача 		= stream_socket_accept($this->Р, $this->дТаймаут);
+			if($рПередача===FALSE)
+				{
+				$this->Е	= FALSE;
+				$this->Д	= __CLASS__.'->'.__FUNCTION__.'stream_socket_accept('.$this->Р.','.$this->дТаймаут.')==FALSE';
+				$this->Р	= FALSE;
+				$this->О	= $this->Д;
+						фОшибка($this->О);
+						self::__construct($this->мНастройки);
+				}
+			else
+				{
+				$this->Е	= TRUE;
+				$this->Д	= __CLASS__.'->'.__FUNCTION__.'stream_socket_accept('.$this->Р.','.$this->дТаймаут.')';
+				$this->Р	= $this->Р; //Мспользую память заново.
+				$this->О	= '';
+				}
+			}
+		else
+			{
+			$this->Е	= FALSE;
+			$this->Д	= __CLASS__.'->'.__FUNCTION__.'this->Е==FALSE';
+			$this->Р	= FALSE;
+			$this->О	= $this->Д;
+					фОшибка($this->О);
+					self::__construct($this->мНастройки);
+			}
+		return $рПередача;
 		}
 	}
 
 //© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com 2021
 class ЕЧтениеВход
 	{
-	private $E	= array();
-	private $D	= array(
-			'сСостояние'	=> '',
-			'сОшибка'	=> '',
-				);
-	public 	$R	= array();
-	private $O	= array(
-			'оСекундомер'	=> array(),
-			'оОшибка'	=> array(),
-				);
-	public function __construct($рПередача, $intReadBlockSize)
+	public $Е	= FALSE;
+	public $Д	= '';
+	public $Р	= FALSE;
+	public $О	= '';
+	public function __construct($рЕПередача, $intReadBlockSize)
 		{
-		$this->R['сСостояние']			= __CLASS__.'/'.__FUNCTION__;
-		//					$this->O['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
-		///$this->O['оОшибка'] 			= new ОповещениеОшибка();
-		if($рПередача)
+		if($рЕПередача)
 			{
-			if(empty($сЗапрос = fread($рПередача, $intReadBlockSize)))
-				{
-				$this->R['сЗапрос']		= '';
-				$this->R['фЗапрос']		= FALSE;
-				$this->R['сОшибка']		= 'fread($рПередача '.$intReadBlockSize.') empty.';
-				//				$this->O['оОшибка']->_PushError($this);
-				}
-			else
-				{
-				$this->R['сЗапрос']		= $сЗапрос;
-				$this->R['фЗапрос']		= TRUE;
-				//				$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
-				}
+			$this->_ДПрочитать($рЕПередача, $intReadBlockSize);
 			}
 		else
 			{
-			$this->R['сЗапрос']		= '';
-			$this->R['фЗапрос']		= FALSE;
-			$this->R['сОшибка']		= 'рПередача: FALSE'.$рПередача;
-			//				$this->O['оОшибка']->_PushError($this);
+			$this->Е	= FALSE;
+			$this->Д	= __CLASS__.'->'.__FUNCTION__.' (рЕПередача:'.$рЕПередача.' intReadBlockSize:'.$intReadBlockSize.') нет передачи';
+			$this->Р	= FALSE;
+			$this->О	= $this->Д;
+					фОшибка($this->О);
+			}
+		}
+	private function _ДПрочитать($рЕПередача, $intReadBlockSize)
+		{
+		$сЗапрос = fread($рЕПередача, $intReadBlockSize);
+		if(empty($сЗапрос))
+			{
+			$this->Е	= FALSE;
+			$this->Д	= __CLASS__.'->'.__FUNCTION__.' (рЕПередача:'.$рЕПередача.' intReadBlockSize:'.$intReadBlockSize.') вернула пустой результат';
+			$this->Р	= FALSE;
+			$this->О	= $this->Д;
+					фОшибка($this->О);
+			}
+		else
+			{
+			$this->Е	= TRUE;
+			$this->Д	= __CLASS__.'->'.__FUNCTION__.' (рЕПередача:'.$рЕПередача.' intReadBlockSize:'.$intReadBlockSize.')+';
+			$this->Р	= $сЗапрос;
+			$this->О	= '';
 			}
 		}
 	}
 
 //© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com 2021
-class EЗаписьВыход
+class ДПамятьЗаголовкиДляКлиентаСлушателя
 	{
-	private $E	= array();
-	private $D	= array(
-			'сСостояние'	=> '',
-			'сОшибка'	=> '',
-				);
-	private $R	= array();
-	private $O	= array(
-			'оСекундомер'	=> array(),
-			'оОшибка'	=> array(),
-				);
-	public function __construct($рПередача, $strListenerBlock)
-		{$this->R['сСостояние']			= __CLASS__.'/'.__FUNCTION__;
-							$this->O['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
-		$this->O['оОшибка'] 			= new ОповещениеОшибка();
+	public $Е	= FALSE;
+	public $Д	= '';
+	public $Р	= FALSE;
+	public $О	= '';
+	public function __construct($oEDRO)
+		{
+		$this->Е	= TRUE;
+		$this->Д	= __CLASS__.'/'.__FUNCTION__.': +';
+		foreach($oEDRO->R as $strName => $strValue)
+			{
+			$this->Р	.= $strName.':'.$strValue."\r\n";
+			}
+		//$this->Р		=str_replace(array("\r\n\r\n", "\n\n"), "", $this->Р);
+		$this->О	= '';
+		}
+	public static function str($oEDRO)
+		{
+		$o	= new ДПамятьЗаголовкиДляКлиентаСлушателя($oEDRO);
+		return $o->Р;
+		}
+	}
+
+//© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com 2021
+class РПамятьЭкранДляКлиентаСлушателя
+	{
+	public $Е	= FALSE;
+	public $Д	= '';
+	public $Р	= FALSE;
+	public $О	= '';
+	public function __construct($oEDRO)
+		{
+		//$strBuffer		=str_replace(array("\r\n\r\n", "\n\n"), "", $str);
+		$this->Е	= TRUE;
+		$this->Д	= __CLASS__.'/'.__FUNCTION__.': +';
+		$this->Р	= '';
+		$this->О	= '';
+		}
+	public static function str($oEDRO)
+		{
+		$o	= new РПамятьЭкранДляКлиентаСлушателя($oEDRO);
+		return $o->Р;
+		}
+	}
+
+//© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com 2021
+class ОЗаписьОтветСлушателюКонецСреза
+	{
+	public $Е	= FALSE;
+	public $Д	= '';
+	public $Р	= FALSE;
+	public $О	= '';
+
+	public function __construct($рПередача, $strListenerHeaders, $strTextForListener)
+		{
+		//					$this->O['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
 		if($рПередача)
 			{
-			$intWrited	= fwrite($рПередача, $strListenerBlock, strlen($strListenerBlock));
-					fclose($рПередача);
+			$strListenerBlock	= $strListenerHeaders."\r\n".$strTextForListener;
+			$intWrited		= fwrite($рПередача, $strListenerBlock, strlen($strListenerBlock));
+			fclose($рПередача);
 			if(	($intWrited>0)&&
 				($intWrited==strlen($strListenerBlock)))
 				{
+				$this->Е		= TRUE;
+				$this->Д		= __CLASS__.'->'.__FUNCTION__.' fwrite(рПередача:'.$рПередача.' strListenerBlock: ->Р Размер:'.strlen($strListenerBlock).') нет передачи';
+				$this->Р		= TRUE;
+				$this->О		= '';
 				}
 			else
 				{
-				$this->R['сОшибка']		= 'Write result to listener are not equal to quantity of data attempted to write to';
-								$this->O['оОшибка']->_PushError($this);
+				$this->Е		= FALSE;
+				$this->Д		= __CLASS__.'->'.__FUNCTION__.' fwrite(рПередача:'.$рПередача.' strListenerBlock:'.$strListenerBlock.' Размер:'.strlen($strListenerBlock).') нет передачи';
+				$this->Р		= FALSE;
+				$this->О		= $this->Д;
+							фОшибка($this->О);
 				}
 			}
 		else
 			{
-			$this->R['сОшибка']			= 'fwrite answer to listener($рПередача failed';
-								$this->O['оОшибка']->_PushError($this);
+			$this->Е		= FALSE;
+			$this->Д		= __CLASS__.'->'.__FUNCTION__.' (рПередача:'.$рПередача.') нет передачи';
+			$this->Р		= FALSE;
+			$this->О		= $this->Д;
+						фОшибка($this->О);
 			}
-							$this->O['оСекундомер']->_Стоп(__CLASS__, __FUNCTION__);
+		}
+	public static function str($рПередача, $strListenerHeaders, $strTextForListener)
+		{
+		$o	= new ОЗаписьОтветСлушателюКонецСреза($рПередача, $strListenerHeaders, $strTextForListener);
+		return $o->Р;
 		}
 	}
 ?>
