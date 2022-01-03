@@ -7,8 +7,7 @@ define('strProto'							, 'tcp'								);
 
 //define('strAddr'							, '192.168.1.198'						);
 define('strAddr'							, '127.0.0.1'							);
-define('intPort'							, '60'								);
-//define('strPort'							, '8080'							);
+define('intPort'							, '8081'							);
 define('intReadBlockSize'						,  512								);
 //vvv Протестировать
 define('дТаймаут'							, -1								);
@@ -115,6 +114,185 @@ define('cЗаписьО2о'							, '/0.О20'							);
 сРасположение(о2о):Наименование(ШтатнаяЕдиница).Наименование(Язык).Наименование(Страна).ПорядкНомер(РабочаяПапкаСлушателя)->
 сРасположение(о2о):Наименование(ШтатнаяЕдиница).Наименование(Язык).Наименование(Страна).ПорядкНомер(РабочаяПапкаСлушателя)->
 */
+
+//© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com
+$мСтат['faviconBin']		= file_get_contents('/home/HiFiIntelligentClub.Ru/favicon.png');
+
+//© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com
+$мСтат['flag']='
+<HficNews 
+	class="fix block TC1 BC1 V97 HR0 layer_2" 
+	style="
+		height		:20px;
+		font-size	:small;
+		line-height	:9px;
+		">
+	<HIC_PRESIDENT_MESSAGE
+		class	="block" 
+		style		="
+				height		:100%;
+				"
+		>
+
+		<on-air 
+			title	="Active"
+			class	="abs block" 
+			style	="
+				top			:0;
+				right			:0;
+				width			:4px;
+				height			:4px;
+				background-color	:green;
+				"
+			>
+		</on-air>
+
+			<HficSamin title="Assembling please wait for result little more.. Hfic Samin" style="color:green;font-size:xx-small;height:20px;" class="brick left BC3 TC3"  mail-me-gmail="tubmulur@yandex.ru" message-me-telegram="https://t.me/hficsamin" message-me-whatsapp="+79117874457" view-oficial-group-main="https://vk.com/HiFiIntelligentClub" view-oficial-group-shine="https://facebook.com/HiFiIntelligentClub" title="https://t.me/hficsamin,whatsapp +79117874457,tubmulur@yandex.ru,https://vk.com/HiFiIntelligentClub,https://facebook.com/HiFiIntelligentClub">
+				<marquee 
+					class="abs brick right" 
+					style="right:0px;width:10px;height:20px;color:blue;font-size: x-large;margin-top:1px; background-color:transparent;" 
+					scrollamount="5"
+					>
+					`\'\'\'\'---...._______________________________..._______....\'\'\'\'`
+				</marquee>
+				<marquee 
+					class="abs brick right" 
+					style="right:0px;width:10px;height:20px;color:red;font-size: x-large;margin-top:3px;background-color:transparent" 
+					scrollamount="5"
+					>
+					``\'\'\'\'-....______________________________....______....\'\'\'\'``
+				</marquee>
+				<marquee 
+					class="abs brick right" 
+					style="right:0px;width:10px;height:20px;color:white;font-size: x-large;margin-top:-1px; background-color:transparent;" 
+					scrollamount="5"
+					>
+					`\'\'\'\'---....______________________________________________....\'\'\'\'`
+				</marquee> 
+				<marquee 
+					class="abs brick right" 
+					style="right:10px;width:10px;height:20px;color:blue;font-size: x-large;margin-top:1px;background-color:transparent" 
+					scrollamount="5"
+					>
+					`\'\'\'\'---....._......................____________________________....\'\'\'\'``
+				</marquee> 
+				<marquee 
+					class="abs brick right" 
+					style="right:10px;width:10px;height:30px;color:red;font-size: x-large;margin-top:3px;background-color:transparent" 
+					scrollamount="5"
+					>
+					`\'\'\'\'---...._________________________________________.._____....\'\'\'\'
+				</marquee>
+				<marquee 
+					class="abs brick right" 
+					style="right:10px;width:10px;height:30px;color:white;font-size: x-large;margin-top:-1px;background-color:transparent" 
+					scrollamount="5"
+					>
+					`\'\'\'\'---......._________________________________________....\'\'\'\'
+				</marquee>
+				<marquee 
+					class="abs brick right" 
+					style="right:20px;width:10px;height:30px;color:blue;font-size: x-large;margin-top:1px;background-color:transparent" 
+					scrollamount="5"
+					>
+					`\'\'\'\'--....________________________________....\'\'\'\'`
+				</marquee>
+				<marquee 
+					class="abs brick right" 
+					style="right:20px;width:10px;height:20px;color:red;font-size: x-large;margin-top:3px;background-color:transparent" 
+					scrollamount="5"
+					>
+					``\'\'\'\'---...__________________________________---_-_....\'\'\'\'``
+				</marquee> 
+				<marquee 
+					class="abs brick right" 
+					style="right:20px;width:10px;height:20px;color:white;font-size: x-large;margin-top:-1px;background-color:transparent" 
+					scrollamount="5"
+					>
+					``\'\'\'\'-_-_-_---_-_._..__-_______________________-_-_-_-_-_-_....\'\'\'\'``
+				</marquee> 
+				<marquee 
+					class="abs brick right" 
+					style="right:30px;width:10px;height:20px;color:blue;font-size: x-large;margin-top:1px;background-color:transparent" 
+					scrollamount="5"
+					>
+					````\'\'_\'\'--_-...________....________________\'\'\'___________\'_`_`
+				</marquee> 
+				<marquee 
+					class="abs brick right" 
+					style="right:30px;width:10px;height:30px;color:red;font-size: x-large;margin-top:3px;background-color:transparent" 
+					scrollamount="5"
+					>
+					`\'\'\'\'---....________....._________....\'\'\'\'
+				</marquee>
+				<marquee 
+					class="abs brick right" 
+					style="right:30px;width:10px;height:30px;color:white;font-size: x-large;margin-top:-1px;background-color:transparent" 
+					scrollamount="5"
+					>
+					`\'\'\'\'---...._____________._____________________......\'\'\'\'
+				</marquee>
+				<marquee 
+					class="abs brick right" 
+					style="right:40px;width:10px;height:20px;color:blue;font-size: x-large;margin-top:1px; background-color:transparent;" 
+					scrollamount="5"
+					>
+					`\'\'\'\'---...____________.______________.___________.________....\'\'\'\'`
+				</marquee>
+				<marquee 
+					class="abs brick right" 
+					style="right:40px;width:10px;height:20px;color:red;font-size: x-large;margin-top:3px;background-color:transparent" 
+					scrollamount="5"
+					>
+					``\'\'\'\'-...._____________.__________________....\'\'\'\'``
+				</marquee>
+				<marquee 
+					class="abs brick right" 
+					style="right:40px;width:10px;height:20px;color:white;font-size: x-large;margin-top:-1px; background-color:transparent;" 
+					scrollamount="5"
+					>
+					`\'\'\'\'---....________________________________________________________________....\'\'\'\'`
+				</marquee> 
+				<marquee 
+					class="abs brick right" 
+					style="right:50px;width:10px;height:20px;color:blue;font-size: x-large;margin-top:1px;background-color:transparent" 
+					scrollamount="5"
+					>
+					`\'\'\'\'---...._________________________________________________....\'\'\'\'``
+				</marquee> 
+				<marquee 
+					class="abs brick right" 
+					style="right:50px;width:10px;height:30px;color:red;font-size: x-large;margin-top:3px;background-color:transparent" 
+					scrollamount="5"
+					>
+					`\'\'\'\'---....____________________________________________....\'\'\'\'
+				</marquee>
+				<marquee 
+					class="abs brick right" 
+					style="right:50px;width:10px;height:30px;color:white;font-size: x-large;margin-top:-1px;background-color:transparent" 
+					scrollamount="5"
+					>
+					`\'\'\'\'---.......________________________....\'\'\'\'
+				</marquee>
+				<marquee 
+					class="abs brick right" 
+					style="right:60px;width:10px;height:30px;color:blue;font-size: x-large;margin-top:1px;background-color:transparent" 
+					scrollamount="5"
+					>
+					`\'\'\'\'--...._________________________________....\'\'\'\'`
+				</marquee>
+				<marquee 
+					class="abs brick right" 
+					style="right:60px;width:10px;height:20px;color:red;font-size: x-large;margin-top:3px;background-color:transparent" 
+					scrollamount="5"
+					>
+					``\'\'\'\'---..._______________________________....\'\'\'\'``
+				</marquee> 
+
+	    		</HficSamin>
+	</HIC_PRESIDENT_MESSAGE>
+</HficNews>';
+
 
 //© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com
 function э($_с)
@@ -2997,9 +3175,10 @@ class EDRO
 			//			From Listener
 			'strName'		=> '', // /
 			'strExt'		=> '', // .cvb
-			'arrEventParams'		=> array(),
+			'arrEventParams'	=> array(),
 			'arrAcceptContent'	=> array(),
 			'bIzDynamic'		=> FALSE,
+			'bIzDNT'		=> FALSE,
 			);
 	public $D	= array( //НастройкиЭлементаНадКоторымПроизводитсяРабота([D]esign - the screen in front of listener's eyes
 			//	'мНастройкиЭлемента'	=> array 
@@ -3024,17 +3203,15 @@ class EDRO
 			'arrPlatform' 		=> array(),
 			);
 	public $O	= array( //Использующиеся объекты для работы и их настройки по-умолчанию. ([O]bjects)
-			'оОшибка'		=> '',
-			'оСостояние'		=> '',
+			'оПоиск'
+		///	'оОшибка'		=> '',
+		//	'оСостояние'		=> '',
 			//	'оКИМ'			=> '',
 			//	'оЖурнал'		=> '',
 			);
 	public function __construct($_сЗаголовки)
 		{
-		//$this->O['оСостояние'] 	= new ОповещениеСостояние(__CLASS__, __FUNCTION__);
-		//$this->O['оОшибка'] 		= new ОповещениеОшибка();
 
-		///				$this->O['оСостояние']->O['оСекундомер']->_Старт();
 		$сЗаголовки			= $this->strSafeUsers($_сЗаголовки);
 								unset($_сЗаголовки);
 
@@ -3049,8 +3226,8 @@ class EDRO
 		$oReality			= new Reality($this->E);
 		$this->R			= $oReality->R;
 
-		//$oObjects			= new Objects($this);
-		//$this->O			= $oObjects->O;
+		$OSearch			= new OSearch($this);
+		$this->O['оПоиск']		= $OSearch->O;
 		//print_r($this);
 		//exit;
 		//				$this->O['оСостояние']->O['оСекундомер']->_Стоп();
@@ -3196,6 +3373,10 @@ class Event
 					$this->E['strName']			= сНачДоСимвола($strEvent, "?");
 					$strEventParams				= сНачОтСимвола($strEvent, "?", 0, 1);
 					$this->E['arrEventParams']		= arrEventParams2Array($strEventParams);
+					if(empty($this->E['arrEventParams']['strHiFiType']))
+						{
+						$this->E['arrEventParams']['strHiFiType']	= '/HiFi beginner';
+						}
 					$this->E['strExt']			= сКонцДоСимвола($this->E['strName'], '.');
 					$this->E['bIzDynamic']			= $this->bIzDynamic($strEventParams);
 					}
@@ -7095,10 +7276,10 @@ class Reality
 			);
 	public $R	= array( //Состояние операционной среды Реальность ([R]eality)
 			//	Listener
+			'Content-Type'		=> 'text/html',
 			'bIzDNT'		=> FALSE, //Add event indicator to the top!!!!!!!!!!!!!
 			'bIzDynamic'		=> FALSE,
 			'strTo'			=> '',
-			'strConnection'		=> '',
 			'strPlatform'		=> '',
 			'strPlatformPrefix'	=> '',
 			'strEventParams'	=> '',
@@ -7119,6 +7300,7 @@ class Reality
 		//$this->E	= $arrE;
 		//$this->D	= $arrD;
 		//$this->R	= $arrR;
+	
 		if($arrE['bIzDNT']===TRUE)
 			{
 			$this->R['bIzDNT']		= TRUE;
@@ -7128,7 +7310,6 @@ class Reality
 			$this->R['bIzDynamic'] 		= TRUE;
 			}
 		$this->R['strTo']		= $arrE['strTo'];
-		$this->R['strConnection']	= $arrE['strConnection'];
 		foreach($arrE['arrPlatform'] as $strPlatform => $bIzPlatform)
 			{
 			if($bIzPlatform===TRUE)
@@ -7152,9 +7333,21 @@ class Reality
 		$this->R['strEventParams']	= substr($this->R['strEventParams'], 1);
 		$this->R['strEvent']		= $arrE['strName'];
 		$this->R['strEventExt']		= $arrE['strExt'];
-
-
+		if($this->R['strEvent']=='robots.txt')
+			{
+			$this->R['Content-Type']		= 'text/plain';
+			}
+		elseif($this->R['strEvent']=='favicon.ico')
+			{
+			$this->R['Content-Type']		= 'image/png';
+			}
+		else
+			{
+			$this->R['Content-Type']		= 'text/html';
+			}
+		
 		$this->R['strHiFiType']		= сПреобразовать($arrE['arrEventParams']['strHiFiType'], 'вСтроку');
+		$this->R['strDate']		= date(DATE_RFC822);
 
 
 
@@ -7478,7 +7671,7 @@ Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dpl
  //////   jl
 ./././././././*/
 
-class Objects
+class OSearch
 	{
 	//public $arrObjects;
 	private $E	= array(  //ВходящиеНастройки ([E]vent are starting, then we'w got the setup of the event)
@@ -7493,9 +7686,10 @@ class Objects
 			//	Listener
 			);
 	public $O	= array( //Использующиеся объекты для работы и их настройки по-умолчанию. ([O]bjects)
-			'оОшибка'		=> '',
-			'оСостояние'		=> '',
-			'оСекундомер'		=> '',
+			'оПоиск'
+			// 'оОшибка'		=> '',
+			// 'оСостояние'		=> '',
+			// 'оСекундомер'		=> '',
 			);
 	public function __construct($o)
 		{
@@ -7503,74 +7697,51 @@ class Objects
 		$this->E	= $o->E;
 		$this->D	= $o->D;
 		$this->R	= $o->R;
-		//$this->arrReality['сРасположениеКорень']	='/home/ЕДРО:ПОЛИМЕР/о2о.БазаДанных/HiFiIntelligentClub'; //moved to REALITY
-		$strPlatformPrefix	= '';
-		//$strHiFiType		= сПреобразовать($this->E['arrEventParams']['strHiFiType'], 'вСтроку');
-		//$strHiFiType		= '/HiFi beginner';
-
-		/*
-		$arrHiFi['Low quality']		='Low';   //NoHiFi
-		$arrHiFi['HiFi beginner']	='beginner'; //HiFi
-		$arrHiFi['HiFi casual']		='casual'; //HiFi
-		$arrHiFi['HiFi often']		='often';  //HiFi
-		$arrHiFi['HiFi mustbe']		='mustbe'; //HiFi
-		$arrHiFi['HiFi modern']		='HiFi 2.1'; //2.1
-		$arrHiFi['HiFi modern_casual']	='HiFi 5.1'; //5.1
-		$arrHiFi['HiFi modern_casual+']	='HiFi 7.1'; //7.1
-		*/
-		//print_r($this->arrEvent['arrReality']['strStationID']);
-		//exit();
-	/*	
-		foreach($arrHiFi as $strHiFiTypeName =>$strHiFiShortName)
-
-			{
-			if(strpos($strHiFiType, $strHiFiShortName)!==FALSE)
-				{
-				$strHiFiType	=$strHiFiTypeName;
-				}
-			}
-		if($strHiFiType=='')
-			{
-			$strHiFiType		='/HiFi beginner';
-			}
-		else
-			{
-			$strHiFiType		='/'.$strHiFiType;
-			}
-		$this->arrEvent['arrReality']['strHiFiType']	=$strHiFiType;
-		*/
-		/*
-		if($this->R['arrPlatform']['bIzAndroid'])
-			{
-			$strPlatformPrefix	='/Android';
-			}
-		if($this->R['arrPlatform']['bIzAppleMobile'])
-			{
-			echo $strPlatformPrefix	='/Apple';
-			}
-		*/
-		//$сРасположениеКорень	=$сРасположениеКорень;
-
-		$strSearchName		=сПреобразовать(mb_strtolower($this->E['arrEventParams']['strName']),'вКоманду');
+		$strPlatformPrefix	= $this->R['strPlatformPrefix'];
+		$strHiFiType		= сПреобразовать($this->E['arrEventParams']['strHiFiType'], 'вСтроку');
+		echo $strSearchName	= сПреобразовать(mb_strtolower($this->E['arrEventParams']['strName']),'вКоманду');
 		if(strlen($strSearchName)<3)
 			{
-			$strSearchName	='';
+			$strSearchName	= '';
 			}
-		$strSearchGenre		=сПреобразовать(mb_strtolower($this->E['arrEventParams']['strGenre']),'вКоманду');
-		$strSearch		=мЖанр_мЯзык_мТранскрипция($strSearchGenre);
-
-		$strSearchType   	=empty($strSearchName)? '/unordered/':'/search/';
-
-		$strICQRTypeF='ICQR_Q';
-		//$strSearchPath		='/Stations/'.$strICQRTypeF.'/'.$strHiFiType.$strPlatformPrefix;
+		$strSearchType   	= empty($strSearchName)? '/unordered/':'/search/';
+		$strICQRTypeF		= 'ICQR_Q';
+		$strSearchGenre	 	= сПреобразовать(mb_strtolower($this->E['arrEventParams']['strGenre']),'вКоманду');
+		$strSearchPath		= '/Stations/'.$strICQRTypeF.'/'.$strHiFiType.$strPlatformPrefix;
 		if($strSearchGenre=='')
 			{
-			$strSearchPath	.=$strSearchType;
+			$strSearchPath	.= $strSearchType;
 			}
 		else
 			{
-			$strSearchPath	.='/Genres/search/'.$strSearchGenre.$strSearchType;
+			$strSearchPath	.= '/Genres/search/'.$strSearchGenre.$strSearchType;
 			}
+		echo $this->O['сРасположение']		=$this->D['сРасположениеКорень'].$strSearchPath;
+
+		if($strSearchName=='')
+			{
+			//echo $objTotal	=FileRead::objJSON($this->O['сРасположение'].'/total.plmr');
+
+			//$this->O['ч0РасположениеTotal']	= ($objTotal->int1Total-1);
+			//if($this->O['ч0РасположениеTotal']=='')
+			//	{
+			//	echo 'No data';
+			//	}
+		//exit;
+			//$this->O['мРасположение']		=Pagination::arr($this);
+
+			//for($int0I=$this-O['мРасположение']['int0Start'];$int0I<=$this->O['мРасположение']['int0Untill'];$int0I++)
+			//	{
+			//	$this->O['мТаблица'][]	=$this->O['сРасположение'].'/'.$int0I.'.plmr';
+			//	}
+			}
+
+
+		//$strSearch		=мЖанр_мЯзык_мТранскрипция($strSearchGenre);
+
+		/*
+		//
+
 		$strSearchPath;
 		if($this->E['arrEventParams']['strPlayingStationId']!='')
 			{
@@ -7579,24 +7750,8 @@ class Objects
 			{
 			}
 
-		$this->O['сРасположение']		=$this->R['сРасположениеКорень'].$strSearchPath;
-		if($strSearchName=='')
-			{
-			$objTotal	=FileRead::objJSON($this->O['сРасположение'].'/total.plmr');
+		
 
-			$this->O['ч0РасположениеTotal']	= ($objTotal->int1Total-1);
-			if($this->O['ч0РасположениеTotal']=='')
-				{
-				echo 'No data';
-				}
-		//exit;
-			$this->O['мРасположение']		=Pagination::arr($this);
-
-			for($int0I=$this-O['мРасположение']['int0Start'];$int0I<=$this->O['мРасположение']['int0Untill'];$int0I++)
-				{
-				$this->O['мТаблица'][]	=$this->O['сРасположение'].'/'.$int0I.'.plmr';
-				}
-			}
 		else
 			{
 			
@@ -10371,6 +10526,7 @@ class FormInput
 //											||/.				
 //										       ./.					
 //										      . 							
+
 $мСерверы	= array(
 			array(
 				'strProto'		=> strProto,
@@ -10380,25 +10536,28 @@ $мСерверы	= array(
 				'дТаймаут'		=> дТаймаут,
 				),
 			);
-ЕДРО::XTerm($мСерверы);
+
+
+ЕДРО::XTerm($мСерверы, $мСтат);
 class ЕДРО
 	{
 	public $Е	= FALSE;
 	public $Д	= '';
 	public $Р	= FALSE;
 	public $О	= '';
-	public static function XTerm($мСерверы)
+	public static function XTerm($мСерверы, $мСтат)
 		{
 		while(TRUE)
 			{
-			$оЕДРО = new ЕДРО($мСерверы);
+			$оЕДРО = new ЕДРО($мСерверы, $мСтат);
 			}
 		}
-	public function __construct($мСерверы)
+	public function __construct($мСерверы, $мСтат)
 		{
 		//$this->R['сСостояние']		= __CLASS__.'/'.__FUNCTION__;
 		//$this->O['оСостояние'] 	= new ОповещениеСостояние(__CLASS__, __FUNCTION__);
 		//$this->O['оОшибка'] 		= new ОповещениеОшибка();
+		
 		
 		$оСервер		= new СерверЧтенияЛокальный($мСерверы['0']);
 		while($Е = $оСервер->ifWaitForListenerAccess())
@@ -10407,49 +10566,31 @@ class ЕДРО
 			$Е1		= $оЕЧтениеВход->Е;
 			if($Е1)
 				{
-				$oEDRO	= new EDRO($оЕЧтениеВход->Р);
-				if($oEDRO->E['strName']=='robots.txt')
+				$oEDRO			= new EDRO($оЕЧтениеВход->Р);
+				$Д2			= ДПамятьЭкранДляКлиентаСлушателя::str($oEDRO);
+				if(strlen($Д2)==0)
 					{
+					$strAnswer		= 'HTTP/1.1 404 Not Found'."\r\n";
+					$Д2			= $мСтат['flag'];
 					
-					}
-				elseif($oEDRO->E['strName']=='favicon.ico')
-					{
-					$strContentType		='Content-Type: image/png';
-					fwrite($connect, "HTTP/1.1 200 OK\r\nContent-Type: image/png\r\nServer-name: Abhasia LaDa.Rdo\r\nContent-Length:".strlen($faviconBin)."\r\nConnection: close\r\n\r\n".$faviconBin);
 					}
 				else
 					{
-					$strContentType		='Content-Type: text/html';
+					$strAnswer		= 'HTTP/1.1 200 OK'."\r\n";
+					
 					}
-				print_r($oEDRO);
-				//$Е2	
-				$Д2	= ДПамятьЗаголовкиДляКлиентаСлушателя::str($oEDRO);
-				$Р2	= РПамятьЭкранДляКлиентаСлушателя::str($oEDRO);
+				$strAnswer		.= 'Content-Length: '.strlen($Д2)."\r\n";
+				$Р2	= РПамятьЗаголовкиДляКлиентаСлушателя::str($oEDRO);
+				$Р2	= $strAnswer.$Р2;
 				$О2 	= ОЗаписьОтветСлушателюКонецСреза::str($Е, $Д2, $Р2);
+				//print_r($oEDRO);
 				}
-			//$Д1 $оЕЧтениеВход-> Д
-			//$Р1 $оЕЧтениеВход-> Р
-			//$О1 $оЕЧтениеВход-> О
-			}
-		//$Д
-		//$Р
-		//$О
-		/*while($рПередача = $оСервер->ifWaitForListenerAccess())
-			{
-			if(ЕЧтениеВход::ф($рПередача, $мСерверы[0]['intReadBlockSize'])===TRUE)
+			else
 				{
-
-				$оЕ	= new EDRO($this->O['ЕЧтениеВход']->R['сЗапрос']);
-				
-				$Д	= ДПамятьЗаголовкиДляКлиентаСлушателя::str($оЕ);
-				$Р	= РПамятьЭкранДляКлиентаСлушателя::str($оЕ);
-				
-				$this->O['EЗаписьВыход']			= new ОЗаписьОтветСлушателюКонецСреза($this->R['рПередача'], '');
-										unset($this->O['оЕДРО']);
+				фОшибка('Невозможно прочитать входящий запрос.');
+				break;
 				}
-				
-			}*/
-		
+			}
 		}
 	}
 
@@ -10565,32 +10706,7 @@ class ЕЧтениеВход
 	}
 
 //© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com 2021
-class ДПамятьЗаголовкиДляКлиентаСлушателя
-	{
-	public $Е	= FALSE;
-	public $Д	= '';
-	public $Р	= FALSE;
-	public $О	= '';
-	public function __construct($oEDRO)
-		{
-		$this->Е	= TRUE;
-		$this->Д	= __CLASS__.'/'.__FUNCTION__.': +';
-		foreach($oEDRO->R as $strName => $strValue)
-			{
-			$this->Р	.= $strName.':'.$strValue."\r\n";
-			}
-		//$this->Р		=str_replace(array("\r\n\r\n", "\n\n"), "", $this->Р);
-		$this->О	= '';
-		}
-	public static function str($oEDRO)
-		{
-		$o	= new ДПамятьЗаголовкиДляКлиентаСлушателя($oEDRO);
-		return $o->Р;
-		}
-	}
-
-//© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com 2021
-class РПамятьЭкранДляКлиентаСлушателя
+class ДПамятьЭкранДляКлиентаСлушателя
 	{
 	public $Е	= FALSE;
 	public $Д	= '';
@@ -10606,7 +10722,33 @@ class РПамятьЭкранДляКлиентаСлушателя
 		}
 	public static function str($oEDRO)
 		{
-		$o	= new РПамятьЭкранДляКлиентаСлушателя($oEDRO);
+		$o	= new ДПамятьЭкранДляКлиентаСлушателя($oEDRO);
+		return $o->Р;
+		}
+	}
+
+//© A.A.CheckMaRev assminog@gmail.com tubmulur@yandex.ru Hfic.Samin@vk.com 2021
+class РПамятьЗаголовкиДляКлиентаСлушателя
+	{
+	public $Е	= FALSE;
+	public $Д	= '';
+	public $Р	= FALSE;
+	public $О	= '';
+	public function __construct($oEDRO)
+		{
+		$this->Е	= TRUE;
+		$this->Д	= __CLASS__.'/'.__FUNCTION__.': +';
+		foreach($oEDRO->R as $strName => $strValue)
+			{
+			$this->Р	.= $strName.': '.$strValue."\r\n";
+			}
+		$this->Р	.='Server-name: EDRO.POLYMER'."\r\n";
+		//$this->Р		=str_replace(array("\r\n\r\n", "\n\n"), "", $this->Р);
+		$this->О	= '';
+		}
+	public static function str($oEDRO)
+		{
+		$o	= new РПамятьЗаголовкиДляКлиентаСлушателя($oEDRO);
 		return $o->Р;
 		}
 	}
@@ -10619,13 +10761,15 @@ class ОЗаписьОтветСлушателюКонецСреза
 	public $Р	= FALSE;
 	public $О	= '';
 
-	public function __construct($рПередача, $strListenerHeaders, $strTextForListener)
+	public function __construct($рПередача, $strTextForListener, $strListenerHeaders)
 		{
 		//					$this->O['оСекундомер']->_Старт(__CLASS__, __FUNCTION__);
 		if($рПередача)
 			{
-			$strListenerBlock	= $strListenerHeaders."\r\n".$strTextForListener;
-			$intWrited		= fwrite($рПередача, $strListenerBlock, strlen($strListenerBlock));
+			$strAll			= $strListenerHeaders;
+			$strAll			.='Connection: close'."\r\n\r\n";
+			$strAll			.= $strTextForListener;
+			$intWrited		= fwrite($рПередача, $strAll, strlen($strAll));
 			fclose($рПередача);
 			if(	($intWrited>0)&&
 				($intWrited==strlen($strListenerBlock)))
@@ -10653,9 +10797,9 @@ class ОЗаписьОтветСлушателюКонецСреза
 						фОшибка($this->О);
 			}
 		}
-	public static function str($рПередача, $strListenerHeaders, $strTextForListener)
+	public static function str($рПередача, $strTextForListener, $strListenerHeaders)
 		{
-		$o	= new ОЗаписьОтветСлушателюКонецСреза($рПередача, $strListenerHeaders, $strTextForListener);
+		$o	= new ОЗаписьОтветСлушателюКонецСреза($рПередача, $strTextForListener, $strListenerHeaders);
 		return $o->Р;
 		}
 	}
