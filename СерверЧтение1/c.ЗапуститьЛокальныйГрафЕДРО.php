@@ -7,7 +7,7 @@ define('strProto'							, 'tcp'								);
 
 //define('strAddr'							, '192.168.1.198'						);
 define('strAddr'							, '127.0.0.1'							);
-define('intPort'							, '8081'							);
+define('intPort'							, '8080'							);
 define('intReadBlockSize'						,  512								);
 //vvv Протестировать
 define('дТаймаут'							, -1								);
@@ -3177,20 +3177,16 @@ class EDRO
 			'strExt'		=> '', // .cvb
 			'arrEventParams'	=> array(),
 			'arrAcceptContent'	=> array(),
-			'bIzDynamic'		=> FALSE,
-			'bIzDNT'		=> FALSE,
 			);
 	public $D	= array( //НастройкиЭлементаНадКоторымПроизводитсяРабота([D]esign - the screen in front of listener's eyes
 			//	'мНастройкиЭлемента'	=> array 
 			//	    		To Listener
-			'strServerName'		=> 'ЕДРО:ПОЛИМЕР',
-			'strLanguage'		=> '',
-			'strContentType'	=> '',
-			'strEncoding'		=> '',
-			'strAllowedAccess'	=> '',
+			'сРасположениеКорень'	=> '',
+			'strTemplate'		=> '',
 			);
 	public $R	= array( //Состояние операционной среды Реальность ([R]eality)
 			//			Listener
+			'Content-Type'		=> 'text/html',
 			'strAction'		=> '', //GET 
 			'strProto'		=> '', //HTTP/x.x
 			'strTo'			=> '', //Host
@@ -3198,12 +3194,13 @@ class EDRO
 			'strAcceptLanguage'	=> '',
 			'strAcceptEncoding'	=> '',
 			'bIzDynamic'		=> FALSE,
+			'bIzDNT'		=> FALSE,
 			'ч1Слушатель'		=> 0,
 			'сДоступ'		=> '/Listener',
-			'arrPlatform' 		=> array(),
+			'strServerName'		=> 'EDRO.POLYMER',
 			);
 	public $O	= array( //Использующиеся объекты для работы и их настройки по-умолчанию. ([O]bjects)
-			'оПоиск'
+			// 'оПоиск'
 		///	'оОшибка'		=> '',
 		//	'оСостояние'		=> '',
 			//	'оКИМ'			=> '',
@@ -3217,17 +3214,14 @@ class EDRO
 
 		$мЗаголовки			= explode("\n", $сЗаголовки);
 
-		$oEvent				= new Event($мЗаголовки);
-		$this->E			= $oEvent->E;
+		$E				= new Event($мЗаголовки, $this);
 
-		$oDesign			= new Design($this->E);
-		$this->D			= $oDesign->D;
+		$D				= new Design($this);
 
-		$oReality			= new Reality($this->E);
-		$this->R			= $oReality->R;
+		$R				= new Reality($this);
 
-		$OSearch			= new OSearch($this);
-		$this->O['оПоиск']		= $OSearch->O;
+		$O				= new OSearch($this);
+		//$this->O['мПоиск']		= $OSearch->O;
 		//print_r($this);
 		//exit;
 		//				$this->O['оСостояние']->O['оСекундомер']->_Стоп();
@@ -3306,49 +3300,10 @@ Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dpl
 
 class Event
 	{
-	public $E	= array(  //ВходящиеНастройки ([E]vent are starting, then we'w got the setup of the event)
-			//	'дбг_сВходящиеНастройки' => '',
-			//	'мВходящиеНастройки'	=> array(),
-			'strName'			=> '', // /
-			'strExt'			=> '', // .cvb
-			'strType'			=> '', 
-			'bIzDynamic'			=> FALSE,
-			'arrEventParams'		=> array(),
-			'arrAcceptContent'		=> array(),
-
-			);
-	public $D	= array( //НастройкиЭлементаНадКоторымПроизводитсяРабота([D]esign - the screen in front of listener's eyes)
-			///	'дбг_сНастройкиЭлемента'=> '',
-			//	'мНастройкиЭлемента'	=> array(),
-			'strLanguage'			=> '',
-			'strContentType'		=> '',
-			'strEncoding'			=> '',
-			'arrAllowedAccess'		=> array(),
-			// 'strAllowedConnection'		=> array(),
-			
-			);
-	public $R	= array( //Состояние операционной среды Реальность ([R]eality)
-			'strAction'		=> '', //GET
-			'strProto'		=> '', //HTTP/x.x
-			'strTo'			=> '', //Host
-			'strFrom'		=> '',
-			'strAcceptLanguage'	=> '',
-			'strAcceptEncoding'	=> '',
-			// 'ч1Слушатель'		=> 0,
-			// 'сДоступ'		=> '/Listener',
-			'arrPlatform' 		=> array(),
-			// 'strUserAgent']	=> '',
-			);
-	public $O	= array( //Использующиеся объекты для работы и их настройки по-умолчанию. ([O]bjects)
-			'оОшибка'		=> '',
-			'оСостояние'		=> '',
-			'оСекундомер'		=> '',
-			);
-	
-	public function __construct($мЗаголовки)
+	public function __construct($мЗаголовки, $oEDRO)
 		{
-		$this->O['оСостояние'] 			= new ОповещениеСостояние(__CLASS__,__FUNCTION__);
-		$this->O['оОшибка'] 			= new ОповещениеОшибка();
+		//$this->O['оСостояние'] 			= new ОповещениеСостояние(__CLASS__,__FUNCTION__);
+		//$this->O['оОшибка'] 			= new ОповещениеОшибка();
 
 
 
@@ -3363,34 +3318,34 @@ class Event
 				$strListenerRealityName		= str_replace(':' ,'' ,$strListenerRealityName);
 				if($strListenerRealityName=="GET"||$strListenerRealityName=="POST"||$strListenerRealityName=="HEAD"||$strListenerRealityName=="PUT")//||$strListenerRealityName=="PUT"
 					{
-					$this->E['strAction']			= сНачДоСимвола($strListenerReality, ' ');
-					$this->E['strProto']			= сКонцДоСимвола($strListenerReality, ' ');
-					$strEvent				= trim(CheckMaSubstr($strListenerReality , strlen($strListenerRealityName),  -strlen($this->R['strProto'])));
+					$oEDRO->E['strAction']			= сНачДоСимвола($strListenerReality, ' ');
+					$oEDRO->E['strProto']			= сКонцДоСимвола($strListenerReality, ' ');
+					$strEvent				= trim(CheckMaSubstr($strListenerReality , strlen($strListenerRealityName),  -strlen($oEDRO->E['strProto'])));
 					if(empty($strEvent))
 						{
 						$strEvent		= '/';
 						}
-					$this->E['strName']			= сНачДоСимвола($strEvent, "?");
+					$oEDRO->E['strName']			= сНачДоСимвола($strEvent, "?");
 					$strEventParams				= сНачОтСимвола($strEvent, "?", 0, 1);
-					$this->E['arrEventParams']		= arrEventParams2Array($strEventParams);
-					if(empty($this->E['arrEventParams']['strHiFiType']))
+					$oEDRO->E['arrEventParams']		= arrEventParams2Array($strEventParams);
+					if(empty($oEDRO->E['arrEventParams']['strHiFiType']))
 						{
-						$this->E['arrEventParams']['strHiFiType']	= '/HiFi beginner';
+						$oEDRO->E['arrEventParams']['strHiFiType']	= '/HiFi beginner';
 						}
-					$this->E['strExt']			= сКонцДоСимвола($this->E['strName'], '.');
-					$this->E['bIzDynamic']			= $this->bIzDynamic($strEventParams);
+					$oEDRO->E['strExt']			= сКонцДоСимвола($oEDRO->E['strName'], '.');
+					$oEDRO->E['bIzDynamic']			= $this->bIzDynamic($strEventParams);
 					}
 				elseif($strListenerRealityName=='Referer')
 					{
-					$this->E['strFrom'] 			= trim(сНачОтСимвола($strListenerReality, ":", 0, 1));
+					$oEDRO->E['strFrom'] 			= trim(сНачОтСимвола($strListenerReality, ":", 0, 1));
 					}
 				elseif($strListenerRealityName=='Host')
 					{
-					$this->E['strTo']			= trim(сНачОтСимвола($strListenerReality, ":", 0, 1));
+					$oEDRO->E['strTo']			= trim(сНачОтСимвола($strListenerReality, ":", 0, 1));
 					}
 				elseif($strListenerRealityName=='Connection')
 					{
-					$this->E['strConnection'] 		= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					$oEDRO->E['strConnection'] 		= сНачОтСимвола($strListenerReality, ":", 0, 1);
 					}
 				elseif($strListenerRealityName=='Accept')
 					{
@@ -3402,24 +3357,24 @@ class Event
 						{
 						$arr	=array();
 						}
-					$this->E['arrAcceptContent']		= $arr;
+					$oEDRO->E['arrAcceptContent']		= $arr;
 					}
 				elseif($strListenerRealityName=='DNT')
 					{
-					$this->E['bIzDNT'] 			= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					$oEDRO->E['bIzDNT'] 			= сНачОтСимвола($strListenerReality, ":", 0, 1);
 					}
 				elseif($strListenerRealityName=='Accept-Language')
 					{
-					$this->E['strAcceptLanguage'] 		= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					$oEDRO->E['strAcceptLanguage'] 		= сНачОтСимвола($strListenerReality, ":", 0, 1);
 					}
 				elseif($strListenerRealityName=='Accept-Encoding')
 					{
-					$this->E['strAcceptEncoding']		= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					$oEDRO->E['strAcceptEncoding']		= сНачОтСимвола($strListenerReality, ":", 0, 1);
 					}
 				elseif($strListenerRealityName=='User-Agent')
 					{
 					$strUserAgent				= сНачОтСимвола($strListenerReality, ":", 0, 1);
-					$this->E['arrPlatform'] 		= arrUserAgent2Platform($strUserAgent);
+					$oEDRO->E['arrPlatform'] 		= arrUserAgent2Platform($strUserAgent);
 					}
 				elseif($strListenerRealityName=='Cache-Control')
 					{
@@ -3450,7 +3405,7 @@ class Event
 					}
 				else
 					{
-					$this->E[$strListenerRealityName]	= сНачОтСимвола($strListenerReality, ":", 0, 1);
+					$oEDRO->E[$strListenerRealityName]	= сНачОтСимвола($strListenerReality, ":", 0, 1);
 					фОтчёт('Unusall position of Event string $arrEvent[arrListener][strEvent]: '.$strListenerRealityName.'/'.сНачОтСимвола($strListenerReality, ":", 0, 1));
 					}
 				}
@@ -4280,7 +4235,7 @@ class Pagination
 		$int0Pages		=($int1Pages-1);
 		if($int0Page>$int0Pages)
 			{
-			$objEDRO->arrEvent['arrReality']['int0Page']	=$int0Pages;
+			//$objEDRO->E['arrEventParams']['int0Page']	=$int0Pages;
 			$int0Page					=$int0Pages;
 			/*echo*/ $int0Start	=0+($int0Pages*$int1OnPage);//From 0 to 7 intStart=8 ->15 intStart=16;
 			/*echo*/ $int1Untill	=($int0Start+$int1OnPage);//From 0 to 7 including 7 = 8
@@ -5144,38 +5099,14 @@ Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dpl
 ./././././././*/
 class Design
 	{
-	private $E	= array(  //ВходящиеНастройки ([E]vent are starting, then we'w got the setup of the event)
-			//	'дбг_сВходящиеНастройки' => '',
-			//	'мВходящиеНастройки'	=> array(),
-			);
-	public $D	= array( //НастройкиЭлементаНадКоторымПроизводитсяРабота([D]esign - the screen in front of listener's eyes)
-			//	'дбг_сНастройкиЭлемента'=> '',
-			//	'мНастройкиЭлемента'	=> array(),
-			// 'arrHaveLanguage'		=> array(),
-			// 'arrHaveContentType'		=> array(),
-			// 'arrHaveEncoding'		=> array(),
-			// 'arrAllowedAccess'		=> array(),
-			// 'strAllowedConnection'		=> array(),
-			);
-	private $R	= array( //Состояние операционной среды Реальность ([R]eality)
-			//	'сЗаголовки'		=> '',
-			//	'ч1Слушатель'		=> 0,
-			//	'сДоступ'		=> '/Listener',
-				
-			);
-	private $O	= array( //Использующиеся объекты для работы и их настройки по-умолчанию. ([O]bjects)
-			'оОшибка'		=> '',
-			'оСостояние'		=> '',
-			'оСекундомер'		=> '',
-			);
-	public function __construct($arrE)
+	public function __construct($oEDRO)
 		{
 		//print_r($arrE);
 		//print_r($o);
 		//$this->O['оСостояние'] 			= new ОповещениеСостояние(__CLASS__,__FUNCTION__);
 		//$this->O['оОшибка'] 			= new ОповещениеОшибка();
-		$this->D['сРасположениеКорень']		= сРасположениеО2оDB.сНазваниеО2оDB;
-		$this->D['strTemplate']			= сРасположениеО2оDB.сНазваниеО2оDB.'/Events/'.сПреобразовать($arrE['strName'], "вКоманду");
+		$oEDRO->D['сРасположениеКорень']		= сРасположениеО2оDB.сНазваниеО2оDB;
+		$oEDRO->D['strTemplate']			= сРасположениеО2оDB.сНазваниеО2оDB.'/Events/'.сПреобразовать($oEDRO->E['strName'], "вКоманду");
 		
 		//print_r($this);
 		//exit;
@@ -7266,87 +7197,59 @@ Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dpl
 ./././././././*/
 class Reality
 	{
-	private $E	= array(  //ВходящиеНастройки ([E]vent are starting, then we'w got the setup of the event)
-			//	'мВходящиеНастройки'	=> array(), 
-			//	From Listener
-			);
-	private $D	= array( //НастройкиЭлементаНадКоторымПроизводитсяРабота([D]esign - the screen in front of listener's eyes)
-			//	'мНастройкиЭлемента'	=> array(),
-			//	To Listener
-			);
-	public $R	= array( //Состояние операционной среды Реальность ([R]eality)
-			//	Listener
-			'Content-Type'		=> 'text/html',
-			'bIzDNT'		=> FALSE, //Add event indicator to the top!!!!!!!!!!!!!
-			'bIzDynamic'		=> FALSE,
-			'strTo'			=> '',
-			'strPlatform'		=> '',
-			'strPlatformPrefix'	=> '',
-			'strEventParams'	=> '',
-			'strEvent'		=> '',
-			'strEventExt'		=> '',
-
-			'strHiFiType'		=> '',
-			
-			);
-	public $O	= array( //Использующиеся объекты для работы и их настройки по-умолчанию. ([O]bjects)
-			'оОшибка'		=> '',
-			'оСостояние'		=> '',
-			'оСекундомер'		=> '',
-			);
-	public function __construct($arrE)
+	public function __construct($oEDRO)
 		{
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//$this->E	= $arrE;
 		//$this->D	= $arrD;
 		//$this->R	= $arrR;
 	
-		if($arrE['bIzDNT']===TRUE)
+		if($oEDRO->E['bIzDNT']===TRUE)
 			{
-			$this->R['bIzDNT']		= TRUE;
+			$oEDRO->R['bIzDNT']		= TRUE;
 			}
-		if($arrE['bIzDynamic']===TRUE)
+		if($oEDRO->E['bIzDynamic']===TRUE)
 			{
-			$this->R['bIzDynamic'] 		= TRUE;
+			$oEDRO->R['bIzDynamic'] 	= TRUE;
 			}
-		$this->R['strTo']		= $arrE['strTo'];
-		foreach($arrE['arrPlatform'] as $strPlatform => $bIzPlatform)
+		$oEDRO->R['strTo']		= $oEDRO->E['strTo'];
+		foreach($oEDRO->E['arrPlatform'] as $strPlatform => $bIzPlatform)
 			{
 			if($bIzPlatform===TRUE)
 				{
-				$this->R['strPlatform']	= $strPlatform;
+				$oEDRO->R['strPlatform']	= $strPlatform;
 				break;
 				}
 			}
-		if($arrE['arrPlatform']['bIzAndroid'])
+		if($oEDRO->E['arrPlatform']['bIzAndroid'])
 			{
-			$this->R['strPlatformPrefix']	='/Android';
+			$oEDRO->R['strPlatformPrefix']	= '/Android';
 			}
-		if($arrE['arrPlatform']['bIzAppleMobile'])
+		if($oEDRO->E['arrPlatform']['bIzAppleMobile'])
 			{
-			$this->R['strPlatformPrefix']	='/Apple';
+			$oEDRO->R['strPlatformPrefix']	= '/Apple';
 			}
-		foreach($arrE['arrEventParams'] as $strEventParam => $strEventParamVal)
+		foreach($oEDRO->E['arrEventParams'] as $strEventParam => $strEventParamVal)
 			{
-			$this->R['strEventParams'].='&'.$strEventParam.'='.$strEventParamVal;
+			$oEDRO->R['strEventParams'].='&'.$strEventParam.'='.$strEventParamVal;
 			}
-		$this->R['strEventParams']	= substr($this->R['strEventParams'], 1);
-		$this->R['strEvent']		= $arrE['strName'];
-		$this->R['strEventExt']		= $arrE['strExt'];
-		if($this->R['strEvent']=='robots.txt')
+		$oEDRO->R['strEventParams']	= substr($oEDRO->R['strEventParams'], 1);
+		$oEDRO->R['strEvent']		= $oEDRO->E['strName'];
+		$oEDRO->R['strEventExt']	= $oEDRO->E['strExt'];
+		if($oEDRO->R['strEvent']=='robots.txt')
 			{
-			$this->R['Content-Type']		= 'text/plain';
+			$oEDRO->R['Content-Type']		= 'text/plain';
 			}
-		elseif($this->R['strEvent']=='favicon.ico')
+		elseif($oEDRO->R['strEvent']=='favicon.ico')
 			{
-			$this->R['Content-Type']		= 'image/png';
+			$oEDRO->R['Content-Type']		= 'image/png';
 			}
 		else
 			{
-			$this->R['Content-Type']		= 'text/html';
+			$oEDRO->R['Content-Type']		= 'text/html';
 			}
 		
-		$this->R['strHiFiType']		= сПреобразовать($arrE['arrEventParams']['strHiFiType'], 'вСтроку');
+		$this->R['strHiFiType']		= сПреобразовать($oEDRO->E['arrEventParams']['strHiFiType'], 'вСтроку');
 		$this->R['strDate']		= date(DATE_RFC822);
 
 
@@ -7673,40 +7576,22 @@ Site[En] Private browsing international: http://ryklzxobxv4s32omimbu7d7t3cdw6dpl
 
 class OSearch
 	{
-	//public $arrObjects;
-	private $E	= array(  //ВходящиеНастройки ([E]vent are starting, then we'w got the setup of the event)
-			//	'мВходящиеНастройки'	=> array(), 
-			//	From Listener
-			);
-	private $D	= array( //НастройкиЭлементаНадКоторымПроизводитсяРабота([D]esign - the screen in front of listener's eyes)
-			//	'мНастройкиЭлемента'	=> array(),
-			//	To Listener
-			);
-	private $R	= array( //Состояние операционной среды Реальность ([R]eality)
-			//	Listener
-			);
-	public $O	= array( //Использующиеся объекты для работы и их настройки по-умолчанию. ([O]bjects)
-			'оПоиск'
-			// 'оОшибка'		=> '',
-			// 'оСостояние'		=> '',
-			// 'оСекундомер'		=> '',
-			);
-	public function __construct($o)
+	public function __construct($oEDRO)
 		{
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
-		$this->E	= $o->E;
-		$this->D	= $o->D;
-		$this->R	= $o->R;
-		$strPlatformPrefix	= $this->R['strPlatformPrefix'];
-		$strHiFiType		= сПреобразовать($this->E['arrEventParams']['strHiFiType'], 'вСтроку');
-		echo $strSearchName	= сПреобразовать(mb_strtolower($this->E['arrEventParams']['strName']),'вКоманду');
+		//$this->E	= $o->E;
+		//$this->D	= $o->D;
+		///$this->R	= $o->R;
+		$strPlatformPrefix	= $oEDRO->R['strPlatformPrefix'];
+		$strHiFiType		= сПреобразовать($oEDRO->E['arrEventParams']['strHiFiType'], 'вСтроку');
+		$strSearchName		= сПреобразовать(mb_strtolower($oEDRO->E['arrEventParams']['strName']),'вКоманду');
 		if(strlen($strSearchName)<3)
 			{
 			$strSearchName	= '';
 			}
 		$strSearchType   	= empty($strSearchName)? '/unordered/':'/search/';
 		$strICQRTypeF		= 'ICQR_Q';
-		$strSearchGenre	 	= сПреобразовать(mb_strtolower($this->E['arrEventParams']['strGenre']),'вКоманду');
+		$strSearchGenre	 	= сПреобразовать(mb_strtolower($oEDRO->E['arrEventParams']['strGenre']),'вКоманду');
 		$strSearchPath		= '/Stations/'.$strICQRTypeF.'/'.$strHiFiType.$strPlatformPrefix;
 		if($strSearchGenre=='')
 			{
@@ -7716,26 +7601,27 @@ class OSearch
 			{
 			$strSearchPath	.= '/Genres/search/'.$strSearchGenre.$strSearchType;
 			}
-		echo $this->O['сРасположение']		=$this->D['сРасположениеКорень'].$strSearchPath;
+		$oEDRO->O['сРасположение']		= $oEDRO->D['сРасположениеКорень'].$strSearchPath;
 
 		if($strSearchName=='')
 			{
-			//echo $objTotal	=FileRead::objJSON($this->O['сРасположение'].'/total.plmr');
+			//echo $this->O['сРасположение'].'/total.plmr';
+			$objTotal	=FileRead::objJSON($oEDRO->O['сРасположение'].'/total.plmr');
 
-			//$this->O['ч0РасположениеTotal']	= ($objTotal->int1Total-1);
-			//if($this->O['ч0РасположениеTotal']=='')
-			//	{
-			//	echo 'No data';
-			//	}
+			$oEDRO->O['ч0РасположениеTotal']	= ($objTotal->int1Total-1);
+			if($oEDRO->O['ч0РасположениеTotal']=='')
+				{
+				echo 'No data';
+				}
 		//exit;
-			//$this->O['мРасположение']		=Pagination::arr($this);
+			$oEDRO->O['мРасположение']		=Pagination::arr($oEDRO);
 
-			//for($int0I=$this-O['мРасположение']['int0Start'];$int0I<=$this->O['мРасположение']['int0Untill'];$int0I++)
-			//	{
-			//	$this->O['мТаблица'][]	=$this->O['сРасположение'].'/'.$int0I.'.plmr';
-			//	}
+			for($int0I=$oEDRO->O['мРасположение']['int0Start'];$int0I<=$oEDRO->O['мРасположение']['int0Untill'];$int0I++)
+				{
+				$oEDRO->O['мТаблица'][]	=$oEDRO->O['сРасположение'].'/'.$int0I.'.plmr';
+				}
 			}
-
+		//$this->O	= $oEDRO->O;
 
 		//$strSearch		=мЖанр_мЯзык_мТранскрипция($strSearchGenre);
 
@@ -10583,7 +10469,7 @@ class ЕДРО
 				$Р2	= РПамятьЗаголовкиДляКлиентаСлушателя::str($oEDRO);
 				$Р2	= $strAnswer.$Р2;
 				$О2 	= ОЗаписьОтветСлушателюКонецСреза::str($Е, $Д2, $Р2);
-				//print_r($oEDRO);
+				print_r($oEDRO);
 				}
 			else
 				{
